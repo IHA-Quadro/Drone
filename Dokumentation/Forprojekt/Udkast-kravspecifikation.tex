@@ -1,0 +1,161 @@
+\documentclass[Main]{subfiles}
+\begin{document}
+
+\chapter{Udkast til kravspecifikation}
+
+
+\section{User Stories}
+
+\subsection{Story 1}
+Som en sikkerhedsvagt, der skal patruljere store områder, ønskes det at en quadrocopter kan sættes til at patruljere et område for at lette sin arbejdsbyrde med områder der skal patruljeres.
+
+
+\subsubsection{Use Case 1.1}
+
+
+Use Case: Opsætning af waypoint
+
+Mål: Sæt waypoint op
+
+Initiering: Use Case initieres af installatør
+
+Slutbetingelser for succes: Waypoint er sat op og des indikationslys for aktiv lyser.
+
+Slutbetingelser ved undtagelser: 
+Microcontroller kan ikke få fat i radiomodul og indikationslys lyser for fejl.
+
+
+Normalforløb: 
+	
+	\begin{enumerate}
+	\item Installatør sætter dip switch og tænder for strømmen.
+	\item System initierer
+	\item System udfører intern systemtest.
+	\\ \textit{Undtagelse: Fejl i intern systemtest.}
+	\item System indikerer ved lys i aktiv.
+	\end{enumerate}
+
+
+
+Undtagelser:
+
+	\begin{enumerate}
+	\item System indikerer fejl i opstart.
+	\end{enumerate}
+
+
+
+\subsubsection{Use Case 1.2}
+
+
+Use Case: Aktivering af drone
+
+Mål: Drone begynder at patruljere.
+
+Initiering: Use Case initieres af brugeren
+
+Slutbetingelser for succes: 
+Drone begynder at patruljere.
+
+Slutbetingelser ved undtagelser: 
+Drone patruljere ikke.
+
+Normalforløb: 
+	
+	\begin{enumerate}
+	\item Brugeren tænder drone.
+	\item Drone initierer\\
+		\textit{Undtagelse: Fejl i initiering}
+	\item Drone letter
+	\item \label{enu:waypoint} Drone lokaliserer waypoint \\
+		\textit{Undtagelse: Ingen waypoints fundet}
+	\item \label{enu:flyvning} Drone påbegynder flyvning til waypoint\\
+		\textit{Undtagelse: Forhindring på vej til waypoint}\\
+		\textit{Undtagelse: Mister forbindelse}\\
+		\textit{Undtagelse: Lavt batteriniveau}\\
+		\textit{Undtagelse: Drone bliver beskadiget}
+	\item Drone ankommer til waypoint\\
+		\textit{Undtagelse: Kan ikke finde flere waypoints}
+	\item Drone looper til punkt \ref{enu:waypoint}\\
+		\textit{Undtagelse: Kun ét waypoint fundet}
+	\end{enumerate}
+
+
+
+Undtagelser:
+
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Fejl i initiering}
+	\item Drone indikerer at opstart ikke er muligt.
+	\end{enumerate}
+
+
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Ingen waypoints fundet}
+	\item Drone indikerer at opstart ikke er muligt.
+	\end{enumerate}
+	
+	
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Forhindring på vej til waypoint}
+	\item Drone starter Extended Use Case \ref{enu:flyvning}.1
+	\end{enumerate}
+	
+	
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Mister forbindelse}
+	\item Drone lander og venter på signal.
+	\end{enumerate}
+
+
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Lavt batteriniveau}
+	\item Drone lander og indikerer lavt batteriniveau.
+	\end{enumerate}
+
+	
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: Drone bliver beskadiget}
+	\item Drone identificer beskadning.
+	\item Drone udfører sikker landing på baggrund af beskadning.
+	\end{enumerate}	
+	
+	
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: 	Kan ikke finde flere waypoints}
+	\item Drone flyver til første waypoint.
+	\end{enumerate}	
+	
+	\begin{enumerate}
+	\item[] \textit{Undtagelse: 	Kun ét waypoint fundet}
+	\item Drone cirkuler waypointet.
+	\end{enumerate}	
+	
+	
+	
+\subsubsection{Use Case 1.3}
+
+Use Case: Standsning af drone
+
+Mål: Drone stopper patruljering og slukker.
+
+Initiering: Use Case initieres af brugeren
+
+Slutbetingelser for succes: 
+Drone er slukket.
+
+Slutbetingelser ved undtagelser: 
+Ingen.
+
+Normalforløb: 
+	
+	\begin{enumerate}
+	\item Bruger trykker på stopknap
+	\item Drone slukker for sine motorer.
+	\end{enumerate}
+
+Undtagelser:
+	
+	
+\end{document}
+
