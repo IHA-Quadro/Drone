@@ -1,8 +1,28 @@
 
 %Sidehoved og -fod pakke
 %Margin
-\usepackage{fancyhdr}
 \usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}					% Header-style
+\pagestyle{fancy}
+\fancyhf{} % slet alt
+\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}} % sidetallet yderst
+\lhead[]{\leftmark} % lige side, kapitel titel
+\headheight = 35pt
+\textheight = 680pt
+\footskip 	= 40pt
+%\rhead{
+%\begin{picture}(0,0)
+%\put(-120,0){ \includegraphics[scale=0.2]{../07_Administrativt/Vejledninger/au-ingenioerhoejskolen_da.jpg}}
+%\end{picture}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+%Mellemrum mellem linjerne
+\usepackage{setspace}
+\setstretch{1.5} %Afstanden
+
 
 %Seperated files
 %--------------------------------------------------
@@ -125,7 +145,7 @@
 
 %Text typesetting
 %--------------------------------------------------------
-\usepackage{bookman}                  
+\usepackage{baskervald}
 \usepackage[T1]{fontenc}              
 \usepackage[utf8]{inputenc}         
 \usepackage[danish]{babel}        
@@ -153,3 +173,30 @@
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage{enumerate} 
+\usepackage{amsmath} %Math bibliotek
+
+
+\usepackage{longtable}
+\usepackage{enumitem} %Styring af itemize og enumerate
+
+
+% Links
+\usepackage{hyperref}
+\hypersetup{ 
+	colorlinks	= true, 	% false: boxed links; true: colored links
+    urlcolor	= blue,		% color of external links
+    linkcolor	= black, 	% color of page numbers
+}
+
+%UC environment
+%----------------------------------------------------------
+%\newenvironment{UC}[1]
+%{
+%\begin{tabular}{| p{1.2cm} | p{6cm} | p{5.5cm} | l|}\hline
+%%\textbf{TRIN} & \textbf{Aktion / Input} & \textbf{Forventet resultat} & \textbf{CHK} \\
+%}
+%{&\\\hline
+%\end{tabular}
+%\\\\}
+%\newcommand{\usecase}[2]{{Use Case #1 & #2 \\}} 
+%\newcommand\mal{&}
