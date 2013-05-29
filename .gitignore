@@ -19,39 +19,41 @@
 *.lib
 *.a
 
-# Shared objects (inc. Windows DLLs)
+####### Shared objects (inc. Windows DLLs) ####### 
 *.dll
 *.so
 *.so.*
 *.dylib
 
-# Executables
+####### Executables ####### 
 *.exe
 *.out
 *.app
 
 
-#Latex
+####### Latex ####### 
 *.aux
 *.log
 *.synctex.gz
 *.toc
+*.lox
+Dokumentation/*/*.pdf
 
-#Temporary folders
+####### Temporary folders ####### 
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/
 ipch/
 *.[Oo]bj/
 
-#Resharper folders
+####### Resharper folders ####### 
 _ReSharper*/
 *.resharper
 
-#NuGet
+####### NuGet #######
 packages/
 
-#Visual Studio files
+####### Visual Studio files ############
 *.user
 *.aps
 *.pch
@@ -75,7 +77,7 @@ packages/
 *.unsuccessfulbuild
 *.sln.DotSettings
 
-#VHDL files
+###### VHDL files ##########
 *.qws
 db/
 incremental_db/
