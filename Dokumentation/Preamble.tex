@@ -1,22 +1,32 @@
-
 %Sidehoved og -fod pakke
 %Margin
 \usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{lastpage}
-\usepackage{fancyhdr}					% Header-style
+\usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhf{} % slet alt
-\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}} % sidetallet yderst
-\lhead[]{\leftmark} % lige side, kapitel titel
+
+\fancyhf{} % clear all header and footer fields
+
+\fancypagestyle{plain}{%
+\fancyhead[C]{\leftmark} % lige side, kapitel titel
+\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}}
 \headheight = 35pt
 \textheight = 680pt
-\footskip 	= 40pt
-%\rhead{
-%\begin{picture}(0,0)
-%\put(-120,0){ \includegraphics[scale=0.2]{../07_Administrativt/Vejledninger/au-ingenioerhoejskolen_da.jpg}}
-%\end{picture}}
+\footskip 	= 0pt
+ %
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}}
+
+%\fancypagestyle{fancy}{%
+%%\fancyhf{} % clear all header and footer fields
+%\fancyhead[C]{\leftmark} % lige side, kapitel titel
+%\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}}}
+%\fancyfoot[RO,LE]{\thepage}
+%\headheight = 35pt
+%\textheight = 680pt
+%\footskip 	= 0pt
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
 
 
 %Mellemrum mellem linjerne
@@ -149,7 +159,7 @@
 \usepackage[T1]{fontenc}              
 \usepackage[utf8]{inputenc}         
 \usepackage[danish]{babel}        
-\usepackage[bf,small,raggedright,compact]{titlesec}
+\usepackage[bf, small, raggedright, compact]{titlesec}
 %\usepackage[parfill]{parskip}
 %\usepackage{setspace}
 
@@ -187,16 +197,3 @@
     urlcolor	= blue,		% color of external links
     linkcolor	= black, 	% color of page numbers
 }
-
-%UC environment
-%----------------------------------------------------------
-%\newenvironment{UC}[1]
-%{
-%\begin{tabular}{| p{1.2cm} | p{6cm} | p{5.5cm} | l|}\hline
-%%\textbf{TRIN} & \textbf{Aktion / Input} & \textbf{Forventet resultat} & \textbf{CHK} \\
-%}
-%{&\\\hline
-%\end{tabular}
-%\\\\}
-%\newcommand{\usecase}[2]{{Use Case #1 & #2 \\}} 
-%\newcommand\mal{&}
