@@ -1,35 +1,38 @@
+\usepackage{lastpage}
+%Tekst i fotter
+\newcommand{\footerText}{\thepage\xspace /\pageref{LastPage}}
+
+\nouppercaseheads
+\makepagestyle{mystyle} 
+
+\makeevenhead{mystyle}{}{\leftmark}{} 
+\makeoddhead{mystyle}{}{\leftmark}{} 
+\makeevenfoot{mystyle}{}{\footerText}{} 
+\makeoddfoot{mystyle}{}{\footerText}{} 
+\makeatletter
+\makepsmarks{mystyle}{% Overskriften på sidehovedet
+  \createmark{chapter}{left}{shownumber}{\@chapapp\ }{.\ }} 
+\makeatother
+\makefootrule{mystyle}{\textwidth}{\normalrulethickness}{0.4pt}
+\makeheadrule{mystyle}{\textwidth}{\normalrulethickness}
+
+\makepagestyle{plain}
+\makeevenhead{plain}{}{}{}
+\makeoddhead{plain}{}{}{}
+\makeevenfoot{plain}{}{\footerText}{}
+\makeoddfoot{plain}{}{\footerText}{}
+\makefootrule{plain}{\textwidth}{\normalrulethickness}{0.4pt}
+
+\pagestyle{mystyle}
+
 %Sidehoved og -fod pakke
 %Margin
 \usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{lastpage}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-\fancyhf{} % clear all header and footer fields
-
-\fancypagestyle{plain}{%
-\fancyhead[C]{\leftmark} % lige side, kapitel titel
-\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}}
-\headheight = 35pt
-\textheight = 680pt
-\footskip 	= 0pt
- %
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}}
-
-%\fancypagestyle{fancy}{%
-%%\fancyhf{} % clear all header and footer fields
-%\fancyhead[C]{\leftmark} % lige side, kapitel titel
-%\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}}}
-%\fancyfoot[RO,LE]{\thepage}
-%\headheight = 35pt
-%\textheight = 680pt
-%\footskip 	= 0pt
-%\renewcommand{\headrulewidth}{0.4pt}
-%\renewcommand{\footrulewidth}{0.4pt}
 
 
 %Mellemrum mellem linjerne
+\DisemulatePackage{setspace}
 \usepackage{setspace}
 \setstretch{1.5} %Afstanden
 
@@ -67,13 +70,6 @@
 %Eksempel: Funktionen \code{void Hello()} giver et output
 %--------------------------------------------------
 \newcommand{\code}[1]{{\fontfamily{pcr}\selectfont #1}}
-
-%FixMe pakken viser små kommentarer, hvor der skal rettes
-%--------------------------------------------------
-%Brug med følgende: \fxnote{det her skal uddybes!}
-%Se liste over alle fixMe's: \listoffixmes
-%--------------------------------------------------
-\usepackage[footnote,draft,danish,silent,nomargin]{fixme}
 
 
 % Følgende er til koder.

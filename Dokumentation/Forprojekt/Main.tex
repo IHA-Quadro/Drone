@@ -1,6 +1,15 @@
-\documentclass[a4paper, 12pt]{report}
+\documentclass[oneside, 12pt]{memoir}
 
 \input{../Preamble}
+
+%FixMe pakken viser små kommentarer, hvor der skal rettes
+%--------------------------------------------------
+%Brug med følgende: \fxnote{det her skal uddybes!}
+%Se liste over alle fixMe's: \listoffixmes
+%Erstat 'draft' med 'final' for at fjerne alle kommentarer
+%--------------------------------------------------
+\usepackage[footnote,final,danish,silent,nomargin]{fixme}
+
 
 \title{Forprojekt
 \\
@@ -10,10 +19,13 @@ Quadrocopter-tracking}
 
 
 \begin{document}
-\maketitle
-\tableofcontents
+\begin{titlingpage}
+  \maketitle
+\end{titlingpage}
 
-\listoffixmes
+\newpage
+\tableofcontents*
+\listoffixmes 
 
 \subfile{Forside}
 
