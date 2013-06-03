@@ -1,25 +1,38 @@
+\usepackage{lastpage}
+%Tekst i fotter
+\newcommand{\footerText}{\thepage\xspace /\pageref{LastPage}}
+
+\nouppercaseheads
+\makepagestyle{mystyle} 
+
+\makeevenhead{mystyle}{}{\leftmark}{} 
+\makeoddhead{mystyle}{}{\leftmark}{} 
+\makeevenfoot{mystyle}{}{\footerText}{} 
+\makeoddfoot{mystyle}{}{\footerText}{} 
+\makeatletter
+\makepsmarks{mystyle}{% Overskriften på sidehovedet
+  \createmark{chapter}{left}{shownumber}{\@chapapp\ }{.\ }} 
+\makeatother
+\makefootrule{mystyle}{\textwidth}{\normalrulethickness}{0.4pt}
+\makeheadrule{mystyle}{\textwidth}{\normalrulethickness}
+
+\makepagestyle{plain}
+\makeevenhead{plain}{}{}{}
+\makeoddhead{plain}{}{}{}
+\makeevenfoot{plain}{}{\footerText}{}
+\makeoddfoot{plain}{}{\footerText}{}
+\makefootrule{plain}{\textwidth}{\normalrulethickness}{0.4pt}
+
+\pagestyle{mystyle}
 
 %Sidehoved og -fod pakke
 %Margin
 \usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{lastpage}
-\usepackage{fancyhdr}					% Header-style
-\pagestyle{fancy}
-\fancyhf{} % slet alt
-\fancyfoot[C]{Side \thepage \text{ af} \pageref{LastPage}} % sidetallet yderst
-\lhead[]{\leftmark} % lige side, kapitel titel
-\headheight = 35pt
-\textheight = 680pt
-\footskip 	= 40pt
-%\rhead{
-%\begin{picture}(0,0)
-%\put(-120,0){ \includegraphics[scale=0.2]{../07_Administrativt/Vejledninger/au-ingenioerhoejskolen_da.jpg}}
-%\end{picture}}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
 
 
 %Mellemrum mellem linjerne
+\DisemulatePackage{setspace}
 \usepackage{setspace}
 \setstretch{1.5} %Afstanden
 
@@ -57,13 +70,6 @@
 %Eksempel: Funktionen \code{void Hello()} giver et output
 %--------------------------------------------------
 \newcommand{\code}[1]{{\fontfamily{pcr}\selectfont #1}}
-
-%FixMe pakken viser små kommentarer, hvor der skal rettes
-%--------------------------------------------------
-%Brug med følgende: \fxnote{det her skal uddybes!}
-%Se liste over alle fixMe's: \listoffixmes
-%--------------------------------------------------
-\usepackage[footnote,draft,danish,silent,nomargin]{fixme}
 
 
 % Følgende er til koder.
@@ -149,7 +155,7 @@
 \usepackage[T1]{fontenc}              
 \usepackage[utf8]{inputenc}         
 \usepackage[danish]{babel}        
-\usepackage[bf,small,raggedright,compact]{titlesec}
+\usepackage[bf, small, raggedright, compact]{titlesec}
 %\usepackage[parfill]{parskip}
 %\usepackage{setspace}
 
@@ -187,16 +193,3 @@
     urlcolor	= blue,		% color of external links
     linkcolor	= black, 	% color of page numbers
 }
-
-%UC environment
-%----------------------------------------------------------
-%\newenvironment{UC}[1]
-%{
-%\begin{tabular}{| p{1.2cm} | p{6cm} | p{5.5cm} | l|}\hline
-%%\textbf{TRIN} & \textbf{Aktion / Input} & \textbf{Forventet resultat} & \textbf{CHK} \\
-%}
-%{&\\\hline
-%\end{tabular}
-%\\\\}
-%\newcommand{\usecase}[2]{{Use Case #1 & #2 \\}} 
-%\newcommand\mal{&}
