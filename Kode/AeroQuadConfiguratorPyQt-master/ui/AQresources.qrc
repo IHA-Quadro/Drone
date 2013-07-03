@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="AQ">
+    <file>AeroQuadIcon.ico</file>
+    <file>AeroQuadLogo3.png</file>
+  </qresource>
+</RCC>
