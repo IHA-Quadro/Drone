@@ -1,0 +1,43 @@
+\documentclass[oneside, 12pt]{memoir}
+
+\input{../Preamble}
+
+%FixMe pakken viser små kommentarer, hvor der skal rettes
+%--------------------------------------------------
+%Brug med følgende: \fxnote{det her skal uddybes!}
+%Se liste over alle fixMe's: \listoffixmes
+%Erstat 'draft' med 'final' for at fjerne alle kommentarer
+%--------------------------------------------------
+\usepackage[footnote,draft,danish,silent,nomargin]{fixme}
+
+
+\title{Forprojekt
+\\
+Quadrocopter-tracking}
+\date{\today}
+\author{10893, Rasmus Bækgaard\\08830, Rasmus Berg Kloster}
+
+
+\begin{document}
+\begin{titlingpage}
+  \maketitle
+\end{titlingpage}
+
+\newpage
+\tableofcontents*
+\listoffixmes 
+
+\subfile{Forside}
+
+\subfile{1-Indledning}
+
+\subfile{2-GenerelBeskrivelse}
+
+\subfile{Udkast-kravspecifikation}
+
+\subfile{Projektplan}
+
+\subfile{Konklusion}
+
+
+\end{document}
