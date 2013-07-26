@@ -1,16 +1,16 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\chapter{Udkast til kravspecifikation}
+\section{Funktionelle krav -- Use Cases}
 
 
-\section{User Stories}
+%\section{User Stories}
+%
+%\subsection{Story 1}
+%Som en sikkerhedsvagt, der skal patruljere store områder, ønskes det at en quadrocopter kan sættes til at patruljere et område for at lette sin arbejdsbyrde med områder der skal patruljeres.
 
-\subsection{Story 1}
-Som en sikkerhedsvagt, der skal patruljere store områder, ønskes det at en quadrocopter kan sættes til at patruljere et område for at lette sin arbejdsbyrde med områder der skal patruljeres.
 
-
-\subsubsection{Use Case 1.1}
+\subsection{Use Case 1}
 
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
 \hline
@@ -22,11 +22,11 @@ Initiering	& Use Case initieres af installatør \\ \hline
 
 Slutbetingelser for succes & Waypoint er sat op og des indikationslys for aktiv lyser.  \\ \hline
 
-Slutbetingelser ved undtagel\-ser & 
+Slutbetingelser ved undtagelser & 
 Microcontroller kan ikke få fat i radiomodul og indikationslys lyser for fejl. \\ \hline
 
 Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Installatør sætter dip switch og tænder for strømmen.
 	\item System initierer
 	\item System udfører intern systemtest.
@@ -35,7 +35,7 @@ Normalforløb &	\vspace{-8mm}
 	\end{enumerate} \\ \hline
 
 Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item System indikerer fejl i opstart.
 	\end{enumerate} \\
 
@@ -45,7 +45,7 @@ Undtagelser & \vspace{-8mm}
 
 
 
-\subsubsection{Use Case 1.2}
+\subsection{Use Case 1}
 
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
 \hline
@@ -62,12 +62,12 @@ Slutbetingelser ved undtagelser &
 Drone patruljere ikke. \\ \hline
 
 Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Brugeren tænder drone.
 	\item Drone initierer
 	\item[] \textit{Undtagelse: Fejl i initiering}
 	\item Drone letter
-	\item \label{enu:waypoint} Drone lokaliserer waypoint 
+	\item \label{enu:waypoint} Extended Use Case: Find retning af waypoint
 	\item[] \textit{Undtagelse: Ingen waypoints fundet}
 	\item \label{enu:flyvning} Drone påbegynder flyvning til waypoint
 	\item[] \textit{Undtagelse: Forhindring på vej til waypoint}
@@ -82,51 +82,70 @@ Normalforløb &	\vspace{-8mm}
 
 Undtagelser & \vspace{-8mm}
 
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Fejl i initiering}
-	\item Drone indikerer at opstart ikke er muligt.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[2] \textit{Undtagelse: Fejl i initiering}
+	
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone indikerer at opstart ikke er muligt.
+		\end{itemize}
+	
 	\end{enumerate}
 
 
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Ingen waypoints fundet}
-	\item Drone indikerer at opstart ikke er muligt.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[4] \textit{Undtagelse: Ingen waypoints fundet}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone indikerer at opstart ikke er muligt.
+		\end{itemize}
+		
 	\end{enumerate}
 	
 	
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Forhindring på vej til waypoint}
-	\item Drone starter Extended Use Case \ref{UC:extend}
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[5] \textit{Undtagelse: Forhindring på vej til waypoint}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone starter Extended Use Case \ref{UC:extend}
+		\end{itemize}
 	\end{enumerate}
 	
 	
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Mister forbindelse}
-	\item Drone lander og venter på signal.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[5] \textit{Undtagelse: Mister forbindelse}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone lander og venter på signal.
+		\end{itemize}
 	\end{enumerate}
 
 
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Lavt batteriniveau}
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[5] \textit{Undtagelse: Lavt batteriniveau}
+		\begin{itemize}[noitemsep,nolistsep]
 	\item Drone lander og indikerer lavt batteriniveau.
+		\end{itemize}
 	\end{enumerate}
 
 	
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: Drone bliver beskadiget}
-	\item Drone identificer beskadning.
-	\item Drone udfører sikker landing på baggrund af beskadning.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[5] \textit{Undtagelse: Drone bliver beskadiget}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone identificer beskadning.
+		\item Drone udfører sikker landing på baggrund af beskadning.
+		\end{itemize}
 	\end{enumerate}	
 	
 	
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: 	Kan ikke finde flere waypoints}
-	\item Drone flyver til første waypoint.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[6] \textit{Undtagelse: 	Kan ikke finde flere waypoints}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone flyver til første waypoint.
+		\end{itemize}
 	\end{enumerate}	
 	
-	\begin{enumerate}[noitemsep,nolistsep]
-	\item[] \textit{Undtagelse: 	Kun ét waypoint fundet}
-	\item Drone cirkuler waypointet.
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[7] \textit{Undtagelse: 	Kun ét waypoint fundet}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone cirkuler waypointet.
+		\end{itemize}
 	\end{enumerate}	 \\
 
 \hline
@@ -136,7 +155,7 @@ Undtagelser & \vspace{-8mm}
 	
 
 	
-\subsubsection{Use Case 1.3}
+\subsection{Use Case 3}
 
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
 \hline
@@ -156,13 +175,13 @@ Slutbetingelser ved undtagelser &
 Ingen. \\ \hline
 
 Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Bruger trykker på stopknap
 	\item Drone slukker for sine motorer.
 	\end{enumerate} \\ \hline
 
 Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item System indikerer fejl i opstart.
 	\end{enumerate} \\
 
@@ -171,7 +190,7 @@ Undtagelser & \vspace{-8mm}
 
 	
 	
-\subsubsection{Extended Use Case 1.4}\label{UC:extend}
+\subsection{Extended Use Case 4}\label{UC:extend}
 
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
 \hline
@@ -191,7 +210,7 @@ Slutbetingelser ved undtagelser &
 Drone lander og tuder\dots\fxnote{Måske den skal spille en lyd i stedet?} \\ \hline
 
 Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Drone scanner forhindring
 	\item Drone validerer bedste rute rundt om forhindring
 	\item Drone forsøger at komme uden om.
@@ -199,20 +218,25 @@ Normalforløb &	\vspace{-8mm}
 	\end{enumerate} \\ \hline
 
 Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item[] \textit{Undtagelse: Drone kan ikke finde vej uden om}
-	\item Drone lander og tuder.
+	
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone lander og tuder.
+		\end{itemize}
+	
+
 	\end{enumerate} \\
 
 \hline
 \end{longtable}
 
 
-\subsubsection{Use Case 1.5}
+\subsection{Use Case 5}
 
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
 \hline
-Use Case 4 	& 
+Use Case 5 	& 
 Opladning af drone. \\ \hline
 
 Mål 		& 
@@ -228,7 +252,7 @@ Slutbetingelser ved undtagelser &
 Batteri ikke opladt. \\ \hline
 
 Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Bruger fjerner batteri fra drone
 	\item Bruger sætter batteri i oplader
 	\item Bruger venter til batteri er opladt
@@ -236,13 +260,55 @@ Normalforløb &	\vspace{-8mm}
 	\end{enumerate} \\ \hline
 
 Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep]
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item[] \textit{Undtagelse: Batteri lader ikke op}
-	\item Bruger aflæser display på oplader om, at batteriet ikke er opladt.
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Bruger aflæser display på oplader om, at batteriet ikke er opladt.
+		\end{itemize}
+	\end{enumerate}\\
+\hline
+\end{longtable}
+
+
+
+\subsection{Extended Use Case 6}\label{UC:extend}
+
+\begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
+\hline
+Use Case 6 	& 
+Find retning af waypoint. \\ \hline
+
+Mål 		& 
+Drone finder waypoint's signal og drejer mod signalet. \\ \hline
+
+Initiering	& 
+Drone er startet. \\ \hline
+
+Slutbetingelser for succes & 
+Drone er vendt imod waypoint.  \\ \hline
+
+Slutbetingelser ved undtagelser & 
+Drone lander og tuder\dots\fxnote{Måske den skal spille en lyd i stedet?} \\ \hline
+
+Normalforløb &	\vspace{-8mm}
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item Drone scanner forhindring
+	\item Drone validerer bedste rute rundt om forhindring
+	\item Drone forsøger at komme uden om.
+	\item[] \textit{Undtagelse: Drone kan ikke finde vej uden om}
+	\end{enumerate} \\ \hline
+
+Undtagelser & \vspace{-8mm}
+	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+	\item[] \textit{Undtagelse: Drone kan ikke finde vej uden om}
+		\begin{itemize}[noitemsep,nolistsep]
+		\item Drone lander og tuder.
+		\end{itemize}
 	\end{enumerate} \\
 
 \hline
 \end{longtable}
+
 
 	
 \section{Eksterne grænseflader}
