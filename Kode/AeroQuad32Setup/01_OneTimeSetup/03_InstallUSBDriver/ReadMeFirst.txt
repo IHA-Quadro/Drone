@@ -1,0 +1,1 @@
+Before running this STM Bootloader USB Driver Installer, be sure to put the AQ32 board in DFUSe mode first by running the reset.bat file.
