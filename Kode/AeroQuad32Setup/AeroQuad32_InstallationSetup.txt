@@ -1,0 +1,34 @@
+The AeroQuad32 board comes preconfigured with default firmware that is ready for flight.  After installing the VCP drivers below, you should be able to connect directly to the board using the COnfigurator and finish the calibrations.  After completion of the calibrations, you should be able to plug this board in and fly it.
+
+If you wish to update the firmware, please complete all the instructions below.  The folder structure of the installer is numbered to indicate the order to follow for proper setup.  To perform the instructions below, be sure to execute any commands from the Windows Command Prompt.
+
+One time setup
+--------------
+Install the Virtual COM Port (VCP) Driver
+ * Install VCP_V1.3.1_Setup.exe or VCP_V1.3.1_Setup_x64 found in the \01_OneTimeSetup\01_InstallVirtualComPortDriver folder
+ * Plug in your AeroQuad32 board and wait until the drivers finish configuration
+ * Pay attention to what COM port is assigned
+
+Set the board into DFUSe mode
+ * Go to \01_OneTimeSetup\02_ConfigureBoardIntoDFUeMode
+ * Edit first line in reset.bat to indicate the COM port setup during the VCP installation
+ * Run reset.bat
+
+Install USB bootloader driver
+ * Go to \01_OneTimeSetup\03_InstallUSBDriver
+ * Run the zadig executable (be sure the board is in DFUSe mode first)
+ * Look for STM32 BOOTLOADER in pull down menu
+ * Click install driver
+
+
+Upload firmware
+---------------
+ * Create the firmware you wish to upload to your AeroQuad32 board
+ ** Go to http://kari.hautio.net/AQ32/ and complete the webpage to create and download your binary
+ * Copy the created binary to the 02_FlashBinaries folder
+ ** Run reset.bat
+ ** (Optional) Run ListDFUSeDevices.bat, you should see 4 lines stating "Found DFU"
+ ** Run FlashDFUSeF4.bat <name of binary>
+ * Hit the reset button on the AeroQuad32 board
+ * Run Configurator (finish calibrations, then power cycle board)
+ * You're AeroQuad32 board is ready for flight!

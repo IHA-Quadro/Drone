@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Setup Your Own Subpanels &mdash; AeroQuad Configurator Developer&#39;s Guide 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/caktus.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="top" title="AeroQuad Configurator Developer&#39;s Guide 1.0 documentation" href="index.html" />
+    <link rel="next" title="Source Code" href="source.html" />
+    <link rel="prev" title="Software Architecture" href="architecture.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="source.html" title="Source Code"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Software Architecture"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">AeroQuad Configurator Developer&#39;s Guide 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="document">
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+
+<h3>AeroQuad Configurator Developer's Guide</h3>
+<p class="tagline">A Python based Configurator for the AeroQuad Open Source Multicopter Project</p>
+
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Setup Your Own Subpanels</a><ul>
+<li><a class="reference internal" href="#default-subpanel-behavior">Default Subpanel Behavior</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="previous chapter">Software Architecture</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="source.html"
+                        title="next chapter">Source Code</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/subpanel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        <div class="documentwrapper">
+            <div class="bodywrapper">
+                <div class="body">
+                    
+  <div class="section" id="how-to-setup-your-own-subpanels">
+<h1>How to Setup Your Own Subpanels<a class="headerlink" href="#how-to-setup-your-own-subpanels" title="Permalink to this headline">¶</a></h1>
+<p>Here are the steps you can follow to create your own subpanel.  This example will create a subpanel called &#8220;tutorial&#8221;.  You can replace any references to &#8220;tutorial&#8221; or tutorialWindow&#8221; with your desired names.</p>
+<ol class="arabic simple">
+<li>In Eclipse, create a new Python package in the PyDev Package Explorer</li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Right click on the subpanel package</li>
+<li>Select New-&gt;PyDev Package</li>
+<li>Update the dialog box as shown, in the Name field, choose the name of your own subpanel package</li>
+</ol>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/createPackage.png"><img alt="_images/createPackage.png" class="align-center" src="_images/createPackage.png" style="width: 616.0px; height: 384.0px;" /></a>
+<ol class="arabic simple" start="2">
+<li>Open the Qt Designer application, in the New Form dialog box, select Widget-&gt;Create</li>
+</ol>
+<a class="reference internal image-reference" href="_images/createWidget.png"><img alt="_images/createWidget.png" class="align-center" src="_images/createWidget.png" style="width: 363.3px; height: 336.0px;" /></a>
+<ol class="arabic simple" start="3">
+<li>In Qt Designer, create the GUI for your subpanel</li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Place a Label on the Form</li>
+<li>Place a Push Button on the Form</li>
+<li>In the Property Editor, change the name of the QWidget from Form to tutorial</li>
+<li>Save the .ui file into the folder created from the previous step</li>
+<li>In Eclipse right click in the PyDev Package Explorer and select refresh, your file should appear there</li>
+</ol>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/uiWindow.png"><img alt="_images/uiWindow.png" class="align-center" src="_images/uiWindow.png" style="width: 630.4px; height: 384.0px;" /></a>
+<ol class="arabic simple" start="4">
+<li>Autogenerate Python code from PyQt</li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Open up a command window/terminal window and go to the folder where your .ui file is saved</li>
+<li>Type &#8220;pyuic4 tutorialWindow.ui -o tutorialWindow.py&#8221;</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The filename specified after the -o will be the autogenerated UI filename</li>
+</ul>
+</div></blockquote>
+<ol class="loweralpha simple" start="3">
+<li>Refresh the PyDev Package Explorer to see the newly created tutorial.py file</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>If you open this file you will find the names of the widgets you can interact with (these can be renamed in Qt Designer)</li>
+<li>If you ever want to change your GUI, do it in Qt Designer and follow these steps again to update your tutorial.py file</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>Create your subpanel script using the subpanel class</li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>In the PyDev Package Explorer, right click on you package and created New-&gt;PyDev Module</li>
+<li>Inside the newly created file, change the text MyClass to the name of your subpanel</li>
+<li>Any references to the text &#8220;tutorial&#8221; can be replaced with your subpanel name</li>
+</ol>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/createModule.png"><img alt="_images/createModule.png" class="align-center" src="_images/createModule.png" style="width: 440.0px; height: 384.0px;" /></a>
+<ol class="arabic simple" start="6">
+<li>Change the default auto-generated code to the following:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">subpanel.subPanelTemplate</span> <span class="kn">import</span> <span class="n">subpanel</span>
+<span class="kn">from</span> <span class="nn">subpanel.tutorial.tutorialWindow</span> <span class="kn">import</span> <span class="n">Ui_tutorial</span>
+
+<span class="k">class</span> <span class="nc">tutorial</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">,</span> <span class="n">subpanel</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">subpanel</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_tutorial</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSoftwareVersion</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getSoftwareVersion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">isConnected</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;!&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>From the line: <strong>from</strong> <em>subpanel.tutorial.tutorialWindow</em> <strong>import</strong> <em>Ui_tutorial</em></p>
+<ul class="simple">
+<li>The first part after <strong>from</strong> is subpanel.&lt;your Python package name&gt;.&lt;your UI filename from step 4b&gt;</li>
+<li>The last part after <strong>import</strong> is found inside tutorialWindow.py and is the class name (the name of the QWidget from step 3c)</li>
+</ul>
+<p>Inside <strong>__init__(self)</strong>, place any initialization steps you&#8217;d like to perform inside:</p>
+<ul class="last simple">
+<li>You have inherited all functions from the QtGui.QWidget and subpanel classes, so they get initialized here</li>
+<li>The object <strong>self.ui</strong> is defined from the UI you created<ul>
+<li>You will be able to interact with the widgets you created in Qt Designer through this object</li>
+<li>A good example is the pushbutton you created in the example above, so you refer to it as <em>self.ui.pushbutton</em></li>
+</ul>
+</li>
+<li>Since the <strong>tutorial</strong> class inherits from <strong>subpanel</strong>, all the function calls from <strong>subpanel</strong> are available to you<ul>
+<li>View the functions available to you <a class="reference internal" href="subpanelClass.html"><em>here</em></a>.</li>
+<li>This also includes the communications class, the function calls available are found <a class="reference internal" href="serialComClass.html"><em>here</em></a>.</li>
+<li>From here, you will need to learn how to work with Python and PyQt.  Google to find out the syntax you need to do what you want (which usually takes you to stackoverflow.com).</li>
+</ul>
+</li>
+</ul>
+</div>
+<ol class="arabic simple" start="7">
+<li>Add the newly created subpanel to the Configurator menu by editing <strong>AeroQuadConfigurator.xml</strong> under <strong>&lt;SubPanels&gt;</strong></li>
+</ol>
+<div class="highlight-python"><pre>&lt;Subpanel Name="Tutorial"&gt;
+    &lt;Requirement&gt;All&lt;/Requirement&gt;
+    &lt;Path&gt;tutorial.tutorial&lt;/Path&gt;
+    &lt;Class&gt;tutorial&lt;/Class&gt;
+&lt;/Subpanel&gt;</pre>
+</div>
+<div class="section" id="default-subpanel-behavior">
+<h2>Default Subpanel Behavior<a class="headerlink" href="#default-subpanel-behavior" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The default behavior of a subpanel is to read the <strong>&lt;Telemetry&gt;</strong> element inside AeroQuadConfigurator.xml.  This will then send that request to the AeroQuad board and will continually read the board response.</li>
+<li>To change this, you will need to redefine the <a class="reference internal" href="subpanelClass.html#subPanelTemplate.subpanel.start" title="subPanelTemplate.subpanel.start"><tt class="xref py py-meth docutils literal"><span class="pre">start()</span></tt></a> method in the <a class="reference internal" href="subpanelClass.html"><em>subpanel</em></a> class.</li>
+<li>Look at the existing subpanels for examples on how to setup various subpanel bahaviors</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>commMonitor.py sends a command when the user hits the send button, then reads the communication buffer until empty</li>
+<li>motorCommand.py does not send any telemetry requests, but sends a command when a button is pressed</li>
+<li>updateParameters.py sends a telemetry request for various EEPROM stored values and sends an update command when the update button is pressed</li>
+<li>vehicleConfiguration sends a single telemetry command and waits for the response</li>
+<li>Both dataPlot.py and vehicleConfiguration sends a single telemetry request and continually reads and displays the streamed telemetry values</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+                </div>
+            </div>
+        </div>
+    <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="source.html" title="Source Code"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Software Architecture"
+             >previous</a> |</li>
+        <li><a href="index.html">AeroQuad Configurator Developer&#39;s Guide 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; <a href="http://www.caktusgroup.com/">Copyright 2013, Ted Carancho</a>.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

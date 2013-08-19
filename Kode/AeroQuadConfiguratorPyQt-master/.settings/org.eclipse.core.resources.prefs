@@ -1,0 +1,25 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=Changed rcchannelsetup added rccalibration
+eclipse.preferences.version=1
+encoding//documentation/conf.py=utf-8
+encoding//ui/AQresources_rc.py=utf-8
+encoding//ui/MainWindow.py=utf-8
+encoding//ui/SplashScreen.py=utf-8
+encoding//ui/subpanel/accelcalibration/AccelCalibrationPanel.py=utf-8
+encoding//ui/subpanel/commmonitor/CommMonitorController.py=utf-8
+encoding//ui/subpanel/commmonitor/CommMonitorPanel.py=utf-8
+encoding//ui/subpanel/dataplot/DataPlotPanel.py=utf-8
+encoding//ui/subpanel/magnetometercalibration/MagnetometerCalibrationPanel.py=utf-8
+encoding//ui/subpanel/mainmenuepanel/MainMenuePanel.py=utf-8
+encoding//ui/subpanel/motorcommand/MotorCommandController.py=utf-8
+encoding//ui/subpanel/motorcommand/MotorCommandPanel.py=utf-8
+encoding//ui/subpanel/pidparametersupdater/PIDParametersUpdaterPanel.py=utf-8
+encoding//ui/subpanel/pidparametersupdater/configsinglelinewidget/ConfigSingleLineWidgetUI.py=utf-8
+encoding//ui/subpanel/pidparametersupdater/pidtuningpanel/PIDTuningPanel.py=utf-8
+encoding//ui/subpanel/pidparametersupdater/pidwidget/PIDWidgetUI.py=utf-8
+encoding//ui/subpanel/receivercalibration/ReceiverCalibrationPanel.py=utf-8
+encoding//ui/subpanel/receiverchanneldetection/ReceiverChannelDetectionPanel.py=utf-8
+encoding//ui/subpanel/vehicleconfiguration/VehicleConfigurationPanel.py=utf-8
+encoding//ui/subpanel/vehicledynamicconfig/VehicleDynamicConfigPanel.py=utf-8
+encoding//ui/subpanel/vehicleoverallstatus/VehicleOverallStatusPanel.py=utf-8
