@@ -1,0 +1,5 @@
+
+
+//29-08-2013
+Diverse ændringer i UserConfiguration.h
+Rettet alle relative stier i projektet

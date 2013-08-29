@@ -22,7 +22,7 @@
 #define _AEROQUAD_ACCELEROMETER_H_
 
 #include "Arduino.h"
-#include "GlobalDefined.h"
+#include "../Libraries/AQ_Defines/GlobalDefined.h"
 
 #define SAMPLECOUNT 400.0
 

@@ -57,12 +57,12 @@
 //For more information please refer to http://aeroquad.com/showwiki.php?title=Flight+Configurations
 
 //#define quadXConfig
-//#define quadPlusConfig
+#define quadPlusConfig		//Det skulle være denne.
 //#define hexPlusConfig
 //#define hexXConfig      
 //#define triConfig
 //#define quadY4Config
-#define hexY6Config
+//#define hexY6Config
 //#define octoX8Config
 //#define octoPlusConfig		// EXPERIMENTAL: not completely re-tested
 //#define octoXConfig			// EXPERIMENTAL: not completely re-tested
@@ -90,7 +90,7 @@
 // For more information on how to activate theese features with your transmitter
 // Please refer to http://aeroquad.com/showwiki.php?title=Using+the+transmitters+sticks+and+switches+to+operate+your+AeroQuad
 // *******************************************************************************************************************************
-#define HeadingMagHold				// Enables Magnetometer, gets automatically selected if CHR6DM is defined
+//#define HeadingMagHold				// Enables Magnetometer, gets automatically selected if CHR6DM is defined
 #define AltitudeHoldBaro			// Enables Barometer
 //#define AltitudeHoldRangeFinder	// Enables Altitude Hold with range finder, not displayed on the configurator (yet)
 //#define AutoLanding				// Enables auto landing on channel AUX3 of the remote, NEEDS AltitudeHoldBaro AND AltitudeHoldRangeFinder to be defined
@@ -129,7 +129,7 @@
 
 // You need to select one of these channel order definitions for PPM receiver
 //#define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_1	//For Graupner/Spektrum (DEFAULT)
-#define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_2		//For Robe/Hitec/Futaba/Turnigy9X+Er9X
+//#define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_2		//For Robe/Hitec/Futaba/Turnigy9X+Er9X		<--- Var valgt
 //#define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_3	//For some Hitec/Sanwa/Others
 
 //#define UseAnalogRSSIReader	// Reads RSSI for receiver failsafe, NEEDS A RECEIVER WITH FAILSAVE CONNECTED ON PIN A6 OF THE SHIELD
@@ -140,8 +140,8 @@
 // *******************************************************************************************************************************
 // Define how many channels are connected from your R/C receiver
 // *******************************************************************************************************************************
-//#define LASTCHANNEL 6
-#define LASTCHANNEL 8
+#define LASTCHANNEL 6
+//#define LASTCHANNEL 8		<--- Var valgt, men vi bruger kun 4 lige nu.
 //#define LASTCHANNEL 10 // EXPERIMENTAL only tested with ReceiverSBUS on AQ32, test extensively before using other boards/receiver types
 
 
@@ -178,7 +178,7 @@
 // Please note that you will need to have battery connected to power on servos with v2.0 shield
 // For more information please refer to http://aeroquad.com/showwiki.php?title=Camera+Stabilization
 // *******************************************************************************************************************************
-#define CameraControl
+//#define CameraControl
 //#define CameraTXControl  // need to have CameraControl to work
 
 //

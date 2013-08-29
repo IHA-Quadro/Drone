@@ -22,7 +22,7 @@
 #define _AEROQUAD_GYROSCOPE_H_
 
 #include "Arduino.h"
-#include "GlobalDefined.h"
+#include "../Libraries/AQ_Defines/GlobalDefined.h"
 
 #define FINDZERO 49
 

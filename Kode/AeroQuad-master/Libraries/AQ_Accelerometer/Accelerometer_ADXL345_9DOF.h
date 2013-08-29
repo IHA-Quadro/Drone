@@ -21,8 +21,8 @@
 #ifndef _AEROQUAD_ACCELEROMETER_ADXL345_H_
 #define _AEROQUAD_ACCELEROMETER_ADXL345_H_
 
-#include <Accelerometer.h>
-#include <SensorsStatus.h>
+#include "../Libraries/AQ_Accelerometer/Accelerometer.h"
+#include "../Libraries/AQ_Defines/SensorsStatus.h"
 
 #define ACCEL_ADDRESS 0x53
 

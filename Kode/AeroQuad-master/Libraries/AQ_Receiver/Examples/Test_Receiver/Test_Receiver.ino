@@ -18,8 +18,8 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>. 
 */
 
-#include <AQMath.h>
-#include <GlobalDefined.h>
+#include "AQMath.h"
+#include "GlobalDefined.h"
 
 //Choose how many channels you have available (6, 8 or 10)
 

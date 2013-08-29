@@ -22,7 +22,7 @@
 #define _AQ_BAROMETRIC_SENSOR_
 
 #include "Arduino.h"
-#include "GlobalDefined.h"
+#include "../Libraries/AQ_Defines/GlobalDefined.h"
 
 float baroAltitude      = 0.0; 
 float baroRawAltitude   = 0.0;

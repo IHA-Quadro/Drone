@@ -21,7 +21,7 @@
 #ifndef _AEROQUAD_GYROSCOPE_ITG3200_COMMON_H_
 #define _AEROQUAD_GYROSCOPE_ITG3200_COMMON_H_
 
-#include <Gyroscope.h>
+#include "../Libraries/AQ_Gyroscope/Gyroscope.h"
 
 #ifdef ITG3200_ADDRESS_ALTERNATE
   #define ITG3200_ADDRESS					0x68

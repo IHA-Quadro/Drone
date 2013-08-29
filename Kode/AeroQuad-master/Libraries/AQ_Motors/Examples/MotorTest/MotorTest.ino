@@ -72,37 +72,104 @@
   #define NB_MOTOR_CONFIG EIGHT_Motors
 #endif
 
+int led = 13;
+int maxSpeed = 1220;
+int minSpeed = 1200;
+int initSpeed = 1000;
+double pusherScaling = 0.99;
+
 
 void setup() {
-  Serial.begin(115200);
-  initMotors(NB_MOTOR_CONFIG);
+	Serial.begin(115200);
+	pinMode(led, OUTPUT);   
+	initMotors(NB_MOTOR_CONFIG);
 }
 
-void testMotor(int motor) {
-  Serial.println();
-  Serial.print("TEST MOTOR ");
-  Serial.println(motor);
-  for (int motorTrust = 1000; motorTrust < 1200; motorTrust+=10) {
-    motorCommand[motor] = motorTrust;
-    writeMotors();
-    delay(200);
-  }
-  for (int motorTrust = 1200; motorTrust > 1000; motorTrust-=10) {
-    motorCommand[motor] = motorTrust;
-    writeMotors();
-    delay(200);
-  }
-  motorCommand[motor] = 1000;
-  writeMotors();
+//void motorTest()
+//{
+//	for(int motorTrust = minSpeedNonPusher; motorTrust < maxSpeedNonPusher; motorTrust+=20) 
+//	{
+//		for(byte motor = 0; motor < NB_MOTOR; motor++)
+//		{
+//			motorCommand[motor] = motorTrust;
+//			//if(motor == 0 || motor == 3)
+//			//	motorCommand[motor] = maxSpeedPusher; //(int)(motorTrust*pusherScaling);
+//			//else
+//			//	motorCommand[motor] = maxSpeedNonPusher;
+//		}
+//		writeMotors();
+//		delay(200); //Why?
+//	}
+//
+//	for(int motorTrust = maxSpeedNonPusher; motorTrust > minSpeedNonPusher; motorTrust-=20) 
+//	{
+//		for(byte motor = 0; motor < NB_MOTOR; motor++)
+//		{
+//			motorCommand[motor] = motorTrust;
+//		 //   if(motor == 0 || motor == 3)
+//			//	motorCommand[motor] = minSpeedPusher; //(int)(motorTrust*pusherScaling);
+//			//else
+//			//	motorCommand[motor] = minSpeedNonPusher;
+//		}
+//		writeMotors();
+//		delay(200); //Why?
+//	}
+//}
+
+bool _init = false;
+
+byte pusherBlade1 = 0;
+byte pusherBlade2 = 3;
+byte normalBlade1 = 1;
+byte normalBlade2 = 2;
+
+//Initialize the motors from minSpeed rpm to maxSpeed.
+//Sets the motors steady for maxSpeed
+void SteadyMotors()
+{
+	if(!_init)
+	{
+		for(int motorTrust = initSpeed; motorTrust < minSpeed; motorTrust+=10) 
+		{
+			for(byte motor = 0; motor < NB_MOTOR; motor++)
+			{
+				//if(motor == pusherBlade1 || motor == pusherBlade2)
+					motorCommand[motor] = motorTrust;
+				//else
+				//	motorCommand[motor] = -motorTrust;
+			}
+			writeMotors();
+			delay(200); //Why?
+		}
+		_init = true;
+	}
+
+	for(byte motor = 0; motor < NB_MOTOR; motor++)
+	{
+		if(motor == pusherBlade1 || motor == pusherBlade2)
+			motorCommand[motor] = (int)((maxSpeed*pusherScaling < minSpeed ? minSpeed : maxSpeed*pusherScaling));
+		else
+			motorCommand[motor] = maxSpeed;
+	}
+	writeMotors();
+	delay(200);
+
+}
+
+
+int blinkTimer = 200;
+void blink() {
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(blinkTimer);               // wait for a second
+  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+  delay(blinkTimer);               // wait for a second
 }
  
-void loop() {
-  
-  Serial.println("===================== START MOTOR TEST =========================");
-  for (int motor = 0; motor < NB_MOTOR; motor++) {
-    testMotor(motor);
-    delay(1000);
-  }
+
+void loop()
+{
+	SteadyMotors();
+	delay(200);
 }
 
 

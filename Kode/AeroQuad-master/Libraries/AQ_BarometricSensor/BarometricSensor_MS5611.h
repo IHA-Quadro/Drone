@@ -23,9 +23,9 @@
 #ifndef _AQ_BAROMETRIC_SENSOR_MS5611_
 #define _AQ_BAROMETRIC_SENSOR_MS5611_
 
-#include "BarometricSensor.h"
-#include "Device_I2C.h"
-#include <AQMath.h>
+#include "../Libraries/AQ_BarometricSensor/BarometricSensor.h"
+#include "../Libraries/AQ_Defines/SensorsStatus.h"
+#include "../Libraries/AQ_Math/AQMath.h"
 
 
 //#define DEBUG_MS5611
