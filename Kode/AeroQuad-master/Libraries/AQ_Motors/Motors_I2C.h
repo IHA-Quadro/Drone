@@ -24,7 +24,7 @@
 
 #include "Arduino.h"
 
-#include "Motors.h"
+#include "../Libraries/AQ_Motors/Motors.h"
 
 #define MOTORBASE 0x28                 // I2C controller base address
 #define MOTOR_ADDR_0  (MOTORBASE + 1)  // define I2C controller addresses per your configuration

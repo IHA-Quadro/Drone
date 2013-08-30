@@ -35,7 +35,7 @@
 #define MAXOFFWIDTH 24000
 
 #include "pins_arduino.h"
-#include <AQMath.h>
+#include "AQMath.h"
 #include "GlobalDefined.h"
 
 volatile uint8_t *port_to_pcmask[] = {

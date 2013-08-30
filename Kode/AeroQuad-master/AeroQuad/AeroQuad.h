@@ -26,9 +26,9 @@
 #include <math.h>
 #include "Arduino.h"
 #include "pins_arduino.h"
-#include "../Libraries/AQ_Gps/GpsDataType.h"
-#include "../Libraries/AQ_Math/AQMath.h"
-#include "../Libraries/AQ_Receiver/Receiver.h"
+#include "GpsDataType.h"
+#include "AQMath.h"
+#include "Receiver.h"
 
 // Flight Software Version
 #define SOFTWARE_VERSION 3.2

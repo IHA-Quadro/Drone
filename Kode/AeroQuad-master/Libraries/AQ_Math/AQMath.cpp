@@ -20,27 +20,25 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "AQMath.h"
 
-extern "C"
+// Low pass filter, kept as regular C function for speed
+float filterSmooth(float currentData, float previousData, float smoothFactor) 
 {
-	// Low pass filter, kept as regular C function for speed
-	float filterSmooth(float currentData, float previousData, float smoothFactor) 
+	if (smoothFactor != 1.0) //only apply time compensated filter if smoothFactor is applied
 	{
-		if (smoothFactor != 1.0) //only apply time compensated filter if smoothFactor is applied
-		{
-			return (previousData * (1.0 - smoothFactor) + (currentData * smoothFactor)); 
-		}
-		return currentData; //if smoothFactor == 1.0, do not calculate, just bypass!
+		return (previousData * (1.0 - smoothFactor) + (currentData * smoothFactor)); 
 	}
-
-	float filterSmoothWithTime(float currentData, float previousData, float smoothFactor, float dT_scaledAroundOne) 
-	{  //time scale factor
-		if (smoothFactor != 1.0) //only apply time compensated filter if smoothFactor is applied
-		{
-			return (previousData * (1.0 - (smoothFactor * dT_scaledAroundOne)) + (currentData * (smoothFactor * dT_scaledAroundOne))); 
-		}
-		return currentData; //if smoothFactor == 1.0, do not calculate, just bypass!
-	}
+	return currentData; //if smoothFactor == 1.0, do not calculate, just bypass!
 }
+
+float filterSmoothWithTime(float currentData, float previousData, float smoothFactor, float dT_scaledAroundOne) 
+{  //time scale factor
+	if (smoothFactor != 1.0) //only apply time compensated filter if smoothFactor is applied
+	{
+		return (previousData * (1.0 - (smoothFactor * dT_scaledAroundOne)) + (currentData * (smoothFactor * dT_scaledAroundOne))); 
+	}
+	return currentData; //if smoothFactor == 1.0, do not calculate, just bypass!
+}
+
 
 // ***********************************************************************
 // *********************** Median Filter Class ***************************

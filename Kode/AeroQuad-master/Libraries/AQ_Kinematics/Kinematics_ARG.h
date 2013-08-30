@@ -49,7 +49,7 @@
 
 #include "Kinematics.h"
 
-#include <AQMath.h>
+#include "AQMath.h"
 
 float Kp = 0.0;                   					// proportional gain governs rate of convergence to accelerometer/magnetometer
 float Ki = 0.0;                   					// integral gain governs rate of convergence of gyroscope biases

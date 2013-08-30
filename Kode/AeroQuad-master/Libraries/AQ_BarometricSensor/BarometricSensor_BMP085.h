@@ -21,10 +21,10 @@
 #ifndef _AQ_BAROMETRIC_SENSOR_BMP085_
 #define _AQ_BAROMETRIC_SENSOR_BMP085_
 
-#include "../Libraries/AQ_BarometricSensor/BarometricSensor.h"
-#include "../Libraries/AQ_I2C/Device_I2C.h"
-#include "../Libraries/AQ_Math/AQMath.h"
-#include "../Libraries/AQ_Defines/SensorsStatus.h"
+#include "BarometricSensor.h"
+#include "Device_I2C.h"
+#include "AQMath.h"
+#include "SensorsStatus.h"
 
 // This sets up the BMP085 from Sparkfun
 // Code from http://wiring.org.co/learning/libraries/bmp085.html

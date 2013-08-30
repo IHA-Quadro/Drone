@@ -78,12 +78,42 @@
     <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_I2C\Device_I2C.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics_ARG.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_BarometricSensor\BarometricSensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_BarometricSensor\BarometricSensor_BMP085.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Math\FourtOrderFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Accelerometer\Accelerometer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Accelerometer\Accelerometer_ADXL345_9DOF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Motors\Motors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Motors\Motors_PWM_Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Libraries\AQ_Math\AQMath.cpp">
+    <ClCompile Include="..\Libraries\AQ_I2C\Device_I2C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Libraries\AQ_I2C\Device_I2C.cpp">
+    <ClCompile Include="..\Libraries\AQ_Math\AQMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

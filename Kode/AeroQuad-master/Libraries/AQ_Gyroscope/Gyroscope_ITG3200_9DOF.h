@@ -21,8 +21,8 @@
 #ifndef _AEROQUAD_GYROSCOPE_ITG3200_9DOF_H_
 #define _AEROQUAD_GYROSCOPE_ITG3200_9DOF_H_
 
-#include "../Libraries/AQ_Defines/SensorsStatus.h"
-#include "../Libraries/AQ_Gyroscope/Gyroscope_ITG3200Common.h"
+#include "SensorsStatus.h"
+#include "Gyroscope_ITG3200Common.h"
 
 void measureSpecificGyroADC(int *gyroADC) {
   gyroADC[YAXIS] = readShortI2C()  - gyroZero[YAXIS];

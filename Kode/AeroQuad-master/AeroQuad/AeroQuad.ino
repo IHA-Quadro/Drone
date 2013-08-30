@@ -54,11 +54,11 @@
 
 #include <EEPROM.h>
 #include <Wire.h>
-#include "../Libraries/AQ_Defines/GlobalDefined.h"
+#include "GlobalDefined.h"
 #include "AeroQuad.h"
 #include "PID.h"
-#include "../Libraries/AQ_Math/AQMath.h"
-#include "../Libraries/AQ_Math/FourtOrderFilter.h"
+#include "AQMath.h"
+#include "FourtOrderFilter.h"
 #ifdef BattMonitor
   #include <BatteryMonitorTypes.h>
 #endif
@@ -497,14 +497,14 @@
   #define LED_Red 4
   #define LED_Yellow 31
 
-  #include "../Libraries/AQ_I2C/Device_I2C.h"
+  #include "Device_I2C.h"
 
   // Gyroscope declaration
   #define ITG3200_ADDRESS_ALTERNATE
-  #include "../Libraries/AQ_Gyroscope/Gyroscope_ITG3200_9DOF.h"
+  #include "Gyroscope_ITG3200_9DOF.h"
 
   // Accelerometer declaration
-  #include "../Libraries/AQ_Accelerometer/Accelerometer_ADXL345_9DOF.h"
+  #include "Accelerometer_ADXL345_9DOF.h"
 
   // Receiver Declaration
   #define RECEIVER_MEGA
@@ -1071,11 +1071,11 @@
 //********************************************************
 //****************** KINEMATICS DECLARATION **************
 //********************************************************
-#include "../Libraries/AQ_Kinematics/Kinematics.h"
+#include "Kinematics.h"
 #if defined(AeroQuadMega_CHR6DM) || defined(APM_OP_CHR6DM)
   // CHR6DM have it's own kinematics, so, initialize in it's scope
 #else
-  #include "../Libraries/AQ_Kinematics/Kinematics_ARG.h"
+  #include "Kinematics_ARG.h"
 #endif
 
 //********************************************************
@@ -1094,7 +1094,7 @@
 #elif defined(RECEIVER_328P)
   #include <Receiver_328p.h>
 #elif defined(RECEIVER_MEGA)
-  #include "../Libraries/AQ_Receiver/Receiver_MEGA.h"
+  #include "Receiver_MEGA.h"
 #elif defined(RECEIVER_APM)
   #include <Receiver_APM.h>
 #elif defined(RECEIVER_STM32PPM)
@@ -1126,7 +1126,7 @@
 #elif defined(MOTOR_PWM)
   #include <Motors_PWM.h>
 #elif defined(MOTOR_PWM_Timer)
-  #include "../Libraries/AQ_Motors/Motors_PWM_Timer.h"
+  #include "Motors_PWM_Timer.h"
 #elif defined(MOTOR_APM)
   #include <Motors_APM.h>
 #elif defined(MOTOR_I2C)
@@ -1151,7 +1151,7 @@
 //******* ALTITUDE HOLD BAROMETER DECLARATION ************
 //********************************************************
 #if defined(BMP085)
-  #include "../Libraries/AQ_BarometricSensor/BarometricSensor_BMP085.h"
+  #include "BarometricSensor_BMP085.h"
 #elif defined(MS5611)
  #include <BarometricSensor_MS5611.h>
 #endif
@@ -1188,7 +1188,7 @@
 #if defined(quadXConfig)
   #include "FlightControlQuadX.h"
 #elif defined(quadPlusConfig)
-  #include "../Libraries/AQ_FlightControlprocessor/FlightControlQuadPlus.h"
+  #include "FlightControlQuadPlus.h"
 #elif defined(hexPlusConfig)
   #include "FlightControlHexPlus.h"
 #elif defined(hexXConfig)

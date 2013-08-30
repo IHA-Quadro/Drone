@@ -3,3 +3,7 @@
 //29-08-2013
 Diverse ændringer i UserConfiguration.h
 Rettet alle relative stier i projektet
+
+//30-08-2013
+Oprettet et symlink mellem Arduino/libraries og Drone/Kode/AeroQuad-master/Libraries
+Run -> cmd -> cd Document/Arduino -> mklink /J libraries C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries

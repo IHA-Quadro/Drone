@@ -39,14 +39,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)/../Libraries/AQ_Math;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Math;C:\Users\Becks\Documents\Arduino\libraries\AQ_Math\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gyroscope;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gyroscope\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Accelerometer;C:\Users\Becks\Documents\Arduino\libraries\AQ_Accelerometer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_I2C;C:\Users\Becks\Documents\Arduino\libraries\AQ_I2C\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_APM;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_APM\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_Wii;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_Wii\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_CHR6DM;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_CHR6DM\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Kinematics;C:\Users\Becks\Documents\Arduino\libraries\AQ_Kinematics\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BarometricSensor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BarometricSensor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gps;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gps\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SoftModem;C:\Users\Becks\Documents\Arduino\libraries\AQ_SoftModem\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\Visual Micro\.AeroQuad.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -75,10 +75,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\AQ_Accelerometer\Accelerometer.h" />
+    <ClInclude Include="..\Libraries\AQ_Accelerometer\Accelerometer_ADXL345_9DOF.h" />
+    <ClInclude Include="..\Libraries\AQ_BarometricSensor\BarometricSensor.h" />
+    <ClInclude Include="..\Libraries\AQ_BarometricSensor\BarometricSensor_BMP085.h" />
     <ClInclude Include="..\Libraries\AQ_Defines\GlobalDefined.h" />
     <ClInclude Include="..\Libraries\AQ_Defines\SensorsStatus.h" />
     <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope.h" />
+    <ClInclude Include="..\Libraries\AQ_I2C\Device_I2C.h" />
+    <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics.h" />
+    <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics_ARG.h" />
     <ClInclude Include="..\Libraries\AQ_Math\AQMath.h" />
+    <ClInclude Include="..\Libraries\AQ_Math\FourtOrderFilter.h" />
+    <ClInclude Include="..\Libraries\AQ_Motors\Motors.h" />
+    <ClInclude Include="..\Libraries\AQ_Motors\Motors_PWM_Timer.h" />
     <ClInclude Include="AeroQuad.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -133,4 +143,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.board.name="mega2560" arduino.board.desc="Arduino Mega 2560 or Mega ADK" arduino.board.property_bag="name=Arduino Mega 2560 or Mega ADK&#xD;&#xA;upload.protocol=wiring&#xD;&#xA;upload.maximum_size=258048&#xD;&#xA;upload.speed=115200&#xD;&#xA;bootloader.low_fuses=0xFF&#xD;&#xA;bootloader.high_fuses=0xD8&#xD;&#xA;bootloader.extended_fuses=0xFD&#xD;&#xA;bootloader.path=stk500v2&#xD;&#xA;bootloader.file=stk500boot_v2_mega2560.hex&#xD;&#xA;bootloader.unlock_bits=0x3F&#xD;&#xA;bootloader.lock_bits=0x0F&#xD;&#xA;build.mcu=atmega2560&#xD;&#xA;build.f_cpu=16000000L&#xD;&#xA;build.core=arduino&#xD;&#xA;build.variant=mega&#xD;&#xA;runtime.ide.path=C:\Program Files (x86)\Arduino&#xD;&#xA;build.system.path=C:\Program Files (x86)\Arduino\hardware\arduino\system&#xD;&#xA;software=ARDUINO&#xD;&#xA;runtime.ide.version=105&#xD;&#xA;vm.core.include=arduino.h&#xD;&#xA;vm.boardsource.path=C:\Program Files (x86)\Arduino\hardware\arduino&#xD;&#xA;vm.boardsource.name=boards.txt&#xD;&#xA;vm.platformname.name=&#xD;&#xA;compiler.path=C:\Program Files (x86)\Arduino\hardware\tools\avr\bin\&#xD;&#xA;includes= -I&quot;C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino&quot;  -I&quot;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega&quot;  -I&quot;C:\Program Files (x86)\Arduino\libraries\EEPROM&quot;  -I&quot;C:\Program Files (x86)\Arduino\libraries\Wire&quot;  -I&quot;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors&quot; &#xD;&#xA;build.path=C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560&#xD;&#xA;build.project_name=AeroQuad&#xD;&#xA;build.variant.path=C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega&#xD;&#xA;archive_file=core.a&#xD;&#xA;object_file=&quot;C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560\Wire\utility\twi.c.o&quot;&#xD;&#xA;source_file=&quot;C:\Program Files (x86)\Arduino\libraries\Wire\utility\twi.c&quot;&#xD;&#xA;object_files=&quot;C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560\AeroQuad.cpp.o&quot; &quot;C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560\EEPROM\EEPROM.cpp.o&quot; &quot;C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560\Wire\Wire.cpp.o&quot; &quot;C:\Users\Becks\AppData\Local\VMicro\Arduino\Builds\AeroQuad\mega2560\Wire\utility\twi.c.o&quot; &#xD;&#xA;" arduino.build.mcu="atmega2560" arduino.build.f_cpu="16000000L" arduino.build.core="arduino" arduino.upload.protocol="wiring" arduino.upload.speed="115200" arduino.upload.maximum_size="258048" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
