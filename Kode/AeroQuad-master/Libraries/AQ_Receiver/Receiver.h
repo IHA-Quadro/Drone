@@ -22,6 +22,7 @@
 #define _AEROQUAD_RECEIVER_H_
 
 #include "Arduino.h"
+#include "ControlFaker.h"
 
 #define PWM2RAD 0.002 //  Based upon 5RAD for full stick movement, you take this times the RAD to get the PWM conversion factor
 
@@ -84,25 +85,42 @@ void initializeReceiverParam(int nbChannel = 6) {
   
 int getRawChannelValue(byte channel);  
 void readReceiver();
+void FakeData();
   
+
+
 void readReceiver()
 {
-  for(byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
+  //for(byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
 
-    // Apply receiver calibration adjustment
-    receiverData[channel] = (receiverSlope[channel] * getRawChannelValue(channel)) + receiverOffset[channel];
-    // Smooth the flight control receiver inputs
-    receiverCommandSmooth[channel] = filterSmooth(receiverData[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]);
-  }
-  
-  // Reduce receiver commands using receiverXmitFactor and center around 1500
-  for (byte channel = XAXIS; channel < THROTTLE; channel++) {
-    receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
-  }	
-  // No xmitFactor reduction applied for throttle, mode and AUX
-  for (byte channel = THROTTLE; channel < lastReceiverChannel; channel++) {
-    receiverCommand[channel] = receiverCommandSmooth[channel];
-  }
+  //  // Apply receiver calibration adjustment
+  //  receiverData[channel] = (receiverSlope[channel] * getRawChannelValue(channel)) + receiverOffset[channel];
+  //  // Smooth the flight control receiver inputs
+  //  receiverCommandSmooth[channel] = filterSmooth(receiverData[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]);
+  //}
+  //
+  //// Reduce receiver commands using receiverXmitFactor and center around 1500
+  //for (byte channel = XAXIS; channel < THROTTLE; channel++) {
+  //  receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
+  //}	
+  //// No xmitFactor reduction applied for throttle, mode and AUX
+  //for (byte channel = THROTTLE; channel < lastReceiverChannel; channel++) {
+  //  receiverCommand[channel] = receiverCommandSmooth[channel];
+  //}
+
+	FakeData();
+}
+
+void FakeData()
+{
+	AssignTestData();
+	TestData();
+	FMSignal();
+	SelectProgram();
+	SonarCheck();
+	CalculateAltitude();
+	ApplyHeading();
+	ApplySpeed();
 }
 
 

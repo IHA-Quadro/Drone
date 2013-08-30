@@ -75,9 +75,6 @@
     <ClInclude Include="..\Libraries\AQ_Math\AQMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\AQ_I2C\Device_I2C.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -108,12 +105,27 @@
     <ClInclude Include="..\Libraries\AQ_Motors\Motors_PWM_Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\ControlFaker\ControlFaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Receiver\Receiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\AQ_Receiver\Receiver_MEGA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Libraries\AQ_I2C\Device_I2C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\AQ_Math\AQMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlFaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

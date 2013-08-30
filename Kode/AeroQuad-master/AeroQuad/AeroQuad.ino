@@ -27,6 +27,7 @@
 *****************************************************************************/
 
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
+#include "ControlFaker.h"
 
 //
 // Define Security Checks
