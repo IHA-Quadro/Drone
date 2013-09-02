@@ -1529,6 +1529,7 @@ void process10HzTask2() {
  * low priority 10Hz task 3
  ******************************************************************/
 void process10HzTask3() {
+	_hzCounter++;
     G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
     lowPriorityTenHZpreviousTime2 = currentTime;
 
@@ -1553,6 +1554,8 @@ void process10HzTask3() {
  * 1Hz task 
  ******************************************************************/
 void process1HzTask() {
+	PrintStatus();
+
   #ifdef MavLink
     G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
     oneHZpreviousTime = currentTime;

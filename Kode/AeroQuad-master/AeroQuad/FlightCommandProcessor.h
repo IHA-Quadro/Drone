@@ -24,8 +24,7 @@
 #ifndef _AQ_FLIGHT_COMMAND_READER_
 #define _AQ_FLIGHT_COMMAND_READER_
 
-
-
+#include "Receiver.h"
 
 #if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
   boolean isPositionHoldEnabledByUser() {
@@ -176,7 +175,8 @@
 
 
 
-void processZeroThrottleFunctionFromReceiverCommand() {
+void processZeroThrottleFunctionFromReceiverCommand() 
+{
   // Disarm motors (left stick lower left corner)
   if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) {
     commandAllMotors(MINCOMMAND);
@@ -196,13 +196,13 @@ void processZeroThrottleFunctionFromReceiverCommand() {
 
   // Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
   if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) {
-    calibrateGyro();
+    calibrateGyro(); 
     computeAccelBias();
     storeSensorsZeroToEEPROM();
     calibrateKinematics();
     zeroIntegralError();
     pulseMotors(3);
-  }   
+  }  
 
   // Arm motors (left stick lower right corner)
   if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) {
@@ -223,12 +223,13 @@ void processZeroThrottleFunctionFromReceiverCommand() {
     #endif  
 
     zeroIntegralError();
-
   }
-  // Prevents accidental arming of motor output if no transmitter command received
+
+	// Prevents accidental arming of motor output if no transmitter command received
   if (receiverCommand[ZAXIS] > MINCHECK) {
     safetyCheck = ON; 
   }
+
 }
 
 

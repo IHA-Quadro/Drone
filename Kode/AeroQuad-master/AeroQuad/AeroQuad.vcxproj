@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClCompile Include="..\Libraries\AQ_I2C\Device_I2C.cpp" />
     <ClCompile Include="..\Libraries\AQ_Math\AQMath.cpp" />
-    <ClCompile Include="ControlFaker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

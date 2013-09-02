@@ -76,7 +76,6 @@ void process1HzTask();
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\AeroQuad.ino"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\AeroQuad.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\AltitudeControlProcessor.h"
-#include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\ControlFaker.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\DataStorage.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\FlightCommandProcessor.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\FlightControlProcessor.h"
