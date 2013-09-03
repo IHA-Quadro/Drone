@@ -82,6 +82,8 @@
     <ClInclude Include="..\Libraries\AQ_Defines\GlobalDefined.h" />
     <ClInclude Include="..\Libraries\AQ_Defines\SensorsStatus.h" />
     <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope.h" />
+    <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope_ITG3200Common.h" />
+    <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope_ITG3200_9DOF.h" />
     <ClInclude Include="..\Libraries\AQ_I2C\Device_I2C.h" />
     <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics.h" />
     <ClInclude Include="..\Libraries\AQ_Kinematics\Kinematics_ARG.h" />

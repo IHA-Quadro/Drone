@@ -25,6 +25,7 @@
 #define _AQ_FLIGHT_COMMAND_READER_
 
 #include "Receiver.h"
+#include "GlobalDefined.h"
 
 #if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
   boolean isPositionHoldEnabledByUser() {
@@ -196,11 +197,22 @@ void processZeroThrottleFunctionFromReceiverCommand()
 
   // Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
   if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) {
+		Serial.println("Calibrate gyro", SERIALPRINT);
     calibrateGyro(); 
+
+		Serial.println("Calibrate Acceleration Bias", SERIALPRINT);
     computeAccelBias();
+
+		Serial.println("Store values from sensors", SERIALPRINT);
     storeSensorsZeroToEEPROM();
+
+		Serial.println("Calibrate Kinematics", SERIALPRINT);
     calibrateKinematics();
-    zeroIntegralError();
+    
+		Serial.println("Calibrate Integral Errors", SERIALPRINT);
+		zeroIntegralError();
+
+		Serial.println("Pulse motors 3 times", SERIALPRINT);
     pulseMotors(3);
   }  
 

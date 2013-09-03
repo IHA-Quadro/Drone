@@ -92,7 +92,7 @@
 // *******************************************************************************************************************************
 //#define HeadingMagHold				// Enables Magnetometer, gets automatically selected if CHR6DM is defined
 #define AltitudeHoldBaro			// Enables Barometer
-//#define AltitudeHoldRangeFinder	// Enables Altitude Hold with range finder, not displayed on the configurator (yet)
+#define AltitudeHoldRangeFinder	// Enables Altitude Hold with range finder, not displayed on the configurator (yet)
 //#define AutoLanding				// Enables auto landing on channel AUX3 of the remote, NEEDS AltitudeHoldBaro AND AltitudeHoldRangeFinder to be defined
 
 //

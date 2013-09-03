@@ -40,4 +40,6 @@
 
 #define ALTPANIC 2
 
+#define SERIALPRINT 1
+
 #endif

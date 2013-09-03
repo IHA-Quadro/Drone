@@ -93,28 +93,6 @@ void PrintStatus();
 
 void readReceiver()
 {
-	//for(byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
-
-	//  // Apply receiver calibration adjustment
-	//  receiverData[channel] = (receiverSlope[channel] * getRawChannelValue(channel)) + receiverOffset[channel];
-	//  // Smooth the flight control receiver inputs
-	//  receiverCommandSmooth[channel] = filterSmooth(receiverData[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]);
-	//}
-	//
-	//// Reduce receiver commands using receiverXmitFactor and center around 1500
-	//for (byte channel = XAXIS; channel < THROTTLE; channel++) {
-	//  receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
-	//}	
-	//// No xmitFactor reduction applied for throttle, mode and AUX
-	//for (byte channel = THROTTLE; channel < lastReceiverChannel; channel++) {
-	//  receiverCommand[channel] = receiverCommandSmooth[channel];
-	//}
-
-	FakeData();
-}
-
-void FakeData()
-{
 	if(_startUp)
 	{
 		//To start at all
@@ -130,7 +108,7 @@ void FakeData()
 			ArmMotors();
 	
 		if(_motorsArmed)
-			AssignTestData();
+			initializeReceiverParam();
 	}
 	else
 	{

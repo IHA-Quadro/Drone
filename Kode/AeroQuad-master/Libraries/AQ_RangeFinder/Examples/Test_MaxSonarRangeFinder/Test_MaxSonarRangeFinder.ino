@@ -34,4 +34,5 @@ void loop() {
   
   Serial.print("Distance = ");
   Serial.println(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
+	delay(100);
 }
