@@ -179,7 +179,9 @@
 void processZeroThrottleFunctionFromReceiverCommand() 
 {
   // Disarm motors (left stick lower left corner)
-  if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) {
+  if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) 
+	{
+		Serial.println("Disarming motors", SERIALPRINT);
     commandAllMotors(MINCOMMAND);
     motorArmed = OFF;
     inFlight = false;
@@ -196,7 +198,8 @@ void processZeroThrottleFunctionFromReceiverCommand()
   }    
 
   // Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
-  if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) {
+  if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) 
+	{
 		Serial.println("Calibrate gyro", SERIALPRINT);
     calibrateGyro(); 
 
@@ -217,17 +220,19 @@ void processZeroThrottleFunctionFromReceiverCommand()
   }  
 
   // Arm motors (left stick lower right corner)
-  if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) {
-
+  if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) 
+	{
     #ifdef OSD_SYSTEM_MENU
       if (menuOwnsSticks) {
         return;
       }
     #endif
 
-    for (byte motor = 0; motor < LASTMOTOR; motor++) {
+    for (byte motor = 0; motor < LASTMOTOR; motor++) 
+		{
       motorCommand[motor] = MINTHROTTLE;
     }
+		Serial.println("Motors armed", SERIALSETUP);
     motorArmed = ON;
 
     #ifdef OSD
@@ -238,10 +243,11 @@ void processZeroThrottleFunctionFromReceiverCommand()
   }
 
 	// Prevents accidental arming of motor output if no transmitter command received
-  if (receiverCommand[ZAXIS] > MINCHECK) {
+  if (receiverCommand[ZAXIS] > MINCHECK) 
+	{
+		Serial.println("Safetycheck", SERIALPRINT);
     safetyCheck = ON; 
   }
-
 }
 
 
@@ -257,25 +263,25 @@ void readPilotCommands() {
 
   readReceiver(); 
   
-  if (receiverCommand[THROTTLE] < MINCHECK) {
-    processZeroThrottleFunctionFromReceiverCommand();
-  }
+  if (receiverCommand[THROTTLE] < MINCHECK) 
+		processZeroThrottleFunctionFromReceiverCommand();
+  
 
-  if (!inFlight) {
-    if (motorArmed == ON && receiverCommand[THROTTLE] > minArmedThrottle) {
+  if (!inFlight) 
+	{
+    if (motorArmed == ON && receiverCommand[THROTTLE] > minArmedThrottle) 
       inFlight = true;
-    }
   }
 
     // Check Mode switch for Acro or Stable
-    if (receiverCommand[MODE] > 1500) {
-        flightMode = ATTITUDE_FLIGHT_MODE;
-    }
-    else {
-        flightMode = RATE_FLIGHT_MODE;
-    }
+    if (receiverCommand[MODE] > 1500) 
+			flightMode = ATTITUDE_FLIGHT_MODE;
     
-    if (previousFlightMode != flightMode) {
+    else 
+      flightMode = RATE_FLIGHT_MODE;
+        
+    if (previousFlightMode != flightMode) 
+		{
       zeroIntegralError();
       previousFlightMode = flightMode;
     }

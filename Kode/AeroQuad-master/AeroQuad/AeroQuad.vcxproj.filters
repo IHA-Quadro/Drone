@@ -114,13 +114,16 @@
     <ClInclude Include="..\Libraries\AQ_Receiver\Receiver_MEGA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope_ITG3200_9DOF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\AQ_Gyroscope\Gyroscope_ITG3200Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveCommandTestData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

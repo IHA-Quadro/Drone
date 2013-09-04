@@ -40,6 +40,7 @@
 
 #define ALTPANIC 2
 
-#define SERIALPRINT 1
+bool SERIALPRINT = true;
+bool SERIALSETUP = true;
 
 #endif

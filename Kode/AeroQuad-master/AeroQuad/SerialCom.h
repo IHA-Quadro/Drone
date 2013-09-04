@@ -19,7 +19,7 @@
 */
 
 // SerialCom.pde is responsible for the serial communication for commands and telemetry from the AeroQuad
-// This comtains readSerialCommand() which listens for a serial command and it's arguments
+// This contains readSerialCommand() which listens for a serial command and it's arguments
 // This also contains readSerialTelemetry() which listens for a telemetry request and responds with the requested data
 // For more information on each command/telemetry look at: http://aeroquad.com/content.php?117
 
@@ -28,6 +28,8 @@
 
 #ifndef _AQ_SERIAL_COMM_
 #define _AQ_SERIAL_COMM_
+
+#include "GlobalDefined.h"
 
 char queryType = 'X';
 
@@ -65,6 +67,20 @@ void skipSerialValues(byte number) {
   for(byte i=0; i<number; i++) {
     readFloatSerial();
   }
+}
+
+void StopMotors()
+{
+	_killMotors = !_killMotors;
+
+	if(!_killMotors)
+		ResetInputData();
+}
+
+void StopUART()
+{
+	SERIALPRINT = !SERIALPRINT;
+	SERIALSETUP = !SERIALSETUP;
 }
 
 void readSerialCommand() {
@@ -229,6 +245,11 @@ void readSerialCommand() {
         #endif
       #endif
       break;
+
+		case 'S':
+			StopMotors();
+			StopUART();
+			break;
 
     case 'U': // Range Finder
       #if defined (AltitudeHoldRangeFinder)

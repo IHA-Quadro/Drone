@@ -86,6 +86,7 @@ void process1HzTask();
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\OSDDisplayController.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\OSDMenu.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\PID.h"
+#include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\ReceiveCommandTestData.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\SerialCom.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\SerialLCD.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\UserConfiguration.h"

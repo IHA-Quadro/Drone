@@ -87,42 +87,47 @@ void initializeReceiverParam(int nbChannel = 6) {
 int getRawChannelValue(byte channel);  
 void readReceiver();
 void FakeData();
-void TestData();
+void ApplyData();
 void PrintStatus();
 
 
 void readReceiver()
 {
-	if(_startUp)
+	if(!_initialized)
 	{
 		//To start at all
 		receiverCommand[THROTTLE] = 1000;
 
-		if(!_calibrationPerformed)
-			PerformCalibration();
-	
-		if(!_safetyChecked && _calibrationPerformed)
-			SafetyCheck();
+		if(_motorsArmed)
+		{
+			initializeReceiverParam();
+			ResetInputData();
+			_initialized = true;
+		}
 
 		if(!_motorsArmed && _safetyChecked)
 			ArmMotors();
-	
-		if(_motorsArmed)
-			initializeReceiverParam();
+
+
+		if(!_safetyChecked && _calibrationPerformed)
+			SafetyCheck();
+
+		if(!_calibrationPerformed)
+			PerformCalibration();		
 	}
 	else
 	{
-		TestData();
 		//FMSignal();
 		//SelectProgram();
 		//SonarCheck();
 		//CalculateAltitude();
-		ApplyHeading();
-		ApplySpeed();
+		//ApplyHeading();
+		//ApplySpeed();
 	}
+	ApplyData();
 }
 
-void TestData()
+void ApplyData()
 {
 	// Apply receiver calibration adjustment
 	for(byte channel = XAXIS; channel < channelsInUse; channel++)
@@ -145,15 +150,19 @@ void TestData()
 	}
 }
 
+//Print X-, Y-, Z-axis and Throttle
 void PrintStatus()
 {
-	_hzCounter++;
-	for(int i = XAXIS; i < MODE +1; i++)
-	{
-		Serial.print(receiverCommand[i]);
-		Serial.print(", ");
+	if(SERIALPRINT)
+	{	
+		_hzCounter++;
+		for(int i = XAXIS; i < MODE +1; i++)
+		{
+			Serial.print(receiverCommand[i]);
+			Serial.print(", ");
+		}
+		Serial.println();
 	}
-	Serial.println();
 }
 
 void setChannelValue(byte channel,int value);
