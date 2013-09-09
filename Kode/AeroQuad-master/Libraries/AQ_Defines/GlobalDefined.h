@@ -40,7 +40,6 @@
 
 #define ALTPANIC 2
 
-bool SERIALPRINT = true;
-bool SERIALSETUP = true;
+bool KILLMOTOR = false;
 
 #endif

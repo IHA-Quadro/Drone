@@ -26,6 +26,7 @@ If you need additional assistance go to http://www.aeroquad.com/forum.php
 or talk to us live on IRC #aeroquad
 *****************************************************************************/
 
+#include "PrintDrone.h"
 #include "ReceiveCommandTestData.h"
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
 #include "ControlFaker.h"
@@ -1295,7 +1296,9 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 * Aeroquad
 ******************************************************************/
 void setup() {
-	Serial.println("Starting setup of drone", SERIALSETUP);
+	PrintDrone();
+
+	PRINTDRONE.printDebug("Starting setup of drone");
 
 	SERIAL_BEGIN(BAUD);
 	pinMode(LED_Green, OUTPUT);
@@ -1321,23 +1324,23 @@ void setup() {
 	initializeMotors(EIGHT_Motors);
 #endif
 
-	Serial.println("Initializing Receiver", SERIALSETUP);
+	PRINTDRONE.printDebug("Initializing Receiver");
 	initializeReceiver(LASTCHANNEL);
 
-	Serial.println("Initializing EEPROM", SERIALSETUP);
+	PRINTDRONE.printDebug("Initializing EEPROM");
 	initReceiverFromEEPROM();
 
 	// Initialize sensors
 	// If sensors have a common initialization routine
 	// insert it into the gyro class because it executes first
-	Serial.println("Initializing Gyro", SERIALSETUP);
+	PRINTDRONE.printDebug("Initializing Gyro");
 	initializeGyro(); // defined in Gyro.h
 	while (!calibrateGyro()); // this make sure the craft is still befor to continue init process
-	
-	Serial.println("Initializing Accelometer", SERIALSETUP);
+
+	PRINTDRONE.printDebug("Initializing Accelometer");
 	initializeAccel(); // defined in Accel.h
 	if (firstTimeBoot) {
-		Serial.println("First time boot", SERIALSETUP);
+		PRINTDRONE.printDebug("First time boot");
 		computeAccelBias();
 		writeEEPROM();
 	}
@@ -1352,7 +1355,7 @@ void setup() {
 	PID[ATTITUDE_YAXIS_PID_IDX].windupGuard = 0.375;
 
 	// Flight angle estimation
-	Serial.println("Initializing kinematics", SERIALSETUP);
+	PRINTDRONE.printDebug("Initializing kinematics");
 	initializeKinematics();
 
 #ifdef HeadingMagHold
@@ -1541,10 +1544,6 @@ void process10HzTask2() {
 * low priority 10Hz task 3
 ******************************************************************/
 void process10HzTask3() {
-
-	if(_initialized)
-		TestAxis(ZAXIS);
-	
 	PrintStatus();
 
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;

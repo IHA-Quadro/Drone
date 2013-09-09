@@ -108,7 +108,6 @@ void readReceiver()
 		if(!_motorsArmed && _safetyChecked)
 			ArmMotors();
 
-
 		if(!_safetyChecked && _calibrationPerformed)
 			SafetyCheck();
 
@@ -153,7 +152,7 @@ void ApplyData()
 //Print X-, Y-, Z-axis and Throttle
 void PrintStatus()
 {
-	if(SERIALPRINT)
+	if(PRINTDRONE.PrintConfig[STATUSMODE])
 	{	
 		_hzCounter++;
 		for(int i = XAXIS; i < MODE +1; i++)

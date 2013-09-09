@@ -15,7 +15,7 @@ bool _inverseSteps = false;
 void TestAxis(byte axis)
 {
 	int step = _stepSize;
-	_controllerInput[THROTTLE] = 1350;
+	_controllerInput[THROTTLE] = 1250;
 
 	_controllerInput[axis] += step;
 
@@ -28,6 +28,21 @@ void TestAxis(byte axis)
 	KillMotor();
 }
 
+void RotateDrone(int zaxis)
+{
+	_controllerInput[ZAXIS] = zaxis;
+}
+
+void MoveDrone(int xaxis, int yaxis)
+{
+	_controllerInput[XAXIS] = xaxis;
+	_controllerInput[YAXIS] = yaxis;
+}
+
+void ThrottleDrone(int throttle)
+{
+	_controllerInput[THROTTLE] = throttle;
+}
 
 
 #endif

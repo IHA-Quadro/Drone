@@ -26,6 +26,7 @@
 
 #include "Receiver.h"
 #include "GlobalDefined.h"
+#include "PrintDrone.h"
 
 #if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
   boolean isPositionHoldEnabledByUser() {
@@ -181,7 +182,7 @@ void processZeroThrottleFunctionFromReceiverCommand()
   // Disarm motors (left stick lower left corner)
   if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) 
 	{
-		Serial.println("Disarming motors", SERIALPRINT);
+		PRINTDRONE.printDebug("Disarming motors");
     commandAllMotors(MINCOMMAND);
     motorArmed = OFF;
     inFlight = false;
@@ -200,22 +201,22 @@ void processZeroThrottleFunctionFromReceiverCommand()
   // Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
   if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) 
 	{
-		Serial.println("Calibrate gyro", SERIALPRINT);
+		PRINTDRONE.printDebug("Calibrate gyro");
     calibrateGyro(); 
 
-		Serial.println("Calibrate Acceleration Bias", SERIALPRINT);
+		PRINTDRONE.printDebug("Calibrate Acceleration Bias");
     computeAccelBias();
 
-		Serial.println("Store values from sensors", SERIALPRINT);
+		PRINTDRONE.printDebug("Store values from sensors");
     storeSensorsZeroToEEPROM();
 
-		Serial.println("Calibrate Kinematics", SERIALPRINT);
+		PRINTDRONE.printDebug("Calibrate Kinematics");
     calibrateKinematics();
     
-		Serial.println("Calibrate Integral Errors", SERIALPRINT);
+		PRINTDRONE.printDebug("Calibrate Integral Errors");
 		zeroIntegralError();
 
-		Serial.println("Pulse motors 3 times", SERIALPRINT);
+		PRINTDRONE.printDebug("Pulse motors 3 times");
     pulseMotors(3);
   }  
 
@@ -232,7 +233,7 @@ void processZeroThrottleFunctionFromReceiverCommand()
 		{
       motorCommand[motor] = MINTHROTTLE;
     }
-		Serial.println("Motors armed", SERIALSETUP);
+		PRINTDRONE.printDebug("Motors armed");
     motorArmed = ON;
 
     #ifdef OSD
@@ -245,7 +246,7 @@ void processZeroThrottleFunctionFromReceiverCommand()
 	// Prevents accidental arming of motor output if no transmitter command received
   if (receiverCommand[ZAXIS] > MINCHECK) 
 	{
-		Serial.println("Safetycheck", SERIALPRINT);
+		PRINTDRONE.printDebug("Safetycheck");
     safetyCheck = ON; 
   }
 }

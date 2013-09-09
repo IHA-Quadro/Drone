@@ -76,7 +76,7 @@ int led = 13;
 int maxSpeed = 1220;
 int minSpeed = 1200;
 int initSpeed = 1000;
-double pusherScaling = 0.99;
+double pusherScaling = 1;
 
 
 void setup() {

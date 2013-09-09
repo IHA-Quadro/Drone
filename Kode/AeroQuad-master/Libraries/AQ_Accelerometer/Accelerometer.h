@@ -38,5 +38,7 @@ void measureAccel();
 void measureAccelSum();
 void evaluateMetersPerSec();
 void computeAccelBias();
+
+void ResetAccelData();
   
 #endif

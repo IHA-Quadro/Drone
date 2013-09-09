@@ -4,6 +4,11 @@
 
 #include "Arduino.h"
 #include "GlobalDefined.h"
+#include "Motors.h"
+#include "PrintDrone.h"
+#include "Accelerometer.h"
+#include "Gyroscope.h"
+#include "Kinematics.h"
 
 #define channelsInUse 6
 int _hzCounter = 1000;
@@ -11,22 +16,28 @@ int _maxHzCounter = 1200;
 int _commonHeading = 1500;
 
 bool _initialized = false;
-bool _calibrationPerformed = false;
+bool _calibrationPerformed = true;
 bool _motorsArmed = false;
 bool _safetyChecked = false;
 
-bool _killMotors = false;
-
 int _controllerInput[channelsInUse] = {0,0,0,0,0,0};
+
+void RotateDrone(int value);
+void MoveDrone(int xaxis, int yaxis);
+void ThrottleDrone(int throttle);
 
 void KillMotor()
 {
-	if(_killMotors)
+	if(KILLMOTOR)
 	{
-		for(byte axis = XAXIS; axis < AUX5 + 1; axis++)
+		//Reset axis
+		for(byte axis = XAXIS; axis < THROTTLE; axis++)
 		{
-			_controllerInput[axis] = 0;
+			_controllerInput[axis] = 1500;
 		}
+
+		//Thottle killed
+		_controllerInput[THROTTLE] = 1000;
 	}
 }
 
@@ -101,13 +112,18 @@ void ResetInputData()
 	_controllerInput[XAXIS]			= 1500;
 	_controllerInput[YAXIS]			= 1500;
 	_controllerInput[ZAXIS]			= 1500;
-	_controllerInput[THROTTLE]	= 1000;
+	_controllerInput[THROTTLE]	= 1200;
 	_controllerInput[MODE]			= 1000;
 	_controllerInput[AUX1]			= 1000;
 	_controllerInput[AUX2]			= 1000;
 	_controllerInput[AUX3]			= 1000;
 	_controllerInput[AUX4]			= 1000;
 	_controllerInput[AUX5]			= 1000;
+
+	ResetAccelData();
+	ResetKinematicData();
+	ResetGyroData();
+	//ResetHeadingData();
 }
 
 #endif

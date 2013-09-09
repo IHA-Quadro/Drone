@@ -38,6 +38,8 @@ float earthAccel[3] = {0.0,0.0,0.0};
 
 float accelCutoff = 0.0;
 
+void ResetKinematicData();
+
 void initializeBaseKinematicsParam() {
 
   for (byte axis = XAXIS; axis <= ZAXIS; axis++) {

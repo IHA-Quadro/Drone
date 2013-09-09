@@ -30,6 +30,7 @@
 #define _AQ_SERIAL_COMM_
 
 #include "GlobalDefined.h"
+#include "ControlFaker.h"
 
 char queryType = 'X';
 
@@ -69,18 +70,29 @@ void skipSerialValues(byte number) {
   }
 }
 
-void StopMotors()
+void InvertUART()
 {
-	_killMotors = !_killMotors;
-
-	if(!_killMotors)
-		ResetInputData();
+	PRINTDRONE.PrintConfig[STATUSMODE] = !PRINTDRONE.PrintConfig[STATUSMODE];
+	PRINTDRONE.PrintConfig[DEBUGMODE] = !PRINTDRONE.PrintConfig[DEBUGMODE];
 }
 
-void StopUART()
+void StopMotors()
 {
-	SERIALPRINT = !SERIALPRINT;
-	SERIALSETUP = !SERIALSETUP;
+	bool previousState = KILLMOTOR;
+
+	KILLMOTOR = !KILLMOTOR;
+
+	if(previousState == false)
+	{
+		PRINTDRONE.printStatus("Motor stopped!");
+		InvertUART();
+	}
+	else
+	{
+		ResetInputData();
+		InvertUART();
+		PRINTDRONE.printStatus("Motor started!");
+	}
 }
 
 void readSerialCommand() {
@@ -246,9 +258,17 @@ void readSerialCommand() {
       #endif
       break;
 
+		case 'R': //Rotate
+			RotateDrone( readFloatSerial());
+			break;
+
+
 		case 'S':
 			StopMotors();
-			StopUART();
+			break;
+
+		case 'T':
+			ThrottleDrone(readFloatSerial());
 			break;
 
     case 'U': // Range Finder

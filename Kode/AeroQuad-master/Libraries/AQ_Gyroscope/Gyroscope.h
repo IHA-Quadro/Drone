@@ -23,6 +23,7 @@
 
 #include "Arduino.h"
 #include "GlobalDefined.h"
+#include "PrintDrone.h"
 
 #define FINDZERO 49
 
@@ -40,5 +41,7 @@ void initializeGyro();
 void measureGyro();
 boolean calibrateGyro();
 void readGyroTemp();
+
+void ResetGyroData();
 
 #endif

@@ -18,6 +18,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>. 
 */
 
+//TODO:Skal der ændres herinde for reset?
 #ifndef _AQ_PID_H_
 #define _AQ_PID_H_
 

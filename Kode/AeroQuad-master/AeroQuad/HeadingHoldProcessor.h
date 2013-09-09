@@ -115,6 +115,12 @@ void processHeading()
   motorAxisCommandYaw = updatePID(commandedYaw, gyroRate[ZAXIS], &PID[ZAXIS_PID_IDX]);
 }
 
+void ResetHeadingData()
+{
+	setHeading = 0;
+	headingTime = micros();
+}
+
 #endif
 
 

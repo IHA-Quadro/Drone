@@ -26,6 +26,19 @@
 
 #define ACCEL_ADDRESS 0x53
 
+void ResetAccelData()
+{
+	for(byte axis = XAXIS; axis <= ZAXIS; axis++)
+	{
+		accelSample[axis] = 0;
+		accelSampleCount = 0;
+		accelScaleFactor[axis] = 0.0;
+		meterPerSecSec[axis] = 0.0;
+		runTimeAccelBias[axis] = 0;
+	}
+	accelOneG = 0.0;
+}
+
 void initializeAccel() {
 
   if (readWhoI2C(ACCEL_ADDRESS) ==  0xE5) { 		// page 14 of datasheet
@@ -61,7 +74,8 @@ void measureAccelSum() {
 
 void evaluateMetersPerSec() {
 	
-  for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+  for (byte axis = XAXIS; axis <= ZAXIS; axis++) 
+	{
     meterPerSecSec[axis] = (accelSample[axis] / accelSampleCount) * accelScaleFactor[axis] + runTimeAccelBias[axis];
 	accelSample[axis] = 0;
   }
