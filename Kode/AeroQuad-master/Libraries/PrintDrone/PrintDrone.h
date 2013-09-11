@@ -1,8 +1,7 @@
-// PrintDrone.h
+#ifndef _PRINTDRONE_H_
+#define _PRINTDRONE_H_
 
-#ifndef _PRINTDRONE_h
-#define _PRINTDRONE_h
-
+#include <stdbool.h>
 #include "Arduino.h"
 #include "GlobalDefined.h"
 
@@ -10,19 +9,13 @@
 #define STATUSMODE 1
 #define GYROMODE 2
 
-class PrintDrone
-{
-	public:
-		PrintDrone();
+void SetupPrintDrone();
 
-		void printDebug(const String &s);
-		void printStatus(const String &s);
-		void printGyro();
-		void printGyroAxis(byte axis);
+bool PrintConfig[3];
 
-		bool PrintConfig[3];
-};
-
-extern PrintDrone PRINTDRONE;
+void printDebug(const String &s);
+void printStatus(const String &s);
+void printGyro();
+void printGyroAxis(byte axis);
 
 #endif

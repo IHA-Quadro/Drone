@@ -32,7 +32,6 @@ void ResetAccelData()
 	{
 		accelSample[axis] = 0;
 		accelSampleCount = 0;
-		accelScaleFactor[axis] = 0.0;
 		meterPerSecSec[axis] = 0.0;
 		runTimeAccelBias[axis] = 0;
 	}

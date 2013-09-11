@@ -45,7 +45,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define ITG3200_TEMPERATURE_ADDRESS     0x1B
 
 
-//float gyroTempBias[3] = {0.0,0.0,0.0};
+float gyroTempBias[3] = {0.0,0.0,0.0};
 void measureSpecificGyroADC(int *gyroADC);
 void measureSpecificGyroSum();
 void evaluateSpecificGyroRate(int *gyroADC);

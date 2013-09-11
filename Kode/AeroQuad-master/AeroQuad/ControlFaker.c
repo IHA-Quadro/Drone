@@ -1,36 +1,42 @@
-#ifndef _CONTROLFAKER_H_
-#define _CONTROLFAKER_H_
+#include "ControlFaker.h"
+#include "stdbool.h"
 
-#include "Arduino.h"
-#include "GlobalDefined.h"
-#include "Motors.h"
-#include "Accelerometer.h"
-#include "Gyroscope.h"
-#include "Kinematics.h"
-#include "MotorControl.h"
+bool _initialized;
+bool _calibrationPerformed;
+bool _motorsArmed;
+bool _safetyChecked;
 
-#define channelsInUse 6
-int _hzCounter = 1000;
-int _maxHzCounter = 1200;
-int _commonHeading = 1500;
+int _controllerInput[channelsInUse];
 
-bool _initialized = false;
-bool _calibrationPerformed = true;
-bool _motorsArmed = false;
-bool _safetyChecked = false;
+int _hzCounter;
+int _maxHzCounter;
+int _commonHeading;
 
-int _controllerInput[channelsInUse] = {0,0,0,0,0,0};
+void SetupControlFaker()
+{
+	_initialized = false;
+	_calibrationPerformed = true;
+	_motorsArmed = false;
+	_safetyChecked = false;
 
-void RotateDrone(int value);
-void MoveDrone(int xaxis, int yaxis);
-void ThrottleDrone(int throttle);
+	int i;
+	for(i = 0; channelsInUse ; i++)
+	{
+		_controllerInput[channelsInUse] = 0;
+	}
+
+	_hzCounter = 1000;
+	_maxHzCounter = 1200;
+	_commonHeading = 1500;
+}
 
 void KillMotor()
 {
-	if(motorControl.getMotorStatus())
+	if(getMotorStatus())
 	{
 		//Reset axis
-		for(byte axis = XAXIS; axis < THROTTLE; axis++)
+		byte axis;
+		for(axis = XAXIS; axis < THROTTLE; axis++)
 		{
 			_controllerInput[axis] = 1500;
 		}
@@ -124,5 +130,3 @@ void ResetInputData()
 	ResetGyroData();
 	//ResetHeadingData();
 }
-
-#endif

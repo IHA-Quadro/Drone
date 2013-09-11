@@ -1,18 +1,13 @@
-// Extension of Print.h
-// Calls to Print.h for output
-// 
-
 #include "PrintDrone.h"
 
-PrintDrone::PrintDrone()
+void setupPrintDrone()
 {
-	for(int i = DEBUGMODE; i < GYROMODE; i++)
-	{
-		PrintConfig[i] = true;
-	}
+	PrintConfig[DEBUGMODE] = true;
+	PrintConfig[STATUSMODE] = false;
+	PrintConfig[GYROMODE] = true;
 }
 
-void PrintDrone::printDebug(const String &s)
+void printDebug(const String &s)
 {
 	if(PrintConfig[DEBUGMODE])
 	{
@@ -20,12 +15,13 @@ void PrintDrone::printDebug(const String &s)
 	}
 }
 
-void PrintDrone::printGyro()
+void printGyro()
 {
-
+	Serial.print("Gyro heading: ");
+	//Serial.println(gyroHeading);
 }
 
-void PrintDrone::printStatus(const String &s)
+void printStatus(const String &s)
 {
 	if(PrintConfig[STATUSMODE])
 	{
@@ -33,7 +29,7 @@ void PrintDrone::printStatus(const String &s)
 	}
 }
 
-void printGyroAxis(byte axis)
+void PrintGyroAxis(byte axis)
 {
 	if(PrintConfig[GYROMODE])
 	{
@@ -45,5 +41,3 @@ void printGyroAxis(byte axis)
 			Serial.println("z-axis is moving - hold still!");
 	}
 }
-
-PrintDrone PRINTDRONE;

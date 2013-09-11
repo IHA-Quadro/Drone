@@ -40,6 +40,4 @@
 
 #define ALTPANIC 2
 
-bool KILLMOTOR = false;
-
 #endif

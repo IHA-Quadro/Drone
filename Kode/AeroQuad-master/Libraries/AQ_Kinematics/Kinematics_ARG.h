@@ -189,11 +189,11 @@ void ResetKinematicData()
 
 	for(int axis = XAXIS; axis < ZAXIS+1; axis++)
 	{
-		correctedRateVector[axis] = 0.0;
-		earthAccel[axis] = 0.0;
+		//correctedRateVector[axis] = 0.0;
+		//earthAccel[axis] = 0.0;
 	}
 
-	accelCutoff = 0.0;
+	//accelCutoff = 0.0;
 	q0 = 0.0;
 	q1 = 0.0;
 	q2 = 0.0;

@@ -26,10 +26,11 @@ If you need additional assistance go to http://www.aeroquad.com/forum.php
 or talk to us live on IRC #aeroquad
 *****************************************************************************/
 
-#include "PrintDrone.h"
+#include "ControlFaker.h"
 #include "ReceiveCommandTestData.h"
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
 #include "ControlFaker.h"
+#include "PrintDrone.h"
 
 //
 // Define Security Checks
@@ -1298,7 +1299,7 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 void setup() {
 	PrintDrone();
 
-	PRINTDRONE.printDebug("Starting setup of drone");
+	PrintHelper.printDebug("Starting setup of drone");
 
 	SERIAL_BEGIN(BAUD);
 	pinMode(LED_Green, OUTPUT);
@@ -1324,23 +1325,23 @@ void setup() {
 	initializeMotors(EIGHT_Motors);
 #endif
 
-	PRINTDRONE.printDebug("Initializing Receiver");
+	PrintHelper.printDebug("Initializing Receiver");
 	initializeReceiver(LASTCHANNEL);
 
-	PRINTDRONE.printDebug("Initializing EEPROM");
+	PrintHelper.printDebug("Initializing EEPROM");
 	initReceiverFromEEPROM();
 
 	// Initialize sensors
 	// If sensors have a common initialization routine
 	// insert it into the gyro class because it executes first
-	PRINTDRONE.printDebug("Initializing Gyro");
+	PrintHelper.printDebug("Initializing Gyro");
 	initializeGyro(); // defined in Gyro.h
 	while (!calibrateGyro()); // this make sure the craft is still befor to continue init process
 
-	PRINTDRONE.printDebug("Initializing Accelometer");
+	PrintHelper.printDebug("Initializing Accelometer");
 	initializeAccel(); // defined in Accel.h
 	if (firstTimeBoot) {
-		PRINTDRONE.printDebug("First time boot");
+		PrintHelper.printDebug("First time boot");
 		computeAccelBias();
 		writeEEPROM();
 	}
@@ -1355,7 +1356,7 @@ void setup() {
 	PID[ATTITUDE_YAXIS_PID_IDX].windupGuard = 0.375;
 
 	// Flight angle estimation
-	PRINTDRONE.printDebug("Initializing kinematics");
+	PrintHelper.printDebug("Initializing kinematics");
 	initializeKinematics();
 
 #ifdef HeadingMagHold
@@ -1429,6 +1430,7 @@ void process100HzTask() {
 	G_Dt = (currentTime - hundredHZpreviousTime) / 1000000.0;
 	hundredHZpreviousTime = currentTime;
 
+	//PrintHelper.printGyro();
 	evaluateGyroRate();
 	evaluateMetersPerSec();
 
