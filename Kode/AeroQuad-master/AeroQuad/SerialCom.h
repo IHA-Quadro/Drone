@@ -1,10 +1,20 @@
 #ifndef _AQ_SERIAL_COMM_
 #define _AQ_SERIAL_COMM_
 
+#include "AeroQuad.h"
+#include "BarometricSensor.h"
+#include "DataStorage.h"
 #include "GlobalDefined.h"
 #include "ControlFaker.h"
-#include "../MotorControl/MotorControl.h"
+#include "FlightControlQuadPlus.h"
+#include "InoHelper.h"
+#include "Kinematics.h"
+#include "MotorControl.h"
+#include "PID.h"
 #include "PrintDrone.h"
+#include "Receiver.h"
+#include "SensorsStatus.h"
+#include "UserConfiguration.h"
 
 void initCommunication();
 bool validateCalibrateCommand(byte command);

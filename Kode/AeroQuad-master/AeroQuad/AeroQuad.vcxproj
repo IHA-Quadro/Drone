@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Users\Becks\Documents\Arduino\libraries\ControlFaker;C:\Users\Becks\Documents\Arduino\libraries\ControlFaker\utility;C:\Users\Becks\Documents\Arduino\libraries\PrintDrone;C:\Users\Becks\Documents\Arduino\libraries\PrintDrone\utility;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Math;C:\Users\Becks\Documents\Arduino\libraries\AQ_Math\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gyroscope;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gyroscope\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Accelerometer;C:\Users\Becks\Documents\Arduino\libraries\AQ_Accelerometer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_I2C;C:\Users\Becks\Documents\Arduino\libraries\AQ_I2C\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_APM;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_APM\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_Wii;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_Wii\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_CHR6DM;C:\Users\Becks\Documents\Arduino\libraries\AQ_Platform_CHR6DM\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Kinematics;C:\Users\Becks\Documents\Arduino\libraries\AQ_Kinematics\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BarometricSensor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BarometricSensor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gps;C:\Users\Becks\Documents\Arduino\libraries\AQ_Gps\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SoftModem;C:\Users\Becks\Documents\Arduino\libraries\AQ_SoftModem\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\Visual Micro\.AeroQuad.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -96,131 +96,29 @@
     <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\wiring_private.h" />
     <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\WString.h" />
     <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" />
-    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries\EEPROM\EEPROM.h" />
-    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries\Wire\Wire.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_ADXL345.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_ADXL345_9DOF.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_ADXL500.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_APM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_BMA180.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_CHR6DM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_MPU6000.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Accelerometer\Accelerometer_WII.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_BarometricSensor\BarometricSensor.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_BarometricSensor\BarometricSensor_BMP085.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_BarometricSensor\BarometricSensor_MS5611.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_BatteryMonitor\BatteryMonitor.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_BatteryMonitor\BatteryMonitorTypes.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_Aeroquad.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_Pins_2_3_5.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_Pins_44_45_46.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_Pins_6_7_8.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_STM32.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_CameraStabilizer\CameraStabilizer_TXControl.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Compass\Compass.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Compass\Magnetometer_CHR6DM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Compass\Magnetometer_HMC5843.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Compass\Magnetometer_HMC5883L.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Compass\Magnetometer_HMC58xx.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Defines\GlobalDefined.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Defines\SensorsStatus.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlHexPlus.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlHexX.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlHexY6.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlOctoPlus.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlOctoX.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlOctoX8.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlQuadPlus.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlQuadX.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlQuadY4.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlTri.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_FlightControlProcessor\FlightControlVariable.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gps\GpsAdapter.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gps\GpsDataType.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gps\mtk16.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gps\nmea.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gps\ublox.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_APM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_CHR6DM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_IDG_IDZ500.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_ITG3200.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_ITG3200Common.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_ITG3200_9DOF.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_L3G4200D.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_MPU6000.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Gyroscope\Gyroscope_Wii.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_I2C\Device_I2C.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\HeadingFusionProcessorCompFilter.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\HeadingFusionProcessorMARG.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\Kinematics.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\Kinematics_ARG.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\Kinematics_CHR6DM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\Kinematics_DCM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\Kinematics_MARG.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Kinematics\MagnetometerDeclinationDB.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Math\AQMath.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Math\FourtOrderFilter.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_APM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_I2C.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_PWM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_PWM_Timer.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_STM32.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Motors\Motors_TRI.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_AH.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_AI.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Altitude.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Base.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_BattMonitor.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Config.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Font.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_FontLoad.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_GPS.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Heading.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Notify.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Ranger.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_RSSI.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\MAX7456_Timer.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_OSD\OSD.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Platform_APM\APM_ADC.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Platform_APM\APM_ADC_Optimized.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Platform_APM\APM_RC.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Platform_CHR6DM\Platform_CHR6DM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Platform_Wii\Platform_Wii.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RangeFinder\MaxSonarRangeFinder.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RangeFinder\RangeFinder.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_328p.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_APM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_HWPPM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_MEGA.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_PPM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_PPM_common.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_RemotePC.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_SBUS.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_STM32.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_Receiver\Receiver_STM32PPM.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RSCode\AQ_RSCode.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RSSI\AnalogRSSIReader.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RSSI\EzUHFRSSIReader.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_RSSI\SBUSRSSIReader.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_SoftModem\AQ_SoftModem.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_SPI\Device_SPI.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\AQ_SPI\HardwareSPIExt.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\MotorControl\MotorControl.h" />
-    <ClInclude Include="..\..\..\..\Arduino\libraries\PrintDrone\PrintDrone.h" />
+    <ClInclude Include="Accelerometer.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Accelerometer.cpp">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="AeroQuad.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="AltitudeControlProcessor.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="AQMath.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="BarometricSensor.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="ControlFaker.h" />
     <ClInclude Include="DataStorage.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Device_I2C.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="FlightCommandProcessor.h">
@@ -229,18 +127,38 @@
     <ClInclude Include="FlightControlProcessor.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="GpsNavigator.h">
+    <ClInclude Include="FlightControlQuadPlus.h" />
+    <ClInclude Include="FlightControlVariable.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="FourtOrderFilter.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="GlobalDefined.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="GpsDataType.h" />
+    <ClInclude Include="Gyroscope.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="HeadingHoldProcessor.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="InoHelper.h" />
+    <ClInclude Include="Kinematics.h" />
+    <ClInclude Include="Kinematics_ARG.h" />
     <ClInclude Include="LedStatusProcessor.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="MavLink.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="MaxSonarRangeFinder.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MotorControl.h" />
+    <ClInclude Include="Motors.h" />
+    <ClInclude Include="Motors_PWM_Timer.h" />
     <ClInclude Include="OSDDisplayController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -250,7 +168,20 @@
     <ClInclude Include="PID.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="PrintDrone.h" />
+    <ClInclude Include="RangeFinder.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="ReceiveCommandTestData.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Receiver.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Receiver_MEGA.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SensorsStatus.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="SerialCom.h">
@@ -283,25 +214,34 @@
     <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\wiring_shift.c" />
     <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\WMath.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\WString.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries\EEPROM\EEPROM.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries\Wire\Wire.cpp" />
-    <ClCompile Include="..\..\..\..\Arduino\libraries\AQ_I2C\Device_I2C.cpp" />
-    <ClCompile Include="..\..\..\..\Arduino\libraries\AQ_Math\AQMath.cpp" />
-    <ClCompile Include="..\..\..\..\Arduino\libraries\MotorControl\MotorControl.c" />
-    <ClCompile Include="..\..\..\..\Arduino\libraries\PrintDrone\PrintDrone.c" />
-    <ClCompile Include="AltitudeControlProcessor.c" />
-    <ClCompile Include="ControlFaker.c" />
-    <ClCompile Include="FlightCommandProcessor.c" />
-    <ClCompile Include="FlightControlProcessor.c" />
-    <ClCompile Include="FlightControlQuadPlus.c" />
-    <ClCompile Include="HeadingHoldProcessor.c" />
-    <ClCompile Include="Kinematics.c" />
-    <ClCompile Include="Motors.c" />
-    <ClCompile Include="Motors_PWM_Timer.c" />
-    <ClCompile Include="ReceiveCommandTestData.c" />
-    <ClCompile Include="Receiver.c" />
-    <ClCompile Include="Receiver_MEGA.c" />
-    <ClCompile Include="SerialCom.c" />
+    <ClCompile Include="AeroQuad.cpp" />
+    <ClCompile Include="AltitudeControlProcessor.cpp" />
+    <ClCompile Include="AQMath.cpp" />
+    <ClCompile Include="BarometricSensor.cpp" />
+    <ClCompile Include="ControlFaker.cpp" />
+    <ClCompile Include="DataStorage.cpp" />
+    <ClCompile Include="Device_I2C.cpp" />
+    <ClCompile Include="FlightCommandProcessor.cpp" />
+    <ClCompile Include="FlightControlProcessor.cpp" />
+    <ClCompile Include="FlightControlQuadPlus.cpp" />
+    <ClCompile Include="FourtOrderFilter.cpp" />
+    <ClCompile Include="Gyryscope.cpp" />
+    <ClCompile Include="HeadingHoldProcessor.cpp" />
+    <ClCompile Include="InoHelper.cpp" />
+    <ClCompile Include="Kinematics.cpp" />
+    <ClCompile Include="Kinematics_ARG.cpp" />
+    <ClCompile Include="LedStatusProcessor.cpp" />
+    <ClCompile Include="MavLink.cpp" />
+    <ClCompile Include="MaxSonarRangeFinder.cpp" />
+    <ClCompile Include="MotorControl.cpp" />
+    <ClCompile Include="Motors.cpp" />
+    <ClCompile Include="Motors_PWM_Timer.cpp" />
+    <ClCompile Include="PID.cpp" />
+    <ClCompile Include="PrintDrone.cpp" />
+    <ClCompile Include="ReceiveCommandTestData.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="Receiver_MEGA.cpp" />
+    <ClCompile Include="SerialCom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

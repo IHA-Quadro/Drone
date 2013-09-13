@@ -1,9 +1,13 @@
 // FlightControl.pde is responsible for combining sensor measurements and
 // transmitter commands into motor commands for the defined flight configuration (X, +, etc.)
-
-
 #ifndef _AQ_PROCESS_FLIGHT_CONTROL_H_
 #define _AQ_PROCESS_FLIGHT_CONTROL_H_
+
+#include "AeroQuad.h"
+#include "FlightControlQuadPlus.h"
+#include "Kinematics.h"
+#include "PID.h"
+#include "Receiver.h"
 
 #define ATTITUDE_SCALING (0.75 * PWM2RAD)
 

@@ -1,15 +1,23 @@
 #ifndef _CONTROLFAKER_h
 #define _CONTROLFAKER_h
 
-#include "Arduino.h"
-#include "GlobalDefined.h"
-#include "Motors.h"
+#include <Arduino.h>
+
 #include "Accelerometer.h"
+#include "GlobalDefined.h"
 #include "Gyroscope.h"
 #include "Kinematics.h"
-#include "../MotorControl/MotorControl.h"
+#include "MotorControl.h"
+#include "Motors.h"
 
 #define channelsInUse 6
+
+boolean _initialized;
+boolean _calibrationPerformed;
+boolean _motorsArmed;
+boolean _safetyChecked;
+
+int _controllerInput[channelsInUse];
 
 void SetupControlFaker();
 void KillMotor();
