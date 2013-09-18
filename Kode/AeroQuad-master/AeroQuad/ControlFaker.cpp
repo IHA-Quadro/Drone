@@ -12,7 +12,7 @@ void SetupControlFaker()
 	
 	for(i = 0; channelsInUse ; i++)
 	{
-		_controllerInput[channelsInUse] = 0;
+		_controllerInput[i] = 0;
 	}
 }
 
@@ -94,10 +94,6 @@ void ResetInputData()
 	_controllerInput[THROTTLE]	= 1200;
 	_controllerInput[MODE]			= 1000;
 	_controllerInput[AUX1]			= 1000;
-	_controllerInput[AUX2]			= 1000;
-	_controllerInput[AUX3]			= 1000;
-	_controllerInput[AUX4]			= 1000;
-	_controllerInput[AUX5]			= 1000;
 
 	ResetAccelData();
 	ResetKinematicData();

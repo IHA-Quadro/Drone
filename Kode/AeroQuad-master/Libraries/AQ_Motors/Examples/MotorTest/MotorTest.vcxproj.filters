@@ -21,8 +21,16 @@
     <ClInclude Include="Motors_PWM_Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Motors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.MotorTest.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Motors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

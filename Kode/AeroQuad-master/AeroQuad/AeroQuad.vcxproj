@@ -159,12 +159,6 @@
     <ClInclude Include="MotorControl.h" />
     <ClInclude Include="Motors.h" />
     <ClInclude Include="Motors_PWM_Timer.h" />
-    <ClInclude Include="OSDDisplayController.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="OSDMenu.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="PID.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -225,7 +219,7 @@
     <ClCompile Include="FlightControlProcessor.cpp" />
     <ClCompile Include="FlightControlQuadPlus.cpp" />
     <ClCompile Include="FourtOrderFilter.cpp" />
-    <ClCompile Include="Gyryscope.cpp" />
+    <ClCompile Include="Gyroscope.cpp" />
     <ClCompile Include="HeadingHoldProcessor.cpp" />
     <ClCompile Include="InoHelper.cpp" />
     <ClCompile Include="Kinematics.cpp" />

@@ -1,9 +1,6 @@
 #ifndef _AEROQUAD_MAX_SONAR_RANGE_FINDER_H_
 #define _AEROQUAD_MAX_SONAR_RANGE_FINDER_H_
 
-// @see http://www.arduino.cc/playground/Main/MaxSonar
-
-#if defined (__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(BOARD_aeroquad32)
 
 #include "InoHelper.h"
 #include "RangeFinder.h"
@@ -56,4 +53,3 @@ void inititalizeRangeFinders();
 void updateRangeFinders();
 
 #endif 
-#endif

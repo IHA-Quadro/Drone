@@ -13,22 +13,9 @@ typedef enum{
 	HEADING_HOLD_PID_IDX,
 	ATTITUDE_GYRO_XAXIS_PID_IDX,
 	ATTITUDE_GYRO_YAXIS_PID_IDX,
-
-//#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
 	BARO_ALTITUDE_HOLD_PID_IDX,
 	ZDAMPENING_PID_IDX,
-//#endif
-
-//#if defined AltitudeHoldRangeFinder
 	SONAR_ALTITUDE_HOLD_PID_IDX,
-//#endif
-
-#if defined UseGPSNavigator
-	GPSPITCH_PID_IDX,
-	GPSROLL_PID_IDX,
-	GPSYAW_PID_IDX,
-#endif    
-
 	LAST_PID_IDX  // keep this definition at the end of this enum
 };
 

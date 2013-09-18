@@ -357,12 +357,7 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 #include "LedStatusProcessor.h"
 #endif  
 
-#if defined(MavLink)
-#include "MavLink.h"
-#else
 #include "SerialCom.h"
-#include "GlobalDefined.h"
-#endif
 
 
 
