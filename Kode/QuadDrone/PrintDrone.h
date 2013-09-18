@@ -11,10 +11,13 @@
 extern bool PrintConfig[3];
 
 void SetupPrintDrone();
-void printDebug(const char* s);
-void printStatus(const char* s);
-void printGyro();
+void printDebug(String s);
+void printStatus(String s);
+void printData(float f);
+void println();
+void printText(String s);
 void printGyroAxis(byte axis);
+void printGyro(String s);
 
 
 #endif

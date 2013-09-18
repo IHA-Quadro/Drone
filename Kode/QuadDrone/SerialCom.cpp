@@ -37,13 +37,14 @@ void InvertUART()
 {
 	PrintConfig[STATUSMODE] = !PrintConfig[STATUSMODE];
 	PrintConfig[DEBUGMODE] = !PrintConfig[DEBUGMODE];
+	PrintConfig[GYROMODE] = !PrintConfig[GYROMODE];
 }
 
 void StopMotors()
 {
 	bool previousState = getMotorStatus();
 
-	setMotorStatus(previousState);
+	setMotorStatus(!previousState);
 
 	if(previousState == false)
 	{

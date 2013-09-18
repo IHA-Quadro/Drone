@@ -13,9 +13,6 @@ void measureAccelSum();
 void evaluateMetersPerSec();
 void computeAccelBias();
 
-void ResetAccelData();
-
-
 void ResetAccelData()
 {
 	for(byte axis = XAXIS; axis <= ZAXIS; axis++)

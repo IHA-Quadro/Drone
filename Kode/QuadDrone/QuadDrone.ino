@@ -1,7 +1,4 @@
-//#include <Arduino.h>
-//#include <Wire.h> //TODO: Backfire?
-//#include <iomxx0_1.h>
-
+#include <Arduino.h>
 #include <EEPROM.h>
 #include <Wire.h>
 
@@ -10,6 +7,8 @@
 #include "ControlFaker.h"
 #include "FlightControlProcessor.h"
 #include "FlightCommandProcessor.h"
+#include "FourtOrderFilter.h"
+#include "Gyroscope.h"
 #include "InoHelper.h"
 #include "Kinematics.h"
 #include "Kinematics_ARG.h"
@@ -20,27 +19,24 @@
 #include "SerialCom.h"
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
 
-//#include "Device_I2C.h"
-//#include "Gyroscope.h"
-//#include "Motors_PWM_Timer.h"
-//#include "BarometricSensor.h"
-//#include "MaxSonarRangeFinder.h" 
-//#include "FlightControlQuadPlus.h"
 //#include "AltitudeControlProcessor.h"
+//#include "AQMath.h"
+//#include "BarometricSensor.h"
+//#include "ControlFaker.h"
 //#include "DataStorage.h"
+//#include "Device_I2C.h"
+//#include "FlightControlQuadPlus.h"
+//#include "GlobalDefined.h"
+//#include "MaxSonarRangeFinder.h" 
+//#include "Motors_PWM_Timer.h"
+//#include "PID.h"
+//#include "ReceiveCommandTestData.h"
 
 #define MOTOR_PWM_Timer
 #define RECEIVER_MEGA
 #define BMP085
 #define ITG3200_ADDRESS_ALTERNATE
 #define XLMAXSONAR 
-
-//#include "AQMath.h"
-//#include "ControlFaker.h"
-#include "FourtOrderFilter.h"
-//#include "GlobalDefined.h"
-//#include "PID.h"
-//#include "ReceiveCommandTestData.h"
 
 void initializePlatformSpecificAccelCalibration();
 
@@ -75,6 +71,7 @@ void initPlatform() {
 * Measure critical sensors
 */
 void measureCriticalSensors() {
+	measureGyro();
 	measureGyroSum();
 	measureAccelSum();
 }
@@ -97,9 +94,9 @@ void setup()
 
 	printDebug("Starting setup of drone");
 	printDebug("Initializing base values for drone");
-	
+
 	SetupControlFaker();
-	
+
 	readEEPROM(); // defined in DataStorage.h
 	boolean firstTimeBoot = false;
 	if (readFloat(SOFTWARE_VERSION_ADR) != SOFTWARE_VERSION) 
@@ -127,7 +124,14 @@ void setup()
 	// If sensors have a common initialization routine
 	// insert it into the gyro class because it executes first
 	printDebug("Initializing Gyro");
-	initializeGyro(); // defined in Gyro.h
+	initializeGyro();
+
+	printGyro("GyroScaleFactor");
+	printData(gyroScaleFactor);
+	printText(" - ");
+	printData(radians(1.0 / 14.375));
+	println();
+
 	while (!calibrateGyro()); // this make sure the craft is still befor to continue init process
 
 	printDebug("Initializing Accelometer");
@@ -161,21 +165,20 @@ void setup()
 	printDebug("Initializing Rangefinder");
 	RangeFinderAssign();
 
-
-#if defined(BinaryWrite) || defined(BinaryWritePID)
-#ifdef OpenlogBinaryWrite
-	binaryPort = &Serial1;
-	binaryPort->begin(115200);
-	delay(1000);
-#else
-	binaryPort = &Serial;
-#endif
-#endif
+	//
+	//#if defined(BinaryWrite) || defined(BinaryWritePID)
+	//#ifdef OpenlogBinaryWrite
+	//	binaryPort = &Serial1;
+	//	binaryPort->begin(115200);
+	//	delay(1000);
+	//#else
+	//	binaryPort = &Serial;
+	//#endif
+	//#endif
 
 	previousTime = micros();
 	digitalWrite(LED_Green, HIGH);
 	safetyCheck = 0;
-	
 }
 
 
@@ -183,58 +186,28 @@ void setup()
 * 100Hz task
 ******************************************************************/
 void process100HzTask() {
-	int axis;
+
 	G_Dt = (currentTime - hundredHZpreviousTime) / 1000000.0;
 	hundredHZpreviousTime = currentTime;
 
-	//printGyro();
 	evaluateGyroRate();
 	evaluateMetersPerSec();
 
-
-	for (axis = XAXIS; axis <= ZAXIS; axis++) 
+	for(byte axis = XAXIS; axis <= ZAXIS; axis++) 
 	{
 		filteredAccel[axis] = computeFourthOrder(meterPerSecSec[axis], &fourthOrder[axis]);
 	}
 
 	calculateKinematics(gyroRate[XAXIS], gyroRate[YAXIS], gyroRate[ZAXIS], filteredAccel[XAXIS], filteredAccel[YAXIS], filteredAccel[ZAXIS], G_Dt);
 
-#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
-
 	Process100HzAssign();
-#endif    
 
-#if defined(AltitudeHoldBaro)
 	measureBaroSum(); 
 
 	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0)   //  50 Hz tasks
 		evaluateBaroAltitude();
-#endif
 
-	processFlightControl();
-
-
-#if defined(BinaryWrite)
-	// write out fastTelemetry to Configurator or openLog
-	if (fastTransfer == ON) 
-		fastTelemetry();
-#endif      
-
-#ifdef SlowTelemetry
-	updateSlowTelemetry100Hz();
-#endif
-
-#if defined(UseGPS)
-	updateGps();
-#endif      
-
-#if defined(CameraControl)
-	moveCamera(kinematicsAngle[YAXIS],kinematicsAngle[XAXIS],kinematicsAngle[ZAXIS]);
-#if defined CameraTXControl
-	processCameraTXControl();
-#endif
-#endif       
-
+	processFlightControl();   
 }
 
 /*******************************************************************
@@ -303,25 +276,50 @@ void process10HzTask2()
 void process10HzTask3() 
 {
 	PrintStatus();
+	printText("Gyro data: ");
+	printData(gyroHeading);
+	printText(", ");
+	printData(gyroScaleFactor);
+	printText(", ");
+	printData(gyroLastMesuredTime);
+	printText(", ");
+	printData(gyroSampleCount);
+	println();
+
+	printText("GyroRate: ");
+	printData(gyroRate[XAXIS]);
+	printText(", ");
+	printData(gyroRate[YAXIS]);
+	printText(", ");
+	printData(gyroRate[ZAXIS]);
+	println();
+
+	printText("GyroZero: ");
+	printData(gyroZero[XAXIS]);
+	printText(", ");
+	printData(gyroZero[YAXIS]);
+	printText(", ");
+	printData(gyroZero[ZAXIS]);
+	println();
+
+	printText("GyroSamples: ");
+	printData(gyroSample[XAXIS]);
+	printText(", ");
+	printData(gyroSample[YAXIS]);
+	printText(", ");
+	printData(gyroSample[ZAXIS]);
+	println();
+
+	printText("ReadShortI2C: ");
+	printData(readShortI2C());
+	println();
+
+	printText("GyroScaleFactor: ");
+	printData(gyroScaleFactor);
+	println();
 
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
-
-#ifdef OSD_SYSTEM_MENU
-	updateOSDMenu();
-#endif
-
-#ifdef MAX7456_OSD
-	updateOSD();
-#endif
-
-#if defined(UseGPS) || defined(BattMonitor)
-	processLedStatus();
-#endif
-
-#ifdef SlowTelemetry
-	updateSlowTelemetry10Hz();
-#endif
 }
 
 /*******************************************************************
@@ -382,9 +380,7 @@ void loop ()
 		// ================================================================
 		if (frameCounter % TASK_1HZ == 0) {  //   1 Hz tasks
 			process1HzTask();
-			printDebug("Looping");
 		}
-
 		previousTime = currentTime;
 	}
 

@@ -1,6 +1,6 @@
 #include "Motors.h"
 
-int motorCommand[4] ={0,0,0,0};
+int motorCommand[4] = {0,0,0,0};
 
 NB_Motors numberOfMotors;
 

@@ -70,6 +70,7 @@ void evaluateGyroRate() {
 
 void ResetGyroData()
 {
+	printDebug("Reset Gyro data");
 	for(int axis = XAXIS; axis < ZAXIS+1; axis++)
 	{
 		//gyroRate[axis] = 0.0;
@@ -99,7 +100,7 @@ void evaluateSpecificGyroRate(int *gyroADC)
 	gyroADC[ZAXIS] = gyroZero[ZAXIS] - (gyroSample[ZAXIS] / gyroSampleCount);
 }
 
-boolean calibrateGyro() {
+bool calibrateGyro() {
 	//Finds gyro drift.
 	//Returns false if during calibration there was movement of board. 
 
@@ -123,10 +124,7 @@ boolean calibrateGyro() {
 				gyroZero[YAXIS] = tmp;
 			} 
 			else 
-			{
-				//printGyroAxis(YAXIS);
 				return false; //Calibration failed.
-			}
 		}
 		else if (axis == YAXIS) 
 		{
@@ -135,10 +133,7 @@ boolean calibrateGyro() {
 				gyroZero[XAXIS] = tmp;
 			} 
 			else 
-			{
-				//printGyroAxis(XAXIS);
 				return false; //Calibration failed.
-			}
 		}
 		else 
 		{
@@ -148,10 +143,7 @@ boolean calibrateGyro() {
 				gyroZero[ZAXIS] = tmp;
 			} 
 			else 
-			{
-				//printGyroAxis(ZAXIS);
 				return false; //Calibration failed.
-			}
 		}
 	}
 

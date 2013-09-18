@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor;C:\Users\Becks\Documents\Arduino\libraries\AQ_BatteryMonitor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass;C:\Users\Becks\Documents\Arduino\libraries\AQ_Compass\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver;C:\Users\Becks\Documents\Arduino\libraries\AQ_Receiver\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSSI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors;C:\Users\Becks\Documents\Arduino\libraries\AQ_Motors\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer;C:\Users\Becks\Documents\Arduino\libraries\AQ_CameraStabilizer\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor;C:\Users\Becks\Documents\Arduino\libraries\AQ_FlightControlProcessor\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI;C:\Users\Becks\Documents\Arduino\libraries\AQ_SPI\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD;C:\Users\Becks\Documents\Arduino\libraries\AQ_OSD\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode;C:\Users\Becks\Documents\Arduino\libraries\AQ_RSCode\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\EEPROM;C:\Program Files (x86)\Arduino\libraries\EEPROM\utility;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\AeroQuad\Visual Micro\.AeroQuad.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -111,6 +111,9 @@
     <ClInclude Include="AQMath.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="AQ_SoftModem.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="BarometricSensor.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -137,7 +140,13 @@
     <ClInclude Include="GlobalDefined.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="GpsAdapter.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="GpsDataType.h" />
+    <ClInclude Include="GpsNavigator.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Gyroscope.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -159,6 +168,12 @@
     <ClInclude Include="MotorControl.h" />
     <ClInclude Include="Motors.h" />
     <ClInclude Include="Motors_PWM_Timer.h" />
+    <ClInclude Include="OSDDisplayController.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="OSDMenu.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="PID.h">
       <FileType>CppCode</FileType>
     </ClInclude>

@@ -9,7 +9,7 @@ void SetupPrintDrone()
 	PrintConfig[GYROMODE] = true;
 }
 
-void printDebug(const char* s)
+void printDebug(String s)
 {
 	if(PrintConfig[DEBUGMODE])
 	{
@@ -17,13 +17,15 @@ void printDebug(const char* s)
 	}
 }
 
-void printGyro()
+void printData(float f)
 {
-	Serial.print("Gyro heading: ");
-	//Serial1.println(gyroHeading);
+	if(PrintConfig[DEBUGMODE])
+	{
+		Serial.print(f);
+	}
 }
 
-void printStatus(const char* s)
+void printStatus(String s)
 {
 	if(PrintConfig[STATUSMODE])
 	{
@@ -41,5 +43,29 @@ void PrintGyroAxis(byte axis)
 			Serial.println("y-axis is moving - hold still!");
 		else if(axis == ZAXIS)
 			Serial.println("z-axis is moving - hold still!");
+	}
+}
+
+void printGyro(String s)
+{
+		if(PrintConfig[DEBUGMODE])
+	{
+		Serial.println(s);
+	}
+}
+
+void println()
+{
+	if(PrintConfig[GYROMODE])
+	{
+		Serial.println();
+	}
+}
+
+void printText(String s)
+{
+	if(PrintConfig[GYROMODE])
+	{
+		Serial.print(s);
 	}
 }

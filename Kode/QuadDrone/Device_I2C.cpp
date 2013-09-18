@@ -1,5 +1,3 @@
-#include <Wire.h>
-
 #include "Device_I2C.h"
 
 void sendByteI2C(int deviceAddress, byte dataValue) {

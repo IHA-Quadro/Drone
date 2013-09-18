@@ -2,7 +2,7 @@
 #define _AEROQUAD_DEVICE_I2C_H_
 
 #include <Arduino.h>
-#include <Wire.h>
+#include "Wire.h"
 
 void sendByteI2C(int deviceAddress, byte dataValue);
 

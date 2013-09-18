@@ -4,6 +4,7 @@
 #include "Device_I2C.h"
 #include "GlobalDefined.h"
 #include "SensorsStatus.h"
+#include "Wire.h"
 
 #define SAMPLECOUNT 400.0
 #define ACCEL_ADDRESS 0x53

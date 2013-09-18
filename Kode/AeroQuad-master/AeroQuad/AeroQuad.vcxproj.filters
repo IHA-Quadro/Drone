@@ -195,6 +195,21 @@
     <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AQ_SoftModem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GpsAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GpsNavigator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OSDDisplayController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OSDMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\CDC.cpp">

@@ -8,6 +8,7 @@
 #include "Kinematics.h"
 #include "MotorControl.h"
 #include "Motors.h"
+#include "PrintDrone.h"
 
 #define channelsInUse 6
 
@@ -18,6 +19,7 @@ extern boolean _safetyChecked;
 
 extern int _controllerInput[channelsInUse];
 
+void DronePrint(String s);
 void SetupControlFaker();
 void KillMotor();
 void FMSignal();

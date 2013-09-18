@@ -6,19 +6,24 @@ boolean _calibrationPerformed;
 boolean _motorsArmed;
 boolean _safetyChecked;
 
+void DronePrint(String s)
+{
+	printDebug(s);
+}
 
 void SetupControlFaker()
 {
-	int i;
+	printStatus("Init ControlFaker");
+
 	_initialized = false;
-	_calibrationPerformed = true;
+	_calibrationPerformed = false;
 	_motorsArmed = false;
 	_safetyChecked = false;
 
 	
-	for(i = 0; channelsInUse ; i++)
+	for(byte i = 0; i < channelsInUse ; i++)
 	{
-		_controllerInput[i] = 0;
+		_controllerInput[0] = 0;
 	}
 }
 

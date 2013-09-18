@@ -2,10 +2,12 @@
 #define _AQ_BAROMETRIC_SENSOR_
 
 #include <Arduino.h>
+
 #include "AQMath.h"
 #include "Device_I2C.h"
 #include "GlobalDefined.h"
 #include "SensorsStatus.h"
+#include "Wire.h"
 
 #define BMP085_I2C_ADDRESS 0x77
 
@@ -50,11 +52,5 @@ unsigned int readRawTemperature();
 // This sets up the BMP085 from Sparkfun
 // Code from http://wiring.org.co/learning/libraries/bmp085.html
 // Also made bug fixes based on BMP085 library from Jordi Munoz and Jose Julio
-
-
-
-
-  
-
 
 #endif

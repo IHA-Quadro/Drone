@@ -104,8 +104,10 @@
     <ClInclude Include="Receiver_MEGA.h" />
     <ClInclude Include="SensorsStatus.h" />
     <ClInclude Include="SerialCom.h" />
+    <ClInclude Include="twi.h" />
     <ClInclude Include="UserConfiguration.h" />
     <ClInclude Include="Visual Micro\.QuadDrone.vsarduino.h" />
+    <ClInclude Include="Wire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Accelerometer.cpp" />
@@ -138,6 +140,8 @@
     <ClCompile Include="Receiver_MEGA.cpp" />
     <ClCompile Include="SensorStatus.c" />
     <ClCompile Include="SerialCom.cpp" />
+    <ClCompile Include="twi.cpp" />
+    <ClCompile Include="Wire.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

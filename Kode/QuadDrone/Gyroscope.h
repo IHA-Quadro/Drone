@@ -2,9 +2,11 @@
 #define _AEROQUAD_GYROSCOPE_H_
 
 #include <Arduino.h>
+
 #include "AQMath.h"
 #include "Device_I2C.h"
 #include "GlobalDefined.h"
+#include "PrintDrone.h"
 #include "SensorsStatus.h"
 
 #define FINDZERO 49
@@ -44,7 +46,7 @@ void measureGyroSum();
 void evaluateGyroRate();
 void initializeGyro();
 void measureGyro();
-boolean calibrateGyro();
+bool calibrateGyro();
 void readGyroTemp();
 
 void ResetGyroData();
