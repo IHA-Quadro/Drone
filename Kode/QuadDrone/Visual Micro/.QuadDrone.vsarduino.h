@@ -31,6 +31,7 @@ extern "C" void __cxa_pure_virtual() {;}
 
 void initPlatform();
 void measureCriticalSensors();
+void PrintGyroData();
 //
 void process100HzTask();
 void process50HzTask();
@@ -105,4 +106,8 @@ void process1HzTask();
 #include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\SerialCom.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\SerialCom.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\UserConfiguration.h"
+#include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\Wire.cpp"
+#include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\Wire.h"
+#include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\twi.cpp"
+#include "C:\Users\Becks\Documents\Drone\Kode\QuadDrone\twi.h"
 #endif

@@ -17,13 +17,16 @@ byte readByteI2C(int deviceAddress) {
   return Wire.read();
 }
 
-int readWordI2C(int deviceAddress) {
-
+int readWordI2C(int deviceAddress) 
+{
   Wire.requestFrom(deviceAddress, 2);
   return (Wire.read() << 8) | Wire.read();
 }
 
 int readWordI2C() {
+	//printInLine("I2CRead: ", GYROMODE);
+	//printData(Wire.read(), GYROMODE);
+	//printNewLine("", GYROMODE);
 
   return (Wire.read() << 8) | Wire.read();
 }
@@ -34,8 +37,8 @@ int readShortI2C(int deviceAddress) {
   return readShortI2C();
 }
 
-int readShortI2C() {
-
+int readShortI2C() 
+{
   return (signed short)readWordI2C();
 }
 

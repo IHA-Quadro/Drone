@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <EEPROM.h>
-#include <Wire.h>
 
 #include "Accelerometer.h"
 #include "AeroQuad.h"
@@ -71,12 +70,59 @@ void initPlatform() {
 * Measure critical sensors
 */
 void measureCriticalSensors() {
-	measureGyro();
+	//measureGyro();
 	measureGyroSum();
 	measureAccelSum();
 }
 
+void PrintGyroData()
+{
+	//printText("Gyro data: ", GYROMODE);
+	//printData(gyroHeading, GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroScaleFactor, GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroLastMesuredTime, GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroSampleCount, GYROMODE);
+	//println(GYROMODE);
 
+	//printText("GyroRate: ", GYROMODE);
+	//printData(gyroRate[XAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroRate[YAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroRate[ZAXIS], GYROMODE);
+	//println(GYROMODE);
+
+	//printText("GyroZero: ", GYROMODE);
+	//printData(gyroZero[XAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroZero[YAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroZero[ZAXIS], GYROMODE);
+	//println(GYROMODE);
+
+	//printText("GyroSamples: ", GYROMODE);
+	//printData(gyroSample[XAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroSample[YAXIS], GYROMODE);
+	//printText(", ", GYROMODE);
+	//printData(gyroSample[ZAXIS], GYROMODE);
+	//println(GYROMODE);
+
+	printInLine("ReadShortI2C(): ", GYROMODE);
+	printData(readShortI2C(), GYROMODE);
+	println(GYROMODE);
+
+	printInLine("ReadShortI2C(ITG3200_ADDRESS): ", GYROMODE);
+	printData(readShortI2C(ITG3200_ADDRESS), GYROMODE);
+	println(GYROMODE);
+
+	//printText("GyroScaleFactor: ", GYROMODE);
+	//printData(gyroScaleFactor, GYROMODE);
+	//println(GYROMODE);
+}
 
 /*******************************************************************
 * Main setup function, called one time at bootup
@@ -92,13 +138,13 @@ void setup()
 	pinMode(LED_Green, OUTPUT);
 	digitalWrite(LED_Green, LOW);
 
-	printDebug("Starting setup of drone");
-	printDebug("Initializing base values for drone");
+	printNewLine("Starting setup of drone", DEBUGMODE);
+	printNewLine("Initializing base values for drone", DEBUGMODE);
 
 	SetupControlFaker();
 
 	readEEPROM(); // defined in DataStorage.h
-	boolean firstTimeBoot = false;
+	bool firstTimeBoot = false;
 	if (readFloat(SOFTWARE_VERSION_ADR) != SOFTWARE_VERSION) 
 	{ // If we detect the wrong soft version, we init all parameters
 		initializeEEPROM();
@@ -109,36 +155,36 @@ void setup()
 	initPlatform();
 
 	//Motors
-	printDebug("Initializing Motors");
+	printNewLine("Initializing Motors", DEBUGMODE);
 	InitializeMotors();
 	initializeMotors(FOUR_Motors);
 
-	printDebug("Initializing Receiver");
+	printNewLine("Initializing Receiver", DEBUGMODE);
 	initializeReceiverValues();
 	initializeReceiver(LASTCHANNEL);
 
-	printDebug("Initializing EEPROM");
+	printNewLine("Initializing EEPROM", DEBUGMODE);
 	initReceiverFromEEPROM();
 
 	// Initialize sensors
 	// If sensors have a common initialization routine
 	// insert it into the gyro class because it executes first
-	printDebug("Initializing Gyro");
+	printNewLine("Initializing Gyro", DEBUGMODE);
 	initializeGyro();
 
-	printGyro("GyroScaleFactor");
-	printData(gyroScaleFactor);
-	printText(" - ");
-	printData(radians(1.0 / 14.375));
-	println();
+	//printGyro("GyroScaleFactor");
+	//printData(gyroScaleFactor);
+	//printText(" - ");
+	//printData(radians(1.0 / 14.375));
+	//println();
 
 	while (!calibrateGyro()); // this make sure the craft is still befor to continue init process
 
-	printDebug("Initializing Accelometer");
+	printNewLine("Initializing Accelometer", DEBUGMODE);
 	initializeAccel(); // defined in Accel.h
 	if (firstTimeBoot) 
 	{
-		printDebug("First time boot");
+		printNewLine("First time boot", DEBUGMODE);
 		computeAccelBias();
 		writeEEPROM();
 	}
@@ -153,16 +199,16 @@ void setup()
 	PID[ATTITUDE_YAXIS_PID_IDX].windupGuard = 0.375;
 
 	// Flight angle estimation
-	printDebug("Initializing kinematics");
+	printNewLine("Initializing kinematics", DEBUGMODE);
 	initializeKinematics();
 
 	// Optional Sensors
-	printDebug("Settingup altitude barometer");
+	printNewLine("Settingup altitude barometer", DEBUGMODE);
 	initializeBaro();
 	vehicleState |= ALTITUDEHOLD_ENABLED;
 
 	//Rangefinder
-	printDebug("Initializing Rangefinder");
+	printNewLine("Initializing Rangefinder", DEBUGMODE);
 	RangeFinderAssign();
 
 	//
@@ -180,7 +226,6 @@ void setup()
 	digitalWrite(LED_Green, HIGH);
 	safetyCheck = 0;
 }
-
 
 /*******************************************************************
 * 100Hz task
@@ -221,19 +266,7 @@ void process50HzTask()
 	// Reads external pilot commands and performs functions based on stick configuration
 	readPilotCommands(); 
 
-#if defined(UseAnalogRSSIReader) || defined(UseEzUHFRSSIReader) || defined(UseSBUSRSSIReader)
-	readRSSI();
-#endif
-
-#ifdef AltitudeHoldRangeFinder
 	updateRangeFinders();
-#endif
-
-#if defined(UseGPS)
-	if (haveAGpsLock() && !isHomeBaseInitialized()) {
-		initHomeBase();
-	}
-#endif      
 }
 
 /*******************************************************************
@@ -241,16 +274,6 @@ void process50HzTask()
 ******************************************************************/
 void process10HzTask1() {
 
-#if defined(HeadingMagHold)
-
-	G_Dt = (currentTime - tenHZpreviousTime) / 1000000.0;
-	tenHZpreviousTime = currentTime;
-
-	measureMagnetometer(kinematicsAngle[XAXIS], kinematicsAngle[YAXIS]);
-
-	calculateHeading();
-
-#endif
 }
 
 /*******************************************************************
@@ -260,10 +283,6 @@ void process10HzTask2()
 {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime) / 1000000.0;
 	lowPriorityTenHZpreviousTime = currentTime;
-
-#if defined(BattMonitor)
-	measureBatteryVoltage(G_Dt*1000.0);
-#endif
 
 	// Listen for configuration commands and reports telemetry
 	readSerialCommand();
@@ -275,48 +294,7 @@ void process10HzTask2()
 ******************************************************************/
 void process10HzTask3() 
 {
-	PrintStatus();
-	printText("Gyro data: ");
-	printData(gyroHeading);
-	printText(", ");
-	printData(gyroScaleFactor);
-	printText(", ");
-	printData(gyroLastMesuredTime);
-	printText(", ");
-	printData(gyroSampleCount);
-	println();
-
-	printText("GyroRate: ");
-	printData(gyroRate[XAXIS]);
-	printText(", ");
-	printData(gyroRate[YAXIS]);
-	printText(", ");
-	printData(gyroRate[ZAXIS]);
-	println();
-
-	printText("GyroZero: ");
-	printData(gyroZero[XAXIS]);
-	printText(", ");
-	printData(gyroZero[YAXIS]);
-	printText(", ");
-	printData(gyroZero[ZAXIS]);
-	println();
-
-	printText("GyroSamples: ");
-	printData(gyroSample[XAXIS]);
-	printText(", ");
-	printData(gyroSample[YAXIS]);
-	printText(", ");
-	printData(gyroSample[ZAXIS]);
-	println();
-
-	printText("ReadShortI2C: ");
-	printData(readShortI2C());
-	println();
-
-	printText("GyroScaleFactor: ");
-	printData(gyroScaleFactor);
-	println();
+	PrintGyroData();
 
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
@@ -326,14 +304,7 @@ void process10HzTask3()
 * 1Hz task 
 ******************************************************************/
 void process1HzTask() {
-	PrintStatus();
-
-#ifdef MavLink
-	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
-	oneHZpreviousTime = currentTime;
-
-	sendSerialHeartbeat();   
-#endif
+	printNewLine();
 }
 
 /*******************************************************************

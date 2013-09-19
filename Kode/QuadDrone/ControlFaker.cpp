@@ -8,12 +8,12 @@ boolean _safetyChecked;
 
 void DronePrint(String s)
 {
-	printDebug(s);
+	printNewLine(s, DEBUGMODE);
 }
 
 void SetupControlFaker()
 {
-	printStatus("Init ControlFaker");
+	printNewLine("Init ControlFaker", STATUSMODE);
 
 	_initialized = false;
 	_calibrationPerformed = false;

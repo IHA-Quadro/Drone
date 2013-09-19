@@ -38,12 +38,13 @@ void processAltitudeHold()
 #endif
 
 
-		if (abs(altitudeHoldThrottle - receiverCommand[THROTTLE]) > altitudeHoldPanicStickMovement) {
+		if (abs(altitudeHoldThrottle - receiverCommand[THROTTLE]) > altitudeHoldPanicStickMovement) 
 			altitudeHoldState = ALTPANIC; // too rapid of stick movement so PANIC out of ALTHOLD
-		} 
-		else {
 
-			if (receiverCommand[THROTTLE] > (altitudeHoldThrottle + altitudeHoldBump)) { // AKA changed to use holdThrottle + ALTBUMP - (was MAXCHECK) above 1900
+		else 
+		{
+			if (receiverCommand[THROTTLE] > (altitudeHoldThrottle + altitudeHoldBump)) 
+			{ // AKA changed to use holdThrottle + ALTBUMP - (was MAXCHECK) above 1900
 #if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget += ALTITUDE_BUMP_SPEED;
 #endif
@@ -55,7 +56,8 @@ void processAltitudeHold()
 #endif
 			}
 
-			if (receiverCommand[THROTTLE] < (altitudeHoldThrottle - altitudeHoldBump)) { // AKA change to use holdThorrle - ALTBUMP - (was MINCHECK) below 1100
+			if (receiverCommand[THROTTLE] < (altitudeHoldThrottle - altitudeHoldBump)) 
+			{ // AKA change to use holdThorrle - ALTBUMP - (was MINCHECK) below 1100
 #if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget -= ALTITUDE_BUMP_SPEED;
 #endif
@@ -69,7 +71,6 @@ void processAltitudeHold()
 		}
 		throttle = altitudeHoldThrottle + altitudeHoldThrottleCorrection + zDampeningThrottleCorrection;
 	}
-	else {
+	else 
 		throttle = receiverCommand[THROTTLE];
-	}
 }

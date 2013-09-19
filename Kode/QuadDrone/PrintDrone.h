@@ -4,20 +4,20 @@
 #include <Arduino.h>
 #include "GlobalDefined.h"
 
-#define DEBUGMODE 0
-#define STATUSMODE 1
-#define GYROMODE 2
 
-extern bool PrintConfig[3];
+enum printModes {
+	STATUSMODE = 0,
+	GYROMODE,
+	WIREMODE,
+	DEBUGMODE // Leave last
+};
+
+extern bool PrintConfig[DEBUGMODE];
 
 void SetupPrintDrone();
-void printDebug(String s);
-void printStatus(String s);
-void printData(float f);
-void println();
-void printText(String s);
-void printGyroAxis(byte axis);
-void printGyro(String s);
-
+void printData(float f, printModes mode);
+void println(printModes mode);
+void printNewLine(String s, printModes mode);
+void printInLine(String s, printModes mode);
 
 #endif

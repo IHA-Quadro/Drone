@@ -35,9 +35,10 @@ void skipSerialValues(byte number)
 
 void InvertUART()
 {
-	PrintConfig[STATUSMODE] = !PrintConfig[STATUSMODE];
-	PrintConfig[DEBUGMODE] = !PrintConfig[DEBUGMODE];
-	PrintConfig[GYROMODE] = !PrintConfig[GYROMODE];
+	for(int i = 0 ; i < DEBUGMODE+1 ; i++)
+	{
+		PrintConfig[i] = !PrintConfig[i];
+	}
 }
 
 void StopMotors()
@@ -48,14 +49,14 @@ void StopMotors()
 
 	if(previousState == false)
 	{
-		printStatus("Motor stopped!");
+		printNewLine("Motor stopped!", STATUSMODE);
 		InvertUART();
 	}
 	else
 	{
 		ResetInputData();
 		InvertUART();
-		printStatus("Motor started!");
+		printNewLine("Motor started!", STATUSMODE);
 	}
 }
 

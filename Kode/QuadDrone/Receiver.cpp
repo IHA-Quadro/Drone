@@ -117,7 +117,7 @@ void ApplyData()
 }
 
 //Print X-, Y-, Z-axis and Throttle
-void PrintStatus()
+void printNewLine()
 {
 	if(PrintConfig[STATUSMODE])
 	{	

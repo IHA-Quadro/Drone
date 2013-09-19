@@ -117,9 +117,6 @@
     <ClInclude Include="Wire.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="twi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Visual Micro\.QuadDrone.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -216,9 +213,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wire.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="twi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

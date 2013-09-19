@@ -7,7 +7,6 @@ void initializeMotors(NB_Motors numbers)
 	DDRE = DDRE | B00111000;                                  // Set ports to output PE3-5, OC3A, OC3B, OC3C
 	DDRH = DDRH | B00001000;                                // Set port to output PH3, OC4A
 
-
 	commandAllMotors(1000);                                     // Initialise motors to 1000us (stopped)
 
 	// Init PWM Timer 3                                       // WGMn1 WGMn2 WGMn3  = Mode 14 Fast PWM, TOP = ICRn ,Update of OCRnx at BOTTOM
@@ -19,7 +18,6 @@ void initializeMotors(NB_Motors numbers)
 	TCCR4A = (1<<WGM41)|(1<<COM4A1);
 	TCCR4B = (1<<WGM43)|(1<<WGM42)|(1<<CS41);
 	ICR4 = PWM_COUNTER_PERIOD;
-
 }
 
 void writeMotors() 
@@ -37,7 +35,8 @@ void writeMotors()
 	OCR4A = motorCommand[MOTOR4] * 2;
 }
 
-void commandAllMotors(int command) {
+void commandAllMotors(int command) 
+{
 	OCR3B = command * 2 ;
 	OCR3C = command * 2 ;
 	OCR3A = command * 2 ;

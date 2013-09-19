@@ -37,12 +37,12 @@ int getRawChannelValue(byte channel);
 void readReceiver();
 void FakeData();
 void ApplyData();
-void PrintStatus();
+void printNewLine();
 
 void initializeReceiverParam(int nbChannel = 6);
 void readReceiver();
 void ApplyData();
-void PrintStatus();
+void printNewLine();
 void setChannelValue(byte channel,int value);
 const float getReceiverSIData(byte channel);
 void initializeReceiverValues();

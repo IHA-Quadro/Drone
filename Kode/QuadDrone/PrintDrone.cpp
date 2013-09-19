@@ -1,70 +1,43 @@
 #include "PrintDrone.h"
 
-bool PrintConfig[3];
+bool PrintConfig[DEBUGMODE];
 
 void SetupPrintDrone()
 {
-	PrintConfig[DEBUGMODE] = true;
-	PrintConfig[STATUSMODE] = true;
-	PrintConfig[GYROMODE] = true;
-}
-
-void printDebug(String s)
-{
-	if(PrintConfig[DEBUGMODE])
+	for( char i = 0; i < DEBUGMODE+1 ; i++)
 	{
-		Serial.println(s);
+		PrintConfig[i] = true;
 	}
+	PrintConfig[WIREMODE] = false;
 }
 
-void printData(float f)
+void printData(float f, printModes mode)
 {
-	if(PrintConfig[DEBUGMODE])
+	if(PrintConfig[mode])
 	{
 		Serial.print(f);
 	}
 }
 
-void printStatus(String s)
+void printNewLine(String s, printModes mode)
 {
-	if(PrintConfig[STATUSMODE])
+	if(PrintConfig[mode])
 	{
 		Serial.println(s);
 	}
 }
 
-void PrintGyroAxis(byte axis)
+void println(printModes mode)
 {
-	if(PrintConfig[GYROMODE])
-	{
-		if(axis == XAXIS)
-			Serial.println("x-axis is moving - hold still!");
-		else if(axis == YAXIS)
-			Serial.println("y-axis is moving - hold still!");
-		else if(axis == ZAXIS)
-			Serial.println("z-axis is moving - hold still!");
-	}
-}
-
-void printGyro(String s)
-{
-		if(PrintConfig[DEBUGMODE])
-	{
-		Serial.println(s);
-	}
-}
-
-void println()
-{
-	if(PrintConfig[GYROMODE])
+	if(PrintConfig[mode])
 	{
 		Serial.println();
 	}
 }
 
-void printText(String s)
+void printInLine(String s, printModes mode)
 {
-	if(PrintConfig[GYROMODE])
+	if(PrintConfig[mode])
 	{
 		Serial.print(s);
 	}

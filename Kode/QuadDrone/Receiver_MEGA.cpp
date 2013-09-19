@@ -54,12 +54,15 @@ void MegaPcIntISR() {
   currentTime = micros();
 
   // mask is pcint pins that have changed.
-  for (uint8_t i=0; i < 8; i++) {
+  for (uint8_t i=0; i < 8; i++) 
+	{
     bit = 0x01 << i;
-    if (bit & mask) {
+    if (bit & mask) 
+		{
       pin = i;
       // for each pin changed, record time of change
-      if (bit & PCintLast[0]) {
+      if (bit & PCintLast[0]) 
+			{
         time = currentTime - pinData[pin].fallTime;
         pinData[pin].riseTime = currentTime;
         if ((time >= MINOFFWIDTH) && (time <= MAXOFFWIDTH))
@@ -67,10 +70,12 @@ void MegaPcIntISR() {
         else
           pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
       }
-      else {
+      else 
+			{
         time = currentTime - pinData[pin].riseTime;
         pinData[pin].fallTime = currentTime;
-        if ((time >= MINONWIDTH) && (time <= MAXONWIDTH) && (pinData[pin].edge == RISING_EDGE)) {
+        if ((time >= MINONWIDTH) && (time <= MAXONWIDTH) && (pinData[pin].edge == RISING_EDGE)) 
+				{
           pinData[pin].lastGoodWidth = time;
           pinData[pin].edge = FALLING_EDGE;
         }

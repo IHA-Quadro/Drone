@@ -8,6 +8,7 @@
 #include "GlobalDefined.h"
 #include "PrintDrone.h"
 #include "SensorsStatus.h"
+#include "Wire.h"
 
 #define FINDZERO 49
 

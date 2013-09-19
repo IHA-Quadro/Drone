@@ -2,74 +2,70 @@
 
 void calculateFlightError()
 {
-#if defined (UseGPSNavigator)
-	if (navigationState == ON || positionHoldState == ON) {
-		float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS] + gpsRollAxisCorrection) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
-		float pitchAttitudeCmd = updatePID((receiverCommand[YAXIS] - receiverZero[YAXIS] + gpsPitchAxisCorrection) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
+	if (flightMode == ATTITUDE_FLIGHT_MODE) 
+	{
+		float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS]) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
+		float pitchAttitudeCmd = updatePID((receiverCommand[YAXIS] - receiverZero[YAXIS]) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
 		motorAxisCommandRoll   = updatePID(rollAttitudeCmd, gyroRate[XAXIS], &PID[ATTITUDE_GYRO_XAXIS_PID_IDX]);
 		motorAxisCommandPitch  = updatePID(pitchAttitudeCmd, -gyroRate[YAXIS], &PID[ATTITUDE_GYRO_YAXIS_PID_IDX]);
 	}
-	else
-#endif
-		if (flightMode == ATTITUDE_FLIGHT_MODE) {
-			float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS]) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
-			float pitchAttitudeCmd = updatePID((receiverCommand[YAXIS] - receiverZero[YAXIS]) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
-			motorAxisCommandRoll   = updatePID(rollAttitudeCmd, gyroRate[XAXIS], &PID[ATTITUDE_GYRO_XAXIS_PID_IDX]);
-			motorAxisCommandPitch  = updatePID(pitchAttitudeCmd, -gyroRate[YAXIS], &PID[ATTITUDE_GYRO_YAXIS_PID_IDX]);
-		}
-		else {
-			motorAxisCommandRoll = updatePID(getReceiverSIData(XAXIS), gyroRate[XAXIS]*rotationSpeedFactor, &PID[RATE_XAXIS_PID_IDX]);
-			motorAxisCommandPitch = updatePID(getReceiverSIData(YAXIS), -gyroRate[YAXIS]*rotationSpeedFactor, &PID[RATE_YAXIS_PID_IDX]);
-		}
+	else 
+	{
+		motorAxisCommandRoll = updatePID(getReceiverSIData(XAXIS), gyroRate[XAXIS]*rotationSpeedFactor, &PID[RATE_XAXIS_PID_IDX]);
+		motorAxisCommandPitch = updatePID(getReceiverSIData(YAXIS), -gyroRate[YAXIS]*rotationSpeedFactor, &PID[RATE_YAXIS_PID_IDX]);
+	}
 }
 
 void processCalibrateESC()
 {
-	byte motor;
 	switch (calibrateESC) { // used for calibrating ESC's
 	case 1:
-		for (motor = 0; motor < LASTMOTOR; motor++)
+		for (byte motor = 0; motor < LASTMOTOR; motor++)
 			motorCommand[motor] = MAXCOMMAND;
 		break;
 	case 3:
-		for (motor = 0; motor < LASTMOTOR; motor++)
+		for (byte motor = 0; motor < LASTMOTOR; motor++)
 			motorCommand[motor] = constrain(testCommand, 1000, 1200);
 		break;
 	case 5:
-		for (motor = 0; motor < LASTMOTOR; motor++)
+		for (byte motor = 0; motor < LASTMOTOR; motor++)
 			motorCommand[motor] = constrain(motorConfiguratorCommand[motor], 1000, 1200);
 		safetyCheck = ON;
 		break;
 	default:
-		for (motor = 0; motor < LASTMOTOR; motor++)
+		for (byte motor = 0; motor < LASTMOTOR; motor++)
 			motorCommand[motor] = MINCOMMAND;
 	}
 	// Send calibration commands to motors
 	writeMotors(); // Defined in Motors.h
 }
 
-void processAutoLandingAltitudeCorrection() {
-	if (autoLandingState != OFF) {   
-
-		if (autoLandingState == BARO_AUTO_DESCENT_STATE) {
+void processAutoLandingAltitudeCorrection() 
+{
+	if (autoLandingState != OFF) 
+	{   
+		if (autoLandingState == BARO_AUTO_DESCENT_STATE) 
+		{
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
-			if (isOnRangerRange(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX])) { 
+
+			if (isOnRangerRange(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX])) 
 				autoLandingState = SONAR_AUTO_DESCENT_STATE;
-			}
 		}
-		else if (autoLandingState == SONAR_AUTO_DESCENT_STATE) {
+		else if (autoLandingState == SONAR_AUTO_DESCENT_STATE) 
+		{
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
 			sonarAltitudeToHoldTarget -= SONAR_AUTO_LANDING_DESCENT_SPEED;
-			if (rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX] < 0.5) {
+			if (rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX] < 0.5)
 				autoLandingState = MOTOR_AUTO_DESCENT_STATE;
-			}
 		}
-		else {
+		else 
+		{
 			autoLandingThrottleCorrection -= 1;
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
 			sonarAltitudeToHoldTarget -= SONAR_AUTO_LANDING_DESCENT_SPEED;
 
-			if (((throttle + autoLandingThrottleCorrection) < 1000) || (rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX] < 0.20)) {
+			if (((throttle + autoLandingThrottleCorrection) < 1000) || (rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX] < 0.20)) 
+			{
 				commandAllMotors(MINCOMMAND);
 				motorArmed = OFF;
 			}
@@ -77,8 +73,8 @@ void processAutoLandingAltitudeCorrection() {
 	}
 }
 
-void processThrottleCorrection() {
-
+void processThrottleCorrection() 
+{
 	int throttleAdjust = 0;
 	throttleAdjust += autoLandingThrottleCorrection;
 
@@ -87,25 +83,22 @@ void processThrottleCorrection() {
 
 void processHardManuevers() 
 {
-	int motor;
-
 	if ((receiverCommand[XAXIS] < MINCHECK) ||
 		(receiverCommand[XAXIS] > MAXCHECK) ||
 		(receiverCommand[YAXIS] < MINCHECK) ||
-		(receiverCommand[YAXIS] > MAXCHECK)) {  
-
-			for (motor = 0; motor < LASTMOTOR; motor++) 
-			{
-				motorMinCommand[motor] = minArmedThrottle;
-				motorMaxCommand[motor] = MAXCOMMAND;
-			}
+		(receiverCommand[YAXIS] > MAXCHECK)) 
+	{  
+		for (byte motor = 0; motor < LASTMOTOR; motor++) 
+		{
+			motorMinCommand[motor] = minArmedThrottle;
+			motorMaxCommand[motor] = MAXCOMMAND;
+		}
 	}
 }
 
 void processMinMaxCommand()
 {
-	byte motor;
-	for (motor = 0; motor < LASTMOTOR; motor++)
+	for (byte motor = 0; motor < LASTMOTOR; motor++)
 	{
 		motorMinCommand[motor] = minArmedThrottle;
 		motorMaxCommand[motor] = MAXCOMMAND;
@@ -113,21 +106,21 @@ void processMinMaxCommand()
 
 	int maxMotor = motorCommand[0];
 
-	for (motor=1; motor < LASTMOTOR; motor++) {
+	for (byte motor=1; motor < LASTMOTOR; motor++) {
 		if (motorCommand[motor] > maxMotor) {
 			maxMotor = motorCommand[motor];
 		}
 	}
 
-	for (motor = 0; motor < LASTMOTOR; motor++) {
+	for (byte motor = 0; motor < LASTMOTOR; motor++) {
 		if (maxMotor > MAXCOMMAND) {
 			motorCommand[motor] =  motorCommand[motor] - (maxMotor - MAXCOMMAND);
 		}
 	}
 }
 
-void processFlightControl() {
-
+void processFlightControl() 
+{
 	// ********************** Calculate Flight Error ***************************
 	calculateFlightError();
 
@@ -135,13 +128,6 @@ void processFlightControl() {
 	processHeading();
 
 	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0) {  // 50hz task
-
-		// ********************** Process position hold or navigation **************************
-#if defined (UseGPS)
-#if defined (UseGPSNavigator)
-		processGpsNavigation();
-#endif  
-#endif
 
 		// ********************** Process Altitude hold **************************
 #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
@@ -165,9 +151,8 @@ void processFlightControl() {
 	}
 
 	// ********************** Calculate Motor Commands *************************
-	if (motorArmed && safetyCheck) {
-		applyMotorCommand(); //TODO: Check denne kommando
-	} 
+	if (motorArmed && safetyCheck) 
+		applyMotorCommand();
 
 	// *********************** process min max motor command *******************
 	processMinMaxCommand();
@@ -175,8 +160,7 @@ void processFlightControl() {
 	// If throttle in minimum position, don't apply yaw
 	if (receiverCommand[THROTTLE] < MINCHECK) 
 	{
-		byte motor;
-		for (motor = 0; motor < LASTMOTOR; motor++) 
+		for (byte motor = 0; motor < LASTMOTOR; motor++) 
 		{
 			motorMinCommand[motor] = minArmedThrottle;
 
@@ -188,19 +172,16 @@ void processFlightControl() {
 		}
 	}
 
-	byte motor;
 	// Apply limits to motor commands
-	for (motor = 0; motor < LASTMOTOR; motor++) {
+	for (byte motor = 0; motor < LASTMOTOR; motor++) {
 		motorCommand[motor] = constrain(motorCommand[motor], motorMinCommand[motor], motorMaxCommand[motor]);
 	}
 
 	// ESC Calibration
-	if (motorArmed == OFF) {
+	if (motorArmed == OFF) 
 		processCalibrateESC();
-	}
 
 	// *********************** Command Motors **********************
-	if (motorArmed == ON && safetyCheck == ON) {
+	if (motorArmed == ON && safetyCheck == ON) 
 		writeMotors();
-	}
 }

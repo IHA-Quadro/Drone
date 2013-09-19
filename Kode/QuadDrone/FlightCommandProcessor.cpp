@@ -37,7 +37,6 @@ void processAltitudeHoldStateFromReceiverCommand()
 	}
 }
 
-
 void processAutoLandingStateFromReceiverCommand() 
 {
 	if (receiverCommand[AUX3] < 1750) 
@@ -75,13 +74,12 @@ void processAutoLandingStateFromReceiverCommand()
 	}
 }
 
-
 void processZeroThrottleFunctionFromReceiverCommand() 
 {
 	// Disarm motors (left stick lower left corner)
 	if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) 
 	{
-		printDebug("Disarming motors");
+		printInLine("Disarming motors", STATUSMODE);
 		commandAllMotors(MINCOMMAND);
 		motorArmed = OFF;
 		inFlight = false;
@@ -90,34 +88,33 @@ void processZeroThrottleFunctionFromReceiverCommand()
 	// Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
 	if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) 
 	{
-		printDebug("Calibrate gyro");
+		printNewLine("Calibrate gyro", DEBUGMODE);
 		calibrateGyro(); 
 
-		printDebug("Calibrate Acceleration Bias");
+		printNewLine("Calibrate Acceleration Bias", DEBUGMODE);
 		computeAccelBias();
 
-		printDebug("Store values from sensors");
+		printNewLine("Store values from sensors", DEBUGMODE);
 		storeSensorsZeroToEEPROM();
 
-		printDebug("Calibrate Kinematics");
+		printNewLine("Calibrate Kinematics", DEBUGMODE);
 		calibrateKinematics();
 
-		printDebug("Calibrate Integral Errors");
+		printNewLine("Calibrate Integral Errors", DEBUGMODE);
 		zeroIntegralError();
 
-		printDebug("Pulse motors 3 times");
+		printNewLine("Pulse motors 3 times", DEBUGMODE);
 		pulseMotors(3);
 	}  
 
 	// Arm motors (left stick lower right corner)
 	if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) 
 	{
-		byte motor;
-		for (motor = 0; motor < LASTMOTOR; motor++) 
+		for (byte motor = 0; motor < LASTMOTOR; motor++) 
 		{
 			motorCommand[motor] = MINTHROTTLE;
 		}
-		printDebug("Motors armed");
+		printNewLine("Motors armed", DEBUGMODE);
 		motorArmed = ON;
 
 		zeroIntegralError();
@@ -126,7 +123,7 @@ void processZeroThrottleFunctionFromReceiverCommand()
 	// Prevents accidental arming of motor output if no transmitter command received
 	if (receiverCommand[ZAXIS] > MINCHECK) 
 	{
-		printDebug("Safetycheck");
+		printNewLine("Safetycheck", DEBUGMODE);
 		safetyCheck = ON; 
 	}
 }
