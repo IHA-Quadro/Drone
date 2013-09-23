@@ -36,13 +36,14 @@ void measureGyro() {
 
 	// Measure gyro heading
 	long int currentTime = micros();
-	if (gyroRate[ZAXIS] > radians(1.0) || gyroRate[ZAXIS] < radians(-1.0)) {
+	if (gyroRate[ZAXIS] > radians(1.0) || gyroRate[ZAXIS] < radians(-1.0)) 
 		gyroHeading += gyroRate[ZAXIS] * ((currentTime - gyroLastMesuredTime) / 1000000.0);
-	}
+
 	gyroLastMesuredTime = currentTime;
 }
 
-void measureGyroSum() {
+void measureGyroSum() 
+{
 	sendByteI2C(ITG3200_ADDRESS, ITG3200_MEMORY_ADDRESS);
 	Wire.requestFrom(ITG3200_ADDRESS, ITG3200_BUFFER_SIZE);
 
@@ -59,15 +60,16 @@ void evaluateGyroRate() {
 	gyroSample[ZAXIS] = 0;
 	gyroSampleCount = 0;
 
-	for (byte axis = 0; axis <= ZAXIS; axis++) {
+	for (byte axis = 0; axis <= ZAXIS; axis++) 
+	{
 		gyroRate[axis] = gyroADC[axis] * gyroScaleFactor;
 	}
 
 	// Measure gyro heading
 	long int currentTime = micros();
-	if (gyroRate[ZAXIS] > radians(1.0) || gyroRate[ZAXIS] < radians(-1.0)) {
+	if (gyroRate[ZAXIS] > radians(1.0) || gyroRate[ZAXIS] < radians(-1.0)) 
 		gyroHeading += gyroRate[ZAXIS] * ((currentTime - gyroLastMesuredTime) / 1000000.0);
-	}
+	
 	gyroLastMesuredTime = currentTime;
 }
 
