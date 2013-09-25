@@ -147,10 +147,10 @@
     <ClInclude Include="ReceiveCommandTestData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
+    <ClInclude Include="FlightControlTri.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FlightControlTri.h">
+    <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

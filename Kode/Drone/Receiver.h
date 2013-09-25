@@ -41,6 +41,9 @@ void readReceiver();
 void setChannelValue(byte channel,int value);
 void ApplyData();
 
+void PrintMotorOutput();
+void PrintReceiverOutput();
+
 // return the smoothed & scaled number of radians/sec in stick movement - zero centered
 const float getReceiverSIData(byte channel);
 	

@@ -1233,32 +1233,6 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 #endif
 
 
-void PrintReceiverOutput()
-{
-	printInLine("Receiver input: ", STATUSMODE);
-	printInLine(receiverCommand[XAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[YAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[ZAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[THROTTLE], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(getMotorStatus(), STATUSMODE);
-	println(STATUSMODE);
-
-	printInLine("Motor output: ", MOTORMODE);
-	printInLine(motorCommand[0], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[1], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[2], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[3], MOTORMODE);
-	println(MOTORMODE);
-
-}
-
 /*******************************************************************
 * Main setup function, called one time at bootup
 * initialize all system and sub system of the
@@ -1433,6 +1407,7 @@ void loop () {
 			process10HzTask2();
 		}
 		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) {
+			PrintMotorOutput();
 			process10HzTask3();
 		}
 
@@ -1441,8 +1416,8 @@ void loop () {
 		// ================================================================
 		if (frameCounter % TASK_1HZ == 0) {  //   1 Hz tasks
 			process1HzTask();
-			PrintReceiverOutput();
-			PrintDebugReport();
+			//PrintReceiverOutput();
+			//PrintDebugReport();
 		}
 
 		previousTime = currentTime;

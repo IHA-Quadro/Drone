@@ -30,6 +30,7 @@ void ArmMotors();
 void SafetyCheck();
 void PerformCalibration();
 void ApplySpeed();
+void PrintMotorOutput();
 
 void RotateDrone(int value);
 void MoveDrone(int xaxis, int yaxis);

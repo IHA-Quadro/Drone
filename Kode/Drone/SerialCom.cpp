@@ -146,7 +146,10 @@ void readSerialCommand()
 			magBias[ZAXIS]  = readFloatSerial();
 			writeEEPROM();
 #else
-			maxSpinSpeed = readIntegerSerial();
+			PrintConfig[STATUSMODE] = true;
+			printNewLine("New maxSpinSpeed value: ",STATUSMODE);
+			maxSpinSpeed = readFloatSerial();
+			printNewLine(maxSpinSpeed, STATUSMODE);
 #endif
 			break;
 
@@ -226,6 +229,7 @@ void readSerialCommand()
 			break;
 
 		case 'S':
+			PrintConfig[STATUSMODE] = true;
 			if(!getMotorStatus())
 			{	
 				printNewLine("Killing motor", STATUSMODE);
@@ -240,7 +244,12 @@ void readSerialCommand()
 			break;
 
 		case 'T':
-			ThrottleDrone(readFloatSerial());
+			PrintConfig[STATUSMODE] = true;
+			newInput = readFloatSerial();
+			ThrottleDrone(newInput);
+			printInLine("Throttle changed to: ", STATUSMODE);
+			printInLine(newInput, STATUSMODE);
+			println(STATUSMODE);
 			break;
 
 		case 'U': // Range Finder

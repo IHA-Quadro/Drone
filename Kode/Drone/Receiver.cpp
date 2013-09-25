@@ -121,3 +121,19 @@ const float getReceiverSIData(byte channel)
 	return ((receiverCommand[channel] - receiverZero[channel]) * (2.5 * PWM2RAD));  // +/- 2.5RPS 50% of full rate
 }
 
+
+void PrintReceiverOutput()
+{
+	printInLine("Receiver input: ", STATUSMODE);
+	printInLine(receiverCommand[XAXIS], STATUSMODE);
+	printInLine(", ", STATUSMODE);
+	printInLine(receiverCommand[YAXIS], STATUSMODE);
+	printInLine(", ", STATUSMODE);
+	printInLine(receiverCommand[ZAXIS], STATUSMODE);
+	printInLine(", ", STATUSMODE);
+	printInLine(receiverCommand[THROTTLE], STATUSMODE);
+	printInLine(", ", STATUSMODE);
+	printInLine(getMotorStatus(), STATUSMODE);
+	println(STATUSMODE);
+}
+

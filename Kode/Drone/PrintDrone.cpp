@@ -35,6 +35,14 @@ void SilienceMode(printModes mode, bool active)
 	PrintConfig[mode] = active;
 }
 
+void printNewLine(int value, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.println(value);
+	}
+}
+
 void printNewLine(String s, printModes mode)
 {
 	if(PrintConfig[mode])
@@ -66,3 +74,4 @@ void printInLine(String s, printModes mode)
 		Serial.print(s);
 	}
 }
+

@@ -38,7 +38,7 @@ void KillMotor()
 	}
 
 	//Thottle killed
-	_controllerInput[THROTTLE] = 1000;
+	_controllerInput[THROTTLE] = MINCOMMAND+100;
 }
 
 void SerialOutput(bool active)
@@ -114,6 +114,8 @@ void ApplySpeed()
 		{
 			if(motorCommand[i] > maxSpinSpeed) // Spinning too fast
 			{
+				printInLine("-->", STATUSMODE);
+				PrintMotorOutput();
 				KillMotor();
 			}
 		}
@@ -125,7 +127,7 @@ void ResetInputData()
 	_controllerInput[XAXIS]			= 1500;
 	_controllerInput[YAXIS]			= 1500;
 	_controllerInput[ZAXIS]			= 1500;
-	_controllerInput[THROTTLE]	= 1200;
+	_controllerInput[THROTTLE]	= 1100;
 	_controllerInput[MODE]			= 1000;
 	_controllerInput[AUX1]			= 1000;
 
@@ -137,4 +139,17 @@ void ResetInputData()
 	//ResetKinematicData();
 	//ResetGyroData();
 	//ResetHeadingData();
+}
+
+void PrintMotorOutput()
+{
+	printInLine("Motor output: ", MOTORMODE);
+	printInLine(motorCommand[0], MOTORMODE);
+	printInLine(", ", MOTORMODE);
+	printInLine(motorCommand[1], MOTORMODE);
+	printInLine(", ", MOTORMODE);
+	printInLine(motorCommand[2], MOTORMODE);
+	printInLine(", ", MOTORMODE);
+	printInLine(motorCommand[3], MOTORMODE);
+	println(MOTORMODE);
 }

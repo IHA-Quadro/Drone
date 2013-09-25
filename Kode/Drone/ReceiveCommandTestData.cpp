@@ -34,3 +34,4 @@ void ThrottleDrone(int throttle)
 {
 	_controllerInput[THROTTLE] = throttle;
 }
+
