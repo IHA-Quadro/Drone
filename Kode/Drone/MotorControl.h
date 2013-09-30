@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-void setMotorStatus(bool status);
-bool getMotorStatus();
+void KillMotor(bool status);
+bool IsMotorKilled();
 
 #endif

@@ -60,7 +60,7 @@ void initializeMotors(NB_Motors numbers) {
 
 void writeMotors() 
 {
-	if(getMotorStatus())
+	if(IsMotorKilled())
 	{
 		int motor;
 		for(motor = MOTOR1 ; motor <= MOTOR8 ; motor++)

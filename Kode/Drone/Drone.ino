@@ -13,11 +13,13 @@ or talk to us live on IRC #aeroquad
 
 #include "AeroQuad.h"
 #include "AQMath.h"
+#include "ControlFaker.h"
 #include "FourtOrderFilter.h"
 #include "GlobalDefined.h"
 #include "InoHelper.h"
 #include "PID.h"
 #include "Receiver.h"
+#include "ReceiveCommandTestData.h"
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
 
 //
@@ -529,7 +531,7 @@ or talk to us live on IRC #aeroquad
 #endif  
 
 #ifndef UseGPS
-//#undef UseGPSNavigator
+#undef UseGPSNavigator
 #endif
 
 
@@ -1250,6 +1252,8 @@ void setup() {
 
 	readEEPROM(); // defined in DataStorage.h
 	boolean firstTimeBoot = false;
+
+	//Changed SOFTWARE_VERSION to 0.1 from 3.2
 	if (readFloat(SOFTWARE_VERSION_ADR) != SOFTWARE_VERSION) 
 	{ // If we detect the wrong soft version, we init all parameters
 		initializeEEPROM();
@@ -1269,6 +1273,7 @@ void setup() {
 
 	printNewLine("Initialing ControlFaker", STATUSMODE);
 	SetupControlFaker();
+	KillMotor(true);
 
 	printNewLine("Initializing Receiver", STATUSMODE);
 	initializeReceiver(LASTCHANNEL);
@@ -1366,6 +1371,12 @@ void setup() {
 	initSlowTelemetry();
 #endif
 
+	printInLine("Setup ReceiveCommandTestData", STATUSMODE);
+	ResetReceiveCommandTestData();
+
+	printNewLine("Initializing EEPROM again", STATUSMODE);
+	initReceiverFromEEPROM();
+
 	previousTime = micros();
 	digitalWrite(LED_Green, HIGH);
 	safetyCheck = 0;
@@ -1406,7 +1417,10 @@ void loop () {
 		else if ((currentTime - lowPriorityTenHZpreviousTime) > 100000) {
 			process10HzTask2();
 		}
-		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) {
+		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) 
+		{
+			RunProgram(1);
+			
 			PrintMotorOutput();
 			process10HzTask3();
 		}

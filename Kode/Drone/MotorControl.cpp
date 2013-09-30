@@ -1,13 +1,13 @@
 #include "MotorControl.h"
 
-bool _killMotor = false;
+bool _killMotor = true;
 
-void setMotorStatus(bool status)
+void KillMotor(bool status)
 {
 	_killMotor = status;
 }
 
-bool getMotorStatus()
+bool IsMotorKilled()
 {
 	return _killMotor;
 }

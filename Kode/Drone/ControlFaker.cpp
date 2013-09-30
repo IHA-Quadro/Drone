@@ -6,27 +6,30 @@ bool _calibrationPerformed;
 bool _motorsArmed;
 bool _safetyChecked;
 
-int maxSpinSpeed = 1600;
+int maxSpinSpeed = 2000;
+int spinSpeed = 1200;
 
 void SetupControlFaker()
 {
 	printNewLine("Init ControlFaker", STATUSMODE);
+	SetupPrintDrone();
 
 	_initialized = false;
 	_calibrationPerformed = false;
 	_motorsArmed = false;
 	_safetyChecked = false;
+	spinSpeed = 1200;
 
 	for(byte i = 0; i < channelsInUse ; i++)
 	{
 		_controllerInput[0] = 0;
 	}
-	setMotorStatus(false);
+	KillMotor(false);
 }
 
 void KillMotor()
 {
-	setMotorStatus(true);
+	KillMotor(true);
 
 	SilenceSerial();
 
@@ -100,7 +103,7 @@ void ApplySpeed()
 {
 	//Specific for the program.
 	//Input is missing but not known what format it will be
-	if(getMotorStatus())
+	if(IsMotorKilled())
 	{
 		for(byte i = 0 ; i < THROTTLE; i++)
 		{
@@ -114,12 +117,14 @@ void ApplySpeed()
 		{
 			if(motorCommand[i] > maxSpinSpeed) // Spinning too fast
 			{
+				PrintConfig[STATUSMODE] = true;
 				printInLine("-->", STATUSMODE);
 				PrintMotorOutput();
 				KillMotor();
 			}
 		}
 	}
+	_controllerInput[THROTTLE] = spinSpeed;
 }
 
 void ResetInputData()
@@ -143,13 +148,18 @@ void ResetInputData()
 
 void PrintMotorOutput()
 {
-	printInLine("Motor output: ", MOTORMODE);
-	printInLine(motorCommand[0], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[1], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[2], MOTORMODE);
-	printInLine(", ", MOTORMODE);
-	printInLine(motorCommand[3], MOTORMODE);
-	println(MOTORMODE);
+	if(!IsMotorKilled())
+	{
+		printInLine("Motor output: ", MOTORMODE);
+		printInLine(motorCommand[0], MOTORMODE);
+		printInLine(", ", MOTORMODE);
+		printInLine(motorCommand[1], MOTORMODE);
+		printInLine(", ", MOTORMODE);
+		printInLine(motorCommand[2], MOTORMODE);
+		printInLine(", ", MOTORMODE);
+		printInLine(motorCommand[3], MOTORMODE);
+		printInLine(", ", MOTORMODE);
+		printInLine(_controllerInput[THROTTLE], MOTORMODE);
+		println(MOTORMODE);
+	}
 }

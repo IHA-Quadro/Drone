@@ -11,7 +11,7 @@
 #include "UserConfiguration.h"
 
 // Flight Software Version
-#define SOFTWARE_VERSION 3.2
+#define SOFTWARE_VERSION 0.1
 
 #if defined CONFIG_BAUDRATE
   #define BAUD CONFIG_BAUDRATE

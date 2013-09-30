@@ -61,25 +61,28 @@ void readReceiver()
 {
 	if(!_initialized)
 	{
-		//To start at all
-		receiverCommand[THROTTLE] = 1000;
-
-		if(_motorsArmed)
+		if(!IsMotorKilled()) //Motor stopped - Start sending 'S'
 		{
-			initializeReceiverValues();
-			initializeReceiverParam();
-			ResetInputData();
-			_initialized = true;
+			//To start at all
+			receiverCommand[THROTTLE] = 1000;
+
+			if(_motorsArmed)
+			{
+				initializeReceiverValues();
+				initializeReceiverParam();
+				ResetInputData();
+				_initialized = true;
+			}
+
+			if(!_motorsArmed && _safetyChecked)
+				ArmMotors();
+
+			if(!_safetyChecked && _calibrationPerformed)
+				SafetyCheck();
+
+			if(!_calibrationPerformed)
+				PerformCalibration();	
 		}
-
-		if(!_motorsArmed && _safetyChecked)
-			ArmMotors();
-
-		if(!_safetyChecked && _calibrationPerformed)
-			SafetyCheck();
-
-		if(!_calibrationPerformed)
-			PerformCalibration();		
 	}
 	else
 	{
@@ -133,7 +136,7 @@ void PrintReceiverOutput()
 	printInLine(", ", STATUSMODE);
 	printInLine(receiverCommand[THROTTLE], STATUSMODE);
 	printInLine(", ", STATUSMODE);
-	printInLine(getMotorStatus(), STATUSMODE);
+	printInLine(IsMotorKilled(), STATUSMODE);
 	println(STATUSMODE);
 }
 

@@ -230,7 +230,7 @@ void readSerialCommand()
 
 		case 'S':
 			PrintConfig[STATUSMODE] = true;
-			if(!getMotorStatus())
+			if(!IsMotorKilled())
 			{	
 				printNewLine("Killing motor", STATUSMODE);
 				KillMotor();
@@ -240,13 +240,14 @@ void readSerialCommand()
 				ActivatePreviousSerial();
 				printNewLine("Starting motor", STATUSMODE);
 				SetupControlFaker();
+				ResetReceiveCommandTestData();
 			}
 			break;
 
 		case 'T':
 			PrintConfig[STATUSMODE] = true;
 			newInput = readFloatSerial();
-			ThrottleDrone(newInput);
+			throttleSpeed = newInput;
 			printInLine("Throttle changed to: ", STATUSMODE);
 			printInLine(newInput, STATUSMODE);
 			println(STATUSMODE);
@@ -468,19 +469,31 @@ void sendSerialTelemetry() {
 		break;
 
 	case 'i': // Send sensor data
-		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-			PrintValueComma(gyroRate[axis]);
+		printInLine("AccelSample: ",STATUSMODE);
+		for(byte axis = XAXIS; axis < 3; axis++)
+		{
+			PrintValueComma(accelSample[axis]);
 		}
-		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-			PrintValueComma(filteredAccel[axis]);
+		SERIAL_PRINTLN();
+		printInLine("AccelScaleFactor: ", STATUSMODE);
+		for(byte axis = XAXIS; axis < 3; axis++)
+		{
+			PrintValueComma(accelScaleFactor[axis]);
 		}
-		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-#if defined(HeadingMagHold)
-			PrintValueComma(getMagnetometerData(axis));
-#else
-			PrintValueComma(0);
-#endif
-		}
+		SERIAL_PRINTLN();
+		//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+//			PrintValueComma(gyroRate[axis]);
+//		}
+//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+//			PrintValueComma(filteredAccel[axis]);
+//		}
+//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+//#if defined(HeadingMagHold)
+//			PrintValueComma(getMagnetometerData(axis));
+//#else
+//			PrintValueComma(0);
+//#endif
+//		}
 		SERIAL_PRINTLN();
 		break;
 
