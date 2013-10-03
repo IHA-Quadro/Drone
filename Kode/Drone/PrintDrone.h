@@ -24,6 +24,8 @@ void printInLine(String s, printModes mode);
 void println(printModes mode);
 void printNewLine(int value, printModes mode);
 void printNewLine(String s, printModes mode);
+void printInLine(char s, printModes mode);
+void printInLine(float s, printModes mode);
 
 
 #endif

@@ -176,49 +176,48 @@ void readSerialCommand()
 			}
 #endif
 			break;
-		case 'P': //  read Camera values
-#ifdef CameraControl
-			cameraMode = readFloatSerial();
-			servoCenterPitch = readFloatSerial();
-			servoCenterRoll = readFloatSerial();
-			servoCenterYaw = readFloatSerial();
-			mCameraPitch = readFloatSerial();
-			mCameraRoll = readFloatSerial();
-			mCameraYaw = readFloatSerial();
-			servoMinPitch = readFloatSerial();
-			servoMinRoll = readFloatSerial();
-			servoMinYaw = readFloatSerial();
-			servoMaxPitch = readFloatSerial();
-			servoMaxRoll = readFloatSerial();
-			servoMaxYaw = readFloatSerial();
-#ifdef CameraTXControl
-			servoTXChannels = readFloatSerial();
-#endif
-#else
-#ifdef CameraTXControl
-			skipSerialValues(14)
-#else
-			skipSerialValues(13);
-#endif
-#endif
+		
+		case 'P': //  Select program
+			programInput.ProgramID = (int)readFloatSerial();
+			programInput.TimeSpanInMiliSec = (int)readFloatSerial();
+			programInput.resetAfterTimeSpan = (int)readFloatSerial();
+			programInput.MaxSpeed = (int)readFloatSerial();
+			
+			_previousProgram.ProgramID = 0;
+			printInLine("New program selected: ", STATUSMODE);
+			printInLine(programInput.ProgramID, STATUSMODE);
+			printInLine(", ", STATUSMODE);
+			printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
+			printInLine(", ", STATUSMODE);
+			printInLine(programInput.resetAfterTimeSpan, STATUSMODE);
+			printInLine(", ", STATUSMODE);
+			printInLine(programInput.MaxSpeed, STATUSMODE);
+			println(STATUSMODE);
+
+			RunProgram(programInput);
 			break;
 
 		case 'R':
+			printNewLine("Rotating drone", STATUSMODE);
 			queryType = SERIAL_READ();
+			printInLine("Rotating ", STATUSMODE);
+			printInLine(queryType, STATUSMODE);
+			printInLine(": ", STATUSMODE);
+			newInput = (int)readFloatSerial();
+			printInLine(newInput, STATUSMODE);
+			println(STATUSMODE);
+
 			switch (queryType)
 			{
 			case 'X':
-				newInput = readIntegerSerial();
 				MoveDrone(newInput, _controllerInput[YAXIS]);
 				break;
 
 			case 'Y':
-				newInput = readIntegerSerial();
 				MoveDrone(_controllerInput[XAXIS], newInput);
 				break;
 
 			case 'Z':
-				newInput = readIntegerSerial();
 				RotateDrone(newInput);
 				break;
 
@@ -229,11 +228,12 @@ void readSerialCommand()
 			break;
 
 		case 'S':
-			PrintConfig[STATUSMODE] = true;
+			//PrintConfig[STATUSMODE] = true;
 			if(!IsMotorKilled())
 			{	
 				printNewLine("Killing motor", STATUSMODE);
 				KillMotor();
+				ResetReceiveCommandTestData();
 			}
 			else
 			{
@@ -251,6 +251,9 @@ void readSerialCommand()
 			printInLine("Throttle changed to: ", STATUSMODE);
 			printInLine(newInput, STATUSMODE);
 			println(STATUSMODE);
+
+			//Remove
+			PrintConfig[STATUSMODE] = false;
 			break;
 
 		case 'U': // Range Finder
@@ -305,7 +308,7 @@ void readSerialCommand()
 		case '5': // Send individual motor commands (motor, command)
 			if (validateCalibrateCommand(5)) {
 				for (byte motor = 0; motor < LASTMOTOR; motor++) {
-					motorConfiguratorCommand[motor] = (int)readFloatSerial();
+					_controllerInput[motor] = (int)readFloatSerial();
 				}
 			}
 			break;
@@ -783,7 +786,8 @@ void readValueSerial(char *data, byte size) {
 
 
 // Used to read floating point values from the serial port
-float readFloatSerial() {
+float readFloatSerial() 
+{
 	char data[15] = "";
 
 	readValueSerial(data, sizeof(data));

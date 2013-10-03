@@ -7,7 +7,7 @@ bool _motorsArmed;
 bool _safetyChecked;
 
 int maxSpinSpeed = 2000;
-int spinSpeed = 1200;
+int spinSpeed = 1500;
 
 void SetupControlFaker()
 {
@@ -15,14 +15,14 @@ void SetupControlFaker()
 	SetupPrintDrone();
 
 	_initialized = false;
-	_calibrationPerformed = false;
 	_motorsArmed = false;
 	_safetyChecked = false;
+	_calibrationPerformed = false;
 	spinSpeed = 1200;
 
-	for(byte i = 0; i < channelsInUse ; i++)
+	for(byte i = XAXIS; i < channelsInUse ; i++)
 	{
-		_controllerInput[0] = 0;
+		_controllerInput[0] = MINCOMMAND+100;
 	}
 	KillMotor(false);
 }
@@ -132,9 +132,11 @@ void ResetInputData()
 	_controllerInput[XAXIS]			= 1500;
 	_controllerInput[YAXIS]			= 1500;
 	_controllerInput[ZAXIS]			= 1500;
-	_controllerInput[THROTTLE]	= 1100;
-	_controllerInput[MODE]			= 1000;
-	_controllerInput[AUX1]			= 1000;
+	_controllerInput[THROTTLE]	= 1200;
+	_controllerInput[MODE]			= 2000; // Over 1500 gives Flight Mode = Attitude (FlightCommandProcessor.cpp)
+	_controllerInput[AUX1]			= 1000; // Under 1750 gives Altitude hold (FlightCommandProcessor.cpp)
+	_controllerInput[AUX2]			= 1000;
+	_controllerInput[AUX3]			= 1000; //Over 1750 gives Autolanding (FlightCommandProcessor.cpp)
 
 	_initialized = true;
 
@@ -162,4 +164,9 @@ void PrintMotorOutput()
 		printInLine(_controllerInput[THROTTLE], MOTORMODE);
 		println(MOTORMODE);
 	}
+}
+
+void AeroQuadSetup()
+{
+	//_initialized = false; //Start arming motor
 }

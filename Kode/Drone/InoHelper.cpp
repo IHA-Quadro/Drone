@@ -32,19 +32,22 @@ void process100HzTask()
 
 #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
 	zVelocity = (filteredAccel[ZAXIS] * (1 - accelOneG * invSqrt(isq(filteredAccel[XAXIS]) + isq(filteredAccel[YAXIS]) + isq(filteredAccel[ZAXIS])))) - runTimeAccelBias[ZAXIS] - runtimeZBias;
-	if (!runtimaZBiasInitialized) {
+
+	if (!runtimaZBiasInitialized) 
+	{
 		runtimeZBias = (filteredAccel[ZAXIS] * (1 - accelOneG * invSqrt(isq(filteredAccel[XAXIS]) + isq(filteredAccel[YAXIS]) + isq(filteredAccel[ZAXIS])))) - runTimeAccelBias[ZAXIS];
 		runtimaZBiasInitialized = true;
 	}
+
 	estimatedZVelocity += zVelocity;
 	estimatedZVelocity = (velocityCompFilter1 * zVelocity) + (velocityCompFilter2 * estimatedZVelocity);
 #endif    
 
 #if defined(AltitudeHoldBaro)
 	measureBaroSum(); 
-	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0) {  //  50 Hz tasks
+
+	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0)   //  50 Hz tasks
 		evaluateBaroAltitude();
-	}
 #endif
 
 	processFlightControl();
@@ -108,37 +111,21 @@ void process10HzTask1()
 #endif
 }
 
-/*******************************************************************
-* low priority 10Hz task 2
-******************************************************************/
+//low priority 10Hz task 2
 void process10HzTask2() 
 {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime) / 1000000.0;
 	lowPriorityTenHZpreviousTime = currentTime;
-
-#if defined(BattMonitor)
-	measureBatteryVoltage(G_Dt*1000.0);
-#endif
 
 	// Listen for configuration commands and reports telemetry
 	readSerialCommand();
 	sendSerialTelemetry();
 }
 
-/*******************************************************************
-* low priority 10Hz task 3
-******************************************************************/
+//low priority 10Hz task 3
 void process10HzTask3() {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
-
-#ifdef OSD_SYSTEM_MENU
-	updateOSDMenu();
-#endif
-
-#ifdef MAX7456_OSD
-	updateOSD();
-#endif
 
 #if defined(UseGPS) || defined(BattMonitor)
 	processLedStatus();
@@ -149,9 +136,7 @@ void process10HzTask3() {
 #endif
 }
 
-/*******************************************************************
-* 1Hz task 
-******************************************************************/
+//1Hz process
 void process1HzTask() {
 #ifdef MavLink
 	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;

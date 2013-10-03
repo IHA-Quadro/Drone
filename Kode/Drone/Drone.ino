@@ -18,8 +18,10 @@ or talk to us live on IRC #aeroquad
 #include "GlobalDefined.h"
 #include "InoHelper.h"
 #include "PID.h"
+#include "PrintDrone.h"
 #include "Receiver.h"
 #include "ReceiveCommandTestData.h"
+#include "SensorsStatus.h"
 #include "UserConfiguration.h" // Edit this file first before uploading to the AeroQuad
 
 //
@@ -1081,8 +1083,6 @@ void measureCriticalSensors() {
 #include <SBUSRSSIReader.h>
 #endif
 
-
-
 //********************************************************
 //********************** MOTORS DECLARATION **************
 //********************************************************
@@ -1240,7 +1240,8 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 * initialize all system and sub system of the
 * Aeroquad
 ******************************************************************/
-void setup() {
+void setup() 
+{
 	SERIAL_BEGIN(BAUD);
 	pinMode(LED_Green, OUTPUT);
 	digitalWrite(LED_Green, LOW);
@@ -1251,25 +1252,21 @@ void setup() {
 	printNewLine("Initialing drone", STATUSMODE);
 
 	readEEPROM(); // defined in DataStorage.h
-	boolean firstTimeBoot = false;
+	bool firstTimeBoot = false;
 
-	//Changed SOFTWARE_VERSION to 0.1 from 3.2
 	if (readFloat(SOFTWARE_VERSION_ADR) != SOFTWARE_VERSION) 
 	{ // If we detect the wrong soft version, we init all parameters
+		printNewLine("Recalibrating the system - ERROR", STATUSMODE);
 		initializeEEPROM();
 		writeEEPROM();
 		firstTimeBoot = true;
 	}
 
 	initPlatform();
-
-#if defined(quadXConfig) || defined(quadPlusConfig) || defined(quadY4Config) || defined(triConfig)
 	initializeMotors(FOUR_Motors);
-#elif defined(hexPlusConfig) || defined(hexXConfig) || defined(hexY6Config)
-	initializeMotors(SIX_Motors);
-#elif defined(octoX8Config) || defined(octoXConfig) || defined(octoPlusConfig)
-	initializeMotors(EIGHT_Motors);
-#endif
+
+	printNewLine("Initializing EEPROM", STATUSMODE);
+	initReceiverFromEEPROM();
 
 	printNewLine("Initialing ControlFaker", STATUSMODE);
 	SetupControlFaker();
@@ -1277,9 +1274,6 @@ void setup() {
 
 	printNewLine("Initializing Receiver", STATUSMODE);
 	initializeReceiver(LASTCHANNEL);
-
-	printNewLine("Initializing EEPROM", STATUSMODE);
-	initReceiverFromEEPROM();
 
 	// Initialize sensors
 	// If sensors have a common initialization routine
@@ -1291,7 +1285,8 @@ void setup() {
 	printNewLine("Initializing Accelerometer", STATUSMODE);
 	initializeAccel(); // defined in Accel.h
 
-	if (firstTimeBoot) {
+	if (firstTimeBoot) 
+	{
 		computeAccelBias();
 		writeEEPROM();
 	}
@@ -1311,12 +1306,6 @@ void setup() {
 	printNewLine("Initializing Kinematics", STATUSMODE);
 	initializeKinematics();
 
-#ifdef HeadingMagHold
-	vehicleState |= HEADINGHOLD_ENABLED;
-	initializeMagnetometer();
-	initializeHeadingFusion();
-#endif
-
 	// Optional Sensors
 #ifdef AltitudeHoldBaro
 	printNewLine("Initializing Barometer", STATUSMODE);
@@ -1334,19 +1323,9 @@ void setup() {
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].windupGuard = PID[BARO_ALTITUDE_HOLD_PID_IDX].windupGuard;
 #endif
 
-#ifdef BattMonitor
-	initializeBatteryMonitor(sizeof(batteryData) / sizeof(struct BatteryData), batteryMonitorAlarmVoltage);
-	vehicleState |= BATTMONITOR_ENABLED;
-#endif
-
 #if defined(CameraControl)
 	initializeCameraStabilization();
 	vehicleState |= CAMERASTABLE_ENABLED;
-#endif
-
-#if defined(MAX7456_OSD)
-	initializeSPI();
-	initializeOSD();
 #endif
 
 #if defined(SERIAL_LCD)
@@ -1374,9 +1353,6 @@ void setup() {
 	printInLine("Setup ReceiveCommandTestData", STATUSMODE);
 	ResetReceiveCommandTestData();
 
-	printNewLine("Initializing EEPROM again", STATUSMODE);
-	initReceiverFromEEPROM();
-
 	previousTime = micros();
 	digitalWrite(LED_Green, HIGH);
 	safetyCheck = 0;
@@ -1392,44 +1368,46 @@ void loop () {
 
 	measureCriticalSensors();
 
-	// ================================================================
 	// 100Hz task loop
-	// ================================================================
-	if (deltaTime >= 10000) {
-
+	if (deltaTime >= 10000) 
+	{
 		frameCounter++;
+
+		if(miliSecCounterActive)
+			miliSecCounter++; //ReceiveCommandTestData.h
 
 		process100HzTask();
 
-		// ================================================================
 		// 50Hz task loop
-		// ================================================================
-		if (frameCounter % TASK_50HZ == 0) {  //  50 Hz tasks
+		if (frameCounter % TASK_50HZ == 0) 
+		{  //  50 Hz tasks
 			process50HzTask();
 		}
 
-		// ================================================================
 		// 10Hz task loop
-		// ================================================================
-		if (frameCounter % TASK_10HZ == 0) {  //   10 Hz tasks
-			process10HzTask1();
+		if (frameCounter % TASK_10HZ == 0) 
+		{  //   10 Hz tasks
+			process10HzTask1();//Not used
 		}
-		else if ((currentTime - lowPriorityTenHZpreviousTime) > 100000) {
+		else if ((currentTime - lowPriorityTenHZpreviousTime) > 100000) 
+		{
 			process10HzTask2();
 		}
 		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) 
 		{
-			RunProgram(1);
-			
-			PrintMotorOutput();
+			PrintReceiverOutput();
+			//printInLine(miliSecCounter, STATUSMODE);
+			//printInLine(", ", STATUSMODE);
+			//printInLine(spinSpeed, STATUSMODE);
+			//println(STATUSMODE);
+
 			process10HzTask3();
+			KeepRunningProgram();
 		}
 
-		// ================================================================
 		// 1Hz task loop
-		// ================================================================
 		if (frameCounter % TASK_1HZ == 0) {  //   1 Hz tasks
-			process1HzTask();
+			process1HzTask(); //Not used
 			//PrintReceiverOutput();
 			//PrintDebugReport();
 		}
@@ -1437,7 +1415,6 @@ void loop () {
 		previousTime = currentTime;
 	}
 
-	if (frameCounter >= 100) {
+	if (frameCounter >= 100) 
 		frameCounter = 0;
-	}
 }

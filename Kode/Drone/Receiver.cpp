@@ -14,7 +14,7 @@ float receiverSmoothFactor[MAX_NB_CHANNEL];
 
 void initializeReceiverValues()
 {
-	receiverXmitFactor = 0.0;
+	receiverXmitFactor = 1.0;
 	lastReceiverChannel = 0;
 
 	for(int i = 0; i < MAX_NB_CHANNEL ;i++)
@@ -47,13 +47,13 @@ void initializeReceiverParam(int nbChannel = 6)
 	}
 
 	for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
-		receiverSlope[channel] = 1;
+		receiverSlope[channel] = 1.0;
 	}	
 	for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
-		receiverOffset[channel] = 1;
+		receiverOffset[channel] = 1.0;
 	}
 	for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
-		receiverSmoothFactor[channel] = 1; 
+		receiverSmoothFactor[channel] = 1.0; 
 	}
 }
 
@@ -70,8 +70,8 @@ void readReceiver()
 			{
 				initializeReceiverValues();
 				initializeReceiverParam();
+
 				ResetInputData();
-				_initialized = true;
 			}
 
 			if(!_motorsArmed && _safetyChecked)
@@ -101,15 +101,18 @@ void ApplyData()
 	// Apply receiver calibration adjustment
 	for(byte channel = XAXIS; channel < channelsInUse; channel++)
 	{
-		receiverData[channel] = _controllerInput[channel];
+		receiverData[channel] = _controllerInput[channel]; //Only used by mavLink
 
-		receiverCommandSmooth[channel] = filterSmooth(_controllerInput[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]);
+		receiverCommandSmooth[channel] = filterSmooth(_controllerInput[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]); //This is _controllerInput[channel]
 	}
 
 	// Reduce receiver commands using receiverXmitFactor and center around 1500
 	for (byte channel = XAXIS; channel < THROTTLE; channel++) 
 	{
-		receiverCommand[channel] = _controllerInput[channel];
+		if(!_initialized)
+			receiverCommand[channel] = _controllerInput[channel];
+		else
+			receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
 	}
 
 	// No xmitFactor reduction applied for throttle, mode and AUX
@@ -124,19 +127,32 @@ const float getReceiverSIData(byte channel)
 	return ((receiverCommand[channel] - receiverZero[channel]) * (2.5 * PWM2RAD));  // +/- 2.5RPS 50% of full rate
 }
 
-
 void PrintReceiverOutput()
 {
-	printInLine("Receiver input: ", STATUSMODE);
-	printInLine(receiverCommand[XAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[YAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[ZAXIS], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(receiverCommand[THROTTLE], STATUSMODE);
-	printInLine(", ", STATUSMODE);
-	printInLine(IsMotorKilled(), STATUSMODE);
-	println(STATUSMODE);
+	//printInLine("Receiver input: ", STATUSMODE);
+	//printInLine(receiverCommand[XAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommand[YAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommand[ZAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommand[THROTTLE], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(IsMotorKilled(), STATUSMODE);
+	//println(STATUSMODE);
+
+	//printInLine("receiverCommandSmooth: ", STATUSMODE);
+	//printInLine(receiverCommandSmooth[XAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommandSmooth[YAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommandSmooth[ZAXIS], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverCommandSmooth[THROTTLE], STATUSMODE);
+	//printInLine(", ", STATUSMODE);
+	//printInLine(receiverXmitFactor, STATUSMODE);
+	//println(STATUSMODE);
+
+	PrintMotorOutput();
 }
 

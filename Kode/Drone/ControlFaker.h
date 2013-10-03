@@ -37,4 +37,6 @@ void RotateDrone(int value);
 void MoveDrone(int xaxis, int yaxis);
 void ThrottleDrone(int throttle);
 
+void AeroQuadSetup();
+
 #endif

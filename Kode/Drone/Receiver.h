@@ -37,7 +37,6 @@ void initializeReceiverParam(int nbChannel);
 int getRawChannelValue(byte channel);  
 void readReceiver();
 void initMotor();
-void readReceiver();
 void setChannelValue(byte channel,int value);
 void ApplyData();
 

@@ -9,7 +9,7 @@
 #include "UserConfiguration.h"
 
 #if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
-boolean isPositionHoldEnabledByUser();  
+bool isPositionHoldEnabledByUser();  
 void processAltitudeHoldStateFromReceiverCommand();
 #endif
 

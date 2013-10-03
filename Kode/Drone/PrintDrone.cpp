@@ -8,7 +8,7 @@ void SetupPrintDrone()
 	for( int i = 0; i < DEBUGMODE+1; i++)
 	{
 		PrintConfig[i] = true;
-		previousState[i] = true;
+		previousState[i] = false;
 	}
 	PrintConfig[WIREMODE] = false;
 }
@@ -75,3 +75,18 @@ void printInLine(String s, printModes mode)
 	}
 }
 
+void printInLine(char s, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.print(s);
+	}
+}
+
+void printInLine(float s, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.print(s);
+	}
+}

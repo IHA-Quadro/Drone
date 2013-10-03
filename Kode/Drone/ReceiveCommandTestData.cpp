@@ -2,14 +2,18 @@
 
 int _stepSize = 5;
 bool _inverseSteps = false;
-int _starterSpeed = 1350;
-int _deciSeconds = 0;
+int _starterSpeed = 1200;
 int throttleSpeed = _starterSpeed;
+int miliSecCounter = 0;
+bool miliSecCounterActive = false;
+ProgramInput programInput = {0,0,0,0};
+ProgramInput _previousProgram = {0,0,0,0};
 
 void ResetReceiveCommandTestData()
 {
-	_deciSeconds = 0;
 	_inverseSteps = false;
+	_previousProgram.ProgramID = 0;
+	miliSecCounterActive = false;
 }
 
 void TestAxis(byte axis)
@@ -39,39 +43,64 @@ void MoveDrone(int xaxis, int yaxis)
 	_controllerInput[YAXIS] = yaxis;
 }
 
+static void MiliSecOverflow(int timeSpanInMiliSec)
+{
+	if(miliSecCounter > timeSpanInMiliSec+10)
+	{
+		miliSecCounterActive =false;
+	}
+}
+
 //void ThrottleDrone(int throttle)
 //{
 //	_controllerInput[THROTTLE] = throttle;
 //}
 
-void AccelerateSpeed()
+void AccelerateSpeed(int maxSpeed, int initTime)
 {
-	if(_deciSeconds < 40) //Wait for 4 seconds before real speed is applied
+	if(miliSecCounter < initTime) //Wait before real speed is applied
 	{
-		if(spinSpeed < _starterSpeed)
+		if(spinSpeed < 1250)
 			spinSpeed += 5;
-
-		_deciSeconds += 1; //10 pr sec.
 	}
 	else
 	{
-		if(spinSpeed >= throttleSpeed)
-			spinSpeed = throttleSpeed;
-
+		if(spinSpeed >= maxSpeed)
+			spinSpeed = maxSpeed;
 		else
-			spinSpeed +=5;
+			spinSpeed += 10;
+
+		MiliSecOverflow(initTime);
 	}
 }
 
-void RunProgram(int program)
+void KeepRunningProgram()
 {
-	switch (program)
+	RunProgram(_previousProgram);
+}
+
+void RunProgram(ProgramInput input)
+{
+	miliSecCounterActive = true;
+
+	if(input.ProgramID != _previousProgram.ProgramID)
+	{
+		miliSecCounter = 0;
+		_previousProgram = input;
+	}
+
+	switch (input.ProgramID)
 	{
 	case 1:
-		AccelerateSpeed();
+		AeroQuadSetup();
+		break;
+
+	case 2:
+		AccelerateSpeed(input.MaxSpeed, input.TimeSpanInMiliSec);
 		break;
 
 	default:
+		miliSecCounter = 0;
 		break;
 	}
 }

@@ -1,18 +1,13 @@
 #include "FlightCommandProcessor.h"
 
 #if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
-boolean isPositionHoldEnabledByUser() {
-#if defined (UseGPSNavigator)
-	if ((receiverCommand[AUX1] < 1750) || (receiverCommand[AUX2] < 1750)) {
-		return true;
-	}
-	return false;
-#else
+
+bool isPositionHoldEnabledByUser() 
+{
 	if (receiverCommand[AUX1] < 1750) {
 		return true;
 	}
 	return false;
-#endif
 }
 
 void processAltitudeHoldStateFromReceiverCommand() 
@@ -74,18 +69,12 @@ void processAutoLandingStateFromReceiverCommand()
 		autoLandingState = OFF;
 		autoLandingThrottleCorrection = 0;
 		isAutoLandingInitialized = false;
-#if defined (UseGPSNavigator)
-		if ((receiverCommand[AUX1] > 1750) && (receiverCommand[AUX2] > 1750)) {
-			altitudeHoldState = OFF;
-			isAltitudeHoldInitialized = false;
-		}
-#else
+
 		if (receiverCommand[AUX1] > 1750) 
 		{
 			altitudeHoldState = OFF;
 			isAltitudeHoldInitialized = false;
 		}
-#endif
 	}
 }
 #endif
@@ -98,23 +87,13 @@ void processZeroThrottleFunctionFromReceiverCommand() {
 		commandAllMotors(MINCOMMAND);
 		motorArmed = OFF;
 		inFlight = false;
-
-#ifdef OSD
-		notifyOSD(OSD_CENTER|OSD_WARN, "MOTORS UNARMED");
-#endif
-
-#if defined BattMonitorAutoDescent
-		batteryMonitorAlarmCounter = 0;
-		batteryMonitorStartThrottle = 0;
-		batteyMonitorThrottleCorrection = 0.0;
-#endif
 	}    
-		// Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
+	// Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
 	if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) 
 	{
 		printNewLine("Calibrateing gyro", STATUSMODE);
 		calibrateGyro();
-		
+
 		printNewLine("Computing Accelerometer", STATUSMODE);
 		computeAccelBias();
 
@@ -133,21 +112,12 @@ void processZeroThrottleFunctionFromReceiverCommand() {
 	if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) 
 	{
 		printNewLine("Arming motors", STATUSMODE);
-#ifdef OSD_SYSTEM_MENU
-		if (menuOwnsSticks) {
-			return;
-		}
-#endif
 
 		for (byte motor = 0; motor < LASTMOTOR; motor++) 
 		{
 			motorCommand[motor] = MINTHROTTLE;
 		}
 		motorArmed = ON;
-
-#ifdef OSD
-		notifyOSD(OSD_CENTER|OSD_WARN, "!MOTORS ARMED!");
-#endif  
 
 		zeroIntegralError();
 
@@ -192,9 +162,5 @@ void readPilotCommands()
 
 #if defined (AutoLanding)
 	processAutoLandingStateFromReceiverCommand();
-#endif
-
-#if defined (UseGPSNavigator)
-	processGpsNavigationStateFromReceiverCommand();
 #endif
 }
