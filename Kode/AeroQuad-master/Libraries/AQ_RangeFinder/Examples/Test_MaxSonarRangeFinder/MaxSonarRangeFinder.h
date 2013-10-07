@@ -3,14 +3,15 @@
 
 // @see http://www.arduino.cc/playground/Main/MaxSonar
 
-#include "InoHelper.h"
+//#include "InoHelper.h"
 #include "RangeFinder.h"
+#define ADC_NUMBER_OF_BITS 10
 
 #if defined (__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(BOARD_aeroquad32)
 
 #define MB1000 0 // Maxbotix LV-MaxSonar-EZ*
 #define MB1200 1 // Maxbotix XL-MaxSonar-EZ*
-#define RANGEFINDERSIZE 2
+#define RANGEFINDERSIZE 1
 
 #define SPIKE_FILTER_MARGIN 500 // mm ; changes bigger than this need two samples to take effect
 

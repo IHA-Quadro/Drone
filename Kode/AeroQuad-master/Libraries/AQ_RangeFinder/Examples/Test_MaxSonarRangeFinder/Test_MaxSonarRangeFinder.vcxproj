@@ -44,10 +44,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines;C:\Users\Becks\Documents\Arduino\libraries\AQ_Defines\utility;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder;C:\Users\Becks\Documents\Arduino\libraries\AQ_RangeFinder\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\Visual Micro\.Test_MaxSonarRangeFinder.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h;C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -73,9 +73,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\MaxSonarRangeFinder.h" />
-    <ClInclude Include="..\..\RangeFinder.h" />
+    <ClInclude Include="MaxSonarRangeFinder.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="RangeFinder.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SensorsStatus.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.Test_MaxSonarRangeFinder.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MaxSonarRangeFinder.cpp" />
+    <ClCompile Include="RangeFinder.cpp" />
+    <ClCompile Include="SensorsStatus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

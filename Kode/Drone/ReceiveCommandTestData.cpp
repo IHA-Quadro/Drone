@@ -5,6 +5,7 @@ bool _inverseSteps = false;
 int _starterSpeed = 1200;
 int throttleSpeed = _starterSpeed;
 int miliSecCounter = 0;
+int miliSecCounterStamp = 0;
 bool miliSecCounterActive = false;
 ProgramInput programInput = {0,0,0,0};
 ProgramInput _previousProgram = {0,0,0,0};
@@ -14,6 +15,7 @@ void ResetReceiveCommandTestData()
 	_inverseSteps = false;
 	_previousProgram.ProgramID = 0;
 	miliSecCounterActive = false;
+	inititalizeRangeFinders();
 }
 
 void TestAxis(byte axis)
@@ -51,11 +53,6 @@ static void MiliSecOverflow(int timeSpanInMiliSec)
 	}
 }
 
-//void ThrottleDrone(int throttle)
-//{
-//	_controllerInput[THROTTLE] = throttle;
-//}
-
 void AccelerateSpeed(int maxSpeed, int initTime)
 {
 	if(miliSecCounter < initTime) //Wait before real speed is applied
@@ -74,9 +71,57 @@ void AccelerateSpeed(int maxSpeed, int initTime)
 	}
 }
 
+int MeasureSonar(byte sonarId)
+{
+	updateRangeFinders();
+	return (int)((float)rangeFinderRange[sonarId] *100); 
+}
+
+void PrintSonarData(byte sonarID)
+{
+	printNewLine(MeasureSonar(sonarID), STATUSMODE);
+}
+
 void KeepRunningProgram()
 {
 	RunProgram(_previousProgram);
+}
+
+static void KeepHeightBySonar(int steadyHeight, int initTime)
+{
+	int sonarHeight = MeasureSonar(ALTITUDE_RANGE_FINDER_INDEX); //Bottom sonar
+
+	if( (sonarHeight + STEADYTOLERANCE > steadyHeight) && (sonarHeight - STEADYTOLERANCE < steadyHeight))
+	{
+		//All green - keep level
+	}
+
+	else if(sonarHeight + STEADYTOLERANCE < steadyHeight) //Not high enough
+	{
+		if(miliSecCounter > initTime) //Still not high enough after initTime
+		{
+			miliSecCounter = 0;
+			spinSpeed += 5;
+			printInLine("SpinSpeed = ", STATUSMODE);
+			printInLine(spinSpeed, STATUSMODE);
+			printInLine(" ; ", STATUSMODE);
+			printInLine(sonarHeight, STATUSMODE);
+			println(STATUSMODE);
+		}
+	}
+	else if(sonarHeight  - STEADYTOLERANCE > steadyHeight) //Too high 
+	{
+		if(miliSecCounter > initTime) //Still too high after initTime
+		{
+			miliSecCounter = 0;
+			spinSpeed -= 5;
+			printInLine("SpinSpeed = ", STATUSMODE);
+			printInLine(spinSpeed, STATUSMODE);
+			printInLine(" ; ", STATUSMODE);
+			printInLine(sonarHeight, STATUSMODE);
+			println(STATUSMODE);
+		}
+	}
 }
 
 void RunProgram(ProgramInput input)
@@ -96,7 +141,15 @@ void RunProgram(ProgramInput input)
 		break;
 
 	case 2:
-		AccelerateSpeed(input.MaxSpeed, input.TimeSpanInMiliSec);
+		AccelerateSpeed(input.data, input.TimeSpanInMiliSec);
+		break;
+
+	case 3:
+		PrintSonarData(input.data);
+		break;
+
+	case 4:
+		KeepHeightBySonar(input.data, input.TimeSpanInMiliSec);
 		break;
 
 	default:

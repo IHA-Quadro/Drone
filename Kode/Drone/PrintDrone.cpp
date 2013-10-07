@@ -11,6 +11,7 @@ void SetupPrintDrone()
 		previousState[i] = false;
 	}
 	PrintConfig[WIREMODE] = false;
+	PrintConfig[MOTORMODE] = false;
 }
 
 void SilenceSerial()

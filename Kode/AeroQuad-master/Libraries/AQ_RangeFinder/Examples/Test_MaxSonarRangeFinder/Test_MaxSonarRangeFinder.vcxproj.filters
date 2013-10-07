@@ -21,11 +21,25 @@
     <ClInclude Include="Visual Micro\.Test_MaxSonarRangeFinder.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MaxSonarRangeFinder.h">
+    <ClInclude Include="MaxSonarRangeFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\RangeFinder.h">
+    <ClInclude Include="RangeFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SensorsStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MaxSonarRangeFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorsStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

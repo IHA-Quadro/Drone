@@ -3,17 +3,19 @@
 
 #include <Arduino.h>
 #include "ControlFaker.h"
+#include "MaxSonarRangeFinder.h"
 
 #define lower 1450
 #define upper 1550
 #define steady 1500
+#define STEADYTOLERANCE 10
 
 struct ProgramInput 
 {
 	int ProgramID;
 	int TimeSpanInMiliSec;
 	bool resetAfterTimeSpan;
-	int MaxSpeed;
+	int data;
 };
 
 extern ProgramInput programInput;
@@ -28,6 +30,8 @@ void TestAxis(byte axis);
 void RotateDrone(int zaxis);
 void MoveDrone(int xaxis, int yaxis);
 static void MiliSecOverflow(int timeSpanInMiliSec);
+void KeepRunningProgram();
+void PrintSonarData(byte sonarID);
 //void ThrottleDrone(int throttle);
 
 void AccelerateSpeed(int accelSpeed, int initTime);
