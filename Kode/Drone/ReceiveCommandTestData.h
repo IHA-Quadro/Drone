@@ -13,9 +13,9 @@
 struct ProgramInput 
 {
 	int ProgramID;
+	int data;
 	int TimeSpanInMiliSec;
 	bool resetAfterTimeSpan;
-	int data;
 };
 
 extern ProgramInput programInput;

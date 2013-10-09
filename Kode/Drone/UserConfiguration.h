@@ -140,8 +140,8 @@
 // *******************************************************************************************************************************
 // Define how many channels are connected from your R/C receiver
 // *******************************************************************************************************************************
-#define LASTCHANNEL 6
-//#define LASTCHANNEL 8		<--- Var valgt, men vi bruger kun 4 lige nu.
+//#define LASTCHANNEL 6
+#define LASTCHANNEL 8	
 //#define LASTCHANNEL 10 // EXPERIMENTAL only tested with ReceiverSBUS on AQ32, test extensively before using other boards/receiver types
 
 

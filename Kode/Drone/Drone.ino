@@ -28,29 +28,29 @@ or talk to us live on IRC #aeroquad
 // Define Security Checks
 //
 
-#if defined(UseGPSNMEA) || defined(UseGPSUBLOX) || defined(UseGPSMTK) || defined(UseGPS406)
-#define UseGPS
-#endif 
+//#if defined(UseGPSNMEA) || defined(UseGPSUBLOX) || defined(UseGPSMTK) || defined(UseGPS406)
+//#define UseGPS
+//#endif 
 
-#if defined(UseGPSNavigator) && !defined(AltitudeHoldBaro)
-#error "GpsNavigation NEED AltitudeHoldBaro defined"
-#endif
+//#if defined(UseGPSNavigator) && !defined(AltitudeHoldBaro)
+//#error "GpsNavigation NEED AltitudeHoldBaro defined"
+//#endif
 
-#if defined(AutoLanding) && (!defined(AltitudeHoldBaro) || !defined(AltitudeHoldRangeFinder))
-#error "AutoLanding NEED AltitudeHoldBaro and AltitudeHoldRangeFinder defined"
-#endif
+//#if defined(AutoLanding) && (!defined(AltitudeHoldBaro) || !defined(AltitudeHoldRangeFinder))
+//#error "AutoLanding NEED AltitudeHoldBaro and AltitudeHoldRangeFinder defined"
+//#endif
 
-#if defined(ReceiverSBUS) && defined(SlowTelemetry)
-#error "Receiver SWBUS and SlowTelemetry are in conflict for Seria2, they can't be used together"
-#endif
+//#if defined(ReceiverSBUS) && defined(SlowTelemetry)
+//#error "Receiver SWBUS and SlowTelemetry are in conflict for Seria2, they can't be used together"
+//#endif
 
-#if defined (CameraTXControl) && !defined (CameraControl)
-#error "CameraTXControl need to have CameraControl defined"
-#endif 
+//#if defined (CameraTXControl) && !defined (CameraControl)
+//#error "CameraTXControl need to have CameraControl defined"
+//#endif 
 
-#ifdef BattMonitor
-#include <BatteryMonitorTypes.h>
-#endif
+//#ifdef BattMonitor
+//#include <BatteryMonitorTypes.h>
+//#endif
 
 //********************************************************
 //********************************************************
@@ -502,18 +502,18 @@ or talk to us live on IRC #aeroquad
 #define MOTOR_PWM_Timer
 
 // heading mag hold declaration
-#ifdef HeadingMagHold
-#include <Compass.h>
-#define SPARKFUN_9DOF_5883L
-#endif
+//#ifdef HeadingMagHold
+//#include <Compass.h>
+//#define SPARKFUN_9DOF_5883L
+//#endif
 
 // Altitude declaration
-#ifdef AltitudeHoldBaro
+//#ifdef AltitudeHoldBaro
 #define BMP085
-#endif
-#ifdef AltitudeHoldRangeFinder
+//#endif
+//#ifdef AltitudeHoldRangeFinder
 #define XLMAXSONAR 
-#endif
+//#endif
 
 
 // Battery Monitor declaration
@@ -528,9 +528,9 @@ or talk to us live on IRC #aeroquad
 #undef POWERED_BY_VIN        
 #endif
 
-#ifdef OSD
-#define MAX7456_OSD
-#endif  
+//#ifdef OSD
+//#define MAX7456_OSD
+//#endif  
 
 #ifndef UseGPS
 #undef UseGPSNavigator
@@ -1035,186 +1035,186 @@ void measureCriticalSensors() {
 //********************************************************
 //********************************************************
 
-#ifdef AeroQuadSTM32
-#include "AeroQuad_STM32.h"
-#endif
+//#ifdef AeroQuadSTM32
+//#include "AeroQuad_STM32.h"
+//#endif
 
 
 //********************************************************
 //****************** KINEMATICS DECLARATION **************
 //********************************************************
 #include "Kinematics.h"
-#if defined(AeroQuadMega_CHR6DM) || defined(APM_OP_CHR6DM)
-// CHR6DM have it's own kinematics, so, initialize in it's scope
-#else
+//#if defined(AeroQuadMega_CHR6DM) || defined(APM_OP_CHR6DM)
+//// CHR6DM have it's own kinematics, so, initialize in it's scope
+//#else
 #include "Kinematics_ARG.h"
-#endif
+//#endif
 
 //********************************************************
 //******************** RECEIVER DECLARATION **************
 //********************************************************
-#if defined(ReceiverHWPPM)
-#include <Receiver_HWPPM.h>
-#elif defined(ReceiverPPM)
-#include <Receiver_PPM.h>
-#elif defined(AeroQuad_Mini) && (defined(hexPlusConfig) || defined(hexXConfig) || defined(hexY6Config))
-#include <Receiver_PPM.h>
-#elif defined(RemotePCReceiver)
-#include <Receiver_RemotePC.h>
-#elif defined(ReceiverSBUS)
-#include <Receiver_SBUS.h>
-#elif defined(RECEIVER_328P)
-#include <Receiver_328p.h>
-#elif defined(RECEIVER_MEGA)
+//#if defined(ReceiverHWPPM)
+//#include <Receiver_HWPPM.h>
+//#elif defined(ReceiverPPM)
+//#include <Receiver_PPM.h>
+//#elif defined(AeroQuad_Mini) && (defined(hexPlusConfig) || defined(hexXConfig) || defined(hexY6Config))
+//#include <Receiver_PPM.h>
+//#elif defined(RemotePCReceiver)
+//#include <Receiver_RemotePC.h>
+//#elif defined(ReceiverSBUS)
+//#include <Receiver_SBUS.h>
+//#elif defined(RECEIVER_328P)
+//#include <Receiver_328p.h>
+//#elif defined(RECEIVER_MEGA)
 #include "Receiver_MEGA.h"
-#elif defined(RECEIVER_APM)
-#include <Receiver_APM.h>
-#elif defined(RECEIVER_STM32PPM)
-#include <Receiver_STM32PPM.h>  
-#elif defined(RECEIVER_STM32)
-#include <Receiver_STM32.h>  
-#endif
+//#elif defined(RECEIVER_APM)
+//#include <Receiver_APM.h>
+//#elif defined(RECEIVER_STM32PPM)
+//#include <Receiver_STM32PPM.h>  
+//#elif defined(RECEIVER_STM32)
+//#include <Receiver_STM32.h>  
+//#endif
 
-#if defined(UseAnalogRSSIReader) 
-#include <AnalogRSSIReader.h>
-#elif defined(UseEzUHFRSSIReader)
-#include <EzUHFRSSIReader.h>
-#elif defined(UseSBUSRSSIReader)
-#include <SBUSRSSIReader.h>
-#endif
+//#if defined(UseAnalogRSSIReader) 
+//#include <AnalogRSSIReader.h>
+//#elif defined(UseEzUHFRSSIReader)
+//#include <EzUHFRSSIReader.h>
+//#elif defined(UseSBUSRSSIReader)
+//#include <SBUSRSSIReader.h>
+//#endif
 
 //********************************************************
 //********************** MOTORS DECLARATION **************
 //********************************************************
-#if defined(triConfig)
-#if defined (MOTOR_STM32)
-#define MOTORS_STM32_TRI
-#include <Motors_STM32.h>    
-#else
-#include <Motors_Tri.h>
-#endif
-#elif defined(MOTOR_PWM)
-#include <Motors_PWM.h>
-#elif defined(MOTOR_PWM_Timer)
+//#if defined(triConfig)
+//#if defined (MOTOR_STM32)
+//#define MOTORS_STM32_TRI
+//#include <Motors_STM32.h>    
+//#else
+//#include <Motors_Tri.h>
+//#endif
+//#elif defined(MOTOR_PWM)
+//#include <Motors_PWM.h>
+//#elif defined(MOTOR_PWM_Timer)
 #include "Motors_PWM_Timer.h"
-#elif defined(MOTOR_APM)
-#include <Motors_APM.h>
-#elif defined(MOTOR_I2C)
-#include <Motors_I2C.h>
-#elif defined(MOTOR_STM32)
-#include <Motors_STM32.h>    
-#endif
+//#elif defined(MOTOR_APM)
+//#include <Motors_APM.h>
+//#elif defined(MOTOR_I2C)
+//#include <Motors_I2C.h>
+//#elif defined(MOTOR_STM32)
+//#include <Motors_STM32.h>    
+//#endif
 
 //********************************************************
 //******* HEADING HOLD MAGNETOMETER DECLARATION **********
 //********************************************************
-#if defined(HMC5843)
-#include <HeadingFusionProcessorMARG.h>
-#include <Magnetometer_HMC5843.h>
-#elif defined(SPARKFUN_9DOF_5883L) || defined(SPARKFUN_5883L_BOB) || defined(HMC5883L)
-#include <HeadingFusionProcessorMARG.h>
-#include <Magnetometer_HMC5883L.h>
-#elif defined(COMPASS_CHR6DM)
-#endif
+//#if defined(HMC5843)
+//#include <HeadingFusionProcessorMARG.h>
+//#include <Magnetometer_HMC5843.h>
+//#elif defined(SPARKFUN_9DOF_5883L) || defined(SPARKFUN_5883L_BOB) || defined(HMC5883L)
+//#include <HeadingFusionProcessorMARG.h>
+//#include <Magnetometer_HMC5883L.h>
+//#elif defined(COMPASS_CHR6DM)
+//#endif
 
 //********************************************************
 //******* ALTITUDE HOLD BAROMETER DECLARATION ************
 //********************************************************
-#if defined(BMP085)
+//#if defined(BMP085)
 #include "BarometricSensor_BMP085.h"
-#elif defined(MS5611)
-#include <BarometricSensor_MS5611.h>
-#endif
-#if defined(XLMAXSONAR)
+//#elif defined(MS5611)
+//#include <BarometricSensor_MS5611.h>
+//#endif
+//#if defined(XLMAXSONAR)
 #include "MaxSonarRangeFinder.h"
-#endif 
+//#endif 
 //********************************************************
 //*************** BATTERY MONITOR DECLARATION ************
 //********************************************************
-#ifdef BattMonitor
-#include <BatteryMonitor.h>
-#ifndef BattCustomConfig
-#define BattCustomConfig BattDefaultConfig
-#endif
-struct BatteryData batteryData[] = {BattCustomConfig};
-#endif
-//********************************************************
-//************** CAMERA CONTROL DECLARATION **************
-//********************************************************
-// used only on mega for now
-#if defined(CameraControl_STM32)
-#include <CameraStabilizer_STM32.h>
-#elif defined(CameraControl)
-#include <CameraStabilizer_Aeroquad.h>
-#endif
-
-#if defined (CameraTXControl)
-#include <CameraStabilizer_TXControl.h>
-#endif
+//#ifdef BattMonitor
+//#include <BatteryMonitor.h>
+//#ifndef BattCustomConfig
+//#define BattCustomConfig BattDefaultConfig
+//#endif
+//struct BatteryData batteryData[] = {BattCustomConfig};
+//#endif
+////********************************************************
+////************** CAMERA CONTROL DECLARATION **************
+////********************************************************
+//// used only on mega for now
+//#if defined(CameraControl_STM32)
+//#include <CameraStabilizer_STM32.h>
+//#elif defined(CameraControl)
+//#include <CameraStabilizer_Aeroquad.h>
+//#endif
+//
+//#if defined (CameraTXControl)
+//#include <CameraStabilizer_TXControl.h>
+//#endif
 
 //********************************************************
 //******** FLIGHT CONFIGURATION DECLARATION **************
 //********************************************************
-#if defined(quadXConfig)
-#include "FlightControlQuadX.h"
-#elif defined(quadPlusConfig)
+//#if defined(quadXConfig)
+//#include "FlightControlQuadX.h"
+//#elif defined(quadPlusConfig)
 #include "FlightControlQuadPlus.h"
-#elif defined(hexPlusConfig)
-#include "FlightControlHexPlus.h"
-#elif defined(hexXConfig)
-#include "FlightControlHexX.h"
-#elif defined(triConfig)
-#include "FlightControlTri.h"
-#elif defined(quadY4Config)
-#include "FlightControlQuadY4.h"
-#elif defined(hexY6Config)
-#include "FlightControlHexY6.h"
-#elif defined(octoX8Config)
-#include "FlightControlOctoX8.h"
-#elif defined(octoXConfig)
-#include "FlightControlOctoX.h"
-#elif defined(octoPlusConfig)
-#include "FlightControlOctoPlus.h"
-#endif
+//#elif defined(hexPlusConfig)
+//#include "FlightControlHexPlus.h"
+//#elif defined(hexXConfig)
+//#include "FlightControlHexX.h"
+//#elif defined(triConfig)
+//#include "FlightControlTri.h"
+//#elif defined(quadY4Config)
+//#include "FlightControlQuadY4.h"
+//#elif defined(hexY6Config)
+//#include "FlightControlHexY6.h"
+//#elif defined(octoX8Config)
+//#include "FlightControlOctoX8.h"
+//#elif defined(octoXConfig)
+//#include "FlightControlOctoX.h"
+//#elif defined(octoPlusConfig)
+//#include "FlightControlOctoPlus.h"
+//#endif
 
 //********************************************************
 //****************** GPS DECLARATION *********************
 //********************************************************
-#if defined(UseGPS)
-#if !defined(HeadingMagHold)
-#error We need the magnetometer to use the GPS
-#endif 
-#include <GpsAdapter.h>
-#include "GpsNavigator.h"
-#endif
+//#if defined(UseGPS)
+//#if !defined(HeadingMagHold)
+//#error We need the magnetometer to use the GPS
+//#endif 
+//#include <GpsAdapter.h>
+//#include "GpsNavigator.h"
+//#endif
 
 //********************************************************
 //****************** OSD DEVICE DECLARATION ************** Onboard Screen Display
 //********************************************************
-#ifdef MAX7456_OSD     // only OSD supported for now is the MAX7456
-#include <Device_SPI.h>
-#include "OSDDisplayController.h"
-#include "MAX7456.h"
-#endif
+//#ifdef MAX7456_OSD     // only OSD supported for now is the MAX7456
+//#include <Device_SPI.h>
+//#include "OSDDisplayController.h"
+//#include "MAX7456.h"
+//#endif
 
-#if defined(SERIAL_LCD)
-#include "SerialLCD.h"
-#endif
+//#if defined(SERIAL_LCD)
+//#include "SerialLCD.h"
+//#endif
 
-#ifdef OSD_SYSTEM_MENU
-#if !defined(MAX7456_OSD) && !defined(SERIAL_LCD)
-#error "Menu cannot be used without OSD or LCD"
-#endif
-#include "OSDMenu.h"
-#endif
+//#ifdef OSD_SYSTEM_MENU
+//#if !defined(MAX7456_OSD) && !defined(SERIAL_LCD)
+//#error "Menu cannot be used without OSD or LCD"
+//#endif
+//#include "OSDMenu.h"
+//#endif
 
-#ifdef SlowTelemetry
-#include <AQ_RSCode.h>
-#endif
+//#ifdef SlowTelemetry
+//#include <AQ_RSCode.h>
+//#endif
 
-#ifdef SoftModem
-#include <AQ_SoftModem.h>
-#endif
+//#ifdef SoftModem
+//#include <AQ_SoftModem.h>
+//#endif
 
 
 // Include this last as it contains objects from above declarations
@@ -1224,15 +1224,15 @@ struct BatteryData batteryData[] = {BattCustomConfig};
 #include "HeadingHoldProcessor.h"
 #include "DataStorage.h"
 
-#if defined(UseGPS) || defined(BattMonitor)
-#include "LedStatusProcessor.h"
-#endif  
+//#if defined(UseGPS) || defined(BattMonitor)
+//#include "LedStatusProcessor.h"
+//#endif  
 
-#if defined(MavLink)
-#include "MavLink.h"
-#else
+//#if defined(MavLink)
+//#include "MavLink.h"
+//#else
 #include "SerialCom.h"
-#endif
+//#endif
 
 
 /*******************************************************************
@@ -1307,13 +1307,13 @@ void setup()
 	initializeKinematics();
 
 	// Optional Sensors
-#ifdef AltitudeHoldBaro
+	//#ifdef AltitudeHoldBaro
 	printNewLine("Initializing Barometer", STATUSMODE);
 	initializeBaro();
 	vehicleState |= ALTITUDEHOLD_ENABLED;
-#endif
+	//#endif
 
-#ifdef AltitudeHoldRangeFinder
+	//#ifdef AltitudeHoldRangeFinder
 	printNewLine("Initializing RangeFinder", STATUSMODE);
 	inititalizeRangeFinders();
 	vehicleState |= RANGE_ENABLED;
@@ -1321,36 +1321,36 @@ void setup()
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].I = PID[BARO_ALTITUDE_HOLD_PID_IDX].I;
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].D = PID[BARO_ALTITUDE_HOLD_PID_IDX].D;
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].windupGuard = PID[BARO_ALTITUDE_HOLD_PID_IDX].windupGuard;
-#endif
+	//#endif
 
-#if defined(CameraControl)
-	initializeCameraStabilization();
-	vehicleState |= CAMERASTABLE_ENABLED;
-#endif
+	//#if defined(CameraControl)
+	//	initializeCameraStabilization();
+	//	vehicleState |= CAMERASTABLE_ENABLED;
+	//#endif
 
-#if defined(SERIAL_LCD)
-	InitSerialLCD();
-#endif
+	//#if defined(SERIAL_LCD)
+	//	InitSerialLCD();
+	//#endif
 
-#if defined(BinaryWrite) || defined(BinaryWritePID)
-#ifdef OpenlogBinaryWrite
-	binaryPort = &Serial1;
-	binaryPort->begin(115200);
-	delay(1000);
-#else
-	binaryPort = &Serial;
-#endif
-#endif
+	//#if defined(BinaryWrite) || defined(BinaryWritePID)
+	//#ifdef OpenlogBinaryWrite
+	//	binaryPort = &Serial1;
+	//	binaryPort->begin(115200);
+	//	delay(1000);
+	//#else
+	//	binaryPort = &Serial;
+	//#endif
+	//#endif
 
-#if defined(UseGPS)
-	initializeGps();
-#endif 
+	//#if defined(UseGPS)
+	//	initializeGps();
+	//#endif 
 
-#ifdef SlowTelemetry
-	initSlowTelemetry();
-#endif
+	//#ifdef SlowTelemetry
+	//	initSlowTelemetry();
+	//#endif
 
-	printInLine("Setup ReceiveCommandTestData", STATUSMODE);
+	printNewLine("Setup ReceiveCommandTestData", STATUSMODE);
 	ResetReceiveCommandTestData();
 
 	previousTime = micros();
@@ -1386,31 +1386,22 @@ void loop () {
 
 		// 10Hz task loop
 		if (frameCounter % TASK_10HZ == 0) 
-		{  //   10 Hz tasks
 			process10HzTask1();//Not used
-		}
+
 		else if ((currentTime - lowPriorityTenHZpreviousTime) > 100000) 
-		{
 			process10HzTask2();
-		}
+
 		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) 
 		{
 			PrintReceiverOutput();
-			//printInLine(miliSecCounter, STATUSMODE);
-			//printInLine(", ", STATUSMODE);
-			//printInLine(spinSpeed, STATUSMODE);
-			//println(STATUSMODE);
 
 			process10HzTask3();
-			KeepRunningProgram();
+			KeepRunningProgram(); //Keep applying the latest selected program to the memory
 		}
 
 		// 1Hz task loop
-		if (frameCounter % TASK_1HZ == 0) {  //   1 Hz tasks
-			process1HzTask(); //Not used
-			//PrintReceiverOutput();
-			//PrintDebugReport();
-		}
+		if (frameCounter % TASK_1HZ == 0) 
+			process1HzTask(); //Print reports
 
 		previousTime = currentTime;
 	}

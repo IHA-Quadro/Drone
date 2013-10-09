@@ -8,15 +8,16 @@
 #include "Receiver.h"
 #include "UserConfiguration.h"
 
-#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
+//#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
 bool isPositionHoldEnabledByUser();  
 void processAltitudeHoldStateFromReceiverCommand();
-#endif
+//#endif
 
-#if defined (AutoLanding)
+//#if defined (AutoLanding)
 void processAutoLandingStateFromReceiverCommand();
-#endif
+//#endif
 
+extern bool Holdposition, panic;
 
 #if defined (UseGPSNavigator)
 void processGpsNavigationStateFromReceiverCommand() {

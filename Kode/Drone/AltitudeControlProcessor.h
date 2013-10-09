@@ -7,6 +7,7 @@
 #include "UserConfiguration.h"
 #include "AeroQuad.h"
 #include "BarometricSensor.h"
+#include "FlightCommandProcessor.h"
 #include "PID.h"
 #include "RangeFinder.h"
 
@@ -15,6 +16,7 @@
 #define INVALID_THROTTLE_CORRECTION -1000
 #define ALTITUDE_BUMP_SPEED 0.01
 
+extern bool altitudeHoldStateActive, isOnRangerRangeValid;
 /**
  * processAltitudeHold
  * 

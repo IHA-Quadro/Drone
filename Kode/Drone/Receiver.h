@@ -20,7 +20,7 @@
 #define MINTHROTTLE (MINCOMMAND + 100)
 #define LEVELOFF 100
 #define MAX_NB_CHANNEL 10
-#define channelsInUse 6
+#define channelsInUse 8
 
 extern int lastReceiverChannel;
 extern float receiverXmitFactor;

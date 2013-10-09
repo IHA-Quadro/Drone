@@ -28,7 +28,6 @@ void writeMotors();
 void commandAllMotors(int command);
 
 void pulseMotors(byte nbPulse);
-void ResetInputData();
 
 
 #endif

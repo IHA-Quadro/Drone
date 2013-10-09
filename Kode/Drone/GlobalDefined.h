@@ -17,6 +17,11 @@
 #define ON 1
 #define OFF 0
 
+#define AUTOLANDTRUE 1200
+#define AUTOLANDFALSE 2000
+#define ALTITUDEHOLDTRUE 1200
+#define ALTITUDEHOLDFALSE 2000
+
 #define ALTPANIC 2
 
 #endif

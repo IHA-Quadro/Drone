@@ -179,19 +179,19 @@ void readSerialCommand()
 		
 		case 'P': //  Select program
 			programInput.ProgramID = (int)readFloatSerial();
+			programInput.data = (int)readFloatSerial();
 			programInput.TimeSpanInMiliSec = (int)readFloatSerial();
 			programInput.resetAfterTimeSpan = (int)readFloatSerial();
-			programInput.data = (int)readFloatSerial();
 			
 			_previousProgram.ProgramID = 0;
 			printInLine("New program selected: ", STATUSMODE);
 			printInLine(programInput.ProgramID, STATUSMODE);
 			printInLine(", ", STATUSMODE);
+			printInLine(programInput.data, STATUSMODE);
+			printInLine(", ", STATUSMODE);
 			printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
 			printInLine(", ", STATUSMODE);
 			printInLine(programInput.resetAfterTimeSpan, STATUSMODE);
-			printInLine(", ", STATUSMODE);
-			printInLine(programInput.data, STATUSMODE);
 			println(STATUSMODE);
 
 			RunProgram(programInput);
@@ -247,7 +247,7 @@ void readSerialCommand()
 		case 'T':
 			PrintConfig[STATUSMODE] = true;
 			newInput = readFloatSerial();
-			throttleSpeed = newInput;
+			spinSpeed = newInput;
 			printInLine("Throttle changed to: ", STATUSMODE);
 			printInLine(newInput, STATUSMODE);
 			println(STATUSMODE);

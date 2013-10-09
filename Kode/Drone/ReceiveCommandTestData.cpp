@@ -7,12 +7,14 @@ int throttleSpeed = _starterSpeed;
 int miliSecCounter = 0;
 int miliSecCounterStamp = 0;
 bool miliSecCounterActive = false;
+
 ProgramInput programInput = {0,0,0,0};
 ProgramInput _previousProgram = {0,0,0,0};
 
 void ResetReceiveCommandTestData()
 {
 	_inverseSteps = false;
+	isAutoLandingInitialized = false;
 	_previousProgram.ProgramID = 0;
 	miliSecCounterActive = false;
 	inititalizeRangeFinders();
@@ -53,6 +55,7 @@ static void MiliSecOverflow(int timeSpanInMiliSec)
 	}
 }
 
+//Use initTime to accelerate to 
 void AccelerateSpeed(int maxSpeed, int initTime)
 {
 	if(miliSecCounter < initTime) //Wait before real speed is applied
@@ -71,6 +74,7 @@ void AccelerateSpeed(int maxSpeed, int initTime)
 	}
 }
 
+//Measure specific sensor
 int MeasureSonar(byte sonarId)
 {
 	updateRangeFinders();
@@ -87,13 +91,20 @@ void KeepRunningProgram()
 	RunProgram(_previousProgram);
 }
 
+//Keep height at first parameter, accelerating with second paramter's time 
 static void KeepHeightBySonar(int steadyHeight, int initTime)
 {
+	if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE) //If autohold enable
+		return; //Skip the rest
+
 	int sonarHeight = MeasureSonar(ALTITUDE_RANGE_FINDER_INDEX); //Bottom sonar
 
 	if( (sonarHeight + STEADYTOLERANCE > steadyHeight) && (sonarHeight - STEADYTOLERANCE < steadyHeight))
 	{
 		//All green - keep level
+		printNewLine("Enabling Altitude Hold", STATUSMODE);
+		//printNewLine(sonarHeight,STATUSMODE);
+		_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
 	}
 
 	else if(sonarHeight + STEADYTOLERANCE < steadyHeight) //Not high enough
@@ -124,6 +135,13 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 	}
 }
 
+static void LandDrone()
+{
+	_controllerInput[AUX1] = ALTITUDEHOLDTRUE; //Hold altitude?
+	_controllerInput[AUX3] = AUTOLANDTRUE; //Activate autolanding
+	//isAutoLandingInitialized = true; // Needed to autoland
+}
+
 void RunProgram(ProgramInput input)
 {
 	miliSecCounterActive = true;
@@ -150,6 +168,10 @@ void RunProgram(ProgramInput input)
 
 	case 4:
 		KeepHeightBySonar(input.data, input.TimeSpanInMiliSec);
+		break;
+
+	case 5:
+		LandDrone();
 		break;
 
 	default:

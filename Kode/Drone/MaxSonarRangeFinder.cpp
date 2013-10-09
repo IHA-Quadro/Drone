@@ -52,7 +52,8 @@ void updateRangeFinders()
   byte rangerToRead = 0;
   byte rangerToTrigger = 0;
 
-  if (rangerWaitCycles) {
+  if (rangerWaitCycles) 
+	{
     rangerWaitCycles--;
     return;
   }
@@ -79,16 +80,42 @@ void updateRangeFinders()
   if (rangeFinders[rangerToTrigger].triggerpin) 
     digitalWrite(rangeFinders[rangerToTrigger].triggerpin, HIGH);
 
-  short range = (short)((long)analogRead(rangeFinders[rangerToRead].pin) * (long)(rangerScale[rangeFinders[rangerToRead].type]) / (1L<<ADC_NUMBER_OF_BITS));
+	long read = analogRead(rangeFinders[rangerToRead].pin);
+	long scale = (long)(rangerScale[rangeFinders[rangerToRead].type]) / (1L<<ADC_NUMBER_OF_BITS);
 
-  // Following will accept the sample if it's either withing "spike margin" of last raw reading or previous accepted reading
-  // otherwise it's ignored as noise
-  
-  if ((abs(range - lastRange[rangerToRead]) < SPIKE_FILTER_MARGIN) ||
-      (abs(range * 1000.0 - rangeFinderRange[rangeFinders[rangerToRead].target]) < SPIKE_FILTER_MARGIN)) 
-	{
+  short range = (short)(read * scale);
+
+
+	if(range < 3600)
     rangeFinderRange[rangeFinders[rangerToRead].target] = (float)range / 1000.0;
-  }
+
+ // // Following will accept the sample if it's either withing "spike margin" of last raw reading or previous accepted reading
+ // // otherwise it's ignored as noise
+ // 
+ // if ( (abs(range - lastRange[rangerToRead]) < SPIKE_FILTER_MARGIN) )//||
+ //    // (abs(range * 1000.0 - rangeFinderRange[rangeFinders[rangerToRead].target]) < SPIKE_FILTER_MARGIN)) 
+	//{
+	//	printInLine("First: ", ALTITUDEMODE);
+	//	printInLine(range, ALTITUDEMODE);
+	//	println(ALTITUDEMODE);
+ //   rangeFinderRange[rangeFinders[rangerToRead].target] = (float)range / 1000.0;
+ // }
+
+	//else if( (abs(range * 1000.0 - rangeFinderRange[rangeFinders[rangerToRead].target]) < SPIKE_FILTER_MARGIN) )
+	//{
+	//	printInLine("Second: ", ALTITUDEMODE);
+	//	printInLine(range, ALTITUDEMODE);
+	//	println(ALTITUDEMODE);
+	//	rangeFinderRange[rangeFinders[rangerToRead].target] = (float)range / 1000.0;
+	//}
+	//else
+	//{
+	//	printInLine("Third: ", ALTITUDEMODE);
+	//	printInLine(read, ALTITUDEMODE);
+	//	printInLine(", ", ALTITUDEMODE);
+	//	printInLine(scale, ALTITUDEMODE);
+	//	println(ALTITUDEMODE);
+	//}
   
 	lastRange[rangerToRead] = range;
  

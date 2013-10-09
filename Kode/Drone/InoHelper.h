@@ -2,6 +2,7 @@
 #define InoHelper_H
 
 #include "Accelerometer.h"
+#include "AltitudeControlProcessor.h"
 #include "AeroQuad.h"
 #include "FlightCommandProcessor.h"
 #include "FlightControlProcessor.h"
@@ -43,4 +44,5 @@ void process10HzTask2();
 void process10HzTask3();
 void process1HzTask();
 
+void PrintAltitudeReport();
 void PrintDebugReport();

@@ -144,6 +144,30 @@ void process1HzTask() {
 
 	sendSerialHeartbeat();   
 #endif
+
+	PrintAltitudeReport();
+}
+
+void PrintAltitudeReport()
+{
+	/*printInLine("AltitudeHoldState activate: ", ALTITUDEMODE);
+	printNewLine(altitudeHoldState, ALTITUDEMODE);
+
+	if(receiverCommand[AUX3] < 1750)
+	{
+		printInLine("Sensor found: ", ALTITUDEMODE);
+		printNewLine((isOnRangerRangeValid?"Yes":"No"), ALTITUDEMODE);
+	}
+
+
+	printInLine("Hold position: ", ALTITUDEMODE);
+	printNewLine((Holdposition?"Yes":"No"), ALTITUDEMODE);
+
+	if(receiverCommand[AUX1] < 1750)
+	{
+		printInLine("Panic mode: ", ALTITUDEMODE);
+		printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
+	}*/
 }
 
 void PrintDebugReport()

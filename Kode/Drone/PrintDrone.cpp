@@ -12,6 +12,7 @@ void SetupPrintDrone()
 	}
 	PrintConfig[WIREMODE] = false;
 	PrintConfig[MOTORMODE] = false;
+	//PrintConfig[ALTITUDEMODE] = false;
 }
 
 void SilenceSerial()
@@ -61,6 +62,14 @@ void println(printModes mode)
 }
 
 void printInLine(int f, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.print(f);
+	}
+}
+
+void printInLine(long f, printModes mode)
 {
 	if(PrintConfig[mode])
 	{

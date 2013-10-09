@@ -18,9 +18,9 @@ void SetupControlFaker()
 	_motorsArmed = false;
 	_safetyChecked = false;
 	_calibrationPerformed = false;
-	spinSpeed = 1200;
+	spinSpeed = 1210;
 
-	for(byte i = XAXIS; i < channelsInUse ; i++)
+	for(byte i = XAXIS; i < THROTTLE ; i++)
 	{
 		_controllerInput[0] = MINCOMMAND+100;
 	}
@@ -127,16 +127,16 @@ void ApplySpeed()
 	_controllerInput[THROTTLE] = spinSpeed;
 }
 
-void ResetInputData()
+void ResetFakerData()
 {
 	_controllerInput[XAXIS]			= 1500;
 	_controllerInput[YAXIS]			= 1500;
 	_controllerInput[ZAXIS]			= 1500;
-	_controllerInput[THROTTLE]	= 1200;
-	_controllerInput[MODE]			= 2000; // Over 1500 gives Flight Mode = Attitude (FlightCommandProcessor.cpp)
-	_controllerInput[AUX1]			= 1000; // Under 1750 gives Altitude hold (FlightCommandProcessor.cpp)
-	_controllerInput[AUX2]			= 1000;
-	_controllerInput[AUX3]			= 1000; //Over 1750 gives Autolanding (FlightCommandProcessor.cpp)
+	_controllerInput[THROTTLE]	= 1210; //1200 be minimum value
+	_controllerInput[MODE]			= 2000; //Over 1500 gives Flight Mode = Altitude (FlightCommandProcessor.cpp)
+	_controllerInput[AUX1]			= ALTITUDEHOLDFALSE; //Under 1750 gives Altitude hold (FlightCommandProcessor.cpp)
+	_controllerInput[AUX2]			= 1200; //For GPS program to get "home" - keep low
+	_controllerInput[AUX3]			= AUTOLANDFALSE; //Under 1750 gives Autolanding (FlightCommandProcessor.cpp)
 
 	_initialized = true;
 

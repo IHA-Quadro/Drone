@@ -36,8 +36,6 @@ void initializeReceiverParam(int nbChannel = 6)
 	receiverCommand[AUX1] = 1000;
 	receiverCommand[AUX2] = 1000;
 	receiverCommand[AUX3] = 1000;
-	receiverCommand[AUX4] = 1000;
-	receiverCommand[AUX5] = 1000;
 
 	for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
 		receiverCommandSmooth[channel] = 1.0;
@@ -69,9 +67,9 @@ void readReceiver()
 			if(_motorsArmed)
 			{
 				initializeReceiverValues();
-				initializeReceiverParam();
+				initializeReceiverParam(lastReceiverChannel);
 
-				ResetInputData();
+				ResetFakerData();
 			}
 
 			if(!_motorsArmed && _safetyChecked)

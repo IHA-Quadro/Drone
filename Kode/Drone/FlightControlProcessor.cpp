@@ -2,7 +2,6 @@
 
 void calculateFlightError()
 {
-
 	if (flightMode == ATTITUDE_FLIGHT_MODE) 
 	{
 		float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS]) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
@@ -43,15 +42,16 @@ void processCalibrateESC()
 
 void processAutoLandingAltitudeCorrection() 
 {
-	if (autoLandingState != OFF) {   
-
-		if (autoLandingState == BARO_AUTO_DESCENT_STATE) 
+	if (autoLandingState != OFF) //Should it land?
+	{   
+		if (autoLandingState == BARO_AUTO_DESCENT_STATE) //Descent by Baro?
 		{
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
+
 			if (isOnRangerRange(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX])) 
 				autoLandingState = SONAR_AUTO_DESCENT_STATE;			
 		}
-		else if (autoLandingState == SONAR_AUTO_DESCENT_STATE) 
+		else if (autoLandingState == SONAR_AUTO_DESCENT_STATE) //Descent by Sonar (yes, plz)
 		{
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
 			sonarAltitudeToHoldTarget -= SONAR_AUTO_LANDING_DESCENT_SPEED;

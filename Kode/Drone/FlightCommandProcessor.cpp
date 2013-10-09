@@ -1,68 +1,87 @@
 #include "FlightCommandProcessor.h"
 
-#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
+bool Holdposition, panic = false;
+
+//#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
 
 bool isPositionHoldEnabledByUser() 
 {
-	if (receiverCommand[AUX1] < 1750) {
+	if (receiverCommand[AUX1] < 1750) 
+	{
+		Holdposition = true;
 		return true;
 	}
+	Holdposition = false;
 	return false;
 }
 
 void processAltitudeHoldStateFromReceiverCommand() 
 {
-	if (isPositionHoldEnabledByUser()) {
-		if (altitudeHoldState != ALTPANIC ) {  // check for special condition with manditory override of Altitude hold
-			if (!isAltitudeHoldInitialized) {
-#if defined AltitudeHoldBaro
+	if (isPositionHoldEnabledByUser()) 
+	{
+		if (altitudeHoldState != ALTPANIC ) 
+		{  // check for special condition with manditory override of Altitude hold
+			panic = false;
+
+			if (!isAltitudeHoldInitialized) 
+			{
+				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
-#endif
-#if defined AltitudeHoldRangeFinder
+				//#endif
+				//#if defined AltitudeHoldRangeFinder
 				sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
-#endif
+				//#endif
 				altitudeHoldThrottle = receiverCommand[THROTTLE];
 				isAltitudeHoldInitialized = true;
 			}
+
 			altitudeHoldState = ON;
 		}
-	} 
-	else {
+	}
+	else 
+	{
 		isAltitudeHoldInitialized = false;
 		altitudeHoldState = OFF;
 	}
 }
-#endif
+//#endif
 
-#if defined (AutoLanding)
+//#if defined (AutoLanding)
 void processAutoLandingStateFromReceiverCommand() 
 {
-	if (receiverCommand[AUX3] < 1750) 
+	if (receiverCommand[AUX3] == AUTOLANDTRUE)
 	{
+		printNewLine("Trying to land", STATUSMODE);
 		if (altitudeHoldState != ALTPANIC ) 
 		{  // check for special condition with manditory override of Altitude hold
 			if (isAutoLandingInitialized) 
 			{
-				autoLandingState = BARO_AUTO_DESCENT_STATE;
-#if defined AltitudeHoldBaro
+				//autoLandingState = BARO_AUTO_DESCENT_STATE;
+				autoLandingState = SONAR_AUTO_DESCENT_STATE;
+				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
-#endif
-#if defined AltitudeHoldRangeFinder
+				//#endif
+				//#if defined AltitudeHoldRangeFinder
 				sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
-#endif
+				//#endif
 				altitudeHoldThrottle = receiverCommand[THROTTLE];
+
+				printNewLine(altitudeHoldThrottle, ALTITUDEMODE); //Speed
+
 				isAutoLandingInitialized = true;
 			}
 			altitudeHoldState = ON;
 		}
+		else
+			printNewLine("PANIC!", ALTITUDEMODE);
 	}
 	else 
 	{
@@ -77,7 +96,7 @@ void processAutoLandingStateFromReceiverCommand()
 		}
 	}
 }
-#endif
+//#endif
 
 void processZeroThrottleFunctionFromReceiverCommand() {
 	// Disarm motors (left stick lower left corner)
@@ -155,12 +174,10 @@ void readPilotCommands()
 		previousFlightMode = flightMode;
 	}
 
-
-#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+	//#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
 	processAltitudeHoldStateFromReceiverCommand();
-#endif
-
-#if defined (AutoLanding)
+	//#endif
+	//#if defined (AutoLanding)
 	processAutoLandingStateFromReceiverCommand();
-#endif
+	//#endif
 }
