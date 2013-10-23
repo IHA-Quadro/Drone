@@ -45,6 +45,14 @@ void printNewLine(int value, printModes mode)
 	}
 }
 
+void printNewLine(float value, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.println(value);
+	}
+}
+
 void printNewLine(String s, printModes mode)
 {
 	if(PrintConfig[mode])

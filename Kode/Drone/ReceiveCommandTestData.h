@@ -8,7 +8,7 @@
 #define lower 1450
 #define upper 1550
 #define steady 1500
-#define STEADYTOLERANCE 10
+#define STEADYTOLERANCE 2
 
 struct ProgramInput 
 {

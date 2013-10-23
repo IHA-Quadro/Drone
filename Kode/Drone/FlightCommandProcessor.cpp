@@ -1,17 +1,12 @@
 #include "FlightCommandProcessor.h"
 
-bool Holdposition, panic = false;
-
 //#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
 
 bool isPositionHoldEnabledByUser() 
 {
 	if (receiverCommand[AUX1] < 1750) 
-	{
-		Holdposition = true;
 		return true;
-	}
-	Holdposition = false;
+
 	return false;
 }
 
@@ -21,7 +16,6 @@ void processAltitudeHoldStateFromReceiverCommand()
 	{
 		if (altitudeHoldState != ALTPANIC ) 
 		{  // check for special condition with manditory override of Altitude hold
-			panic = false;
 
 			if (!isAltitudeHoldInitialized) 
 			{
@@ -55,13 +49,17 @@ void processAutoLandingStateFromReceiverCommand()
 {
 	if (receiverCommand[AUX3] == AUTOLANDTRUE)
 	{
-		printNewLine("Trying to land", STATUSMODE);
+		
+		//Write max 10 times a sec and stop when motor is not armed
+		if(taskCounter%5 == 0 && motorArmed != OFF)
+			printNewLine("Trying to land", STATUSMODE);
+		
 		if (altitudeHoldState != ALTPANIC ) 
 		{  // check for special condition with manditory override of Altitude hold
-			if (isAutoLandingInitialized) 
+			if (!isAutoLandingInitialized) 
 			{
-				//autoLandingState = BARO_AUTO_DESCENT_STATE;
-				autoLandingState = SONAR_AUTO_DESCENT_STATE;
+				autoLandingState = BARO_AUTO_DESCENT_STATE;
+				//autoLandingState = SONAR_AUTO_DESCENT_STATE;
 				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
@@ -89,7 +87,7 @@ void processAutoLandingStateFromReceiverCommand()
 		autoLandingThrottleCorrection = 0;
 		isAutoLandingInitialized = false;
 
-		if (receiverCommand[AUX1] > 1750) 
+		if (receiverCommand[AUX1] == ALTITUDEHOLDFALSE) 
 		{
 			altitudeHoldState = OFF;
 			isAltitudeHoldInitialized = false;

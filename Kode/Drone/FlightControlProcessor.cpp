@@ -48,7 +48,7 @@ void processAutoLandingAltitudeCorrection()
 		{
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
 
-			if (isOnRangerRange(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX])) 
+			if (isOnRangerRange(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]))  //Will decent by baro anyway
 				autoLandingState = SONAR_AUTO_DESCENT_STATE;			
 		}
 		else if (autoLandingState == SONAR_AUTO_DESCENT_STATE) //Descent by Sonar (yes, plz)
@@ -63,10 +63,13 @@ void processAutoLandingAltitudeCorrection()
 		{
 			autoLandingThrottleCorrection -= 1;
 			baroAltitudeToHoldTarget -= BARO_AUTO_LANDING_DESCENT_SPEED;
-			sonarAltitudeToHoldTarget -= SONAR_AUTO_LANDING_DESCENT_SPEED;
+			sonarAltitudeToHoldTarget -= SONAR_AUTO_LANDING_DESCENT_SPEED; // decent with 0.25 pr sec
 
 			if (((throttle + autoLandingThrottleCorrection) < 1000) || (rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX] < 0.20)) 
 			{
+				if(motorArmed != OFF)
+					printNewLine("Killing motors by autodecent program", STATUSMODE);
+
 				commandAllMotors(MINCOMMAND);
 				motorArmed = OFF;
 			}
@@ -78,22 +81,21 @@ void processThrottleCorrection()
 {
 	int throttleAdjust = 0;
 
-#if defined UseGPSNavigator
-	if (navigationState == ON || positionHoldState == ON) {
-		throttleAdjust = throttle / (cos (kinematicsAngle[XAXIS]*0.55) * cos (kinematicsAngle[YAXIS]*0.55));
-		throttleAdjust = constrain ((throttleAdjust - throttle), 0, 50); //compensate max  +/- 25 deg XAXIS or YAXIS or  +/- 18 ( 18(XAXIS) + 18(YAXIS))
-	}
-#endif
-#if defined (AutoLanding)
+//#if defined UseGPSNavigator
+//	if (navigationState == ON || positionHoldState == ON) {
+//		throttleAdjust = throttle / (cos (kinematicsAngle[XAXIS]*0.55) * cos (kinematicsAngle[YAXIS]*0.55));
+//		throttleAdjust = constrain ((throttleAdjust - throttle), 0, 50); //compensate max  +/- 25 deg XAXIS or YAXIS or  +/- 18 ( 18(XAXIS) + 18(YAXIS))
+//	}
+//#endif
+//#if defined (AutoLanding)
 	throttleAdjust += autoLandingThrottleCorrection;
-#endif
+//#endif
 
 	throttle = constrain((throttle + throttleAdjust),MINCOMMAND,MAXCOMMAND-150);  // limmit throttle to leave some space for motor correction in max throttle manuever
 }
 
 void processHardManuevers() 
 {
-
 	if ((receiverCommand[XAXIS] < MINCHECK) ||
 		(receiverCommand[XAXIS] > MAXCHECK) ||
 		(receiverCommand[YAXIS] < MINCHECK) ||
@@ -136,11 +138,15 @@ void processFlightControl()
 
 	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0) 
 	{  // 50hz task
+		taskCounter++;
+		if(taskCounter >= 50)
+			taskCounter = 0;
+
 		processAltitudeHold();
 
-#if defined AutoLanding
+//#if defined AutoLanding
 		processAutoLandingAltitudeCorrection();
-#endif
+//#endif
 
 		processThrottleCorrection();
 	}

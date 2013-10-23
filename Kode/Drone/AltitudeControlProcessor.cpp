@@ -50,43 +50,49 @@ void processAltitudeHold()
 
 
 		if (abs(altitudeHoldThrottle - receiverCommand[THROTTLE]) > altitudeHoldPanicStickMovement) 
-		{
 			altitudeHoldState = ALTPANIC; // too rapid of stick movement so PANIC out of ALTHOLD
-			panic = true;
-		}
-		 
+
 		else 
 		{
-			panic = false;
 			if (receiverCommand[THROTTLE] > (altitudeHoldThrottle + altitudeHoldBump)) 
 			{ // AKA changed to use holdThrottle + ALTBUMP - (was MAXCHECK) above 1900
-//#if defined AltitudeHoldBaro
+				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget += ALTITUDE_BUMP_SPEED;
-//#endif
-//#if defined AltitudeHoldRangeFinder
+				//#endif
+				//#if defined AltitudeHoldRangeFinder
 				float newalt = sonarAltitudeToHoldTarget + ALTITUDE_BUMP_SPEED;
 				if (isOnRangerRange(newalt)) 
 					sonarAltitudeToHoldTarget = newalt;
-//#endif
+				//#endif
 			}
 
 			if (receiverCommand[THROTTLE] < (altitudeHoldThrottle - altitudeHoldBump)) 
 			{ // AKA change to use holdThorrle - ALTBUMP - (was MINCHECK) below 1100
-//#if defined AltitudeHoldBaro
+				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget -= ALTITUDE_BUMP_SPEED;
-//#endif
-//#if defined AltitudeHoldRangeFinder
+				//#endif
+
+				//#if defined AltitudeHoldRangeFinder
 				float newalt = sonarAltitudeToHoldTarget - ALTITUDE_BUMP_SPEED;
 				if (isOnRangerRange(newalt)) 
 					sonarAltitudeToHoldTarget = newalt;
-//#endif
+				//#endif
 			}
 		}
-		throttle = altitudeHoldThrottle + altitudeHoldThrottleCorrection + zDampeningThrottleCorrection;
+
+		float newThrottle = altitudeHoldThrottle + altitudeHoldThrottleCorrection + zDampeningThrottleCorrection;
+
+		if(receiverCommand[AUX3] == AUTOLANDTRUE && taskCounter%5 == 0 && motorArmed != OFF)
+		{
+			printInLine("Throttle change: ", ALTITUDEMODE);
+			printInLine(newThrottle - throttle, ALTITUDEMODE);
+			printInLine(" => ", ALTITUDEMODE);
+			printNewLine(newThrottle, ALTITUDEMODE);
+		}
+
+		throttle = newThrottle; //Apply new speed
 	}
-	
+
 	else 
-	{
 		throttle = receiverCommand[THROTTLE];
-	}
 }

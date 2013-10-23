@@ -75,10 +75,11 @@ void AccelerateSpeed(int maxSpeed, int initTime)
 }
 
 //Measure specific sensor
+//Output in cm
 int MeasureSonar(byte sonarId)
 {
 	updateRangeFinders();
-	return (int)((float)rangeFinderRange[sonarId] *100); 
+	return (int)((float)rangeFinderRange[sonarId] *100) + 8; 
 }
 
 void PrintSonarData(byte sonarID)
@@ -91,9 +92,19 @@ void KeepRunningProgram()
 	RunProgram(_previousProgram);
 }
 
+static void NotLanding()
+{
+	_controllerInput[AUX3] = AUTOLANDFALSE;
+	isAutoLandingInitialized = false;
+}
+
+bool stableHeight = false;
+
 //Keep height at first parameter, accelerating with second paramter's time 
 static void KeepHeightBySonar(int steadyHeight, int initTime)
 {
+	NotLanding();
+
 	if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE) //If autohold enable
 		return; //Skip the rest
 
@@ -101,14 +112,17 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 
 	if( (sonarHeight + STEADYTOLERANCE > steadyHeight) && (sonarHeight - STEADYTOLERANCE < steadyHeight))
 	{
-		//All green - keep level
-		printNewLine("Enabling Altitude Hold", STATUSMODE);
-		//printNewLine(sonarHeight,STATUSMODE);
+		if(!stableHeight)
+			printNewLine("Enabling Altitude Hold", STATUSMODE);
+
 		_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+		stableHeight = true;
 	}
 
 	else if(sonarHeight + STEADYTOLERANCE < steadyHeight) //Not high enough
 	{
+		stableHeight = false;
+
 		if(miliSecCounter > initTime) //Still not high enough after initTime
 		{
 			miliSecCounter = 0;
@@ -122,6 +136,8 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 	}
 	else if(sonarHeight  - STEADYTOLERANCE > steadyHeight) //Too high 
 	{
+		stableHeight = false;
+
 		if(miliSecCounter > initTime) //Still too high after initTime
 		{
 			miliSecCounter = 0;
@@ -139,7 +155,6 @@ static void LandDrone()
 {
 	_controllerInput[AUX1] = ALTITUDEHOLDTRUE; //Hold altitude?
 	_controllerInput[AUX3] = AUTOLANDTRUE; //Activate autolanding
-	//isAutoLandingInitialized = true; // Needed to autoland
 }
 
 void RunProgram(ProgramInput input)

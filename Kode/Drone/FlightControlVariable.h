@@ -12,6 +12,7 @@
 extern int motorAxisCommandRoll;
 extern int motorAxisCommandPitch;
 extern int motorAxisCommandYaw;
+extern int taskCounter;
 
 #endif  // #define _AQ_PROCESS_FLIGHT_CONTROL_VARIABLE_H_
 

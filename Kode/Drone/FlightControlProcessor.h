@@ -41,60 +41,59 @@ void processCalibrateESC();
  * alarm was reach, and the throttle is slowly decrease for a minute til
  * batteryMonitorThrottle that is configurable with the configurator
  */
-#if defined BattMonitor && defined BattMonitorAutoDescent
-  void processBatteryMonitorThrottleAdjustment() {
-    
-    if (batteryMonitorAlarmCounter < BATTERY_MONITOR_MAX_ALARM_COUNT) {
-      if (batteryAlarm) {
-        batteryMonitorAlarmCounter++;
-      }
-    }
-    else {
-      #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
-        if (altitudeHoldState == ON) {
-          #if defined AltitudeHoldBaro
-            baroAltitudeToHoldTarget -= 0.01;
-          #endif
-          #if defined AltitudeHoldRangeFinder
-            if (sonarAltitudeToHoldTarget != INVALID_RANGE) {
-              sonarAltitudeToHoldTarget -= 0.01;
-            }
-          #endif
-        }
-        else {
-      #endif
-          if (batteryMonitorStartThrottle == 0) {  // init battery monitor throttle correction!
-            batteryMonitorStartTime = millis();
-            if (throttle < batteryMonitorThrottleTarget) {
-              batteryMonitorStartThrottle = batteryMonitorThrottleTarget;
-            }
-            else {
-              batteryMonitorStartThrottle = throttle; 
-            }
-          }
-          int batteryMonitorThrottle = map(millis()-batteryMonitorStartTime, 0, batteryMonitorGoingDownTime, batteryMonitorStartThrottle, batteryMonitorThrottleTarget);
-          if (batteryMonitorThrottle < batteryMonitorThrottleTarget) {
-            batteryMonitorThrottle = batteryMonitorThrottleTarget;
-          }
-          if (throttle < batteryMonitorThrottle) {
-            batteyMonitorThrottleCorrection = 0;
-          }
-          else {
-            batteyMonitorThrottleCorrection = batteryMonitorThrottle - throttle;
-          }
-      #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
-        }
-      #endif
-    }
-  }
-#endif  
+//#if defined BattMonitor && defined BattMonitorAutoDescent
+//  void processBatteryMonitorThrottleAdjustment() {
+//    
+//    if (batteryMonitorAlarmCounter < BATTERY_MONITOR_MAX_ALARM_COUNT) {
+//      if (batteryAlarm) {
+//        batteryMonitorAlarmCounter++;
+//      }
+//    }
+//    else {
+//      #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+//        if (altitudeHoldState == ON) {
+//          #if defined AltitudeHoldBaro
+//            baroAltitudeToHoldTarget -= 0.01;
+//          #endif
+//          #if defined AltitudeHoldRangeFinder
+//            if (sonarAltitudeToHoldTarget != INVALID_RANGE) {
+//              sonarAltitudeToHoldTarget -= 0.01;
+//            }
+//          #endif
+//        }
+//        else {
+//      #endif
+//          if (batteryMonitorStartThrottle == 0) {  // init battery monitor throttle correction!
+//            batteryMonitorStartTime = millis();
+//            if (throttle < batteryMonitorThrottleTarget) {
+//              batteryMonitorStartThrottle = batteryMonitorThrottleTarget;
+//            }
+//            else {
+//              batteryMonitorStartThrottle = throttle; 
+//            }
+//          }
+//          int batteryMonitorThrottle = map(millis()-batteryMonitorStartTime, 0, batteryMonitorGoingDownTime, batteryMonitorStartThrottle, batteryMonitorThrottleTarget);
+//          if (batteryMonitorThrottle < batteryMonitorThrottleTarget) {
+//            batteryMonitorThrottle = batteryMonitorThrottleTarget;
+//          }
+//          if (throttle < batteryMonitorThrottle) {
+//            batteyMonitorThrottleCorrection = 0;
+//          }
+//          else {
+//            batteyMonitorThrottleCorrection = batteryMonitorThrottle - throttle;
+//          }
+//      #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+//        }
+//      #endif
+//    }
+//  }
+//#endif  
 
 
-#if defined AutoLanding
+//#if defined AutoLanding
   #define BARO_AUTO_LANDING_DESCENT_SPEED 0.008
   #define SONAR_AUTO_LANDING_DESCENT_SPEED 0.005
- 
-#endif
+ //#endif
 
 
 /**
