@@ -25,7 +25,8 @@ void processAltitudeHoldStateFromReceiverCommand()
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
 				//#endif
 				//#if defined AltitudeHoldRangeFinder
-				sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
+				sonarAltitudeToHoldTarget = ((float)programInput.data-8)/100;
+				//sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
 				//#endif

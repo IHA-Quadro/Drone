@@ -9,8 +9,8 @@
 #define ALTITUDE_RANGE_FINDER_INDEX 0
 #define FRONT_RANGE_FINDER_INDEX    1
 #define RIGHT_RANGE_FINDER_INDEX    2
-#define REAR_RANGE_FINDER_INDEX     3
-#define LEFT_RANGE_FINDER_INDEX     4
+#define REAR_RANGE_FINDER_INDEX     4 //3
+#define LEFT_RANGE_FINDER_INDEX     3 //4
 
 extern float rangeFinderRange[5];
 extern float maxRangeFinderRange;
@@ -23,4 +23,4 @@ void updateRangeFinders();
 bool isOnRangerRange(float distance);
 bool isRangerPresent(byte idx);
 
-#endif
+#endif½

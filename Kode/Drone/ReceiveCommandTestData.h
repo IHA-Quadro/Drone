@@ -10,16 +10,7 @@
 #define steady 1500
 #define STEADYTOLERANCE 2
 
-struct ProgramInput 
-{
-	int ProgramID;
-	int data;
-	int TimeSpanInMiliSec;
-	bool resetAfterTimeSpan;
-};
 
-extern ProgramInput programInput;
-extern ProgramInput _previousProgram;
 
 extern int miliSecCounter;
 extern bool miliSecCounterActive;

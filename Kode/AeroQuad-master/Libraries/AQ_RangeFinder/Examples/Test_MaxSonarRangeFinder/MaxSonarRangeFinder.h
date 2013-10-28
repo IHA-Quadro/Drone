@@ -11,7 +11,7 @@
 
 #define MB1000 0 // Maxbotix LV-MaxSonar-EZ*
 #define MB1200 1 // Maxbotix XL-MaxSonar-EZ*
-#define RANGEFINDERSIZE 1
+#define RANGEFINDERSIZE 4
 
 #define SPIKE_FILTER_MARGIN 500 // mm ; changes bigger than this need two samples to take effect
 

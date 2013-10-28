@@ -36,4 +36,15 @@ extern int motorConfiguratorCommand[4];
 
 void applyMotorCommand();
 
+struct ProgramInput 
+{
+	int ProgramID;
+	int data;
+	int TimeSpanInMiliSec;
+	bool resetAfterTimeSpan;
+};
+
+extern ProgramInput programInput;
+extern ProgramInput _previousProgram;
+
 #endif // #define _AQ_PROCESS_FLIGHT_CONTROL_PLUS_MODE_H_

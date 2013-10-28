@@ -13,9 +13,13 @@ void loop() {
   updateRangeFinders();
   
   Serial.print("Distance = {");
-	Serial.print(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
+	//Serial.print(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
 	//Serial.print(" : ");
-	//Serial.print(rangeFinderRange[FRONT_RANGE_FINDER_INDEX]);
+	Serial.print(rangeFinderRange[FRONT_RANGE_FINDER_INDEX]);
+	//Serial.print(" : ");
+	//Serial.print(rangeFinderRange[RIGHT_RANGE_FINDER_INDEX]);
+	//Serial.print(" : ");
+	//Serial.print(rangeFinderRange[LEFT_RANGE_FINDER_INDEX]);
 	Serial.println("}");
-	delay(100);
+	delay(10);
 }

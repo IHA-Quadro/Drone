@@ -8,8 +8,8 @@ int miliSecCounter = 0;
 int miliSecCounterStamp = 0;
 bool miliSecCounterActive = false;
 
-ProgramInput programInput = {0,0,0,0};
-ProgramInput _previousProgram = {0,0,0,0};
+
+int data[2] = {0,0};
 
 void ResetReceiveCommandTestData()
 {
@@ -100,6 +100,14 @@ static void NotLanding()
 
 bool stableHeight = false;
 
+int calcAverage(int height)
+{
+	data[0] = data[1];
+	data[1] = height;
+
+	return (data[0]+data[1])/2;
+}
+
 //Keep height at first parameter, accelerating with second paramter's time 
 static void KeepHeightBySonar(int steadyHeight, int initTime)
 {
@@ -110,7 +118,9 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 
 	int sonarHeight = MeasureSonar(ALTITUDE_RANGE_FINDER_INDEX); //Bottom sonar
 
-	if( (sonarHeight + STEADYTOLERANCE > steadyHeight) && (sonarHeight - STEADYTOLERANCE < steadyHeight))
+	int average = calcAverage(sonarHeight);
+
+	if( (average + STEADYTOLERANCE > steadyHeight) && (average - STEADYTOLERANCE < steadyHeight))
 	{
 		if(!stableHeight)
 			printNewLine("Enabling Altitude Hold", STATUSMODE);
@@ -119,7 +129,7 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 		stableHeight = true;
 	}
 
-	else if(sonarHeight + STEADYTOLERANCE < steadyHeight) //Not high enough
+	else if(average + STEADYTOLERANCE < steadyHeight) //Not high enough
 	{
 		stableHeight = false;
 
@@ -130,11 +140,11 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 			printInLine("SpinSpeed = ", STATUSMODE);
 			printInLine(spinSpeed, STATUSMODE);
 			printInLine(" ; ", STATUSMODE);
-			printInLine(sonarHeight, STATUSMODE);
+			printInLine(average, STATUSMODE);
 			println(STATUSMODE);
 		}
 	}
-	else if(sonarHeight  - STEADYTOLERANCE > steadyHeight) //Too high 
+	else if(average  - STEADYTOLERANCE > steadyHeight) //Too high 
 	{
 		stableHeight = false;
 
@@ -145,7 +155,7 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 			printInLine("SpinSpeed = ", STATUSMODE);
 			printInLine(spinSpeed, STATUSMODE);
 			printInLine(" ; ", STATUSMODE);
-			printInLine(sonarHeight, STATUSMODE);
+			printInLine(average, STATUSMODE);
 			println(STATUSMODE);
 		}
 	}
