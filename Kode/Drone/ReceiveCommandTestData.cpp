@@ -7,7 +7,7 @@ int throttleSpeed = _starterSpeed;
 int miliSecCounter = 0;
 int miliSecCounterStamp = 0;
 bool miliSecCounterActive = false;
-
+bool stableHeight = false;
 
 int data[2] = {0,0};
 
@@ -38,11 +38,47 @@ void TestAxis(byte axis)
 
 void RotateDrone(int zaxis)
 {
+	if(zaxis != 1500)
+	{
+		printInLine("Rotating drone ", STATUSMODE);
+
+		if(zaxis < 1500)
+			printInLine("to the left to ", STATUSMODE);
+		else
+			printInLine("to the right to ", STATUSMODE);
+
+		printNewLine(zaxis, STATUSMODE);
+	}
+
 	_controllerInput[ZAXIS] = zaxis;
 }
 
 void MoveDrone(int xaxis, int yaxis)
 {
+	if(xaxis != 1500)
+	{
+		printInLine("Tilting drone ", STATUSMODE);
+
+		if(xaxis < 1500)
+			printInLine("to the left to ", STATUSMODE);
+		else
+			printInLine("to the right to ", STATUSMODE);
+
+		printNewLine(xaxis, STATUSMODE);
+	}
+
+	if(yaxis != 1500)
+	{
+		printInLine("Tilting drone ", STATUSMODE);
+
+		if(yaxis < 1500)
+			printInLine("backwards to ", STATUSMODE);
+		else
+			printInLine("forward to ", STATUSMODE);
+
+		printNewLine(yaxis, STATUSMODE);
+	}
+
 	_controllerInput[XAXIS] = xaxis;
 	_controllerInput[YAXIS] = yaxis;
 }
@@ -98,8 +134,6 @@ static void NotLanding()
 	isAutoLandingInitialized = false;
 }
 
-bool stableHeight = false;
-
 int calcAverage(int height)
 {
 	data[0] = data[1];
@@ -109,7 +143,7 @@ int calcAverage(int height)
 }
 
 //Keep height at first parameter, accelerating with second paramter's time 
-static void KeepHeightBySonar(int steadyHeight, int initTime)
+static void LiftToSonar(int steadyHeight, int initTime)
 {
 	NotLanding();
 
@@ -136,7 +170,7 @@ static void KeepHeightBySonar(int steadyHeight, int initTime)
 		if(miliSecCounter > initTime) //Still not high enough after initTime
 		{
 			miliSecCounter = 0;
-			spinSpeed += 5;
+			spinSpeed += 10;
 			printInLine("SpinSpeed = ", STATUSMODE);
 			printInLine(spinSpeed, STATUSMODE);
 			printInLine(" ; ", STATUSMODE);
@@ -167,6 +201,36 @@ static void LandDrone()
 	_controllerInput[AUX3] = AUTOLANDTRUE; //Activate autolanding
 }
 
+//Rotate drone to 'axisValue' and reset value after 'miliReset'-miliseconds
+void RotateDroneInTime(int axisValue, int miliReset)
+{
+	if(miliSecCounter < miliReset)
+		RotateDrone(axisValue);
+
+	else
+		RotateDrone(1500);
+}
+
+//Tilt drone to a side and/or direction for 'miliReset'-milisecond, before reseting
+void TiltDroneInTime(int xAxisValue, int yAxisValue, int miliReset)
+{
+	if(miliSecCounter < miliReset)
+	{
+		if(xAxisValue != 0 && xAxisValue != 1500)
+		{
+			MoveDrone(xAxisValue, _controllerInput[YAXIS]);
+		}
+
+		if(yAxisValue != 0 && yAxisValue != 1500)
+		{
+			MoveDrone(_controllerInput[XAXIS], yAxisValue);
+		}
+	}
+
+	else
+		MoveDrone(1500, 1500);
+}
+
 void RunProgram(ProgramInput input)
 {
 	miliSecCounterActive = true;
@@ -192,11 +256,19 @@ void RunProgram(ProgramInput input)
 		break;
 
 	case 4:
-		KeepHeightBySonar(input.data, input.TimeSpanInMiliSec);
+		LiftToSonar(input.data, input.TimeSpanInMiliSec);
 		break;
 
 	case 5:
 		LandDrone();
+		break;
+
+	case 6:
+		RotateDroneInTime(input.data, input.TimeSpanInMiliSec);
+		break;
+
+	case 7:
+		TiltDroneInTime(input.data, input.data2, input.TimeSpanInMiliSec);
 		break;
 
 	default:

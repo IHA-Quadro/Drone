@@ -181,7 +181,7 @@ void readSerialCommand()
 			programInput.ProgramID = (int)readFloatSerial();
 			programInput.data = (int)readFloatSerial();
 			programInput.TimeSpanInMiliSec = (int)readFloatSerial();
-			programInput.resetAfterTimeSpan = (int)readFloatSerial();
+			programInput.data2 = (int)readFloatSerial();
 			
 			_previousProgram.ProgramID = 0;
 			printInLine("New program selected: ", STATUSMODE);
@@ -191,7 +191,7 @@ void readSerialCommand()
 			printInLine(", ", STATUSMODE);
 			printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
 			printInLine(", ", STATUSMODE);
-			printInLine(programInput.resetAfterTimeSpan, STATUSMODE);
+			printInLine(programInput.data2, STATUSMODE);
 			println(STATUSMODE);
 
 			RunProgram(programInput);

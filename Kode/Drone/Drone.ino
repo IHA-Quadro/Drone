@@ -1374,15 +1374,13 @@ void loop () {
 		frameCounter++;
 
 		if(miliSecCounterActive)
-			miliSecCounter++; //ReceiveCommandTestData.h
+			miliSecCounter += 10; //ReceiveCommandTestData.h
 
 		process100HzTask();
 
 		// 50Hz task loop
 		if (frameCounter % TASK_50HZ == 0) 
-		{  //  50 Hz tasks
 			process50HzTask();
-		}
 
 		// 10Hz task loop
 		if (frameCounter % TASK_10HZ == 0) 

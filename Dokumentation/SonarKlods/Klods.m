@@ -117,9 +117,9 @@ Connections = [
 
 figure(2)
 gplot(Connections, Data, '-*')
-axis square;
-%axis on;
-axis equal;
+%axis square;
+axis on;
+%axis equal;
 axis([-2 3 -2 3]);
 
     
