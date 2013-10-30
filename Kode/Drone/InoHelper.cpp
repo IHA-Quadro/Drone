@@ -30,7 +30,7 @@ void process100HzTask()
 
 	calculateKinematics(gyroRate[XAXIS], gyroRate[YAXIS], gyroRate[ZAXIS], filteredAccel[XAXIS], filteredAccel[YAXIS], filteredAccel[ZAXIS], G_Dt);
 
-#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+	//#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
 	zVelocity = (filteredAccel[ZAXIS] * (1 - accelOneG * invSqrt(isq(filteredAccel[XAXIS]) + isq(filteredAccel[YAXIS]) + isq(filteredAccel[ZAXIS])))) - runTimeAccelBias[ZAXIS] - runtimeZBias;
 
 	if (!runtimaZBiasInitialized) 
@@ -41,62 +41,64 @@ void process100HzTask()
 
 	estimatedZVelocity += zVelocity;
 	estimatedZVelocity = (velocityCompFilter1 * zVelocity) + (velocityCompFilter2 * estimatedZVelocity);
-#endif    
-
-#if defined(AltitudeHoldBaro)
+	//#endif    
+	//#if defined(AltitudeHoldBaro)
 	measureBaroSum(); 
 
 	if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0)   //  50 Hz tasks
 		evaluateBaroAltitude();
-#endif
+	//#endif
 
 	processFlightControl();
-
-
-#if defined(BinaryWrite)
-	if (fastTransfer == ON) {
-		// write out fastTelemetry to Configurator or openLog
-		fastTelemetry();
-	}
-#endif      
-
-#ifdef SlowTelemetry
-	updateSlowTelemetry100Hz();
-#endif
-
-#if defined(UseGPS)
-	updateGps();
-#endif      
-
-#if defined(CameraControl)
-	moveCamera(kinematicsAngle[YAXIS],kinematicsAngle[XAXIS],kinematicsAngle[ZAXIS]);
-#if defined CameraTXControl
-	processCameraTXControl();
-#endif
-#endif       
-
+	//
+	//
+	//#if defined(BinaryWrite)
+	//	if (fastTransfer == ON) {
+	//		// write out fastTelemetry to Configurator or openLog
+	//		fastTelemetry();
+	//	}
+	//#endif      
+	//
+	//#ifdef SlowTelemetry
+	//	updateSlowTelemetry100Hz();
+	//#endif
+	//
+	//#if defined(UseGPS)
+	//	updateGps();
+	//#endif      
+	//
+	//#if defined(CameraControl)
+	//	moveCamera(kinematicsAngle[YAXIS],kinematicsAngle[XAXIS],kinematicsAngle[ZAXIS]);
+	//#if defined CameraTXControl
+	//	processCameraTXControl();
+	//#endif
+	//#endif       
+	//
 }
 
-void process50HzTask() {
+void process50HzTask() 
+{
 	G_Dt = (currentTime - fiftyHZpreviousTime) / 1000000.0;
 	fiftyHZpreviousTime = currentTime;
 
 	// Reads external pilot commands and performs functions based on stick configuration
 	readPilotCommands(); 
 
-#if defined(UseAnalogRSSIReader) || defined(UseEzUHFRSSIReader) || defined(UseSBUSRSSIReader)
-	readRSSI();
-#endif
+	//#if defined(UseAnalogRSSIReader) || defined(UseEzUHFRSSIReader) || defined(UseSBUSRSSIReader)
+	//	readRSSI();
+	//#endif
 
-#ifdef AltitudeHoldRangeFinder
+	//#ifdef AltitudeHoldRangeFinder
 	updateRangeFinders();
-#endif
+	//#endif
 
-#if defined(UseGPS)
+	StoreRangeValues();
+
+	/*#if defined(UseGPS)
 	if (haveAGpsLock() && !isHomeBaseInitialized()) {
-		initHomeBase();
+	initHomeBase();
 	}
-#endif      
+	#endif   */   
 }
 
 void process10HzTask1() 
@@ -155,8 +157,8 @@ void PrintAltitudeReport()
 
 	if(receiverCommand[AUX3] < 1750)
 	{
-		printInLine("Sensor found: ", ALTITUDEMODE);
-		printNewLine((isOnRangerRangeValid?"Yes":"No"), ALTITUDEMODE);
+	printInLine("Sensor found: ", ALTITUDEMODE);
+	printNewLine((isOnRangerRangeValid?"Yes":"No"), ALTITUDEMODE);
 	}
 
 
@@ -165,8 +167,8 @@ void PrintAltitudeReport()
 
 	if(receiverCommand[AUX1] < 1750)
 	{
-		printInLine("Panic mode: ", ALTITUDEMODE);
-		printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
+	printInLine("Panic mode: ", ALTITUDEMODE);
+	printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
 	}*/
 }
 

@@ -33,31 +33,13 @@
     <ClInclude Include="FlightControlProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GpsNavigator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HeadingHoldProcessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LedStatusProcessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MavLink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OSDDisplayController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OSDMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SerialCom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SerialLCD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UserConfiguration.h">
@@ -148,6 +130,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FlightControlTri.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialLCD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
@@ -243,6 +231,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReceiveCommandTestData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

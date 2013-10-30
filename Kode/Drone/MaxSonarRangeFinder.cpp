@@ -16,16 +16,20 @@ struct rangeFinder rangeFinders[RANGEFINDERSIZE] = {
 	// If using more than one ranger you should connect the 'trigger' to the 'RX' pin on the ranger.
 	//
 	//    { ALTITUDE_RANGE_FINDER_INDEX, A1, 24, MB1200}, 
-	{ ALTITUDE_RANGE_FINDER_INDEX, A1, 0, MB1000},
-	//{ FRONT_RANGE_FINDER_INDEX,    A2, 25, MB1000},
-	//	  { RIGHT_RANGE_FINDER_INDEX,    A3, 26, MB1000},
-	//	  { REAR_RANGE_FINDER_INDEX,     A4, 27, MB1000},
-	//	  { LEFT_RANGE_FINDER_INDEX,     A5, 28, MB1000}
+	{ ALTITUDE_RANGE_FINDER_INDEX, A1, 24, MB1000}, //A1, 0
+	{ FRONT_RANGE_FINDER_INDEX,    A2, 27, MB1000}, //A2, 25
+	{ RIGHT_RANGE_FINDER_INDEX,    A3, 26, MB1000},
+	//{ REAR_RANGE_FINDER_INDEX,     A4, 27, MB1000},
+	{ LEFT_RANGE_FINDER_INDEX,     A4, 25, MB1000} //A5, 28
 };
 
 short lastRange[RANGER_COUNT];
 byte rangerWaitCycles = 0;
 byte rangerSchedule = 0;
+byte rangerToRead = 0;
+
+struct RangerArray RangerAverage[RANGER_COUNT];
+
 
 void inititalizeRangeFinders() 
 {
@@ -44,12 +48,22 @@ void inititalizeRangeFinders()
 		//pinMode(rangeFinders[i].pin, INPUT);
 	}
 
+	for(byte sonar = 0; sonar < RANGER_COUNT; sonar++)
+	{
+		for(int i = 0; i < RANGERARRAYSIZE; i++)
+		{
+			RangerAverage[sonar].data[i] = 0;
+		}
+		RangerAverage[sonar].counter = 0;
+		RangerAverage[sonar].average = 0;
+	}
+
 	rangerWaitCycles = 10; // allow to initialize
 }
 
 void updateRangeFinders() 
 {
-	byte rangerToRead = 0;
+	rangerToRead = 0;
 	byte rangerToTrigger = 0;
 
 	if (rangerWaitCycles) 
@@ -92,8 +106,6 @@ void updateRangeFinders()
 		(abs(range * 1000.0 - rangeFinderRange[rangeFinders[rangerToRead].target]) < SPIKE_FILTER_MARGIN)) && range < 3600) 
 	{
 		rangeFinderRange[rangeFinders[rangerToRead].target] = (float)range / 1000.0;
-		//printInLine("Sonar: ", ALTITUDEMODE);
-		//printNewLine(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX], ALTITUDEMODE);
 	}
 
 	lastRange[rangerToRead] = range;
@@ -102,4 +114,21 @@ void updateRangeFinders()
 
 	if (rangeFinders[rangerToTrigger].triggerpin) 
 		digitalWrite(rangeFinders[rangerToTrigger].triggerpin, LOW);
+}
+
+//Store the lastest value in an array, take the average and save it along
+void StoreRangeValues()
+{
+	RangerAverage[rangerToRead].data[RangerAverage[rangerToRead].counter] = 0;
+
+	if(!RangerAverage[rangerToRead].counter < 8) //If counter = 0 reset to 0
+		RangerAverage[rangerToRead].counter = 0;
+
+	float value;
+	for(int i = 0; i < RANGERARRAYSIZE; i++)
+	{
+		value += rangeFinderRange[rangeFinders[rangerToRead].target];
+	}
+
+	RangerAverage[rangerToRead].average = value/RANGERARRAYSIZE;
 }

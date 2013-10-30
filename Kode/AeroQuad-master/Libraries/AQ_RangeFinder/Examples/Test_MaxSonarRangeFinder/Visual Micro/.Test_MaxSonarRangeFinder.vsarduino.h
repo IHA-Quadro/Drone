@@ -31,12 +31,15 @@ extern "C" void __cxa_pure_virtual() {;}
 
 //
 //
+void receiveEvent(int howMany);
 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\Test_MaxSonarRangeFinder.ino"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\MaxSonarRangeFinder.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\MaxSonarRangeFinder.h"
+#include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\QueueList.cpp"
+#include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\QueueList.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\RangeFinder.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\RangeFinder.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\AeroQuad-master\Libraries\AQ_RangeFinder\Examples\Test_MaxSonarRangeFinder\SensorsStatus.cpp"

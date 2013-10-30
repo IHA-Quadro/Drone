@@ -61,12 +61,7 @@ void SelectProgram()
 
 void SonarCheck()
 {
-	//Needs implementation
-}
-
-void CalculateAltitude()
-{
-	//A function may already exist for this
+	
 }
 
 void ApplyHeading()

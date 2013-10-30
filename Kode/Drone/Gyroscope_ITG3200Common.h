@@ -3,7 +3,8 @@
 
 #include "Gyroscope.h"
 
-#ifdef ITG3200_ADDRESS_ALTERNATE
+#ifdef ITG3200
+_ALTERNATE
   #define ITG3200_ADDRESS					0x68
 #else
   #define ITG3200_ADDRESS					0x69

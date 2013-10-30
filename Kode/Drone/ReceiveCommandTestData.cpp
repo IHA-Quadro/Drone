@@ -114,8 +114,7 @@ void AccelerateSpeed(int maxSpeed, int initTime)
 //Output in cm
 int MeasureSonar(byte sonarId)
 {
-	updateRangeFinders();
-	return (int)((float)rangeFinderRange[sonarId] *100) + 8; 
+	return (int)(RangerAverage[sonarId].average *100) + 8; 
 }
 
 void PrintSonarData(byte sonarID)

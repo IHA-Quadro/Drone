@@ -44,8 +44,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h;C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega;C:\Program Files (x86)\Arduino\libraries\Wire;C:\Program Files (x86)\Arduino\libraries\Wire\utility;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\;c:\program files (x86)\arduino\hardware\tools\avr\avr\include\avr\;c:\program files (x86)\arduino\hardware\tools\avr\avr\;c:\program files (x86)\arduino\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h;C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h;C:\Program Files (x86)\Arduino\libraries\Robot_Control\Wire.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -76,6 +76,7 @@
     <ClInclude Include="MaxSonarRangeFinder.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="QueueList.h" />
     <ClInclude Include="RangeFinder.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MaxSonarRangeFinder.cpp" />
+    <ClCompile Include="QueueList.cpp" />
     <ClCompile Include="RangeFinder.cpp" />
     <ClCompile Include="SensorsStatus.cpp" />
   </ItemGroup>

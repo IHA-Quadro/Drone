@@ -25,7 +25,6 @@ void KillMotor();
 void FMSignal();
 void SelectProgram();
 void SonarCheck();
-void CalculateAltitude();
 void ApplyHeading();
 void ArmMotors();
 void SafetyCheck();

@@ -97,6 +97,8 @@ void measureCriticalSensors();
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\PID.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\PrintDrone.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\PrintDrone.h"
+#include "C:\Users\Becks\Documents\Drone\Kode\Drone\QueueList.cpp"
+#include "C:\Users\Becks\Documents\Drone\Kode\Drone\QueueList.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\RangeFinder.cpp"
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\RangeFinder.h"
 #include "C:\Users\Becks\Documents\Drone\Kode\Drone\ReceiveCommandTestData.cpp"

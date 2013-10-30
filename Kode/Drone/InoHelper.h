@@ -7,6 +7,7 @@
 #include "FlightCommandProcessor.h"
 #include "FlightControlProcessor.h"
 #include "FourtOrderFilter.h"
+#include "MaxSonarRangeFinder.h"
 #include "UserConfiguration.h"
 
 // default to 10bit ADC (AVR)
@@ -33,9 +34,6 @@
 #endif
 #endif  
 
-// called when eeprom is initialized
-void initializePlatformSpecificAccelCalibration();
-#endif
 
 void process100HzTask();
 void process50HzTask();
@@ -46,3 +44,8 @@ void process1HzTask();
 
 void PrintAltitudeReport();
 void PrintDebugReport();
+
+
+// called when eeprom is initialized
+void initializePlatformSpecificAccelCalibration();
+#endif

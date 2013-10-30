@@ -6,11 +6,13 @@
 #include "InoHelper.h"
 #include "RangeFinder.h"
 
-#if defined (__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(BOARD_aeroquad32)
+
+//#if defined (__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(BOARD_aeroquad32)
 
 #define MB1000 0 // Maxbotix LV-MaxSonar-EZ*
 #define MB1200 1 // Maxbotix XL-MaxSonar-EZ*
-#define RANGEFINDERSIZE 1
+#define RANGEFINDERSIZE 4
+#define RANGERARRAYSIZE 8 //read 50 times, half is to bottom (25 left) and divide by three sensors = 8.333
 
 #define SPIKE_FILTER_MARGIN 500 // mm ; changes bigger than this need two samples to take effect
 
@@ -36,8 +38,18 @@ extern short lastRange[RANGER_COUNT];
 extern byte rangerWaitCycles;
 extern byte rangerSchedule;
 
+struct RangerArray
+{
+	short data[RANGERARRAYSIZE];
+	int counter;
+	float average;
+};
+
+extern struct RangerArray RangerAverage[RANGER_COUNT];
+
 void inititalizeRangeFinders();
 void updateRangeFinders();
+void StoreRangeValues();
 
-#endif 
+//#endif 
 #endif

@@ -6,7 +6,6 @@ volatile uint8_t *port_to_pcmask[] = {
 	&PCMSK2
 };
 
-
 void MegaPcIntISR() {
 	uint8_t bit;
 	uint8_t curr;
@@ -53,13 +52,13 @@ void MegaPcIntISR() {
 }
 
 
-#ifdef OLD_RECEIVER_PIN_ORDER
-  // arduino pins 67, 65, 64, 66, 63, 62
-  static byte receiverPin[6] = {5, 3, 2, 4, 1, 0}; // bit number of PORTK used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
-#else
+//#ifdef OLD_RECEIVER_PIN_ORDER
+//  // arduino pins 67, 65, 64, 66, 63, 62
+//  static byte receiverPin[6] = {5, 3, 2, 4, 1, 0}; // bit number of PORTK used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
+//#else
   //arduino pins 63, 64, 65, 62, 66, 67
   static byte receiverPin[8]; // bit number of PORTK used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
-#endif
+//#endif
 
 void initializeReceiver(int nbChannel = 6) 
 {
@@ -81,6 +80,9 @@ int getRawChannelValue(byte channel) {
   // Get receiver value read by pin change interrupt handler
   uint16_t receiverRawValue = pinData[pin].lastGoodWidth;
   SREG = oldSREG;
+
+	//TODO: skal der sei() her?
+	sei();
   
   return receiverRawValue;
 }
