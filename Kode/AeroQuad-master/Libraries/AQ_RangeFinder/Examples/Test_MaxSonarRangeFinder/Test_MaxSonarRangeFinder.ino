@@ -30,13 +30,14 @@
 
 #define TRANCEIVER_ADDRESS 0x90
 
-QueueList<char> queue;
+QueueList<int> queue;
 
 void setup()
 {
 	Wire.begin(TRANCEIVER_ADDRESS);// join i2c bus with address 0x90
 	Wire.onReceive(receiveEvent);  // register event
-	//queue = new test::QueueList<char>();
+	queue.setPrinter(Serial);
+
 
 	Serial.begin(115200);            // start serial for output
 	Serial.println("All setup");
@@ -44,22 +45,38 @@ void setup()
 
 void loop()
 {
-	delay(100);
+	delay(300);
+	//Serial.print("Queue size: ");
+	//Serial.print(queue.count());
+	//Serial.print(": ");
 
+	cli();
 	while(!queue.isEmpty())
-		Serial.println(queue.pop());
+	{
+		int	c = queue.pop();
+
+		if(c == 82)
+			Serial.print("R");
+		else
+		{
+			Serial.print(c);
+			Serial.print(" ");
+		}
+	}
+	sei();
+
+	Serial.println();
 }
+
 
 // function that executes whenever data is received from master
 // this function is registered as an event, see setup()
 void receiveEvent(int howMany)
 {
-	while(1 < Wire.available())  // loop through all but the last
+	cli();
+	while(Wire.available())  // loop through all but the last
 	{
-		char c = Wire.read();   // receive byte as a character
-		queue.push(c);
-	//	Serial.print(c);           // print the character
+		queue.push(Wire.read());   // receive byte as a character
 	}
-	//int x = Wire.read();      // receive byte as an integer
-	//Serial.println(x);           // print the integer
+	sei();
 }

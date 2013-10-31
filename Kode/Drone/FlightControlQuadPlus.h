@@ -36,14 +36,6 @@ extern int motorConfiguratorCommand[4];
 
 void applyMotorCommand();
 
-struct ProgramInput 
-{
-	int ProgramID;
-	int data;
-	int TimeSpanInMiliSec;
-	int data2;
-};
-
 extern ProgramInput programInput;
 extern ProgramInput _previousProgram;
 

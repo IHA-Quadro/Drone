@@ -55,7 +55,9 @@ T QueueList<T>::pop ()
 		exit ("QUEUE: can't pop item from queue: queue is empty.");
 
 	T item = head->item;
-	link t = head->next; delete head; head = t;
+	link t = head->next; 
+	delete head; 
+	head = t;
 	size--;
 
 	return item;
@@ -120,6 +122,6 @@ void QueueList<T>::blink () const
 	}
 }
 
-template class QueueList<char>;
+template class QueueList<int>;
 //Begrundelse: 30/10-2013
 // http://www.parashift.com/c++-faq-lite/separate-template-class-defn-from-decl.html

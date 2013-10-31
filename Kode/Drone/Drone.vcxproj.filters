@@ -141,6 +141,27 @@
     <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GpsNavigator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LedStatusProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MavLink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OSDDisplayController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OSDMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Decision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Programs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AltitudeControlProcessor.cpp">
@@ -234,6 +255,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QueueList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Decision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Programs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
