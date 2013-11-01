@@ -247,15 +247,15 @@ void RunProgram(ProgramInput input)
 		break;
 
 	case 2:
-		AccelerateSpeed(input.data, input.TimeSpanInMiliSec);
+		AccelerateSpeed(input.AdditionalData, input.TimeSpanInMiliSec);
 		break;
 
 	case 3:
-		PrintSonarData(input.data);
+		PrintSonarData(input.AdditionalData);
 		break;
 
 	case 4:
-		LiftToSonar(input.data, input.TimeSpanInMiliSec);
+		LiftToSonar(input.height, input.TimeSpanInMiliSec);
 		break;
 
 	case 5:
@@ -263,11 +263,11 @@ void RunProgram(ProgramInput input)
 		break;
 
 	case 6:
-		RotateDroneInTime(input.data, input.TimeSpanInMiliSec);
+		RotateDroneInTime(input.data.zAxis, input.TimeSpanInMiliSec);
 		break;
 
 	case 7:
-		TiltDroneInTime(input.data, input.data2, input.TimeSpanInMiliSec);
+		TiltDroneInTime(input.data.xAxis, input.data.yAxis, input.TimeSpanInMiliSec);
 		break;
 
 	default:

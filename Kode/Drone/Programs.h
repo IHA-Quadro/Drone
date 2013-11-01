@@ -3,23 +3,28 @@
 #ifndef _PROGRAMS_
 #define _PROGRAMS_
 
+#include "GlobalDefined.h"
+
 struct ProgramInput 
 {
+	int ProgramID;
 	ProgramData data;
 	int TimeSpanInMiliSec;
+	int height;
+	int AdditionalData;
 };
 
-struct ProgramData
+struct ProgramData 
 {
 	int xAxis;
 	int yAxis;
 	int zAxis;
-	int throttle;
-	int mode;
 	int aux1;
-	int aux2;
 	int aux3;
 };
+
+extern struct ProgramData programData;
+extern struct ProgramInput programInput;
 
 ProgramInput ForwardSlow();
 ProgramInput ForwardFast();
@@ -28,7 +33,7 @@ ProgramInput RotateLeftSlow();
 ProgramInput BackwardsSlow();
 ProgramInput AutoLand();
 ProgramInput Start();
-ProgramInput Keep();
+ProgramInput KeepSteady();
 
 
 

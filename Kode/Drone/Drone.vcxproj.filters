@@ -138,9 +138,6 @@
     <ClInclude Include="QueueList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GpsNavigator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -160,6 +157,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Programs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.Drone.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

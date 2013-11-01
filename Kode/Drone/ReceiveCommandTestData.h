@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "ControlFaker.h"
 #include "MaxSonarRangeFinder.h"
+#include "Programs.h"
 
 #define lower 1450
 #define upper 1550

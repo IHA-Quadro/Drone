@@ -7,7 +7,7 @@
 
 #include "Programs.h"
 
-static ProgramInput programToRun;
+//static ProgramInput programToRun;
 
 ProgramInput GetActualProgram();
 void LoadAnalyse();
