@@ -10,6 +10,7 @@ enum printModes {
 	WIREMODE,
 	MOTORMODE,
 	ALTITUDEMODE,
+	RADIOMODE,
 	DEBUGMODE // Leave last
 };
 

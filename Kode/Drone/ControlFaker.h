@@ -2,14 +2,16 @@
 #define _CONTROLFAKER_h
 
 #include "Accelerometer.h"
+#include "Decision.h"
 #include "GlobalDefined.h"
 #include "Gyroscope.h"
 #include "Kinematics.h"
 #include "MotorControl.h"
 #include "Motors.h"
 #include "PrintDrone.h"
+#include "Programs.h"
 
-#define channelsInUse 6
+#define channelsInUse 8
 
 extern bool _initialized;
 extern bool _calibrationPerformed;
@@ -22,10 +24,7 @@ extern int _controllerInput[channelsInUse];
 
 void SetupControlFaker();
 void KillMotor();
-void FMSignal();
 void SelectProgram();
-void SonarCheck();
-void ApplyHeading();
 void ArmMotors();
 void SafetyCheck();
 void PerformCalibration();

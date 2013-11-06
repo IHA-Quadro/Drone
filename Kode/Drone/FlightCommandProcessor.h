@@ -2,7 +2,9 @@
 #define _AQ_FLIGHT_COMMAND_READER_
 
 #include "BarometricSensor.h"
+#include "FlightControlVariable.h"
 #include "FlightControlQuadPlus.h"
+#include "Programs.h"
 #include "PID.h"
 #include "RangeFinder.h"
 #include "Receiver.h"

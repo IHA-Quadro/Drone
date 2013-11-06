@@ -56,6 +56,7 @@ class QueueList
     void push (const T i);
     T pop ();
     T peek () const;
+		void EmptyList();
     bool isEmpty () const;
     int count () const;
     void setPrinter (Print & p);

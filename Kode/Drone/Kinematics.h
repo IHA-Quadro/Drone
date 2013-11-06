@@ -24,26 +24,12 @@ void initializeKinematics(float hdgX, float hdgY);
 void calculateKinematics(float rollRate, float pitchRate, float yawRate, float longitudinalAccel, float lateralAccel, float verticalAccel, float G_Dt);
 float getGyroUnbias(byte axis);
 void calibrateKinematics();
- 
-  // returns the kinematicsAngle of a specific axis in SI units (radians)
-//  const float getData(byte axis) {
-//    return kinematicsAngle[axis];
-//  }
-  // return heading as +PI/-PI
-//  const float getHeading(byte axis) {
-//    return(kinematicsAngle[axis]);
-//  }
+
+
   
   // This really needs to be in Radians to be consistent
   // I'll fix later - AKA
   // returns heading in degrees as 0-360
 const float kinematicsGetDegreesHeading(byte axis);
   
-//  const byte getType(void) {
-    // This is set in each subclass to identify which algorithm used
-//    return kinematicsType;
-//  }
-
-
 #endif
-

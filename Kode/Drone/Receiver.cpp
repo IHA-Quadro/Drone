@@ -70,6 +70,7 @@ void readReceiver()
 				initializeReceiverParam(lastReceiverChannel);
 
 				ResetFakerData();
+				ResetDecisions();
 			}
 
 			if(!_motorsArmed && _safetyChecked)
@@ -84,11 +85,8 @@ void readReceiver()
 	}
 	else
 	{
-		FMSignal();
+		DecidedProgram();
 		SelectProgram();
-		SonarCheck();
-		CalculateAltitude();
-		ApplyHeading();
 		ApplySpeed();
 	}
 	ApplyData();

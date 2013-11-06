@@ -25,7 +25,7 @@ void processAltitudeHoldStateFromReceiverCommand()
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
 				//#endif
 				//#if defined AltitudeHoldRangeFinder
-				sonarAltitudeToHoldTarget = ((float)programInput.data-8)/100;
+				sonarAltitudeToHoldTarget = ((float)programInput.height-8)/100;
 				//sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
@@ -143,7 +143,7 @@ void processZeroThrottleFunctionFromReceiverCommand() {
 	// Prevents accidental arming of motor output if no transmitter command received
 	if (receiverCommand[ZAXIS] > MINCHECK) 
 	{
-		printNewLine("Safetycheck", DEBUGMODE);
+		printNewLine("Safetycheck", DEBUGMODE); //TODO: kaldes konstant. Se default programInput
 		safetyCheck = ON; 
 	}
 }

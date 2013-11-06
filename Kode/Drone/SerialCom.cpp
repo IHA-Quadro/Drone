@@ -178,23 +178,23 @@ void readSerialCommand()
 			break;
 		
 		case 'P': //  Select program
-			programInput.ProgramID = (int)readFloatSerial();
-			programInput.data = (int)readFloatSerial();
-			programInput.TimeSpanInMiliSec = (int)readFloatSerial();
-			programInput.data2 = (int)readFloatSerial();
-			
-			_previousProgram.ProgramID = 0;
-			printInLine("New program selected: ", STATUSMODE);
-			printInLine(programInput.ProgramID, STATUSMODE);
-			printInLine(", ", STATUSMODE);
-			printInLine(programInput.data, STATUSMODE);
-			printInLine(", ", STATUSMODE);
-			printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
-			printInLine(", ", STATUSMODE);
-			printInLine(programInput.data2, STATUSMODE);
-			println(STATUSMODE);
+			//programInput.ProgramID = (int)readFloatSerial();
+			//programInput.data = (int)readFloatSerial();
+			//programInput.TimeSpanInMiliSec = (int)readFloatSerial();
+			//programInput.data2 = (int)readFloatSerial();
+			//
+			//_previousProgram.ProgramID = 0;
+			//printInLine("New program selected: ", STATUSMODE);
+			//printInLine(programInput.ProgramID, STATUSMODE);
+			//printInLine(", ", STATUSMODE);
+			//printInLine(programInput.data, STATUSMODE);
+			//printInLine(", ", STATUSMODE);
+			//printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
+			//printInLine(", ", STATUSMODE);
+			//printInLine(programInput.data2, STATUSMODE);
+			//println(STATUSMODE);
 
-			RunProgram(programInput);
+			//RunProgram(programInput);
 			break;
 
 		case 'R':

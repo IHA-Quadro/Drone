@@ -148,6 +148,12 @@ void process1HzTask() {
 #endif
 
 	PrintAltitudeReport();
+	PrintSonarReport();
+}
+
+void PrintSonarReport()
+{
+	//printInLine("Sonar: ", BAROSTATUS);
 }
 
 void PrintAltitudeReport()

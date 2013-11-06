@@ -48,10 +48,14 @@
       <ForcedIncludeFiles>C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h;C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h;C:\Program Files (x86)\Arduino\libraries\EEPROM\EEPROM.h;C:\Program Files (x86)\Arduino\libraries\Robot_Control\Wire.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega2560__;ARDUINO=105;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -97,15 +101,9 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="FlightControlQuadPlus.h" />
-    <ClInclude Include="FlightControlTri.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="FlightControlVariable.h" />
     <ClInclude Include="FourtOrderFilter.h" />
     <ClInclude Include="GlobalDefined.h" />
-    <ClInclude Include="GpsNavigator.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="Gyroscope.h" />
     <ClInclude Include="Gyroscope_ITG3200.h" />
     <ClInclude Include="Gyroscope_ITG3200Common.h" />
@@ -114,39 +112,26 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="InoHelper.h" />
+    <ClInclude Include="InputAnalysis.h" />
     <ClInclude Include="Kinematics.h" />
     <ClInclude Include="Kinematics_ARG.h" />
-    <ClInclude Include="LedStatusProcessor.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="MavLink.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="MaxSonarRangeFinder.h" />
     <ClInclude Include="MotorControl.h" />
     <ClInclude Include="Motors.h" />
     <ClInclude Include="Motors_PWM_Timer.h" />
-    <ClInclude Include="OSDDisplayController.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="OSDMenu.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
     <ClInclude Include="PID.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="PrintDrone.h" />
     <ClInclude Include="Programs.h" />
     <ClInclude Include="QueueList.h" />
+    <ClInclude Include="RadioCommunication.h" />
     <ClInclude Include="RangeFinder.h" />
     <ClInclude Include="ReceiveCommandTestData.h" />
     <ClInclude Include="Receiver.h" />
     <ClInclude Include="Receiver_MEGA.h" />
     <ClInclude Include="SensorsStatus.h" />
     <ClInclude Include="SerialCom.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="SerialLCD.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="UserConfiguration.h">
@@ -172,7 +157,11 @@
     <ClCompile Include="FlightControlVariable.cpp" />
     <ClCompile Include="FourtOrderFilter.cpp" />
     <ClCompile Include="Gyroscope.cpp" />
+    <ClCompile Include="Gyroscope_ITG3200.cpp" />
+    <ClCompile Include="Gyroscope_ITG3200Common.cpp" />
+    <ClCompile Include="HeadingHoldProcessor.cpp" />
     <ClCompile Include="InoHelper.cpp" />
+    <ClCompile Include="InputAnalysis.cpp" />
     <ClCompile Include="Kinematics.cpp" />
     <ClCompile Include="MaxSonarRangeFinder.cpp" />
     <ClCompile Include="MotorControl.cpp" />
@@ -182,6 +171,7 @@
     <ClCompile Include="PrintDrone.cpp" />
     <ClCompile Include="Programs.cpp" />
     <ClCompile Include="QueueList.cpp" />
+    <ClCompile Include="RadioCommunication.cpp" />
     <ClCompile Include="RangeFinder.cpp" />
     <ClCompile Include="ReceiveCommandTestData.cpp" />
     <ClCompile Include="Receiver.cpp" />

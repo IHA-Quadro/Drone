@@ -1,6 +1,6 @@
 #include "ControlFaker.h"
 
-int _controllerInput[channelsInUse];
+int _controllerInput[channelsInUse] = {1500, 1500, 1500, 1100, 0, 0, 0 ,0};
 bool _initialized;
 bool _calibrationPerformed;
 bool _motorsArmed;
@@ -9,6 +9,7 @@ bool _safetyChecked;
 int maxSpinSpeed = 2000;
 int spinSpeed = 1500;
 
+//Setup file for ControlFaker
 void SetupControlFaker()
 {
 	printNewLine("Init ControlFaker", STATUSMODE);
@@ -24,9 +25,11 @@ void SetupControlFaker()
 	{
 		_controllerInput[0] = MINCOMMAND+100;
 	}
+
 	KillMotor(false);
 }
 
+//Set motors throttle to 1100 making it not spinning and silence all Serial output
 void KillMotor()
 {
 	KillMotor(true);
@@ -49,25 +52,17 @@ void SerialOutput(bool active)
 
 }
 
-void FMSignal()
-{
-	//Code from Rasmus1
-}
-
+//Take the values of the current program's values and apply them for output
 void SelectProgram()
 {
-	//Run test program or a specific pattern program
+	_controllerInput[XAXIS] = programInput.data.xAxis;
+	_controllerInput[YAXIS] = programInput.data.yAxis;
+	_controllerInput[ZAXIS] = programInput.data.zAxis;
+	_controllerInput[AUX1] = programInput.data.aux1;
+	_controllerInput[AUX2] = programInput.data.aux3;
 }
 
-void SonarCheck()
-{
-	
-}
-
-void ApplyHeading()
-{
-}
-
+//Arm motors so they will fly (safety mechanism)
 void ArmMotors()
 {
 	printNewLine("Prep. Motors armed", STATUSMODE);
@@ -75,6 +70,7 @@ void ArmMotors()
 	_motorsArmed = true;
 }
 
+//Set motors to "not-spinning"
 void SafetyCheck()
 {
 	printNewLine("Prep. Safetycheck", STATUSMODE);
@@ -82,6 +78,7 @@ void SafetyCheck()
 	_safetyChecked = true;
 }
 
+//Active a calibration sequence
 void PerformCalibration()
 {
 	printNewLine("Prep. Calibration performed", STATUSMODE);
@@ -94,6 +91,7 @@ void PerformCalibration()
 	_calibrationPerformed = true;
 }
 
+//Apply speed check. Do not fly faster than 'maxSpinSpeed' and kill motor if needed
 void ApplySpeed()
 {
 	//Specific for the program.
@@ -122,6 +120,7 @@ void ApplySpeed()
 	_controllerInput[THROTTLE] = spinSpeed;
 }
 
+//Resets data for the input data.
 void ResetFakerData()
 {
 	_controllerInput[XAXIS]			= 1500;
@@ -129,9 +128,9 @@ void ResetFakerData()
 	_controllerInput[ZAXIS]			= 1500;
 	_controllerInput[THROTTLE]	= 1210; //1200 be minimum value
 	_controllerInput[MODE]			= 2000; //Over 1500 gives Flight Mode = Altitude (FlightCommandProcessor.cpp)
-	_controllerInput[AUX1]			= ALTITUDEHOLDFALSE; //Under 1750 gives Altitude hold (FlightCommandProcessor.cpp)
+	_controllerInput[AUX1]			= ALTITUDEHOLDFALSE; 
 	_controllerInput[AUX2]			= 1200; //For GPS program to get "home" - keep low
-	_controllerInput[AUX3]			= AUTOLANDFALSE; //Under 1750 gives Autolanding (FlightCommandProcessor.cpp)
+	_controllerInput[AUX3]			= AUTOLANDFALSE; 
 
 	_initialized = true;
 

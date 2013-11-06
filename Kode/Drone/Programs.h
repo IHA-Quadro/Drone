@@ -5,15 +5,6 @@
 
 #include "GlobalDefined.h"
 
-struct ProgramInput 
-{
-	int ProgramID;
-	ProgramData data;
-	int TimeSpanInMiliSec;
-	int height;
-	int AdditionalData;
-};
-
 struct ProgramData 
 {
 	int xAxis;
@@ -23,18 +14,26 @@ struct ProgramData
 	int aux3;
 };
 
+struct ProgramInput 
+{
+	int ProgramID;
+	ProgramData data;
+	int TimeSpanInMiliSec;
+	int height;
+	int AdditionalData;
+};
+
 extern struct ProgramData programData;
 extern struct ProgramInput programInput;
 
-ProgramInput ForwardSlow();
-ProgramInput ForwardFast();
-ProgramInput RotateRightSlow();
-ProgramInput RotateLeftSlow();
-ProgramInput BackwardsSlow();
-ProgramInput AutoLand();
-ProgramInput Start();
-ProgramInput KeepSteady();
-
-
+void SelectProgram(int programID);
+void ForwardSlow();
+void ForwardFast();
+void RotateRightSlow();
+void RotateLeftSlow();
+void BackwardsSlow();
+void AutoLand();
+void Start();
+void KeepSteady();
 
 #endif

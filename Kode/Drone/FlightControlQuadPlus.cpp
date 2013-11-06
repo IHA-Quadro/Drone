@@ -11,6 +11,3 @@ void applyMotorCommand()
   motorCommand[RIGHT] = throttle - motorAxisCommandRoll  + (YAW_DIRECTION * motorAxisCommandYaw);
   motorCommand[LEFT] =  throttle + motorAxisCommandRoll  + (YAW_DIRECTION * motorAxisCommandYaw);
 }
-
-ProgramInput programInput = {0,0,0,0};
-ProgramInput _previousProgram = {0,0,0,0};

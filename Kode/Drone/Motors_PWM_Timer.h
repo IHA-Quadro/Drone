@@ -33,9 +33,9 @@
 
 #include <Arduino.h>
 
+#include "GlobalDefined.h"
 #include "MotorControl.h"
 #include "Motors.h"
-#include "Receiver.h"
 
 #if defined (USE_400HZ_ESC)
   #define PWM_FREQUENCY 400   // in Hz

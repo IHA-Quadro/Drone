@@ -15,7 +15,6 @@ void ResetReceiveCommandTestData()
 {
 	_inverseSteps = false;
 	isAutoLandingInitialized = false;
-	_previousProgram.ProgramID = 0;
 	miliSecCounterActive = false;
 	inititalizeRangeFinders();
 }
@@ -122,11 +121,6 @@ void PrintSonarData(byte sonarID)
 	printNewLine(MeasureSonar(sonarID), STATUSMODE);
 }
 
-void KeepRunningProgram()
-{
-	RunProgram(_previousProgram);
-}
-
 static void NotLanding()
 {
 	_controllerInput[AUX3] = AUTOLANDFALSE;
@@ -230,48 +224,48 @@ void TiltDroneInTime(int xAxisValue, int yAxisValue, int miliReset)
 		MoveDrone(1500, 1500);
 }
 
-void RunProgram(ProgramInput input)
-{
-	miliSecCounterActive = true;
-
-	if(input.ProgramID != _previousProgram.ProgramID)
-	{
-		miliSecCounter = 0;
-		_previousProgram = input;
-	}
-
-	switch (input.ProgramID)
-	{
-	case 1:
-		AeroQuadSetup();
-		break;
-
-	case 2:
-		AccelerateSpeed(input.AdditionalData, input.TimeSpanInMiliSec);
-		break;
-
-	case 3:
-		PrintSonarData(input.AdditionalData);
-		break;
-
-	case 4:
-		LiftToSonar(input.height, input.TimeSpanInMiliSec);
-		break;
-
-	case 5:
-		LandDrone();
-		break;
-
-	case 6:
-		RotateDroneInTime(input.data.zAxis, input.TimeSpanInMiliSec);
-		break;
-
-	case 7:
-		TiltDroneInTime(input.data.xAxis, input.data.yAxis, input.TimeSpanInMiliSec);
-		break;
-
-	default:
-		miliSecCounter = 0;
-		break;
-	}
-}
+//void RunProgram(ProgramInput input)
+//{
+//	miliSecCounterActive = true;
+//
+//	if(input.ProgramID != _previousProgram.ProgramID)
+//	{
+//		miliSecCounter = 0;
+//		_previousProgram = input;
+//	}
+//
+//	switch (input.ProgramID)
+//	{
+//	case 1:
+//		AeroQuadSetup();
+//		break;
+//
+//	case 2:
+//		AccelerateSpeed(input.AdditionalData, input.TimeSpanInMiliSec);
+//		break;
+//
+//	case 3:
+//		PrintSonarData(input.AdditionalData);
+//		break;
+//
+//	case 4:
+//		LiftToSonar(input.height, input.TimeSpanInMiliSec);
+//		break;
+//
+//	case 5:
+//		LandDrone();
+//		break;
+//
+//	case 6:
+//		RotateDroneInTime(input.data.zAxis, input.TimeSpanInMiliSec);
+//		break;
+//
+//	case 7:
+//		TiltDroneInTime(input.data.xAxis, input.data.yAxis, input.TimeSpanInMiliSec);
+//		break;
+//
+//	default:
+//		miliSecCounter = 0;
+//		break;
+//	}
+//}

@@ -17,9 +17,7 @@
 #define MINDELTA 200
 #define MINCHECK (MINCOMMAND + 100)
 #define MAXCHECK (MAXCOMMAND - 100)
-#define MINTHROTTLE (MINCOMMAND + 100)
 #define LEVELOFF 100
-#define MAX_NB_CHANNEL 10
 #define channelsInUse 8
 
 extern int lastReceiverChannel;

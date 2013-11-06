@@ -24,4 +24,13 @@
 
 #define ALTPANIC 2
 
+
+// default to 10bit ADC (AVR)
+#ifndef ADC_NUMBER_OF_BITS
+#define ADC_NUMBER_OF_BITS 10
+#endif
+
+#define MINTHROTTLE (MINCOMMAND + 100)
+#define MAX_NB_CHANNEL 10
+
 #endif

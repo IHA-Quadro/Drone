@@ -10,29 +10,25 @@
 #include "MaxSonarRangeFinder.h"
 #include "UserConfiguration.h"
 
-// default to 10bit ADC (AVR)
-#ifndef ADC_NUMBER_OF_BITS
-#define ADC_NUMBER_OF_BITS 10
-#endif
 
 //********************************************************
 //****************** SERIAL PORT DECLARATION *************
 //********************************************************
-#if defined(WirelessTelemetry) 
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-#define SERIAL_PORT Serial3
-#else    // force 328p to use the normal port
+//#if defined(WirelessTelemetry) 
+//#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+//#define SERIAL_PORT Serial3
+//#else    // force 328p to use the normal port
+//#define SERIAL_PORT Serial
+//#endif
+//#else  
+//#if defined(SERIAL_USES_USB)   // STM32 Maple
+//#define SERIAL_PORT SerialUSB
+//#undef BAUD
+//#define BAUD
+//#else
 #define SERIAL_PORT Serial
-#endif
-#else  
-#if defined(SERIAL_USES_USB)   // STM32 Maple
-#define SERIAL_PORT SerialUSB
-#undef BAUD
-#define BAUD
-#else
-#define SERIAL_PORT Serial
-#endif
-#endif  
+//#endif
+//#endif  
 
 
 void process100HzTask();
@@ -44,6 +40,7 @@ void process1HzTask();
 
 void PrintAltitudeReport();
 void PrintDebugReport();
+void PrintSonarReport();
 
 
 // called when eeprom is initialized

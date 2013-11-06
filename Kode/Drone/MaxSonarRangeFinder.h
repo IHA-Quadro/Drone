@@ -3,7 +3,8 @@
 
 // @see http://www.arduino.cc/playground/Main/MaxSonar
 
-#include "InoHelper.h"
+#include "AeroQuad.h"
+#include "GlobalDefined.h"
 #include "RangeFinder.h"
 
 

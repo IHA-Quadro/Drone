@@ -8,6 +8,7 @@
 #include <EEPROM.h>
 
 #include "BarometricSensor.h"
+#include "InoHelper.h"
 #include "MaxSonarRangeFinder.h"
 #include "PID.h"
 

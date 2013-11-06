@@ -22,13 +22,10 @@ void TestAxis(byte axis);
 void RotateDrone(int zaxis);
 void MoveDrone(int xaxis, int yaxis);
 static void MiliSecOverflow(int timeSpanInMiliSec);
-void KeepRunningProgram();
 void PrintSonarData(byte sonarID);
 //void ThrottleDrone(int throttle);
 
 void AccelerateSpeed(int accelSpeed, int initTime);
-void RunProgram(ProgramInput input);
-void KeepRunningProgram();
 
 #endif
 

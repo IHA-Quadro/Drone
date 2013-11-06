@@ -2,16 +2,19 @@
 //It will prioritize safety over anything else but will take SerialCom input as 
 //higher priority than autoflight programs
 
+
 #ifndef _DECISION_
 #define _DECISION_
 
+#include "InputAnalysis.h"
 #include "Programs.h"
+#include "PrintDrone.h"
 
-//static ProgramInput programToRun;
-
+void ResetDecisions();
 ProgramInput GetActualProgram();
-void LoadAnalyse();
+void DecidedProgram();
 void SerialComRequest(ProgramInput input);
-
+void SonarCheck();
+void FMSignal();
 
 #endif

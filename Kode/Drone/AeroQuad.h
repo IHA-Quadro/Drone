@@ -6,8 +6,9 @@
 #include <pins_arduino.h>
 #include <stdlib.h>
 //#include "GpsDataType.h"
+
 #include "AQMath.h"
-#include "Receiver.h"
+#include "GlobalDefined.h"
 #include "UserConfiguration.h"
 
 // Flight Software Version
