@@ -17,10 +17,10 @@ struct rangeFinder rangeFinders[RANGEFINDERSIZE] = {
 	//
 	//    { ALTITUDE_RANGE_FINDER_INDEX, A1, 24, MB1200}, 
 	{ ALTITUDE_RANGE_FINDER_INDEX, A1, 24, MB1000}, //A1, 0
-	{ FRONT_RANGE_FINDER_INDEX,    A2, 27, MB1000}, //A2, 25
-	{ RIGHT_RANGE_FINDER_INDEX,    A3, 26, MB1000},
+	{ FRONT_RANGE_FINDER_INDEX,    A4, 27, MB1000}, //A2, 25
+	{ RIGHT_RANGE_FINDER_INDEX,    A2, 26, MB1000},
 	//{ REAR_RANGE_FINDER_INDEX,     A4, 27, MB1000},
-	{ LEFT_RANGE_FINDER_INDEX,     A4, 25, MB1000} //A5, 28
+	{ LEFT_RANGE_FINDER_INDEX,     A3, 25, MB1000} //A5, 28
 };
 
 short lastRange[RANGER_COUNT];
@@ -50,11 +50,7 @@ void inititalizeRangeFinders()
 
 	for(byte sonar = 0; sonar < RANGER_COUNT; sonar++)
 	{
-		for(int i = 0; i < RANGERARRAYSIZE; i++)
-		{
-			RangerAverage[sonar].data[i] = 0;
-		}
-		RangerAverage[sonar].counter = 0;
+		RangerAverage[sonar].queue.EmptyList();
 		RangerAverage[sonar].average = 0;
 	}
 
@@ -114,21 +110,18 @@ void updateRangeFinders()
 
 	if (rangeFinders[rangerToTrigger].triggerpin) 
 		digitalWrite(rangeFinders[rangerToTrigger].triggerpin, LOW);
+
+	if(rangerToTrigger != ALTITUDE_RANGE_FINDER_INDEX)
+		StoreRangeValues(rangerToTrigger);
 }
 
 //Store the lastest value in an array, take the average and save it along
-void StoreRangeValues()
+void StoreRangeValues(int ranger)
 {
-	RangerAverage[rangerToRead].data[RangerAverage[rangerToRead].counter] = 0;
+	if(RangerAverage[ranger].queue.count() >= RANGERARRAYSIZE)	
+		RangerAverage[ranger].queue.pop();
 
-	if(!RangerAverage[rangerToRead].counter < 8) //If counter = 0 reset to 0
-		RangerAverage[rangerToRead].counter = 0;
+	RangerAverage[ranger].queue.push(lastRange[ranger]);
 
-	float value;
-	for(int i = 0; i < RANGERARRAYSIZE; i++)
-	{
-		value += rangeFinderRange[rangeFinders[rangerToRead].target];
-	}
-
-	RangerAverage[rangerToRead].average = value/RANGERARRAYSIZE;
+	RangerAverage[ranger].average = RangerAverage[ranger].queue.PeekAverage()/1000;
 }

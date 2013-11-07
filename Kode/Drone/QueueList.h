@@ -57,6 +57,7 @@ class QueueList
     T pop ();
     T peek () const;
 		void EmptyList();
+		T PeekAverage() const;
     bool isEmpty () const;
     int count () const;
     void setPrinter (Print & p);

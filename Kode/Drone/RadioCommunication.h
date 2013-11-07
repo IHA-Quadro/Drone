@@ -8,15 +8,15 @@
 #include "QueueList.h"
 
 #define TRANCEIVER_ADDRESS 0x90
-#define PROGRAM_IDENTIFIER 254
-#define RSSI_IDENTIFIER 200
+#define INDICATORVALUE 0xAA
 
 extern QueueList<int> _queue;
 extern QueueList<int> _rssiQueue;
 extern int radioProgram;
 
 void SetupRadioCommunicaiton();
-QueueList<int> GetQueueData();
+//QueueList<int> GetQueueData();
+int ReadRadio();
 void receiveEvent(int howMany);
 
 

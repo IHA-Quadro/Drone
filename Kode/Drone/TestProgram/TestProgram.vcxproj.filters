@@ -27,12 +27,18 @@
     <ClInclude Include="RadioCommunication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Device_I2C.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Visual Micro\.TestProgram.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QueueList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Device_I2C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

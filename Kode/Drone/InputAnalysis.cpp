@@ -27,20 +27,26 @@ void AnalyseSonarInput()
 {
 	//Check if drone is too close to an object
 	if(RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE)
+	{
 		_frontWarning = true;
+	}
 
 	if(RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE)
+	{
 		_rightWarning = true;
+	}
 
 	if(RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE)
+	{
 		_leftWarning = true;
+	}
 }
 
 //Read from input queue
 void AnalyseRadioInput()
 {
-	QueueList<int> queue2 = GetQueueData();
-	queue2.setPrinter(Serial);
+	int rssiValue = ReadRadio();
+	//printNewLine(rssiValue, RADIOMODE);
 
 	//float average = 0;
 	//int count = queue2.count();

@@ -9,6 +9,7 @@ void ResetDecisions()
 	ResetInputAnalysis();
 }
 
+//Choose program based on sonars
 void SonarCheck()
 {
 	AnalyseSonarInput();
@@ -74,7 +75,7 @@ void SonarCheck()
 			else //No warnings at all
 			{
 				//Straight ahead
-				ForwardFast();
+				//ForwardFast();
 			}
 		}
 	}

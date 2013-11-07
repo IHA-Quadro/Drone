@@ -84,21 +84,9 @@ void process50HzTask()
 	// Reads external pilot commands and performs functions based on stick configuration
 	readPilotCommands(); 
 
-	//#if defined(UseAnalogRSSIReader) || defined(UseEzUHFRSSIReader) || defined(UseSBUSRSSIReader)
-	//	readRSSI();
-	//#endif
-
-	//#ifdef AltitudeHoldRangeFinder
 	updateRangeFinders();
-	//#endif
-
-	StoreRangeValues();
-
-	/*#if defined(UseGPS)
-	if (haveAGpsLock() && !isHomeBaseInitialized()) {
-	initHomeBase();
-	}
-	#endif   */   
+	//StoreRangeValues();
+  
 }
 
 void process10HzTask1() 
@@ -140,20 +128,35 @@ void process10HzTask3() {
 
 //1Hz process
 void process1HzTask() {
-#ifdef MavLink
-	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
-	oneHZpreviousTime = currentTime;
-
-	sendSerialHeartbeat();   
-#endif
+//#ifdef MavLink
+//	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
+//	oneHZpreviousTime = currentTime;
+//
+//	sendSerialHeartbeat();   
+//#endif
 
 	PrintAltitudeReport();
-	PrintSonarReport();
+}
+
+//5 Hz process
+void process5HzTask()
+{
+	//PrintSonarReport();
+	PrintChosenProgram();
+}
+
+void PrintChosenProgram()
+{
+	printNewLine(radioProgram, RADIOMODE);
 }
 
 void PrintSonarReport()
 {
-	//printInLine("Sonar: ", BAROSTATUS);
+	printInLine( RangerAverage[LEFT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine(" - ", SONARMODE);
+	printInLine( RangerAverage[FRONT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine(" - ", SONARMODE);
+	printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average, SONARMODE);
 }
 
 void PrintAltitudeReport()

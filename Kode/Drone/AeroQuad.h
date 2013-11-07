@@ -33,6 +33,7 @@
 #define TASK_100HZ 1
 #define TASK_50HZ 2
 #define TASK_10HZ 10
+#define TASK_5HZ 50
 #define TASK_1HZ 100
 #define THROTTLE_ADJUST_TASK_SPEED TASK_50HZ
 

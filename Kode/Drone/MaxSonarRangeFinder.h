@@ -5,6 +5,7 @@
 
 #include "AeroQuad.h"
 #include "GlobalDefined.h"
+#include "QueueList.h"
 #include "RangeFinder.h"
 
 
@@ -13,7 +14,7 @@
 #define MB1000 0 // Maxbotix LV-MaxSonar-EZ*
 #define MB1200 1 // Maxbotix XL-MaxSonar-EZ*
 #define RANGEFINDERSIZE 4
-#define RANGERARRAYSIZE 8 //read 50 times, half is to bottom (25 left) and divide by three sensors = 8.333
+#define RANGERARRAYSIZE 2 
 
 #define SPIKE_FILTER_MARGIN 500 // mm ; changes bigger than this need two samples to take effect
 
@@ -41,8 +42,7 @@ extern byte rangerSchedule;
 
 struct RangerArray
 {
-	short data[RANGERARRAYSIZE];
-	int counter;
+	QueueList<float> queue;
 	float average;
 };
 
@@ -50,7 +50,7 @@ extern struct RangerArray RangerAverage[RANGER_COUNT];
 
 void inititalizeRangeFinders();
 void updateRangeFinders();
-void StoreRangeValues();
+void StoreRangeValues(int ranger);
 
 //#endif 
 #endif

@@ -211,7 +211,9 @@ void loop ()
 
 		// 50Hz task loop
 		if (frameCounter % TASK_50HZ == 0) 
+		{
 			process50HzTask();
+		}
 
 		// 10Hz task loop
 		if (frameCounter % TASK_10HZ == 0) 
@@ -226,6 +228,9 @@ void loop ()
 
 			process10HzTask3();
 		}
+
+		if(frameCounter % TASK_5HZ == 0)
+			process5HzTask();
 
 		// 1Hz task loop
 		if (frameCounter % TASK_1HZ == 0) 

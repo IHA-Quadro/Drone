@@ -86,35 +86,137 @@
 //	sei();
 //}
 
-#include <Arduino.h>
-#include <wiring_private.h>
-#include <pins_arduino.h>
+//#include <Arduino.h>
+//#include <wiring_private.h>
+//#include <pins_arduino.h>
+//
+//void setup()
+//{
+//	Serial.begin(115200);
+//	Serial.println("Test");
+//}
+//
+//int PinIsLow(uint8_t pin)
+//{
+//  uint8_t bit = digitalPinToBitMask(pin);
+//  uint8_t port = digitalPinToPort(pin);
+//  if (port == NOT_A_PIN) 
+//    return LOW;
+//
+//  return (*portOutputRegister(port) & bit) ? HIGH : LOW;
+//}
+//
+//void loop()
+//{
+//  int outPin = 20;
+//  int state;
+//  pinMode(outPin, OUTPUT);
+//  digitalWrite(outPin, state);
+//  
+//  state = PinIsLow(outPin);
+//	Serial.println(state);
+//
+//	delay(500);
+//}
+
+//#include <Arduino.h>
+//#include <Wire.h>
+//#include "Device_I2C.h"
+//
+//#define INDICATORVALUE 0xAA
+//#define TRANCEIVER_ADDRESS 0x90
+//
+//int radioProgram = 0;
+//
+//void setup()
+//{
+//	Serial.begin(115200);
+//}
+//
+//int ReadRadio()
+//{
+//	
+//	Wire.beginTransmission(TRANCEIVER_ADDRESS);
+//	int is = readWhoI2C(TRANCEIVER_ADDRESS);
+//
+//	Wire.requestFrom(TRANCEIVER_ADDRESS, 3); //Request 3 bytes from radio
+//	int indicator = Wire.read(); //First value is always an indicator if program is with or not
+//	int rssiValue = Wire.read(); //Always sent as RSSI-value
+//	int programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+//
+//	Wire.endTransmission();
+//
+//	Serial.print("Is: ");
+//	Serial.print(is);
+//	Serial.print(" - ");
+//	Serial.print(indicator);
+//	Serial.print(" - ");
+//	Serial.print(rssiValue);
+//	Serial.print(" - ");
+//	Serial.println(programValue);
+//
+//	if(indicator == INDICATORVALUE)
+//		radioProgram = programValue;
+//
+//	return rssiValue;
+//}
+//
+//void loop()
+//{
+//	ReadRadio();
+//	delay(500);
+//}
+
+#include <Wire.h>
+
 
 void setup()
 {
-	Serial.begin(115200);
-	Serial.println("Test");
+  Wire.begin();
+
+  Serial.begin(115200);
+  Serial.println("\nI2C Scanner");
 }
 
-int PinIsLow(uint8_t pin)
-{
-  uint8_t bit = digitalPinToBitMask(pin);
-  uint8_t port = digitalPinToPort(pin);
-  if (port == NOT_A_PIN) 
-    return LOW;
-
-  return (*portOutputRegister(port) & bit) ? HIGH : LOW;
-}
 
 void loop()
 {
-  int outPin = 20;
-  int state;
-  pinMode(outPin, OUTPUT);
-  digitalWrite(outPin, state);
-  
-  state = PinIsLow(outPin);
-	Serial.println(state);
+  byte error, address;
+  int nDevices;
 
-	delay(500);
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 127; address++ ) 
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4) 
+    {
+      Serial.print("Unknow error at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
+
+  delay(5000);           // wait 5 seconds for next scan
 }

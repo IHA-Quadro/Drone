@@ -11,6 +11,7 @@ enum printModes {
 	MOTORMODE,
 	ALTITUDEMODE,
 	RADIOMODE,
+	SONARMODE,
 	DEBUGMODE // Leave last
 };
 

@@ -36,6 +36,7 @@ void process50HzTask();
 void process10HzTask1();
 void process10HzTask2();
 void process10HzTask3();
+void process5HzTask();
 void process1HzTask();
 
 void PrintAltitudeReport();
