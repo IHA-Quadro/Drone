@@ -88,7 +88,7 @@ void FMSignal()
 
 void DecidedProgram()
 {
-	//FMSignal();
+	FMSignal();
 	SonarCheck(); //Check the drone is not flying into something
 
 	if(GetSerialProgram() == 2 || GetRadioProgram() == 2)

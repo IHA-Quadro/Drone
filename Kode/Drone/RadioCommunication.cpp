@@ -36,8 +36,8 @@ QueueList<int> GetQueueData()
 		else if(reading == RSSI_IDENTIFIER)
 		{
 			int n = _queue.pop();
-			//printInLine("RSSI: ", RADIOMODE);
-			//printNewLine(n, RADIOMODE);
+			printInLine("RSSI: ", RADIOMODE);
+			printNewLine(n, RADIOMODE);
 			_rssiQueue.push(n);
 		}
 	}
@@ -53,8 +53,8 @@ void receiveEvent(int howMany)
 	while(Wire.available())  
 	{
 		int c = Wire.read();
-		//printNewLine(c,RADIOMODE);
-		Serial.print(c);
+		printNewLine(c,RADIOMODE);
+		
 		_queue.push(c);   // receive byte as a character
 	}
 	sei();

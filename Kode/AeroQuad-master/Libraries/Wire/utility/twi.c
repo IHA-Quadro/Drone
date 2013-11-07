@@ -525,3 +525,20 @@ ISR(TWI_vect)
   }
 }
 
+void BusCheck()
+{
+	// Manual Bus Check: Add this in your idle code and before issuing a start command.
+	if ( gI2CCheckBusyAfterStop != 0 )	// Call repeatedly while(gI2CCheckBusyAfterStop>0)
+	{
+		if (    PinIsLow(I2C_DATA_PORTIN, I2C_DATA_PIN)
+			|| PinIsLow(I2C_CLOCK_PORTIN, I2C_CLOCK_PIN) )
+		{
+			gI2CCheckBusyAfterStop = I2C_HOW_MANY_BUSY_CHECKS_AFTER_STOP;
+			// Bus is busy. Start the countdown all over again.
+		}
+		else
+		{
+			gI2CCheckBusyAfterStop--; // Good. The bus is quiet. Count down!
+		}
+	}
+}

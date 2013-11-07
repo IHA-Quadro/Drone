@@ -6,16 +6,20 @@ If you need additional assistance go to http://www.aeroquad.com/forum.php
 or talk to us live on IRC #aeroquad
 *****************************************************************************/
 
+//Arduino includes
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <Wire.h>
+#include <utility/twi.h> //Contains 'gI2CCheckBusyAfterStop' and 'I2C_HOW_MANY_BUSY_CHECKS_AFTER_STOP'
 
+//Local includes
 #include "Accelerometer.h"
 #include "Accelerometer_ADXL345_9DOF.h"
 #include "AeroQuad.h"
 #include "BarometricSensor.h"
 #include "ControlFaker.h"
 #include "DataStorage.h"
+#include "Device_I2C.h"
 #include "FourtOrderFilter.h"
 #include "Gyroscope.h"
 #include "Gyroscope_ITG3200Common.h"
@@ -79,6 +83,8 @@ void measureCriticalSensors() {
 }
 
 
+
+
 /*******************************************************************
 * Main setup function, called one time at bootup
 * initialize all system and sub system of the
@@ -90,12 +96,9 @@ void setup()
 	pinMode(LED_Green, OUTPUT);
 	digitalWrite(LED_Green, LOW);
 
-	Serial.println("2");
 	SetupPrintDrone(); //Serial output
 
-	Serial.println("2");
 	printNewLine("Initialing drone", STATUSMODE);
-	Serial.println("3");
 	readEEPROM(); // defined in DataStorage.h
 	bool firstTimeBoot = false;
 
@@ -181,6 +184,20 @@ void loop ()
 	deltaTime = currentTime - previousTime;
 
 	measureCriticalSensors();
+
+	//if ( gI2CCheckBusyAfterStop != 0 )	// Call repeatedly while(gI2CCheckBusyAfterStop>0)
+	//{
+	//	if (PinIsLow(0x20) || PinIsLow(0x21))
+	//	{
+	//		gI2CCheckBusyAfterStop = I2C_HOW_MANY_BUSY_CHECKS_AFTER_STOP;
+	//		// Bus is busy. Start the countdown all over again.
+	//	}
+	//	else
+	//	{
+	//		gI2CCheckBusyAfterStop--; // Good. The bus is quiet. Count down!
+	//	}
+	//}
+
 
 	// 100Hz task loop
 	if (deltaTime >= 10000) 

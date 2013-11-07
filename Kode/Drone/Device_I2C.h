@@ -25,6 +25,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "Arduino.h"
 #include <Wire.h>
 
+int PinIsLow(uint8_t pin);
+void ReadyToWrite();
 void sendByteI2C(int deviceAddress, byte dataValue);
 
 byte readByteI2C();

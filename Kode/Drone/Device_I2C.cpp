@@ -20,9 +20,41 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // I2C functions
 #include "Device_I2C.h"
+#include <Arduino.h>
+#include <utility\twi.h>
 
-void sendByteI2C(int deviceAddress, byte dataValue) {
+int PinIsLow(uint8_t pin)
+{
+	uint8_t bit = digitalPinToBitMask(pin);
+	uint8_t port = digitalPinToPort(pin);
+	if (port == NOT_A_PIN) 
+		return LOW;
 
+	return (*portOutputRegister(port) & bit) ? HIGH : LOW;
+}
+
+//http://www.robotroom.com/Atmel-AVR-TWI-I2C-Multi-Master-Problem.html
+
+
+void ReadyToWrite()
+{
+	while ( gI2CCheckBusyAfterStop != 0 )	// Call repeatedly while(gI2CCheckBusyAfterStop>0)
+	{
+		if (PinIsLow(0x20) || PinIsLow(0x21)) //SDA = 0x20, SCL = 0x21
+		{
+			gI2CCheckBusyAfterStop = I2C_HOW_MANY_BUSY_CHECKS_AFTER_STOP;
+			// Bus is busy. Start the countdown all over again.
+		}
+		else
+		{
+			gI2CCheckBusyAfterStop--; // Good. The bus is quiet. Count down!
+		}
+	}
+}
+
+void sendByteI2C(int deviceAddress, byte dataValue) 
+{
+	ReadyToWrite();
 	Wire.beginTransmission(deviceAddress);
 	Wire.write(dataValue);
 	Wire.endTransmission();
@@ -82,8 +114,9 @@ int readReverseWordI2C(int deviceAddress) {
 	return (Wire.read() << 8) | lowerByte;
 }
 
-byte readWhoI2C(int deviceAddress) {
-
+byte readWhoI2C(int deviceAddress)
+{
+	ReadyToWrite();
 	// read the ID of the I2C device
 	Wire.beginTransmission(deviceAddress);
 	Wire.write((byte)0);
@@ -93,8 +126,9 @@ byte readWhoI2C(int deviceAddress) {
 	return Wire.read();
 }
 
-void updateRegisterI2C(int deviceAddress, byte dataAddress, byte dataValue) {
-
+void updateRegisterI2C(int deviceAddress, byte dataAddress, byte dataValue) 
+{
+	ReadyToWrite();
 	Wire.beginTransmission(deviceAddress);
 	Wire.write(dataAddress);
 	Wire.write(dataValue);
