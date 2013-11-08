@@ -9,6 +9,11 @@ bool _safetyChecked;
 int maxSpinSpeed = 2000;
 int spinSpeed = 1500;
 
+
+#define START_LEVEL 1200
+#define WANTED_LEVEL 1450
+#define TIME_FACTOR -2
+
 //Setup file for ControlFaker
 void SetupControlFaker()
 {
@@ -59,7 +64,7 @@ void SelectProgram()
 	_controllerInput[YAXIS] = programInput.data.yAxis;
 	_controllerInput[ZAXIS] = programInput.data.zAxis;
 	_controllerInput[AUX1] = programInput.data.aux1;
-	_controllerInput[AUX2] = programInput.data.aux3;
+	_controllerInput[AUX3] = programInput.data.aux3;
 }
 
 //Arm motors so they will fly (safety mechanism)
@@ -163,4 +168,21 @@ void PrintMotorOutput()
 void AeroQuadSetup()
 {
 	//_initialized = false; //Start arming motor
+}
+
+//Take off from ground with (a-b)*(1-exp(-t/tau))+b
+//a = wanted motor throttle, b = motor min-throttle
+void GroundTakeOff(float time)
+{
+	if(programInput.ProgramID == PROGRAM_START && StartTakeOff == true)
+	{
+		if(_controllerInput[AUX1] != ALTITUDEHOLDTRUE)
+		{
+			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(time * TIME_FACTOR))+START_LEVEL;
+			_controllerInput[THROTTLE] = throttle;
+
+			if(throttle == WANTED_LEVEL - 5)
+				_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+		}
+	}
 }

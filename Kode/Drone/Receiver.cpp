@@ -12,6 +12,10 @@ float receiverSlope[MAX_NB_CHANNEL];
 float receiverOffset[MAX_NB_CHANNEL];
 float receiverSmoothFactor[MAX_NB_CHANNEL];
 
+unsigned long previousTime, currentTime, deltaTime;
+double previousFloatTime, _startTime, deltaFloatTime;
+bool _groundStart = true;
+
 void initializeReceiverValues()
 {
 	receiverXmitFactor = 1.0;
@@ -85,9 +89,23 @@ void readReceiver()
 	}
 	else
 	{
-		DecidedProgram();
-		SelectProgram();
-		ApplySpeed();
+		currentTime = micros(); //1.000.000 µSec/s
+		deltaTime = (currentTime - previousTime)/1000; //1000 ms/s
+
+		if(_groundStart)
+			_startTime = (float)deltaTime/1000;
+
+		previousFloatTime = (float)deltaTime/1000;
+		deltaFloatTime = previousFloatTime - _startTime;
+
+		if(deltaFloatTime < TIME_ON_GROUND)
+			GroundTakeOff(previousFloatTime);
+		else
+		{
+			DecidedProgram(deltaFloatTime);
+			SelectProgram();
+			ApplySpeed();
+		}
 	}
 	ApplyData();
 }

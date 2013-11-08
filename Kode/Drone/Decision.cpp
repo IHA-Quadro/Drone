@@ -1,7 +1,26 @@
 #include "Decision.h"
 
-ProgramInput GetActualProgram();
-void SerialComRequest(ProgramInput input);
+ProgramInput _serialProgram;
+bool _autoLandMessage;
+bool _startMessage;
+bool StartTakeOff;
+
+static void ResetMessages()
+{
+	_autoLandMessage = false;
+	_startMessage = false;
+	StartTakeOff = false;
+}
+
+ProgramInput GetActualProgram()
+{
+	return programInput;
+}
+
+void SerialComRequest(ProgramInput input)
+{
+	_serialProgram = input;
+}
 
 //Resets InputAnalysis
 void ResetDecisions()
@@ -10,7 +29,7 @@ void ResetDecisions()
 }
 
 //Choose program based on sonars
-void SonarCheck()
+static void SonarCheck()
 {
 	AnalyseSonarInput();
 
@@ -81,26 +100,43 @@ void SonarCheck()
 	}
 }
 
-//Call Analysis.ReadRadioQueue() to get new input
-void FMSignal()
-{
-	AnalyseRadioInput();
-}
 
-void DecidedProgram()
+//Not correct function name
+static void SerialComSignal()
 {
-	FMSignal();
-	SonarCheck(); //Check the drone is not flying into something
-
-	if(GetSerialProgram() == 2 || GetRadioProgram() == 2)
+	if(_serialProgram.ProgramID == PROGRAM_AUTOLAND || GetRadioProgram() == PROGRAM_AUTOLAND)
 	{
 		AutoLand();
-		printNewLine("Autoland due to program select!", STATUSMODE);
+		if(!_autoLandMessage)
+		{
+			printNewLine("Autoland due to program select!", STATUSMODE);
+			ResetMessages();
+			_autoLandMessage = true;
+		}
 	}
 
-	if(GetSerialProgram() == 1 || GetRadioProgram() == 1)
+	if(_serialProgram.ProgramID == PROGRAM_START || GetRadioProgram() == PROGRAM_START)
 	{
-		Start();
-		printNewLine("Starting drone due to program select!", STATUSMODE);
+			StartTakeOff = true;
+
+		//if(deltaFloatTime < 2)
+		//	GroundStart(deltaFloatTime);
+		//else
+			Start();
+
+		if(!_startMessage)
+		{
+			printNewLine("Starting drone due to program select!", STATUSMODE);
+			ResetMessages();
+			_startMessage = true;
+			StartTakeOff = false;
+		}
 	}
+}
+
+void DecidedProgram(float timer)
+{
+	AnalyseRadioInput();
+	SerialComSignal();
+	SonarCheck(); //Check the drone is not flying into something
 }

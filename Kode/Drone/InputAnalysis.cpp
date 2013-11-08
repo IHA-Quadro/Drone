@@ -5,7 +5,7 @@
 
 int _radioProgram;
 int _sonarProgram;
-int _serialProgram;
+//int _serialProgram;
 bool _leftWarning;
 bool	_rightWarning; 
 bool	_frontWarning;
@@ -14,7 +14,7 @@ void ResetInputAnalysis()
 {
 	_radioProgram = 0;
 	_sonarProgram = 0;
-	_serialProgram = 0;
+//	_serialProgram = 0;
 
 	_leftWarning = false;
 	_rightWarning = false;
@@ -73,10 +73,10 @@ int GetRadioProgram()
 }
 
 //Return Serial selected program
-int GetSerialProgram()
-{
-	return _serialProgram;
-}
+//int GetSerialProgram()
+//{
+//	return _serialProgram;
+//}
 
 //Return warning if left sonar is too close to object
 bool GetLeftWarning()

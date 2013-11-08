@@ -12,6 +12,7 @@
 #include "Programs.h"
 
 #define channelsInUse 8
+#define TIME_ON_GROUND 2
 
 extern bool _initialized;
 extern bool _calibrationPerformed;
@@ -36,6 +37,7 @@ void ResetFakerData();
 void RotateDrone(int value);
 void MoveDrone(int xaxis, int yaxis);
 void ThrottleDrone(int throttle);
+void GroundTakeOff(double time);
 
 void AeroQuadSetup();
 

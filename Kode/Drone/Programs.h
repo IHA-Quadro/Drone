@@ -3,6 +3,9 @@
 #ifndef _PROGRAMS_
 #define _PROGRAMS_
 
+#define PROGRAM_START 1
+#define PROGRAM_AUTOLAND 2
+
 #include "GlobalDefined.h"
 
 struct ProgramData 

@@ -10,11 +10,13 @@
 #include "Programs.h"
 #include "PrintDrone.h"
 
+extern bool StartTakeOff;
+
 void ResetDecisions();
 ProgramInput GetActualProgram();
 void DecidedProgram();
 void SerialComRequest(ProgramInput input);
-void SonarCheck();
-void FMSignal();
+static void SonarCheck();
+static void FMSignal();
 
 #endif

@@ -42,6 +42,7 @@ void process1HzTask();
 void PrintAltitudeReport();
 void PrintDebugReport();
 void PrintSonarReport();
+void PrintChosenProgram();
 
 
 // called when eeprom is initialized

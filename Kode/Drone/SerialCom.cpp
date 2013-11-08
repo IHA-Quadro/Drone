@@ -40,6 +40,7 @@ void readSerialCommand()
 {
 	// Check for serial message
 	if (SERIAL_AVAILABLE()) {
+		ProgramInput newProgram = GetActualProgram();
 		queryType = SERIAL_READ();
 		switch (queryType) {
 		case 'A': // Receive roll and pitch rate mode PID
@@ -165,36 +166,33 @@ void readSerialCommand()
 			break;
 
 		case 'O': // define waypoints
-#ifdef UseGPSNavigator
-			missionNbPoint = readIntegerSerial();
-			waypoint[missionNbPoint].latitude = readIntegerSerial();
-			waypoint[missionNbPoint].longitude = readIntegerSerial();
-			waypoint[missionNbPoint].altitude = readIntegerSerial();
-#else
+			//#ifdef UseGPSNavigator
+			//			missionNbPoint = readIntegerSerial();
+			//			waypoint[missionNbPoint].latitude = readIntegerSerial();
+			//			waypoint[missionNbPoint].longitude = readIntegerSerial();
+			//			waypoint[missionNbPoint].altitude = readIntegerSerial();
+			//#else
 			for(byte i = 0; i < 4; i++) {
 				readFloatSerial();
 			}
-#endif
+			//#endif
 			break;
-		
-		case 'P': //  Select program
-			//programInput.ProgramID = (int)readFloatSerial();
-			//programInput.data = (int)readFloatSerial();
-			//programInput.TimeSpanInMiliSec = (int)readFloatSerial();
-			//programInput.data2 = (int)readFloatSerial();
-			//
-			//_previousProgram.ProgramID = 0;
-			//printInLine("New program selected: ", STATUSMODE);
-			//printInLine(programInput.ProgramID, STATUSMODE);
-			//printInLine(", ", STATUSMODE);
-			//printInLine(programInput.data, STATUSMODE);
-			//printInLine(", ", STATUSMODE);
-			//printInLine(programInput.TimeSpanInMiliSec, STATUSMODE);
-			//printInLine(", ", STATUSMODE);
-			//printInLine(programInput.data2, STATUSMODE);
-			//println(STATUSMODE);
 
-			//RunProgram(programInput);
+		case 'P': //  Select program
+
+			newProgram.ProgramID = (int)readFloatSerial();
+			newProgram.height = (int)readFloatSerial();
+			newProgram.TimeSpanInMiliSec = (int)readFloatSerial();
+
+			printInLine("New program selected: ", STATUSMODE);
+			printInLine(newProgram.ProgramID, STATUSMODE);
+			printInLine((newProgram.height == 0 ? " " : ", height: "), STATUSMODE);
+			printInLine(newProgram.height, STATUSMODE);
+			printInLine((newProgram.TimeSpanInMiliSec == 0 ? " " : ", time: "), STATUSMODE);
+			printInLine(newProgram.TimeSpanInMiliSec, STATUSMODE);
+			println(STATUSMODE);
+
+			SerialComRequest(newProgram);
 			break;
 
 		case 'R':
@@ -485,18 +483,18 @@ void sendSerialTelemetry() {
 		}
 		SERIAL_PRINTLN();
 		//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-//			PrintValueComma(gyroRate[axis]);
-//		}
-//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-//			PrintValueComma(filteredAccel[axis]);
-//		}
-//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
-//#if defined(HeadingMagHold)
-//			PrintValueComma(getMagnetometerData(axis));
-//#else
-//			PrintValueComma(0);
-//#endif
-//		}
+		//			PrintValueComma(gyroRate[axis]);
+		//		}
+		//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+		//			PrintValueComma(filteredAccel[axis]);
+		//		}
+		//		for (byte axis = XAXIS; axis <= ZAXIS; axis++) {
+		//#if defined(HeadingMagHold)
+		//			PrintValueComma(getMagnetometerData(axis));
+		//#else
+		//			PrintValueComma(0);
+		//#endif
+		//		}
 		SERIAL_PRINTLN();
 		break;
 

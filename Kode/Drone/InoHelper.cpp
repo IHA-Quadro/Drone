@@ -147,7 +147,7 @@ void process5HzTask()
 
 void PrintChosenProgram()
 {
-	printNewLine(radioProgram, RADIOMODE);
+	//printNewLine(radioProgram, RADIOMODE);
 }
 
 void PrintSonarReport()
