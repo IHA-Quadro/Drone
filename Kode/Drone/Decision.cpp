@@ -1,15 +1,34 @@
 #include "Decision.h"
 
+#define START_LEVEL 1200
+#define WANTED_LEVEL 1450
+#define TIME_FACTOR -2
+
 ProgramInput _serialProgram;
 bool _autoLandMessage;
 bool _startMessage;
 bool StartTakeOff;
 
-static void ResetMessages()
+unsigned long _previousTime, _currentTime, _deltaTime;
+float _previousFloatTime, _startTime, _deltaFloatTime;
+bool _groundStart;
+
+void ResetMessages()
 {
 	_autoLandMessage = false;
 	_startMessage = false;
 	StartTakeOff = false;
+	_currentTime = 0.0;
+	_groundStart = true;
+
+	_previousTime = 0.0;
+	_currentTime = 0.0;
+	_deltaTime = 0.0;
+	_previousFloatTime = 0.0;
+	_startTime = 0.0;
+	_deltaFloatTime = 0.0;
+
+	ResetProgramData();
 }
 
 ProgramInput GetActualProgram()
@@ -28,101 +47,137 @@ void ResetDecisions()
 	ResetInputAnalysis();
 }
 
+static void PrintWarnings()
+{
+	bool r = false, l = false, c = false;
+	if(GetLeftWarning())
+		l = true;
+
+	if(GetRightWarning())
+		r = true;
+
+	if(GetFrontWarning())
+		c = true;
+
+	if(!r && !l && !c)
+		return;
+
+	printInLine("Warning: ", WARNINGMODE);
+	printInLine((l ? "Left, " : ""), WARNINGMODE);
+	printInLine((c ? "Center, " : ""), WARNINGMODE);
+	printInLine((r ? "Right, " : ""), WARNINGMODE);
+	printNewLine("", WARNINGMODE);
+}
+
 //Choose program based on sonars
 static void SonarCheck()
 {
 	AnalyseSonarInput();
 
-	if(GetLeftWarning()) //Left warning
+	if(_controllerInput[AUX1] != ALTITUDEHOLDFALSE )
 	{
-		if(GetRightWarning())
+		//PrintWarnings();
+
+		if(GetLeftWarning()) //Left warning
 		{
-			if(GetFrontWarning()) //Left + Right + front
+			if(GetRightWarning())
 			{
-				//Stop, rotate CW and run again
-				KeepSteady(); //Stop
-				RotateRightSlow();
+				if(GetFrontWarning()) //Left + Right + front
+				{
+					//Stop, rotate CW and run again
+					StopMidAir();
+					KeepSteady(); //Stop
+					RotateLeftSlow();
+				}
+				else //Left + Right
+				{
+					//Stop, rotate 90 CW and run again			
+					StopMidAir();
+					KeepSteady();
+					RotateLeftSlow();
+				}
 			}
-			else //Left + Right
+			else
 			{
-				//Stop, rotate 90 CW and run again			
-				KeepSteady();
-				RotateRightSlow();
+				if(GetFrontWarning()) //Left + front
+				{
+					//Stop, rotate 60 CW and run again
+					StopMidAir();
+					KeepSteady();
+					RotateRightSlow();
+				}
+				else //Only Left warning
+				{
+					//Rotate 45 CW 
+					RotateRightSlow();
+				}
 			}
 		}
-		else
+		else //No left warning
 		{
-			if(GetFrontWarning()) //Left + front
+			if(GetRightWarning())
 			{
-				//Stop, rotate 60 CW and run again
-				KeepSteady();
-				RotateRightSlow();
+				if(GetFrontWarning()) //Right+front
+				{
+					//Stop, rotate 60 CCW and run again
+					StopMidAir();
+					KeepSteady();
+					RotateLeftSlow();
+				}
+				else //Only right
+				{
+					//Rotate 45 CCW 
+					RotateLeftSlow();
+				}
 			}
-			else //Only Left
+			else
 			{
-				//Rotate 45 CW 
-				ForwardSlow();
-				RotateLeftSlow();
-			}
-		}
-	}
-	else //No left warning
-	{
-		if(GetRightWarning())
-		{
-			if(GetFrontWarning()) //Right+front
-			{
-				//Stop, rotate 60 CCW and run again
-				KeepSteady();
-				RotateLeftSlow();
-			}
-			else //Only right
-			{
-				//Rotate 45 CCW 
-				ForwardSlow();
-				RotateLeftSlow();
-			}
-		}
-		else
-		{
-			if(GetFrontWarning()) //Only front
-			{
-				//Stop, rotate 90 CW and run again
-				KeepSteady();
-				RotateRightSlow();
-			}
-			else //No warnings at all
-			{
-				//Straight ahead
-				//ForwardFast();
+				if(GetFrontWarning()) //Only front
+				{
+					//Stop, rotate 90 CW and run again
+					StopMidAir();
+					KeepSteady();
+					RotateRightSlow();
+				}
+				else //No warnings at all
+				{
+					//Straight ahead
+					KeepSteady();
+					StopMidAir();
+				}
 			}
 		}
 	}
 }
 
-
-//Not correct function name
-static void SerialComSignal()
+static void ProcessSignal()
 {
 	if(_serialProgram.ProgramID == PROGRAM_AUTOLAND || GetRadioProgram() == PROGRAM_AUTOLAND)
-	{
-		AutoLand();
-		if(!_autoLandMessage)
-		{
-			printNewLine("Autoland due to program select!", STATUSMODE);
-			ResetMessages();
-			_autoLandMessage = true;
-		}
-	}
+		SelectProgram(2);
 
-	if(_serialProgram.ProgramID == PROGRAM_START || GetRadioProgram() == PROGRAM_START)
-	{
-			StartTakeOff = true;
+	else if(_serialProgram.ProgramID == PROGRAM_START || GetRadioProgram() == PROGRAM_START)
+		SelectProgram(1);
 
-		//if(deltaFloatTime < 2)
-		//	GroundStart(deltaFloatTime);
-		//else
-			Start();
+	else
+		SelectProgram(GetRadioProgram());
+}
+
+void DecideProgram()
+{
+	AnalyseRadioInput();
+	ProcessSignal();
+	SonarCheck(); //Check the drone is not flying into something
+}
+
+static void SelectProgram(int programID)
+{
+	programInput.ProgramID = programID;
+
+	switch (programID)
+	{
+	case 1: //Start
+		StartTakeOff = true;
+		Start();
 
 		if(!_startMessage)
 		{
@@ -131,12 +186,88 @@ static void SerialComSignal()
 			_startMessage = true;
 			StartTakeOff = false;
 		}
+
+		break;
+
+	case 2: //Autoland
+		AutoLand();
+		if(!_autoLandMessage)
+		{
+			printNewLine("Autoland due to program select!", STATUSMODE);
+			ResetMessages();
+			_autoLandMessage = true;
+		}
+		break;
+
+	case 3:
+		StopMidAir();
+		ForwardSlow();
+		break;
+
+	case 4:
+		StopMidAir();
+		BackwardsSlow();
+		break;
+
+	case 5:
+		StopMidAir();
+		RotateRightSlow();
+		break;
+
+	case 6:
+		StopMidAir();
+		RotateLeftSlow();
+		break;
+
+	case 7:
+		StopMidAir();
+		break;
+
+	case 8: //Kill drone - CAREFULL!
+		KillMotor();
+		break;
+
+	default:
+		break;
 	}
 }
 
-void DecidedProgram(float timer)
+//Take off from ground with (a-b)*(1-exp(-t/tau))+b
+//a = wanted motor throttle, b = motor min-throttle
+void GroundTakeOff()
 {
-	AnalyseRadioInput();
-	SerialComSignal();
-	SonarCheck(); //Check the drone is not flying into something
+	if(GetActualProgram().ProgramID == PROGRAM_START)
+	{
+		_currentTime = micros(); //1.000.000 µSec/s
+		_deltaTime = (_currentTime - _previousTime)/1000; //1000 ms/s
+
+		_previousTime = _currentTime;
+
+
+		if(_groundStart == true)
+		{
+			_startTime = (float)_currentTime/1000;
+			_groundStart = false;
+		}
+		_previousFloatTime = (float)_previousTime/1000;
+		float spend = _previousFloatTime - _startTime;
+
+		//printInLine("Spend: ", RADIOMODE);
+		//printInLine(spend, RADIOMODE);
+		//printInLine(" <= Max: ", RADIOMODE);
+		//printNewLine(programInput.TimeSpanInMiliSec, RADIOMODE);
+
+		if(spend < programInput.TimeSpanInMiliSec)
+		{
+			printNewLine("Calculate new throttle: ", RADIOMODE);
+			printInLine(spend, RADIOMODE);
+			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(spend * TIME_FACTOR))+START_LEVEL;
+			_controllerInput[THROTTLE] = throttle;
+			printInLine( " => ", RADIOMODE);
+			printNewLine(throttle, RADIOMODE);
+
+			if(throttle >= WANTED_LEVEL - 5)
+				_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+		}
+	}
 }

@@ -1,5 +1,7 @@
 #include "DataStorage.h"
 
+#include "Receiver.h"
+
 float nvrReadFloat(int address) {
   union floatStore {
     byte floatByte[4];

@@ -1,5 +1,15 @@
 #include "InoHelper.h"
 
+#include "Accelerometer.h"
+#include "AltitudeControlProcessor.h"
+#include "AeroQuad.h"
+#include "Decision.h"
+#include "FlightCommandProcessor.h"
+#include "FlightControlProcessor.h"
+#include "FourtOrderFilter.h"
+#include "MaxSonarRangeFinder.h"
+#include "UserConfiguration.h"
+
 
 // called when eeprom is initialized
 void initializePlatformSpecificAccelCalibration() 
@@ -50,30 +60,7 @@ void process100HzTask()
 	//#endif
 
 	processFlightControl();
-	//
-	//
-	//#if defined(BinaryWrite)
-	//	if (fastTransfer == ON) {
-	//		// write out fastTelemetry to Configurator or openLog
-	//		fastTelemetry();
-	//	}
-	//#endif      
-	//
-	//#ifdef SlowTelemetry
-	//	updateSlowTelemetry100Hz();
-	//#endif
-	//
-	//#if defined(UseGPS)
-	//	updateGps();
-	//#endif      
-	//
-	//#if defined(CameraControl)
-	//	moveCamera(kinematicsAngle[YAXIS],kinematicsAngle[XAXIS],kinematicsAngle[ZAXIS]);
-	//#if defined CameraTXControl
-	//	processCameraTXControl();
-	//#endif
-	//#endif       
-	//
+
 }
 
 void process50HzTask() 
@@ -84,9 +71,7 @@ void process50HzTask()
 	// Reads external pilot commands and performs functions based on stick configuration
 	readPilotCommands(); 
 
-	updateRangeFinders();
-	//StoreRangeValues();
-  
+	updateRangeFinders();  
 }
 
 void process10HzTask1() 
@@ -128,26 +113,28 @@ void process10HzTask3() {
 
 //1Hz process
 void process1HzTask() {
-//#ifdef MavLink
-//	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
-//	oneHZpreviousTime = currentTime;
-//
-//	sendSerialHeartbeat();   
-//#endif
+	//#ifdef MavLink
+	//	G_Dt = (currentTime - oneHZpreviousTime) / 1000000.0;
+	//	oneHZpreviousTime = currentTime;
+	//
+	//	sendSerialHeartbeat();   
+	//#endif
 
 	PrintAltitudeReport();
 }
 
-//5 Hz process
-void process5HzTask()
+//2 Hz process
+void process2HzTask()
 {
 	//PrintSonarReport();
-	PrintChosenProgram();
+	//PrintChosenProgram();
+	PrintControllerOutput();
+	//PrintWarnings();
 }
 
 void PrintChosenProgram()
 {
-	//printNewLine(radioProgram, RADIOMODE);
+	printNewLine(GetRadioProgram(), RADIOMODE);
 }
 
 void PrintSonarReport()
@@ -185,4 +172,27 @@ void PrintDebugReport()
 {
 	//printInLine("Armed: ", DEBUGMODE);
 	//printNewLine((motorArmed == ON ? "On" : "Off"), STATUSMODE);
+}
+
+static void PrintWarnings()
+{
+	printInLine("Warning: ", WARNINGMODE);
+	printInLine(GetLeftWarning() ? ": Left" : "", WARNINGMODE);
+	printInLine(GetFrontWarning() ? ": Center" : "", WARNINGMODE);
+	printInLine(GetRightWarning() ? ": Right" : "", WARNINGMODE);
+	printNewLine("", WARNINGMODE);
+}
+
+static void PrintControllerOutput()
+{
+	printInLine("Parameters: ", MOTORMODE);
+	printInLine(_controllerInput[XAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printInLine(_controllerInput[YAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printInLine(_controllerInput[ZAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printInLine(_controllerInput[THROTTLE], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
 }

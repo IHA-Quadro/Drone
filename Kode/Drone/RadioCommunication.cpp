@@ -1,6 +1,9 @@
 #include "RadioCommunication.h"
 #include "Device_I2C.h"
 
+#define TRANCEIVER_ADDRESS 0x90
+#define INDICATORVALUE 0xAA
+
 int radioProgram;
 
 void SetupRadioCommunicaiton()
@@ -9,26 +12,19 @@ void SetupRadioCommunicaiton()
 	radioProgram = 0;
 }
 
-int ReadRadio()
+void ReadRadio()
 {
-	int is = readWhoI2C(TRANCEIVER_ADDRESS);
+	int indicator, programValue;
 
-	Wire.requestFrom(TRANCEIVER_ADDRESS, 3); //Request 3 bytes from radio
-	int indicator = Wire.read(); //First value is always an indicator if program is with or not
-	int rssiValue = Wire.read(); //Always sent as RSSI-value
-	int programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 3 bytes from radio
 
-	//printInLine("Is: ", RADIOMODE);
-	//printInLine(is, RADIOMODE);
-	//printInLine(" - ", RADIOMODE);
-	//printInLine(indicator, RADIOMODE);
-	//printInLine(" - ", RADIOMODE);
-	//printInLine(rssiValue, RADIOMODE);
-	//printInLine(" - ", RADIOMODE);
-	//printNewLine(programValue, RADIOMODE);
+	while(Wire.available())
+	{
+		indicator = Wire.read(); //First value is always an indicator if program is with or not
+		programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+	}
 
 	if(indicator == INDICATORVALUE)
 		radioProgram = programValue;
 
-	return rssiValue;
 }

@@ -2,7 +2,7 @@
 #define _CONTROLFAKER_h
 
 #include "Accelerometer.h"
-#include "Decision.h"
+//#include "Decision.h"
 #include "GlobalDefined.h"
 #include "Gyroscope.h"
 #include "Kinematics.h"
@@ -25,7 +25,7 @@ extern int _controllerInput[channelsInUse];
 
 void SetupControlFaker();
 void KillMotor();
-void SelectProgram();
+void ApplyProgram();
 void ArmMotors();
 void SafetyCheck();
 void PerformCalibration();
@@ -37,7 +37,6 @@ void ResetFakerData();
 void RotateDrone(int value);
 void MoveDrone(int xaxis, int yaxis);
 void ThrottleDrone(int throttle);
-void GroundTakeOff(double time);
 
 void AeroQuadSetup();
 

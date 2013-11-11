@@ -118,7 +118,7 @@ void setup()
 
 	printNewLine("Initialing ControlFaker", STATUSMODE);
 	SetupControlFaker();
-	KillMotor(true);
+	//KillMotor(true);
 
 	printNewLine("Initializing Receiver", STATUSMODE);
 	initializeReceiver(LASTCHANNEL);
@@ -229,8 +229,9 @@ void loop ()
 			process10HzTask3();
 		}
 
-		if(frameCounter % TASK_5HZ == 0)
-			process5HzTask();
+		//2Hz Task
+		if(frameCounter % TASK_2HZ == 0)
+			process2HzTask();
 
 		// 1Hz task loop
 		if (frameCounter % TASK_1HZ == 0) 

@@ -119,104 +119,112 @@
 //	delay(500);
 //}
 
-//#include <Arduino.h>
-//#include <Wire.h>
-//#include "Device_I2C.h"
-//
-//#define INDICATORVALUE 0xAA
-//#define TRANCEIVER_ADDRESS 0x90
-//
-//int radioProgram = 0;
-//
-//void setup()
-//{
-//	Serial.begin(115200);
-//}
-//
-//int ReadRadio()
-//{
-//	
-//	Wire.beginTransmission(TRANCEIVER_ADDRESS);
-//	int is = readWhoI2C(TRANCEIVER_ADDRESS);
-//
-//	Wire.requestFrom(TRANCEIVER_ADDRESS, 3); //Request 3 bytes from radio
-//	int indicator = Wire.read(); //First value is always an indicator if program is with or not
-//	int rssiValue = Wire.read(); //Always sent as RSSI-value
-//	int programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
-//
-//	Wire.endTransmission();
-//
-//	Serial.print("Is: ");
-//	Serial.print(is);
-//	Serial.print(" - ");
-//	Serial.print(indicator);
-//	Serial.print(" - ");
-//	Serial.print(rssiValue);
-//	Serial.print(" - ");
-//	Serial.println(programValue);
-//
-//	if(indicator == INDICATORVALUE)
-//		radioProgram = programValue;
-//
-//	return rssiValue;
-//}
-//
-//void loop()
-//{
-//	ReadRadio();
-//	delay(500);
-//}
+#define SCANNER 1
 
+
+#ifdef SCANNER
+#include <Arduino.h>
+#include <Wire.h>
+#include "Device_I2C.h"
+
+#define INDICATORVALUE 0xAA
+#define TRANCEIVER_ADDRESS 0x90
+
+int radioProgram = 0;
+
+void setup()
+{
+	Wire.begin();
+	Serial.begin(115200);
+}
+
+int ReadRadio()
+{
+	int indicator, rssiValue, programValue;
+	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 3 bytes from radio
+
+	while(Wire.available())
+	{
+		indicator = Wire.read(); //First value is always an indicator if program is with or not
+		programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+	}
+	
+	if(indicator == INDICATORVALUE)
+	{
+		Serial.print("Program: ");
+		Serial.print(indicator);
+	}
+	else
+	{
+		Serial.print("Strange number: ");
+		Serial.print(indicator);
+	}
+	
+	Serial.print(" : ");
+	Serial.println(programValue);
+
+	return programValue;
+	//return 0;
+}
+
+void loop()
+{
+	ReadRadio();
+	delay(100);
+}
+#else
 #include <Wire.h>
 
 
 void setup()
 {
-  Wire.begin();
+	Wire.begin();
 
-  Serial.begin(115200);
-  Serial.println("\nI2C Scanner");
+	Serial.begin(115200);
+	Serial.println("\nI2C Scanner");
 }
 
 
 void loop()
 {
-  byte error, address;
-  int nDevices;
+	byte error, address;
+	int nDevices;
 
-  Serial.println("Scanning...");
+	Serial.println("Scanning...");
 
-  nDevices = 0;
-  for(address = 1; address < 127; address++ ) 
-  {
-    // The i2c_scanner uses the return value of
-    // the Write.endTransmisstion to see if
-    // a device did acknowledge to the address.
-    Wire.beginTransmission(address);
-    error = Wire.endTransmission();
+	nDevices = 0;
+	for(address = 1; address < 255; address++ ) 
+	{
+		// The i2c_scanner uses the return value of
+		// the Write.endTransmisstion to see if
+		// a device did acknowledge to the address.
+		Wire.beginTransmission(address);
+		error = Wire.endTransmission();
 
-    if (error == 0)
-    {
-      Serial.print("I2C device found at address 0x");
-      if (address<16) 
-        Serial.print("0");
-      Serial.print(address,HEX);
-      Serial.println("  !");
+		if (error == 0)
+		{
+			Serial.print("I2C device found at address 0x");
+			if (address<16) 
+				Serial.print("0");
+			Serial.print(address,HEX);
+			Serial.println("  !");
 
-      nDevices++;
-    }
-    else if (error==4) 
-    {
-      Serial.print("Unknow error at address 0x");
-      if (address<16) 
-        Serial.print("0");
-      Serial.println(address,HEX);
-    }    
-  }
-  if (nDevices == 0)
-    Serial.println("No I2C devices found\n");
-  else
-    Serial.println("done\n");
+			nDevices++;
+		}
+		else if (error==4) 
+		{
+			Serial.print("Unknow error at address 0x");
+			if (address<16) 
+				Serial.print("0");
+			Serial.println(address,HEX);
+		}    
+	}
+	if (nDevices == 0)
+		Serial.println("No I2C devices found\n");
+	else
+		Serial.println("done\n");
 
-  delay(5000);           // wait 5 seconds for next scan
+	delay(5000);           // wait 5 seconds for next scan
 }
+#endif // !SCANNER
+

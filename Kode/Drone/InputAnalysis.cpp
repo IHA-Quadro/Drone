@@ -1,7 +1,7 @@
 #include "InputAnalysis.h"
 
-#define SIDE_SONAR_DISTANCE 80
-#define FRONT_SONAR_DISTANCE 30
+#define SIDE_SONAR_DISTANCE 0.4
+#define FRONT_SONAR_DISTANCE 0.3
 
 int _radioProgram;
 int _sonarProgram;
@@ -14,7 +14,7 @@ void ResetInputAnalysis()
 {
 	_radioProgram = 0;
 	_sonarProgram = 0;
-//	_serialProgram = 0;
+	//	_serialProgram = 0;
 
 	_leftWarning = false;
 	_rightWarning = false;
@@ -24,46 +24,20 @@ void ResetInputAnalysis()
 }
 
 void AnalyseSonarInput()
-{
+{	
 	//Check if drone is too close to an object
-	if(RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE)
-	{
-		_frontWarning = true;
-	}
+	_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
 
-	if(RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE)
-	{
-		_rightWarning = true;
-	}
+	_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
 
-	if(RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE)
-	{
-		_leftWarning = true;
-	}
+	_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
 }
 
 //Read from input queue
 void AnalyseRadioInput()
 {
-	int rssiValue = ReadRadio();
-	//printNewLine(rssiValue, RADIOMODE);
-
-	//float average = 0;
-	//int count = queue2.count();
-	//int number;
-	//printInLine("Count: ", RADIOMODE);
-	//printInLine(count, RADIOMODE);
-
-	//while(queue2.count() != 0)
-	//{
-	//	number = queue2.pop();
-	//	average += number;
-	//}
-	//average = average/count;
-
-	//printNewLine(average, RADIOMODE);
-	//_radioProgram = radioProgram;
-	//queue2.~QueueList();
+	ReadRadio();
+	_radioProgram = radioProgram;
 }
 
 //Return radio selected program
@@ -71,12 +45,6 @@ int GetRadioProgram()
 {
 	return _radioProgram;
 }
-
-//Return Serial selected program
-//int GetSerialProgram()
-//{
-//	return _serialProgram;
-//}
 
 //Return warning if left sonar is too close to object
 bool GetLeftWarning()

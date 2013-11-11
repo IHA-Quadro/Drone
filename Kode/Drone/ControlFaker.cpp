@@ -10,9 +10,6 @@ int maxSpinSpeed = 2000;
 int spinSpeed = 1500;
 
 
-#define START_LEVEL 1200
-#define WANTED_LEVEL 1450
-#define TIME_FACTOR -2
 
 //Setup file for ControlFaker
 void SetupControlFaker()
@@ -52,13 +49,8 @@ void KillMotor()
 	_controllerInput[THROTTLE] = MINCOMMAND+100;
 }
 
-void SerialOutput(bool active)
-{
-
-}
-
 //Take the values of the current program's values and apply them for output
-void SelectProgram()
+void ApplyProgram()
 {
 	_controllerInput[XAXIS] = programInput.data.xAxis;
 	_controllerInput[YAXIS] = programInput.data.yAxis;
@@ -100,7 +92,6 @@ void PerformCalibration()
 void ApplySpeed()
 {
 	//Specific for the program.
-	//Input is missing but not known what format it will be
 	if(IsMotorKilled())
 	{
 		for(byte i = 0 ; i < THROTTLE; i++)
@@ -151,38 +142,21 @@ void PrintMotorOutput()
 {
 	if(!IsMotorKilled())
 	{
-		printInLine("Motor output: ", MOTORMODE);
-		printInLine(motorCommand[0], MOTORMODE);
-		printInLine(", ", MOTORMODE);
-		printInLine(motorCommand[1], MOTORMODE);
-		printInLine(", ", MOTORMODE);
-		printInLine(motorCommand[2], MOTORMODE);
-		printInLine(", ", MOTORMODE);
-		printInLine(motorCommand[3], MOTORMODE);
-		printInLine(", ", MOTORMODE);
-		printInLine(_controllerInput[THROTTLE], MOTORMODE);
-		println(MOTORMODE);
+		//printInLine("Motor output: ", MOTORMODE);
+		//printInLine(motorCommand[0], MOTORMODE);
+		//printInLine(", ", MOTORMODE);
+		//printInLine(motorCommand[1], MOTORMODE);
+		//printInLine(", ", MOTORMODE);
+		//printInLine(motorCommand[2], MOTORMODE);
+		//printInLine(", ", MOTORMODE);
+		//printInLine(motorCommand[3], MOTORMODE);
+		//printInLine(", ", MOTORMODE);
+		//printInLine(_controllerInput[THROTTLE], MOTORMODE);
+		//println(MOTORMODE);
 	}
 }
 
 void AeroQuadSetup()
 {
 	//_initialized = false; //Start arming motor
-}
-
-//Take off from ground with (a-b)*(1-exp(-t/tau))+b
-//a = wanted motor throttle, b = motor min-throttle
-void GroundTakeOff(float time)
-{
-	if(programInput.ProgramID == PROGRAM_START && StartTakeOff == true)
-	{
-		if(_controllerInput[AUX1] != ALTITUDEHOLDTRUE)
-		{
-			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(time * TIME_FACTOR))+START_LEVEL;
-			_controllerInput[THROTTLE] = throttle;
-
-			if(throttle == WANTED_LEVEL - 5)
-				_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
-		}
-	}
 }

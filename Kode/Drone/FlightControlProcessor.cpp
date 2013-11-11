@@ -144,9 +144,7 @@ void processFlightControl()
 
 		processAltitudeHold();
 
-//#if defined AutoLanding
 		processAutoLandingAltitudeCorrection();
-//#endif
 
 		processThrottleCorrection();
 	}

@@ -7,16 +7,20 @@
 #define _DECISION_
 
 #include "InputAnalysis.h"
+#include "ControlFaker.h"
 #include "Programs.h"
 #include "PrintDrone.h"
 
 extern bool StartTakeOff;
 
 void ResetDecisions();
+void ResetMessages();
 ProgramInput GetActualProgram();
-void DecidedProgram();
+void DecideProgram();
 void SerialComRequest(ProgramInput input);
+void GroundTakeOff();
 static void SonarCheck();
 static void FMSignal();
+static void SelectProgram(int programID);
 
 #endif

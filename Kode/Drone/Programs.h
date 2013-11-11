@@ -29,7 +29,7 @@ struct ProgramInput
 extern struct ProgramData programData;
 extern struct ProgramInput programInput;
 
-void SelectProgram(int programID);
+void ResetProgramData();
 void ForwardSlow();
 void ForwardFast();
 void RotateRightSlow();
@@ -38,5 +38,6 @@ void BackwardsSlow();
 void AutoLand();
 void Start();
 void KeepSteady();
+void StopMidAir();
 
 #endif

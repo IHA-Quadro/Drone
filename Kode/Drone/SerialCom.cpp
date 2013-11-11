@@ -1,5 +1,8 @@
 #include "SerialCom.h"
 
+#include "Decision.h"
+#include "Receiver.h"
+
 char queryType = 'X';
 int newInput = 1500;
 

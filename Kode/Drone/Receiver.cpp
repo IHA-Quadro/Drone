@@ -1,5 +1,7 @@
 #include "Receiver.h"
 
+#include "Decision.h"
+
 int lastReceiverChannel;
 int channelCal;
 
@@ -11,10 +13,6 @@ int receiverCommandSmooth[MAX_NB_CHANNEL];
 float receiverSlope[MAX_NB_CHANNEL];
 float receiverOffset[MAX_NB_CHANNEL];
 float receiverSmoothFactor[MAX_NB_CHANNEL];
-
-unsigned long previousTime, currentTime, deltaTime;
-double previousFloatTime, _startTime, deltaFloatTime;
-bool _groundStart = true;
 
 void initializeReceiverValues()
 {
@@ -75,6 +73,7 @@ void readReceiver()
 
 				ResetFakerData();
 				ResetDecisions();
+				ResetMessages();
 			}
 
 			if(!_motorsArmed && _safetyChecked)
@@ -89,25 +88,16 @@ void readReceiver()
 	}
 	else
 	{
-		currentTime = micros(); //1.000.000 µSec/s
-		deltaTime = (currentTime - previousTime)/1000; //1000 ms/s
+		// AUX1 is set to ALTITUDEHOLDTRUE at the end of 'GroundTakeOff'
+		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) 
+			GroundTakeOff();
 
-		if(_groundStart)
-			_startTime = (float)deltaTime/1000;
-
-		previousFloatTime = (float)deltaTime/1000;
-		deltaFloatTime = previousFloatTime - _startTime;
-
-		if(deltaFloatTime < TIME_ON_GROUND)
-			GroundTakeOff(previousFloatTime);
-		else
-		{
-			DecidedProgram(deltaFloatTime);
-			SelectProgram();
-			ApplySpeed();
-		}
+		DecideProgram();
+		ApplyProgram(); //Here
+		ApplySpeed();
 	}
 	ApplyData();
+
 }
 
 void ApplyData()

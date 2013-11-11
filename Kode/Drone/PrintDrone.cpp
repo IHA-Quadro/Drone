@@ -11,7 +11,6 @@ void SetupPrintDrone()
 		previousState[i] = false;
 	}
 	PrintConfig[WIREMODE] = false;
-	PrintConfig[MOTORMODE] = false;
 	//PrintConfig[ALTITUDEMODE] = false;
 }
 
@@ -46,6 +45,22 @@ void printNewLine(int value, printModes mode)
 }
 
 void printNewLine(float value, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.println(value);
+	}
+}
+
+void printNewLine(double value, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.println(value);
+	}
+}
+
+void printNewLine(unsigned long value, printModes mode)
 {
 	if(PrintConfig[mode])
 	{
@@ -102,6 +117,14 @@ void printInLine(char s, printModes mode)
 }
 
 void printInLine(float s, printModes mode)
+{
+	if(PrintConfig[mode])
+	{
+		Serial.print(s);
+	}
+}
+
+void printInLine(unsigned long s, printModes mode)
 {
 	if(PrintConfig[mode])
 	{
