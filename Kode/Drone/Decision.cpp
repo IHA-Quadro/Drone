@@ -2,7 +2,9 @@
 
 #define START_LEVEL 1200
 #define WANTED_LEVEL 1450
-#define TIME_FACTOR -2
+#define TIME_FACTOR 1.2
+#define STEADYTOLERANCE 2
+#define INC_DELAY 350
 
 ProgramInput _serialProgram;
 bool _autoLandMessage;
@@ -10,8 +12,9 @@ bool _startMessage;
 bool StartTakeOff;
 
 unsigned long _previousTime, _currentTime, _deltaTime;
-float _previousFloatTime, _startTime, _deltaFloatTime;
+float _previousFloatTime, _startTime, _deltaFloatTime, _SteadyStamp;
 bool _groundStart;
+bool stableHeight = false;
 
 void ResetMessages()
 {
@@ -27,6 +30,7 @@ void ResetMessages()
 	_previousFloatTime = 0.0;
 	_startTime = 0.0;
 	_deltaFloatTime = 0.0;
+	_SteadyStamp = 0.0;
 
 	ResetProgramData();
 }
@@ -199,27 +203,27 @@ static void SelectProgram(int programID)
 		}
 		break;
 
-	case 3:
+	case 3: //Forward
 		StopMidAir();
 		ForwardSlow();
 		break;
 
-	case 4:
-		StopMidAir();
+	case 4://backwards
+		StopMidAir(); 
 		BackwardsSlow();
 		break;
 
-	case 5:
+	case 5: //RotateRight
 		StopMidAir();
 		RotateRightSlow();
 		break;
 
-	case 6:
+	case 6: //RotateLeft
 		StopMidAir();
 		RotateLeftSlow();
 		break;
 
-	case 7:
+	case 7: // Stop mid air
 		StopMidAir();
 		break;
 
@@ -243,7 +247,6 @@ void GroundTakeOff()
 
 		_previousTime = _currentTime;
 
-
 		if(_groundStart == true)
 		{
 			_startTime = (float)_currentTime/1000;
@@ -257,17 +260,88 @@ void GroundTakeOff()
 		//printInLine(" <= Max: ", RADIOMODE);
 		//printNewLine(programInput.TimeSpanInMiliSec, RADIOMODE);
 
-		if(spend < programInput.TimeSpanInMiliSec)
+		if(_controllerInput[THROTTLE] > WANTED_LEVEL - 10)
+			_SteadyStamp = spend;
+
+		if(spend < programInput.TimeSpanInMiliSec && _controllerInput[AUX1] == ALTITUDEHOLDFALSE)
 		{
 			printNewLine("Calculate new throttle: ", RADIOMODE);
-			printInLine(spend, RADIOMODE);
-			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(spend * TIME_FACTOR))+START_LEVEL;
+			printInLine(spend/100, RADIOMODE);
+			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(-(spend/100)/TIME_FACTOR))+START_LEVEL;
+
 			_controllerInput[THROTTLE] = throttle;
 			printInLine( " => ", RADIOMODE);
 			printNewLine(throttle, RADIOMODE);
 
-			if(throttle >= WANTED_LEVEL - 5)
-				_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+			if(_SteadyStamp > 2)
+			{
+				if(throttle > WANTED_LEVEL - 3)
+					_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+			}
+		}
+	}
+}
+
+
+void GroundStart()
+{
+	if(GetActualProgram().ProgramID == PROGRAM_START)
+	{
+		_currentTime = micros(); //1.000.000 µSec/s
+		_deltaTime = (_currentTime - _previousTime)/1000; //1000 ms/s
+
+		_previousTime = _currentTime;
+
+		if(_groundStart == true)
+		{
+			_startTime = (float)_currentTime/1000;
+			_groundStart = false;
+		}
+		_previousFloatTime = (float)_previousTime/1000;
+		float spend = _previousFloatTime - _startTime;
+
+		int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
+
+		int average = RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average;
+
+		if( (average + STEADYTOLERANCE > programInput.height) && (average - STEADYTOLERANCE < programInput.height))
+		{
+			if(!stableHeight)
+				printNewLine("Enabling Altitude Hold", STATUSMODE);
+
+			_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+			stableHeight = true;
+		}
+
+		else if(average + STEADYTOLERANCE < programInput.height) //Not high enough
+		{
+			stableHeight = false;
+
+			if(spend > INC_DELAY) //Still not high enough after initTime
+			{
+				_groundStart = true;
+				_controllerInput[THROTTLE] += 10;
+				printInLine("Throttle = ", STATUSMODE);
+				printInLine(_controllerInput[THROTTLE], STATUSMODE);
+				printInLine(" ; ", STATUSMODE);
+				printInLine(average, STATUSMODE);
+				println(STATUSMODE);
+			}
+		}
+		else if(average  - STEADYTOLERANCE > programInput.height) //Too high 
+		{
+			stableHeight = false;
+
+			if(spend > INC_DELAY) //Still too high after initTime
+			{
+				_groundStart = true;
+				_controllerInput[THROTTLE] -= 5;
+				printInLine("Throttle = ", STATUSMODE);
+				printInLine(_controllerInput[THROTTLE], STATUSMODE);
+				printInLine(" ; ", STATUSMODE);
+				printInLine(average, STATUSMODE);
+				println(STATUSMODE);
+			}
 		}
 	}
 }

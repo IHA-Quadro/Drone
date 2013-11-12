@@ -1,16 +1,22 @@
+clear; close all;
 
 B = 1200;
-A = 1450-B;
-t = -2;
-tau = 0.01:0.1:5;
-funk = A*(1 - exp(tau *t) ) + B;
+A = 1500;
+t1 = 1.2;
+t2 = 0.6;
+tau = 0.01:0.025:5;
+syms x;
+funk1 = ((A-B)*(1 - exp(-tau./t1)))+B;
+funk2 = ((A-B)*(1 - exp(-tau./t2)))+B;
 
-plot(tau, funk)
+figure(1)
+plot(tau, funk1, 'r')
+hold on;
+plot(tau, funk2)
 axis on
 grid on
-axis([0, 2.5, 1200, 1550])
+axis([0, 5, 1200, 1500])
 
-format shortg
-syms x
-y = solve(A*(1- exp(x * t))+B == 1495, x)
-y2 = A*(1- exp(2 * t))+B
+% format short
+% y = solve(funkSolve == A-3, x);
+% y2 = ((A-B)*(1 - exp(-1.5./t)))+B

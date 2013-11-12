@@ -19,6 +19,7 @@ ProgramInput GetActualProgram();
 void DecideProgram();
 void SerialComRequest(ProgramInput input);
 void GroundTakeOff();
+void GroundStart();
 static void SonarCheck();
 static void FMSignal();
 static void SelectProgram(int programID);

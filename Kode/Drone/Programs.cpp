@@ -6,8 +6,6 @@
 #define STANDARD_HEIGHT 50
 #define STEADYTOLERANCE 2
 
-
-
 struct ProgramData programData;
 struct ProgramInput programInput;
 
@@ -17,6 +15,7 @@ void ResetProgramData()
 	programData.yAxis = STEADY;
 	programData.zAxis = STEADY;
 	programData.aux1 = ALTITUDEHOLDFALSE;
+	//programData.aux1 = ALTITUDEHOLDTRUE;
 	programData.aux3 = AUTOLANDFALSE;
 
 	programInput.height = STANDARD_HEIGHT;
@@ -24,8 +23,6 @@ void ResetProgramData()
 	programInput.data = programData;
 	programInput.ProgramID = 0;
 }
-
-
 
 void ForwardSlow()
 {
@@ -92,53 +89,3 @@ void StopMidAir()
 	programInput.data.zAxis = STEADY;
 }
 
-
-//void GroundStart()
-//{
-//	//if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE) //If autohold enable
-//	//	return; //Skip the rest
-//
-//	//int sonarHeight = MeasureSonar(ALTITUDE_RANGE_FINDER_INDEX); //Bottom sonar
-//
-//	//int average = calcAverage(sonarHeight);
-//
-//	//if( (average + STEADYTOLERANCE > programInput.height) && (average - STEADYTOLERANCE < programInput.height))
-//	//{
-//	//	if(!stableHeight)
-//	//		printNewLine("Enabling Altitude Hold", STATUSMODE);
-//
-//	//	_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
-//	//	stableHeight = true;
-//	//}
-//
-//	//else if(average + STEADYTOLERANCE < programInput.height) //Not high enough
-//	//{
-//	//	stableHeight = false;
-//
-//	//	if(miliSecCounter > initTime) //Still not high enough after initTime
-//	//	{
-//	//		miliSecCounter = 0;
-//	//		spinSpeed += 10;
-//	//		printInLine("SpinSpeed = ", STATUSMODE);
-//	//		printInLine(spinSpeed, STATUSMODE);
-//	//		printInLine(" ; ", STATUSMODE);
-//	//		printInLine(average, STATUSMODE);
-//	//		println(STATUSMODE);
-//	//	}
-//	//}
-//	//else if(average  - STEADYTOLERANCE > programInput.height) //Too high 
-//	//{
-//	//	stableHeight = false;
-//
-//	//	if(miliSecCounter > initTime) //Still too high after initTime
-//	//	{
-//	//		miliSecCounter = 0;
-//	//		spinSpeed -= 5;
-//	//		printInLine("SpinSpeed = ", STATUSMODE);
-//	//		printInLine(spinSpeed, STATUSMODE);
-//	//		printInLine(" ; ", STATUSMODE);
-//	//		printInLine(average, STATUSMODE);
-//	//		println(STATUSMODE);
-//	//	}
-//	//}
-//}

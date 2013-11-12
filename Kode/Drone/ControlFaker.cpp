@@ -113,7 +113,6 @@ void ApplySpeed()
 			}
 		}
 	}
-	_controllerInput[THROTTLE] = spinSpeed;
 }
 
 //Resets data for the input data.

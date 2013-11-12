@@ -211,15 +211,15 @@ void readSerialCommand()
 			switch (queryType)
 			{
 			case 'X':
-				MoveDrone(newInput, _controllerInput[YAXIS]);
+				//MoveDrone(newInput, _controllerInput[YAXIS]);
 				break;
 
 			case 'Y':
-				MoveDrone(_controllerInput[XAXIS], newInput);
+				//MoveDrone(_controllerInput[XAXIS], newInput);
 				break;
 
 			case 'Z':
-				RotateDrone(newInput);
+				//RotateDrone(newInput);
 				break;
 
 			default:
@@ -234,14 +234,14 @@ void readSerialCommand()
 			{	
 				printNewLine("Killing motor", STATUSMODE);
 				KillMotor();
-				ResetReceiveCommandTestData();
+				//ResetReceiveCommandTestData();
 			}
 			else
 			{
 				ActivatePreviousSerial();
 				printNewLine("Starting motor", STATUSMODE);
 				SetupControlFaker();
-				ResetReceiveCommandTestData();
+				//ResetReceiveCommandTestData();
 			}
 			break;
 

@@ -167,8 +167,8 @@ void setup()
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].D = PID[BARO_ALTITUDE_HOLD_PID_IDX].D;
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].windupGuard = PID[BARO_ALTITUDE_HOLD_PID_IDX].windupGuard;
 
-	printNewLine("Setup ReceiveCommandTestData", STATUSMODE);
-	ResetReceiveCommandTestData();
+	//printNewLine("Setup ReceiveCommandTestData", STATUSMODE);
+	//ResetReceiveCommandTestData();
 
 	previousTime = micros();
 	digitalWrite(LED_Green, HIGH);
@@ -204,8 +204,8 @@ void loop ()
 	{
 		frameCounter++;
 
-		if(miliSecCounterActive)
-			miliSecCounter += 10; //ReceiveCommandTestData.h
+		//if(miliSecCounterActive)
+		//	miliSecCounter += 10; //ReceiveCommandTestData.h
 
 		process100HzTask();
 

@@ -111,7 +111,7 @@ void updateRangeFinders()
 	if (rangeFinders[rangerToTrigger].triggerpin) 
 		digitalWrite(rangeFinders[rangerToTrigger].triggerpin, LOW);
 
-	if(rangerToTrigger != ALTITUDE_RANGE_FINDER_INDEX)
+	//if(rangerToTrigger != ALTITUDE_RANGE_FINDER_INDEX)
 		StoreRangeValues(rangerToTrigger);
 }
 

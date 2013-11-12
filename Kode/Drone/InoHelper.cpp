@@ -101,14 +101,6 @@ void process10HzTask2()
 void process10HzTask3() {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
-
-#if defined(UseGPS) || defined(BattMonitor)
-	processLedStatus();
-#endif
-
-#ifdef SlowTelemetry
-	updateSlowTelemetry10Hz();
-#endif
 }
 
 //1Hz process

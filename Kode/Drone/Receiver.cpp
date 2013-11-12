@@ -90,7 +90,10 @@ void readReceiver()
 	{
 		// AUX1 is set to ALTITUDEHOLDTRUE at the end of 'GroundTakeOff'
 		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) 
-			GroundTakeOff();
+		{
+			//GroundTakeOff();
+			//GroundStart();
+		}
 
 		DecideProgram();
 		ApplyProgram(); //Here

@@ -7,11 +7,10 @@ void SetupPrintDrone()
 {
 	for( int i = 0; i < DEBUGMODE+1; i++)
 	{
-		PrintConfig[i] = true;
+		PrintConfig[i] = false;
 		previousState[i] = false;
 	}
-	PrintConfig[WIREMODE] = false;
-	//PrintConfig[ALTITUDEMODE] = false;
+	
 }
 
 void SilenceSerial()
