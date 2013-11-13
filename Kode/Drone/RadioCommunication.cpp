@@ -18,13 +18,12 @@ void ReadRadio()
 
 	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 3 bytes from radio
 
-	while(Wire.available())
-	{
+	//while(Wire.available())
+	//{
 		indicator = Wire.read(); //First value is always an indicator if program is with or not
 		programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
-	}
+	//}
 
 	if(indicator == INDICATORVALUE)
 		radioProgram = programValue;
-
 }

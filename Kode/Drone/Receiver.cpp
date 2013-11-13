@@ -92,11 +92,11 @@ void readReceiver()
 		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) 
 		{
 			//GroundTakeOff();
-			//GroundStart();
+			GroundStart();
 		}
 
 		DecideProgram();
-		ApplyProgram(); //Here
+		ApplyProgram(); 
 		ApplySpeed();
 	}
 	ApplyData();
