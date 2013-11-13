@@ -15,7 +15,6 @@ void ResetProgramData()
 	programData.yAxis = STEADY;
 	programData.zAxis = STEADY;
 	programData.aux1 = ALTITUDEHOLDFALSE;
-	//programData.aux1 = ALTITUDEHOLDTRUE;
 	programData.aux3 = AUTOLANDFALSE;
 
 	programInput.height = STANDARD_HEIGHT;
@@ -88,4 +87,3 @@ void StopMidAir()
 	programInput.data.yAxis = STEADY;
 	programInput.data.zAxis = STEADY;
 }
-

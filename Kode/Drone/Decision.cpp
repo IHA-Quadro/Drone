@@ -302,9 +302,7 @@ void GroundStart()
 
 		int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
-		int average = RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average;
-
-		if( (average + STEADYTOLERANCE > programInput.height) && (average - STEADYTOLERANCE < programInput.height))
+		if( (sonarHeight + STEADYTOLERANCE > programInput.height) && (sonarHeight - STEADYTOLERANCE < programInput.height))
 		{
 			if(!stableHeight)
 				printNewLine("Enabling Altitude Hold", STATUSMODE);
@@ -313,7 +311,7 @@ void GroundStart()
 			stableHeight = true;
 		}
 
-		else if(average + STEADYTOLERANCE < programInput.height) //Not high enough
+		else if(sonarHeight + STEADYTOLERANCE < programInput.height) //Not high enough
 		{
 			stableHeight = false;
 
@@ -324,11 +322,11 @@ void GroundStart()
 				printInLine("Throttle = ", STATUSMODE);
 				printInLine(_controllerInput[THROTTLE], STATUSMODE);
 				printInLine(" ; ", STATUSMODE);
-				printInLine(average, STATUSMODE);
+				printInLine(sonarHeight, STATUSMODE);
 				println(STATUSMODE);
 			}
 		}
-		else if(average  - STEADYTOLERANCE > programInput.height) //Too high 
+		else if(sonarHeight  - STEADYTOLERANCE > programInput.height) //Too high 
 		{
 			stableHeight = false;
 
@@ -339,7 +337,7 @@ void GroundStart()
 				printInLine("Throttle = ", STATUSMODE);
 				printInLine(_controllerInput[THROTTLE], STATUSMODE);
 				printInLine(" ; ", STATUSMODE);
-				printInLine(average, STATUSMODE);
+				printInLine(sonarHeight, STATUSMODE);
 				println(STATUSMODE);
 			}
 		}

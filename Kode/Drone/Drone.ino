@@ -161,6 +161,7 @@ void setup()
 
 	printNewLine("Initializing RangeFinder", STATUSMODE);
 	inititalizeRangeFinders();
+
 	vehicleState |= RANGE_ENABLED;
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].P = PID[BARO_ALTITUDE_HOLD_PID_IDX].P*2;
 	PID[SONAR_ALTITUDE_HOLD_PID_IDX].I = PID[BARO_ALTITUDE_HOLD_PID_IDX].I;
