@@ -3,7 +3,7 @@
 #define SLOW 30
 #define FAST 70
 #define STEADY 1500
-#define STANDARD_HEIGHT 50
+#define STANDARD_HEIGHT 100
 #define STEADYTOLERANCE 2
 
 struct ProgramData programData;
@@ -73,6 +73,8 @@ void Start()
 	programInput.data.aux1 = ALTITUDEHOLDFALSE;
 	programInput.data.aux3 = AUTOLANDFALSE;
 }
+
+
 
 void KeepSteady()
 {

@@ -88,11 +88,13 @@ void readReceiver()
 	}
 	else
 	{
+		MaxHeightAction(); //Safety mechanism
+
 		// AUX1 is set to ALTITUDEHOLDTRUE at the end of 'GroundTakeOff'
 		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) 
 		{
 			//GroundTakeOff();
-			GroundStart();
+			//GroundStart();
 		}
 
 		DecideProgram();

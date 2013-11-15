@@ -3,8 +3,10 @@
 #define START_LEVEL 1200
 #define WANTED_LEVEL 1450
 #define TIME_FACTOR 1.2
-#define STEADYTOLERANCE 2
+#define STEADYTOLERANCE 20
 #define INC_DELAY 350
+#define IN_FLIGHT_TOLERANCE 40
+#define MAX_HEIGHT 100
 
 ProgramInput _serialProgram;
 bool _autoLandMessage;
@@ -183,6 +185,9 @@ static void SelectProgram(int programID)
 		StartTakeOff = true;
 		Start();
 
+		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) //Not avaiable if in automode
+			IncreaseHeight();
+
 		if(!_startMessage)
 		{
 			printNewLine("Starting drone due to program select!", STATUSMODE);
@@ -190,7 +195,6 @@ static void SelectProgram(int programID)
 			_startMessage = true;
 			StartTakeOff = false;
 		}
-
 		break;
 
 	case 2: //Autoland
@@ -225,6 +229,7 @@ static void SelectProgram(int programID)
 
 	case 7: // Stop mid air
 		StopMidAir();
+		HoldHeight();
 		break;
 
 	case 8: //Kill drone - CAREFULL!
@@ -302,7 +307,22 @@ void GroundStart()
 
 		int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
-		if( (sonarHeight + STEADYTOLERANCE > programInput.height) && (sonarHeight - STEADYTOLERANCE < programInput.height))
+		if((sonarHeight + IN_FLIGHT_TOLERANCE > programInput.height) && (sonarHeight + STEADYTOLERANCE < programInput.height))
+		{
+			stableHeight = false;
+
+			//if(spend > INC_DELAY) //Still not high enough after initTime
+			//{
+			//	_groundStart = true;
+			//	_controllerInput[THROTTLE] += 5;
+			//	printInLine("Throttle = ", STATUSMODE);
+			//	printInLine(_controllerInput[THROTTLE], STATUSMODE);
+			//	printInLine(" ; ", STATUSMODE);
+			//	printInLine(sonarHeight, STATUSMODE);
+			//	println(STATUSMODE);
+			//}
+		}
+		else if( (sonarHeight + STEADYTOLERANCE > programInput.height) && (sonarHeight - STEADYTOLERANCE < programInput.height))
 		{
 			if(!stableHeight)
 				printNewLine("Enabling Altitude Hold", STATUSMODE);
@@ -342,4 +362,28 @@ void GroundStart()
 			}
 		}
 	}
+}
+
+void IncreaseHeight()
+{
+	if(GetActualProgram().ProgramID == PROGRAM_START)
+	{
+		_controllerInput[THROTTLE] += 5;
+	}
+}
+
+void HoldHeight()
+{
+	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
+
+	programInput.height = sonarHeight;
+	_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+}
+
+void MaxHeightAction()
+{
+	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
+
+	if(sonarHeight > MAX_HEIGHT)
+		_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
 }

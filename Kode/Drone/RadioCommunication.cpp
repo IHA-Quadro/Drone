@@ -20,10 +20,13 @@ void ReadRadio()
 
 	//while(Wire.available())
 	//{
-		indicator = Wire.read(); //First value is always an indicator if program is with or not
-		programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+	indicator = Wire.read(); //First value is always an indicator if program is with or not
+	programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
 	//}
 
 	if(indicator == INDICATORVALUE)
+	{
+		printNewLine(programValue, RADIOMODE);
+	}
 		radioProgram = programValue;
 }

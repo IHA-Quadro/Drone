@@ -26,11 +26,11 @@ void ResetInputAnalysis()
 void AnalyseSonarInput()
 {	
 	//Check if drone is too close to an object
-	_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
+	//_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
 
-	_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+	//_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
 
-	_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+	//_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
 }
 
 //Read from input queue
