@@ -10,7 +10,6 @@ void SetupPrintDrone()
 		PrintConfig[i] = true;
 		previousState[i] = false;
 	}
-	
 }
 
 void SilenceSerial()

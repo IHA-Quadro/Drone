@@ -21,6 +21,7 @@ void SerialComRequest(ProgramInput input);
 void GroundTakeOff();
 void GroundStart();
 void IncreaseHeight();
+void DecreaseHeight();
 void HoldHeight();
 void MaxHeightAction();
 static void SonarCheck();

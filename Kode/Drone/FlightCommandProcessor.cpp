@@ -14,22 +14,16 @@ void processAltitudeHoldStateFromReceiverCommand()
 {
 	if (isPositionHoldEnabledByUser()) 
 	{
-		if (altitudeHoldState != ALTPANIC ) 
-		{  // check for special condition with manditory override of Altitude hold
-
+		if (altitudeHoldState != ALTPANIC ) // check for special condition with manditory override of Altitude hold
+		{  
 			if (!isAltitudeHoldInitialized) 
 			{
-				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
-				//#endif
-				//#if defined AltitudeHoldRangeFinder
 				sonarAltitudeToHoldTarget = ((float)programInput.height-8)/100;
-				//sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
-				//#endif
 				altitudeHoldThrottle = receiverCommand[THROTTLE];
 				isAltitudeHoldInitialized = true;
 			}

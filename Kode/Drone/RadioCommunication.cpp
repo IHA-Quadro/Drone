@@ -28,5 +28,5 @@ void ReadRadio()
 	{
 		printNewLine(programValue, RADIOMODE);
 	}
-		radioProgram = programValue;
+	radioProgram = programValue;
 }

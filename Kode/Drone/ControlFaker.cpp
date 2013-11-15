@@ -130,11 +130,6 @@ void ResetFakerData()
 	_initialized = true;
 
 	printNewLine("Drone intialized", STATUSMODE);
-
-	//ResetAccelData();
-	//ResetKinematicData();
-	//ResetGyroData();
-	//ResetHeadingData();
 }
 
 void PrintMotorOutput()
@@ -153,9 +148,4 @@ void PrintMotorOutput()
 		//printInLine(_controllerInput[THROTTLE], MOTORMODE);
 		//println(MOTORMODE);
 	}
-}
-
-void AeroQuadSetup()
-{
-	//_initialized = false; //Start arming motor
 }

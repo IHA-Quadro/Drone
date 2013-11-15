@@ -7,15 +7,25 @@
 #define INC_DELAY 350
 #define IN_FLIGHT_TOLERANCE 40
 #define MAX_HEIGHT 100
+#define INC_TIME 300 //sec for increasing throttle
+
+enum Timers { 
+	IncHeight, 
+	DecHeight, 
+	Program,
+	GrdStart, 
+	GrdTakeOff //Leave last
+};
+
 
 ProgramInput _serialProgram;
 bool _autoLandMessage;
 bool _startMessage;
 bool StartTakeOff;
 
-unsigned long _previousTime, _currentTime, _deltaTime;
-float _previousFloatTime, _startTime, _deltaFloatTime, _SteadyStamp;
-bool _groundStart;
+unsigned long _previousTime[GrdTakeOff], _currentTime[GrdTakeOff], _deltaTime[GrdTakeOff];
+float _previousFloatTime[GrdTakeOff], _startTime[GrdTakeOff], _deltaFloatTime[GrdTakeOff], _SteadyStamp[GrdTakeOff];
+bool _groundStart[GrdTakeOff];
 bool stableHeight = false;
 
 void ResetMessages()
@@ -23,16 +33,18 @@ void ResetMessages()
 	_autoLandMessage = false;
 	_startMessage = false;
 	StartTakeOff = false;
-	_currentTime = 0.0;
-	_groundStart = true;
 
-	_previousTime = 0.0;
-	_currentTime = 0.0;
-	_deltaTime = 0.0;
-	_previousFloatTime = 0.0;
-	_startTime = 0.0;
-	_deltaFloatTime = 0.0;
-	_SteadyStamp = 0.0;
+	for( int i = 0; i < GrdTakeOff+1; i++)
+	{
+		_currentTime[i] = 0.0;
+		_previousTime[i] = 0.0;
+		_deltaTime[i] = 0.0;
+		_previousFloatTime[i] = 0.0;
+		_startTime[i] = 0.0;
+		_deltaFloatTime[i] = 0.0;
+		_SteadyStamp[i] = 0.0;
+		_groundStart[i] = true;
+	}
 
 	ResetProgramData();
 }
@@ -80,7 +92,7 @@ static void SonarCheck()
 {
 	AnalyseSonarInput();
 
-	if(_controllerInput[AUX1] != ALTITUDEHOLDFALSE )
+	if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE )
 	{
 		//PrintWarnings();
 
@@ -178,6 +190,7 @@ void DecideProgram()
 static void SelectProgram(int programID)
 {
 	programInput.ProgramID = programID;
+	bool _altitudeHoldActivated = false;
 
 	switch (programID)
 	{
@@ -208,28 +221,46 @@ static void SelectProgram(int programID)
 		break;
 
 	case 3: //Forward
-		StopMidAir();
-		ForwardSlow();
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			StopMidAir();
+			DecreaseHeight();
+			//ForwardSlow();
+		}
 		break;
 
 	case 4://backwards
-		StopMidAir(); 
-		BackwardsSlow();
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			StopMidAir(); 
+			ForwardSlow();
+			//BackwardsSlow();
+		}
 		break;
 
 	case 5: //RotateRight
-		StopMidAir();
-		RotateRightSlow();
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			_altitudeHoldActivated = _controllerInput[AUX1];
+			StopMidAir();
+			RotateRightSlow();
+		}
 		break;
 
 	case 6: //RotateLeft
-		StopMidAir();
-		RotateLeftSlow();
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			StopMidAir();
+			RotateLeftSlow();
+		}
 		break;
 
 	case 7: // Stop mid air
-		StopMidAir();
-		HoldHeight();
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			StopMidAir();
+			HoldHeight();
+		}
 		break;
 
 	case 8: //Kill drone - CAREFULL!
@@ -239,6 +270,30 @@ static void SelectProgram(int programID)
 	default:
 		break;
 	}
+
+	if (programID != 1 && programID != 2 && programID != 8)
+	{
+		//If program is in AUX1 = true, disable it and perform program for
+		//programInput.TimeSpanInMiliSec for the selected program, then enable agin
+	}
+}
+
+//Returns miliSeconds (1000 ms/s)
+float TimeSpend(Timers timer)
+{
+	_currentTime[timer] = micros(); //1.000.000 µSec/s
+	_deltaTime[timer] = (_currentTime[timer] - _previousTime[timer])/1000; //1000 ms/s
+
+	_previousTime[timer] = _currentTime[timer];
+
+	if(_groundStart[timer] == true)
+	{
+		_startTime[timer] = (float)_currentTime[timer]/1000;
+		_groundStart[timer] = false;
+	}
+
+	_previousFloatTime[timer] = (float)_previousTime[timer]/1000;
+	return _previousFloatTime[timer] - _startTime[timer];
 }
 
 //Take off from ground with (a-b)*(1-exp(-t/tau))+b
@@ -247,26 +302,14 @@ void GroundTakeOff()
 {
 	if(GetActualProgram().ProgramID == PROGRAM_START)
 	{
-		_currentTime = micros(); //1.000.000 µSec/s
-		_deltaTime = (_currentTime - _previousTime)/1000; //1000 ms/s
-
-		_previousTime = _currentTime;
-
-		if(_groundStart == true)
-		{
-			_startTime = (float)_currentTime/1000;
-			_groundStart = false;
-		}
-		_previousFloatTime = (float)_previousTime/1000;
-		float spend = _previousFloatTime - _startTime;
-
+		float spend = TimeSpend(GrdTakeOff);
 		//printInLine("Spend: ", RADIOMODE);
 		//printInLine(spend, RADIOMODE);
 		//printInLine(" <= Max: ", RADIOMODE);
 		//printNewLine(programInput.TimeSpanInMiliSec, RADIOMODE);
 
 		if(_controllerInput[THROTTLE] > WANTED_LEVEL - 10)
-			_SteadyStamp = spend;
+			_SteadyStamp[GrdTakeOff] = spend;
 
 		if(spend < programInput.TimeSpanInMiliSec && _controllerInput[AUX1] == ALTITUDEHOLDFALSE)
 		{
@@ -278,7 +321,7 @@ void GroundTakeOff()
 			printInLine( " => ", RADIOMODE);
 			printNewLine(throttle, RADIOMODE);
 
-			if(_SteadyStamp > 2)
+			if(_SteadyStamp[GrdTakeOff] > 2)
 			{
 				if(throttle > WANTED_LEVEL - 3)
 					_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
@@ -287,23 +330,11 @@ void GroundTakeOff()
 	}
 }
 
-
 void GroundStart()
 {
 	if(GetActualProgram().ProgramID == PROGRAM_START)
 	{
-		_currentTime = micros(); //1.000.000 µSec/s
-		_deltaTime = (_currentTime - _previousTime)/1000; //1000 ms/s
-
-		_previousTime = _currentTime;
-
-		if(_groundStart == true)
-		{
-			_startTime = (float)_currentTime/1000;
-			_groundStart = false;
-		}
-		_previousFloatTime = (float)_previousTime/1000;
-		float spend = _previousFloatTime - _startTime;
+		float spend = TimeSpend(GrdStart);
 
 		int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
@@ -337,7 +368,7 @@ void GroundStart()
 
 			if(spend > INC_DELAY) //Still not high enough after initTime
 			{
-				_groundStart = true;
+				_groundStart[GrdStart] = true;
 				_controllerInput[THROTTLE] += 10;
 				printInLine("Throttle = ", STATUSMODE);
 				printInLine(_controllerInput[THROTTLE], STATUSMODE);
@@ -352,7 +383,7 @@ void GroundStart()
 
 			if(spend > INC_DELAY) //Still too high after initTime
 			{
-				_groundStart = true;
+				_groundStart[GrdStart] = true;
 				_controllerInput[THROTTLE] -= 5;
 				printInLine("Throttle = ", STATUSMODE);
 				printInLine(_controllerInput[THROTTLE], STATUSMODE);
@@ -366,9 +397,30 @@ void GroundStart()
 
 void IncreaseHeight()
 {
+	programInput.data.aux1 = ALTITUDEHOLDFALSE;
+
 	if(GetActualProgram().ProgramID == PROGRAM_START)
 	{
-		_controllerInput[THROTTLE] += 5;
+		float spend = TimeSpend(IncHeight);
+
+		if(spend > INC_TIME)
+		{
+			_controllerInput[THROTTLE] += 10;
+			_groundStart[IncHeight] = true; //Reset timer
+		}
+	}
+}
+
+void DecreaseHeight()
+{
+	programInput.data.aux1 = ALTITUDEHOLDFALSE;
+
+	float spend = TimeSpend(DecHeight);
+
+	if(spend > INC_TIME)
+	{
+		_controllerInput[THROTTLE] -= 10;
+		_groundStart[DecHeight] = true; //Reset timer
 	}
 }
 
@@ -376,8 +428,12 @@ void HoldHeight()
 {
 	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
+	printInLine("Sonar Height: ", RADIOMODE);
+	printNewLine(sonarHeight, RADIOMODE);
+
 	programInput.height = sonarHeight;
-	_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+	programInput.data.aux1 = ALTITUDEHOLDTRUE;
+	programInput.data.aux3 = AUTOLANDFALSE;
 }
 
 void MaxHeightAction()
@@ -385,5 +441,8 @@ void MaxHeightAction()
 	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
 	if(sonarHeight > MAX_HEIGHT)
-		_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+	{
+		programInput.data.aux1 = ALTITUDEHOLDTRUE;
+		programInput.height = 60;
+	}
 }

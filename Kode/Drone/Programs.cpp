@@ -1,10 +1,11 @@
 #include "Programs.h"
 
-#define SLOW 30
-#define FAST 70
+#define ROTATE_SLOW 70
+#define MOVE_SLOW 60
 #define STEADY 1500
 #define STANDARD_HEIGHT 100
 #define STEADYTOLERANCE 2
+#define PROGRAM_TIMER 300 //miliseconds to complete task
 
 struct ProgramData programData;
 struct ProgramInput programInput;
@@ -25,37 +26,42 @@ void ResetProgramData()
 
 void ForwardSlow()
 {
-	programInput.data.xAxis = STEADY + SLOW;
-	programInput.data.yAxis = STEADY;
+	programInput.data.xAxis = STEADY;
+	programInput.data.yAxis = STEADY + MOVE_SLOW;
 	programInput.data.zAxis = STEADY;
+	programInput.TimeSpanInMiliSec = PROGRAM_TIMER;
 }
 
 void ForwardFast()
 {
-	programInput.data.xAxis = STEADY + FAST;
-	programInput.data.yAxis = STEADY;
+	programInput.data.xAxis = STEADY;
+	programInput.data.yAxis = STEADY + MOVE_SLOW;
 	programInput.data.zAxis = STEADY;
+	programInput.TimeSpanInMiliSec = PROGRAM_TIMER;
 }
 
 void RotateRightSlow()
 {
 	//programInput.data.xAxis = STEADY;
 	programInput.data.yAxis = STEADY;
-	programInput.data.zAxis = STEADY + SLOW;
+	programInput.data.zAxis = STEADY + ROTATE_SLOW;
+	programInput.TimeSpanInMiliSec = PROGRAM_TIMER;
 }
 
 void RotateLeftSlow()
 {
 	//programData.xAxis = STEADY;
 	programInput.data.yAxis = STEADY;
-	programInput.data.zAxis = STEADY - SLOW;
+	programInput.data.zAxis = STEADY - ROTATE_SLOW;
+	programInput.TimeSpanInMiliSec = PROGRAM_TIMER;
 }
 
 void BackwardsSlow()
 {
-	programInput.data.xAxis = STEADY - SLOW;
-	programInput.data.yAxis = STEADY;
+	programInput.data.xAxis = STEADY;
+	programInput.data.yAxis = STEADY - MOVE_SLOW;
 	programInput.data.zAxis = STEADY;
+	programInput.TimeSpanInMiliSec = PROGRAM_TIMER;
 }
 
 void AutoLand()
@@ -75,10 +81,9 @@ void Start()
 }
 
 
-
 void KeepSteady()
 {
-	programInput.height = STANDARD_HEIGHT;
+	//programInput.height = STANDARD_HEIGHT;
 	programInput.data.aux1 = ALTITUDEHOLDTRUE; //Can't keep steady without
 	//programInput.data.aux3 = AUTOLANDFALSE;
 }

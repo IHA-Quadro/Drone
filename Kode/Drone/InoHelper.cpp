@@ -121,7 +121,7 @@ void process2HzTask()
 	PrintSonarReport();
 	//PrintChosenProgram();
 	PrintControllerOutput();
-	//PrintWarnings();
+	PrintWarnings();
 }
 
 void PrintChosenProgram()
@@ -135,12 +135,14 @@ void PrintSonarReport()
 	printInLine(sonarHeight, SONARMODE);
 	printInLine(" - ", SONARMODE);
 	printInLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "Free flight" : "Fixed flight"), SONARMODE);
+	printInLine("<=>", SONARMODE);
+	printNewLine(programInput.height, SONARMODE);
 
-	//printInLine( RangerAverage[LEFT_RANGE_FINDER_INDEX].average, SONARMODE);
-	//printInLine(" - ", SONARMODE);
-	//printInLine( RangerAverage[FRONT_RANGE_FINDER_INDEX].average, SONARMODE);
-	//printInLine(" - ", SONARMODE);
-	//printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine( RangerAverage[LEFT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine(" - ", SONARMODE);
+	printInLine( RangerAverage[FRONT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine(" - ", SONARMODE);
+	printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average, SONARMODE);
 }
 
 void PrintAltitudeReport()
@@ -173,11 +175,17 @@ void PrintDebugReport()
 
 static void PrintWarnings()
 {
-	printInLine("Warning: ", WARNINGMODE);
-	printInLine(GetLeftWarning() ? ": Left" : "", WARNINGMODE);
-	printInLine(GetFrontWarning() ? ": Center" : "", WARNINGMODE);
-	printInLine(GetRightWarning() ? ": Right" : "", WARNINGMODE);
-	printNewLine("", WARNINGMODE);
+	bool print = (GetLeftWarning() || GetRightWarning() || GetFrontWarning());
+
+	if(print)
+	{
+		printInLine("Warning: ", WARNINGMODE);
+		printInLine(GetLeftWarning() ? ": Left" : "", WARNINGMODE);
+		printInLine(GetFrontWarning() ? ": Center" : "", WARNINGMODE);
+		printInLine(GetRightWarning() ? ": Right" : "", WARNINGMODE);
+
+		printNewLine("", WARNINGMODE);
+	}
 }
 
 static void PrintControllerOutput()
@@ -188,8 +196,8 @@ static void PrintControllerOutput()
 	//printInLine(_controllerInput[YAXIS], MOTORMODE);
 	//printInLine(" - ", MOTORMODE);
 	//printInLine(_controllerInput[ZAXIS], MOTORMODE);
-	printInLine(" - ", MOTORMODE);
-	printNewLine(_controllerInput[THROTTLE], MOTORMODE);
+	//printInLine(" - ", MOTORMODE);
+	//printNewLine(_controllerInput[THROTTLE], MOTORMODE);
 	//printInLine(" - ", MOTORMODE);
 	//printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
 }

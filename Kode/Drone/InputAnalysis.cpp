@@ -5,7 +5,6 @@
 
 int _radioProgram;
 int _sonarProgram;
-//int _serialProgram;
 bool _leftWarning;
 bool	_rightWarning; 
 bool	_frontWarning;
@@ -23,14 +22,17 @@ void ResetInputAnalysis()
 	SetupRadioCommunicaiton();
 }
 
+//Check if drone is too close to an object
 void AnalyseSonarInput()
 {	
-	//Check if drone is too close to an object
-	//_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
+	if(programInput.data.aux1 == ALTITUDEHOLDTRUE)
+	{
+		_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
 
-	//_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+		_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
 
-	//_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+		_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+	}
 }
 
 //Read from input queue

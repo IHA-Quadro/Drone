@@ -174,6 +174,8 @@ void setup()
 	previousTime = micros();
 	digitalWrite(LED_Green, HIGH);
 	safetyCheck = 0;
+
+	//KillMotor(true);
 }
 
 /*******************************************************************

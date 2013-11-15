@@ -23,18 +23,21 @@ void SetupPrintDrone();
 void SilienceMode(printModes mode, bool active);
 void SilenceSerial();
 void ActivatePreviousSerial();
+
 void printInLine(int f, printModes mode);
 void printInLine(long f, printModes mode);
 void printInLine(String s, printModes mode);
+void printInLine(char s, printModes mode);
+void printInLine(float s, printModes mode);
+void printInLine(unsigned long s, printModes mode);
+
 void println(printModes mode);
+
 void printNewLine(int value, printModes mode);
 void printNewLine(float value, printModes mode);
 void printNewLine(double value, printModes mode);
 void printNewLine(unsigned long value, printModes mode);
 void printNewLine(String s, printModes mode);
-void printInLine(char s, printModes mode);
-void printInLine(float s, printModes mode);
-void printInLine(unsigned long s, printModes mode);
 
 
 #endif
