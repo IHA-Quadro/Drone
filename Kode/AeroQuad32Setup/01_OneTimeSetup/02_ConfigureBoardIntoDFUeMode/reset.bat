@@ -1,4 +1,4 @@
-set port=Com5
+set port=Com3
 mode %port%:RTS=off 
 mode %port%:DTR=off 
 mode %port%:DTR=on

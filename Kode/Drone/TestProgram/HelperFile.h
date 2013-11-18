@@ -1,0 +1,7 @@
+#ifndef HELPERFILE
+#define HELPERFILE
+
+#define TRANCEIVER_ADDRESS 0x90
+
+
+#endif

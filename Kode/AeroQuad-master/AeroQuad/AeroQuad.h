@@ -1,34 +1,17 @@
-/*
-  AeroQuad v3.0.1 - February 2012
-  www.AeroQuad.com
-  Copyright (c) 2012 Ted Carancho.  All rights reserved.
-  An Open Source Arduino based multicopter.
- 
-  This program is free software: you can redistribute it and/or modify 
-  it under the terms of the GNU General Public License as published by 
-  the Free Software Foundation, either version 3 of the License, or 
-  (at your option) any later version. 
-
-  This program is distributed in the hope that it will be useful, 
-  but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-  GNU General Public License for more details. 
-
-  You should have received a copy of the GNU General Public License 
-  along with this program. If not, see <http://www.gnu.org/licenses/>. 
-*/
-
 #ifndef _AQ_GLOBAL_HEADER_DEFINITION_H_
 #define _AQ_GLOBAL_HEADER_DEFINITION_H_
 
-
-#include <stdlib.h>
+#include <Arduino.h>
 #include <math.h>
-#include "Arduino.h"
-#include "pins_arduino.h"
-#include "GpsDataType.h"
+#include <pins_arduino.h>
+#include <stdlib.h>
+
+#include "Accelerometer.h"
 #include "AQMath.h"
-#include "Receiver.h"
+#include "GpsDataType.h"
+
+
+#define OFF 0
 
 // Flight Software Version
 #define SOFTWARE_VERSION 3.2
@@ -62,19 +45,21 @@ byte previousFlightMode = ATTITUDE_FLIGHT_MODE;
 #define TASK_1HZ 100
 #define THROTTLE_ADJUST_TASK_SPEED TASK_50HZ
 
+void InitializeAeroQuad();
+
 byte flightMode = RATE_FLIGHT_MODE;
 unsigned long frameCounter = 0; // main loop executive frame counter
 int minArmedThrottle; // initial value configured by user
 
-float G_Dt = 0.002; 
-int throttle = 1000;
-byte motorArmed = OFF;
-byte safetyCheck = OFF;
-byte maxLimit = OFF;
-byte minLimit = OFF;
-float filteredAccel[3] = {0.0,0.0,0.0};
-boolean inFlight = false; // true when motor are armed and that the user pass one time the min throttle
-float rotationSpeedFactor = 1.0;
+float G_Dt; 
+int throttle;
+byte motorArmed;
+byte safetyCheck;
+byte maxLimit;
+byte minLimit;
+float filteredAccel[3];
+boolean inFlight; // true when motor are armed and that the user pass one time the min throttle
+float rotationSpeedFactor;
 
 // main loop time variable
 unsigned long previousTime = 0;
@@ -161,45 +146,42 @@ void reportVehicleState();
 #endif
 //////////////////////////////////////////////////////
 
-
-
-
 /**
  * Altitude control global declaration
  */
-#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+//#if defined(AltitudeHoldBaro) || defined(AltitudeHoldRangeFinder)
  // special state that allows immediate turn off of Altitude hold if large throttle changesa are made at the TX
-  byte altitudeHoldState = OFF;  // ON, OFF or ALTPANIC
-  int altitudeHoldBump = 90;
-  int altitudeHoldPanicStickMovement = 250;
-  int minThrottleAdjust = -50;
-  int maxThrottleAdjust = 50;
-  int altitudeHoldThrottle = 1000;
-  boolean isAltitudeHoldInitialized = false;
+  byte altitudeHoldState;  // ON, OFF or ALTPANIC
+  int altitudeHoldBump;
+  int altitudeHoldPanicStickMovement;
+  int minThrottleAdjust;
+  int maxThrottleAdjust;
+  int altitudeHoldThrottle;
+  boolean isAltitudeHoldInitialized;
   
   
-  float velocityCompFilter1 = 1.0 / (1.0 + 0.3);
-  float velocityCompFilter2 = 1 - velocityCompFilter1;
+  float velocityCompFilter1;
+  float velocityCompFilter2;
 
-  boolean runtimaZBiasInitialized = false;  
-  float zVelocity = 0.0;
-  float estimatedZVelocity = 0.0;
-  float runtimeZBias = 0.0; 
-  float zDampeningThrottleCorrection = 0.0;
+  boolean runtimaZBiasInitialized;  
+  float zVelocity;
+  float estimatedZVelocity;
+  float runtimeZBias; 
+  float zDampeningThrottleCorrection;
 
-  #if defined AltitudeHoldBaro
-    float baroAltitudeToHoldTarget = 0.0;
-  #endif  
-  #if defined AltitudeHoldRangeFinder
-    float sonarAltitudeToHoldTarget = 0.0;
-  #endif
-#endif
+  //#if defined AltitudeHoldBaro
+    float baroAltitudeToHoldTarget;
+  //#endif  
+  //#if defined AltitudeHoldRangeFinder
+    float sonarAltitudeToHoldTarget;
+  //#endif
+//#endif
 //////////////////////////////////////////////////////
 
 /**
  * Auto landing feature variables
  */
-#if defined (AutoLanding)
+//#if defined (AutoLanding)
   #define BARO_AUTO_DESCENT_STATE 2
   #define SONAR_AUTO_DESCENT_STATE 3
   #define MOTOR_AUTO_DESCENT_STATE 4
@@ -207,7 +189,7 @@ void reportVehicleState();
   byte autoLandingState = OFF;
   boolean isAutoLandingInitialized = false;
   int autoLandingThrottleCorrection = 0;
-#endif
+//#endif
 
 /**
  * GPS navigation global declaration
@@ -277,7 +259,7 @@ typedef struct {
   t_NVR_PID GPSROLL_PID_GAIN_ADR;
   t_NVR_PID GPSPITCH_PID_GAIN_ADR;
   t_NVR_PID GPSYAW_PID_GAIN_ADR;
-  t_NVR_Receiver RECEIVER_DATA[MAX_NB_CHANNEL];
+  t_NVR_Receiver RECEIVER_DATA[10]; //MAX_NB_CHANNEL
   
   float SOFTWARE_VERSION_ADR;
   float WINDUPGUARD_ADR;
@@ -339,6 +321,8 @@ void initSensorsZeroFromEEPROM();
 void storeSensorsZeroToEEPROM();
 void initReceiverFromEEPROM();
 
+void initializePlatformSpecificAccelCalibration() ;
+
 float nvrReadFloat(int address); // defined in DataStorage.h
 void nvrWriteFloat(float value, int address); // defined in DataStorage.h
 long nvrReadLong(int address); // defined in DataStorage.h
@@ -365,4 +349,4 @@ byte fastTransfer = OFF; // Used for troubleshooting
 //byte testSignal = LOW;
 //////////////////////////////////////////////////////
 
-#endif // _AQ_GLOBAL_HEADER_DEFINITION_H_
+#endif

@@ -1,37 +1,82 @@
-/*
-  AeroQuad v3.0 - March 2011
-  www.AeroQuad.com
-  Copyright (c) 2011 Ted Carancho.  All rights reserved.
-  An Open Source Arduino based multicopter.
- 
-  This program is free software: you can redistribute it and/or modify 
-  it under the terms of the GNU General Public License as published by 
-  the Free Software Foundation, either version 3 of the License, or 
-  (at your option) any later version. 
+//#define ADC_NUMBER_OF_BITS 10
+//
+//#include "SensorsStatus.h"
+//#include "MaxSonarRangeFinder.h"
+//
+//void setup() {
+//  Serial.begin(115200);
+//  inititalizeRangeFinders();
+//}
+//
+//void loop() {
+//  
+//  updateRangeFinders();
+//  
+//  Serial.print("Distance = {");
+//	//Serial.print(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
+//	//Serial.print(" : ");
+//	Serial.print(rangeFinderRange[FRONT_RANGE_FINDER_INDEX]);
+//	//Serial.print(" : ");
+//	//Serial.print(rangeFinderRange[RIGHT_RANGE_FINDER_INDEX]);
+//	//Serial.print(" : ");
+//	//Serial.print(rangeFinderRange[LEFT_RANGE_FINDER_INDEX]);
+//	Serial.println("}");
+//	delay(10);
+//}
 
-  This program is distributed in the hope that it will be useful, 
-  but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-  GNU General Public License for more details. 
 
-  You should have received a copy of the GNU General Public License 
-  along with this program. If not, see <http://www.gnu.org/licenses/>. 
-*/
+#include <Wire.h>
+#include "QueueList.h"
 
-#define ADC_NUMBER_OF_BITS 10
+#define TRANCEIVER_ADDRESS 0x90
 
-#include <SensorsStatus.h>
-#include <MaxSonarRangeFinder.h>
+QueueList<int> queue;
 
-void setup() {
-  Serial.begin(115200);
-  inititalizeRangeFinders();
+void setup()
+{
+	Wire.begin(TRANCEIVER_ADDRESS);// join i2c bus with address 0x90
+	Wire.onReceive(receiveEvent);  // register event
+	queue.setPrinter(Serial);
+
+
+	Serial.begin(115200);            // start serial for output
+	Serial.println("All setup");
 }
 
-void loop() {
-  
-  updateRangeFinders();
-  
-  Serial.print("Distance = ");
-  Serial.println(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
+void loop()
+{
+	delay(300);
+	//Serial.print("Queue size: ");
+	//Serial.print(queue.count());
+	//Serial.print(": ");
+
+	cli();
+	while(!queue.isEmpty())
+	{
+		int	c = queue.pop();
+
+		if(c == 82)
+			Serial.print("R");
+		else
+		{
+			Serial.print(c);
+			Serial.print(" ");
+		}
+	}
+	sei();
+
+	Serial.println();
+}
+
+
+// function that executes whenever data is received from master
+// this function is registered as an event, see setup()
+void receiveEvent(int howMany)
+{
+	cli();
+	while(Wire.available())  // loop through all but the last
+	{
+		queue.push(Wire.read());   // receive byte as a character
+	}
+	sei();
 }
