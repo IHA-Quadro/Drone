@@ -198,3 +198,14 @@
     urlcolor	= blue,		% color of external links
     linkcolor	= black, 	% color of page numbers
 }
+
+
+%Software function evironment:
+\newenvironment{Function}
+{\begin{longtable}{p{0.2\textwidth} p{0.8\textwidth}}}
+{\end{longtable}}
+
+\newcommand{\name}{\textbf{Navn}& }
+\newcommand{\para}{\\ \hline \textbf{Parametre}& }
+\newcommand{\retu}{\\ \textbf{Returværdi}& }
+\newcommand{\comm}{\\ \textbf{Funktionalitet}& }
