@@ -31,6 +31,19 @@
 \usepackage{lastpage}
 
 
+
+%%URL kommandoer og sidetal farve
+%%Kaldes med \url{www...}
+%\usepackage{color} %Skal også bruges
+\usepackage{hyperref}
+\hypersetup{ 
+	colorlinks	= true, 	% false: boxed links; true: colored links
+    urlcolor	= blue,		% color of external links
+    linkcolor	= black, 	% color of page numbers
+    citecolor	= blue,
+}
+
+
 %Mellemrum mellem linjerne
 \DisemulatePackage{setspace}
 \usepackage{setspace}
@@ -177,6 +190,8 @@
 \usepackage{multicol} 
 \usepackage{booktabs}
 
+
+
 %Misc
 %----------------------------------------------------------
 \usepackage{cite}
@@ -191,13 +206,6 @@
 \usepackage{enumitem} %Styring af itemize og enumerate
 
 
-% Links
-\usepackage{hyperref}
-\hypersetup{ 
-	colorlinks	= true, 	% false: boxed links; true: colored links
-    urlcolor	= blue,		% color of external links
-    linkcolor	= black, 	% color of page numbers
-}
 
 
 %Software function evironment:
@@ -216,8 +224,8 @@
 \newcommand{\UCgoal}{\\ \hline Mål: &}
 \newcommand{\UCinit}{\\ Initiering: & }
 \newcommand{\UCstartb}{\\ Startbetingelser: & }
-\newcommand{\UCslutSuc}{\\ Slutbetingelser for succes: & }
-\newcommand{\UCslutUnSuc}{\\ Slutbetingelser for undtagelser: & }
+\newcommand{\UCslutSuc}{\\ Slutbetingelser ved succes: & }
+\newcommand{\UCslutUnSuc}{\\ Slutbetingelser ved undtagelser: & }
 \newcommand{\UCenum}{noitemsep, leftmargin=*}%, nolistsep}
 
 
