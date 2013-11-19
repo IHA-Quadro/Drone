@@ -8,7 +8,7 @@
 %Se liste over alle fixMe's: \listoffixmes
 %Erstat 'draft' med 'final' for at fjerne alle kommentarer
 %--------------------------------------------------
-\usepackage[footnote,final,danish,silent,nomargin]{fixme}
+\usepackage[footnote,draft,danish,silent,nomargin]{fixme}
 
 
 \title{Kravspecifikation \\ for \\ Lavfrekvensstyring af Aeroquad}
@@ -25,9 +25,11 @@
 \section*{Versionshistorie}
 \begin{tabular}{l|l|l|l}
 %\hline 
-1.0 & 05/6 -13 & RR & Første version af kravspecifikationen afleveret til Torben \\ 
-\hline 
-2.0 & 18/11 -13 & RR & Projektet omskrives til at passe til projektet \\ 
+1.0 & 05/6 -13 & RR & Første version af kravspecifikationen afleveret til Torben 
+\\ \hline 
+2.0 & 18/11 -13 & RR & Projektet omskrives til at passe til projektet 
+\\ \hline
+2.1 & 19/11 -13 & RR & Det begynder at se godt ud.
 %\hline 
 \end{tabular} 
 \\
@@ -43,7 +45,7 @@ Projektnummer: & 13056\\
 %\hline
 %Dokument-id: & Kracspecifikation.pdf\\
 \hline
-Antal side: &\fxnote{Husk sideantal} \\
+Antal side: & \pageref{LastPage} \\
 \hline 
 Kunde: & Ingeniørhøjskolen i Aarhus \\
 \hline
@@ -52,7 +54,9 @@ Kunde: & Ingeniørhøjskolen i Aarhus \\
 \\
 \subsection*{Sted og dato:}
 \begin{tabular}{lll}
-\underline{\quad \quad} & & \underline{\quad \quad}  \\ 
+&& \\
+&& \\
+\underline{\qquad \qquad \qquad \qquad \qquad} & \qquad \qquad \qquad & \underline{\qquad \qquad \qquad \qquad \qquad}  \\ 
 <Kunde underskrift> & & <Leverandør underskrift> \\ 
 
 \end{tabular} 
@@ -62,7 +66,8 @@ Kunde: & Ingeniørhøjskolen i Aarhus \\
 
 \newpage
 \tableofcontents*
-%\listoffixmes 
+\newpage
+\listoffixmes 
 
 \subfile{Forside}
 
@@ -71,6 +76,13 @@ Kunde: & Ingeniørhøjskolen i Aarhus \\
 \subfile{2-GenerelBeskrivelse}
 \newpage
 \subfile{3-FunktionelleKrav-UseCases}
+
+\newpage
+\appendix
+
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{Referencer}
 
 
 \end{document}

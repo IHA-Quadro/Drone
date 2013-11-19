@@ -1,12 +1,12 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\section{Funktionelle krav -- Use Cases}
+\chapter{Funktionelle krav -- Use Cases}
 
 
 \subsection{Use Case 1}
 
-\begin{longtable}{p{0.25\textwidth}p{0.7\textwidth}}
+\begin{longtable}{| p{0.25\textwidth} p{0.7\textwidth} |}
 \UCnumber[1]{System initialisering.}
 \UCgoal{Drone er klar til at flyve.}
 \UCinit{Use Case initieres af bruger.}
@@ -38,7 +38,7 @@ Undtagelser & \vspace{-8mm}
 
 \subsection{Use Case 2}
 
-\begin{longtable}{|p{0.25\textwidth} p{0.7\textwidth}|}
+\begin{longtable}{| p{0.25\textwidth} p{0.7\textwidth}|}
 \UCnumber[2]{Programvalg}
 \UCgoal{Dronen udfører valgte program.}
 \UCinit{Use Case initieres af bruger}
@@ -86,21 +86,21 @@ Undtagelser & \vspace{-8mm}
 \parbox[t]{0.25\textwidth}{Normalforløb 6: \\ Roter til højre} &	\vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Bruger trykker på højre-knap
-	\item Drone forøger motorernes rotationshastighed.
+	\item Drone drejer til højre.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
 	\end{enumerate} \\ \hline
 	
 \parbox[t]{0.25\textwidth}{Normalforløb 7: \\ Roter til venstre} &	\vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Bruger trykker på venstre-knap
-	\item Drone forøger motorernes rotationshastighed.
+	\item Drone drejer til venstre.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
 	\end{enumerate} \\ \hline
 	
 \parbox[t]{0.25\textwidth}{Normalforløb 8: \\ Flyv fremad} &	\vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
 	\item Bruger trykker på fremad-knap
-	\item Drone forøger motorernes rotationshastighed.
+	\item Drone flyver fremad.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
 	\end{enumerate} \\ \hline
 
@@ -119,26 +119,26 @@ Undtagelser & \vspace{-8mm}
 
 \subsection{Use Case 3}
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
-\UCnumber[3]{Program: Sonaradvarsel.}
-\UCgoal{Dronen sænker sin højde}
-\UCinit{Use Case initieres af bruger.}
+\UCnumber[3]{Sonaradvarsel.}
+\UCgoal{Drone vender sig væk fra registreret udfordring.}
+\UCinit{Use Case initieres af drone.}
 \UCstartb{UC 1 er kørt og dronen er i luften} 
-\UCslutSuc{Dronens propeller spinner langsommere.}
-\UCslutUnSuc{Dronen reagerer ikke på programvalg.}
+\UCslutSuc{Dronens kan ikke længere se en udfordring for tæt på.}
+\UCslutUnSuc{Dronen flyver ind i objekt.}
 \\ \hline
 
 Normalforløb &	\vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
-	\item Bruger trykker på ned-knap
-	\item Drone sænker motorernes rotationshastighed.
-	\item[] \textit{Undtagelse: Drone reagerer ikke}
+	\item Drone registrer objekt inden for tilladt afstand.
+	\item Drone stopper i luften og roterer for at undgå dette.
+	\item[] \textit{Undtagelse: Drone stopper ikke}
 	\end{enumerate} \\ \hline
 
 Undtagelser & \vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
-	\item[2.] \textit{Undtagelse: Drone reagerer ikke}
+	\item[2.] \textit{Undtagelse: Drone stopper ikke}
 		\begin{itemize}
-		\item Drone foretager sig intet nyt.
+		\item Drone flyver ind i objekt.
 		\end{itemize}
 	\end{enumerate} \\
 
@@ -148,84 +148,72 @@ Undtagelser & \vspace{-8mm}
 
 \subsection{Use Case 4}
 \begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
-\UCnumber[4]{Program: Max spin stop.}
-\UCgoal{Dronen sænker sin højde}
-\UCinit{Use Case initieres af bruger.}
-\UCstartb{UC 1 er kørt og dronen er i luften} 
-\UCslutSuc{Dronens propeller spinner langsommere.}
-\UCslutUnSuc{Dronen reagerer ikke på programvalg.}
+\UCnumber[4]{Maks. spin stop.}
+\UCgoal{Dronens propeller stopper.}
+\UCinit{Use Case initieres af drone.}
+\UCstartb{UC 1 er kørt og dronen er i luften.} 
+\UCslutSuc{Dronens er på jorden.}
+\UCslutUnSuc{Ingen.}
 \\ \hline
 
 Normalforløb &	\vspace{-8mm}
 	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
-	\item Bruger trykker på ned-knap
-	\item Drone sænker motorernes rotationshastighed.
-	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
-
-Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
-	\item[2.] \textit{Undtagelse: Drone reagerer ikke}
-		\begin{itemize}
-		\item Drone foretager sig intet nyt.
-		\end{itemize}
-	\end{enumerate} \\
+	\item Dronen registrerer én af sine motorer flyver med for høj hastighed.
+	\item Drone slukker for sine motorer.
+	\end{enumerate} \\ 
 
 \hline
 \end{longtable}
 
 	
-\subsection{Systemets begrænsninger}
+\section{Systemets begrænsninger}
+\begin{itemize}
+\item Dronen flyver ikke nødvendigvis nedad ved tryk på "ned".
+\item Dronen flyver ikke nødvendigvis opad ved tryk på "op".
+\end{itemize}
 
 
 
 
 
 
+\chapter{Eksterne grænseflader}
 
-\section{Eksterne grænseflader}
+\section{Brugergrænseflade}
+\fxnote{RBK skal lave 3D-skitse}.
 
-\subsection{Waypoint}
-Et waypoint er en sender, der kommunikerer med dronen.
-For at kunne kommunikere kræver det nogle komponenter for hvert waypoint:
-
-	\begin{itemize}
-	\item En sender med 433 MHz frekvens
-	
-		\begin{itemize}
-		\item Dette vil kunne forstyrre andet udstyr.
-		\end{itemize}
-	
-	\item Dip switch er en 4-bit dip switch
-	
-	\item Strømforsyning \fxnote{Noget om strømforsyning}
-	\end{itemize}
-	
-	
-	
-\subsection{Drone}\fxnote{Mangler her en lille beskrivelse?}
-
-	\begin{itemize}
-	\item Tænd/sluk knap
-	\end{itemize}
+\section{Hardware-grænseflade}
+Måske AA-batterier?
 
 
 
 
 
-\section{Krav til ydelse}
-Følgende er krav til dronen og dennes waypoints:
+\chapter{Krav til ydelse}
+Følgende er krav til dronen og styringen af denne:
 
 	\begin{itemize}
 	\item Drone kan flyve i minimum 10 minutter.
 	\item Drone skal kunne 25 $\dfrac{cm}{s}$.
-	\item Drone skal som minimum kunne registrere waypoint uden forhindringer på 30 meters afstand
 	\end{itemize}
 
 
 
-\section{Kvalitetsfaktorer}
+\chapter{Kvalitetsfaktorer}
 Kvalitetsfaktorer til systemet\fxnote{Vi ved ikke hvad der skal være her}
+
+\chapter{Myndighedskrav}
+Regler for flyvning med drone gælder følgende:
+
+\begin{itemize}
+\item Flyvningen må ikke udsætte andres liv og ejendom for fare\cite[s. 1]{Lov1}.
+\item Flyvning skal foregå mindst 5 km fra banerne på en offentlig flyveplads og mindst 8 km fra banerne på en militærflyvestation\cite[s. 1]{Lov1}.
+\item Afstanden til bymæssig bebyggelse og større offentlig vej skal være mindst 150 m\cite[s. 1]{Lov1}.
+\item Flyvehøjden må højst være 100 m over terræn\cite[s. 2]{Lov1}.
+\item Tæt bebyggede områder, (bl.a. sommerhusområder og beboede campingpladser), samt områder, hvor et større antal mennesker er samlet i fri luft, må ikke overflyves\cite[s. 2]{Lov1}.
+\item Særligt følsomme naturområder må ikke overflyves\cite[s. 2]{Lov1}.
+\end{itemize} 
+
 
 
 
