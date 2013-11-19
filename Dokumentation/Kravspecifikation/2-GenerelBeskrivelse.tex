@@ -1,18 +1,14 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\section{General beskrivelse}
+\chapter{Generel beskrivelse}
 Dette afsnit giver et overblik over kravene, der er stillet for udviklingen af systemet.
 
-
-\subsection{Systembeskrivelse}
-Projektet vil bestå i at få en quadrocopter, af typen AeroQuad Cyclone, til autonomt at flyve imellem 3 waypoints, udstyret med en sender og en FM-trasmitter hver.
-Quadrocopteren udstyres med en sender, der kan kobles på de 3 objekter, samt 3 FM-modtagere, der kan triangulere hvor ét af de 3 waypoints står. 
-Quadrocopteren skal således flyve til det aktive waypoint og ved ankomst flyve til det næste objekt.
+\section{Systembeskrivelse}
+Projektet vil bestå i, at få en drone til at udføre nogle specifikke programsekvenser, der styres af en bruger vha. en fjernbetjening.
+Dronen har indbygget en radio, der modtager signalet fra fjernbetjeningen, der derefter eksekverer det ønskede program.
 \\
-For at quadrocopteren ikke støder ind i objekter på sin vej, udstyres den med 3 sonar sendere, der kan detektere forhindringer foran den, samt en sonar under den, således den ikke rammer jorden.
-
-
+Dronen er foruden dette selvstabiliserende og holder sig derfor i luften og har indbygget sensorer på sin front, der sørger for den ikke flyver ind i objekter.
 
 
 \subsection{Systemoversigt}
@@ -24,37 +20,35 @@ For at quadrocopteren ikke støder ind i objekter på sin vej, udstyres den med 
 \label{Fig:Oversigt}
 \end{figure}
 
-På Figur \ref{Fig:Oversigt} ses kommunikationen mellem dronen med et waypoint.
-Dronen bestemmer hvilket way point den vil snakke med og sender et aktiverings-signal til alle way points.
-Hvis et way point bliver forespurgt begynder dette at sende signal retur.
+På Figur \ref{Fig:Oversigt} ses det samlede system med kommunikationen mellem dronen og fjernbetjeningen.
+Fjernbetjeningen modtager et input fra nogle knapper, processerer dette i µ-Controller 3 og gennem radiosenderen overføres programvalget til dronens radiomodtager.
+Herefter bearbejder µ-Controller 2 signalet og klargører dette til µ-Controller 1.
+Når µ-Controller 1 skal bruge input fra fjernbetjeningen aflæses dette, samtidig med input fra sonarsensorerne.
 
 
 
-\subsubsection{Aktør-kontekst diagram}
+\subsection{Aktør-kontekst diagram}
 
 På Figur \ref{Fig:Aktor-oversigt} vises aktørerne der kommunikerer med systemet.
-Figuren indeholder to grupper, henholdsvis personer og hardware aktører.
-Personerne der interagerer med systemet er vist på venstre side, mens de forskellige hardwaren-enheder vises på højre side.
+Figuren indeholder to grupper, henholdsvis brugeren og hardware aktører.
 
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[scale=0.75]{AktQrDiagram}
+\includegraphics[scale=0.5]{AktQrDiagram}
 \caption{Aktørdiagram}
 \label{Fig:Aktor-oversigt}
 \end{figure}
 
 
-\paragraph{Aktørbeskrivelser}\fxnote{Dette afspejler ikke templaten}\mbox{} \\%Dette skal bruges til line break
-I det følgende beskriver en primær aktør, en aktør der har et eller flere mål, der ønskes opfyldt af systemets Use Cases. 
-En sekundær aktør beskriver derimod en aktør, der er en nødvendig deltager i en eller flere Use Case for at opfylde en primær aktørs mål. 
-I nogle tilfælde kan en  aktør både være primær og sekundær.
+\subsection{Aktørbeskrivelser}
+I det følgende beskrives aktøren, hvis opgave ønskes opfyldt af systemets Use Cases. 
 
 \begin{longtable}{p{0.3\textwidth}|p{0.65\textwidth}}
 \hline
 \textbf{Aktør navn}  				& Bruger \\
 \textbf{Type} 						& Primær \\
-\textbf{Beskrivelse} 				& En "Bruger" er en person, der starter og stopper dronen. \\
+\textbf{Beskrivelse} 				& En bruger er en person, der starter, manøvrerer og stopper dronen. \\
 \textbf{Antal samtidige aktører} 	& 1 \\
 \hline
 \end{longtable}
@@ -68,16 +62,16 @@ I nogle tilfælde kan en  aktør både være primær og sekundær.
 \hline
 \end{longtable}
 
-\newpage
-\subsection{Systemets funktioner}
+
+\section{Systemets funktioner}
 Systemets funktioner, de funktionelle krav, er fundet og beskrevet vha. Use Case teknikken. 
 De følgende diagrammer viser systemets funktioner udtrykt som Use Cases. 
 Formålet med disse diagrammer er at give et overblik over funktionaliteten i det system, der skal udvikles. 
-Hver af de på diagrammerne viste Use Cases er detaljeret specificeret i kapitel \dots %\fxnote{Kapitel 3}.
+Hver af de på diagrammerne viste Use Cases er detaljeret specificeret i kapitel \dots \fxnote{Kapitel 3}.
 
 
 
-\subsubsection{Use Case diagrammer}
+\subsection{Use Case diagrammer}
 Figur \ref{Fig:UC-Diagram} viser systemet som Use Case diagram.
 
 \begin{figure}[hbtp]

@@ -10,7 +10,6 @@
 #include "FlightCommandProcessor.h"
 #include "FlightControlVariable.h"
 #include "PID.h"
-#include "Programs.h"
 #include "RangeFinder.h"
 
 #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
