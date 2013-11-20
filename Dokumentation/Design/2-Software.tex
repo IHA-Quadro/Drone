@@ -8,12 +8,52 @@ Dette kapitel beskriver softwarens opbygning efter 4+1 modellen. \fxnote{Referen
 
 \section{Klassebeskrivelser}
 
+\class{Drone.ino}
+\code{Drone.ino} er hovedfilen for systemet og har ikke fået foretaget de store ændringer i forhold til den oprindelige kode.
+Denne fil skal indeholde de to obligatoriske funktioner \code{void setup()} og \code {void loop()}, da dette er hvad Arduino kører som den første og anden funktion.
+Funktionen \code{void loop()} er i grove træk tilsvarende til et \code{while(1)}-loop, der ikke kan stoppes.
+\\
+Først nulstilles de fleste af klasserne herfra, hvorefter et schedulerings-system startes med en timer, der ser på 100Hz-, 50Hz-, 3 forskellige 10Hz-, 2Hz og 1Hz-funktioner skal køres. 
+Disse er vigtige for systemets opbygning, da dette tillader udskrift via serial-forbindelsen til debugging og fordi den kun har én tråd til håndtering af funktioner.
 
 \begin{Function}
-\name{•}
-\para{•}
-\retu{•}
-\comm{•}
+\name{initPlatform}
+\para{void}
+\retu{void}
+\comm{Denne funktion mapper LED'er som in-/output og starter \itoc forbindelsen.}
+\end{Function}
+
+
+\begin{Function}
+\name{measureCriticalSensors}
+\para{void}
+\retu{void}
+\comm{Denne funktion gør kald til de vigtigste sensorer (gyrometer og accelero\-meter)}
+\end{Function}
+
+
+\begin{Function}
+\name{Setup}
+\para{void}
+\retu{void}
+\comm{Arduino's første obligatoriske funktion -- Starter og reset'er de fleste filer og klasser: \\
+Baudrate for serial port, læsning fra EEPROM, kald til \code{initPlatform}, initierer motorer, ControlFaker, Receiver, Gyro (samt kalibrering), accelerometer, PID-værdier, kinematics, barometeret, sonarsensorerne samt nogle initieringsværdier for funktionen \code{loop()} og receiver'en. }
+\end{Function}
+
+
+
+\begin{Function}
+\name{loop}
+\para{void}
+\retu{void}
+\comm{Arduinno's anden obligatoriske funktion: Denne svarer til en main-funktion med et \code{while(1){}} loop. 
+\\ 
+For hvert loop måles den nuværende tid som timestamp og sammenlignes med den sidste, så den ved hvor lang tid der er gået.
+Så kaldes \code{measureCriticalSensors}, da disse er kritiske for dronens stabilitet.
+\\
+Herefter inkrementeres \textit{FrameCounter}, der afgør hvornår fremtidige funktioner skal køres.
+\textit{FrameCounter} indikerer, om der skal køres en 100-, 50-, tre forskellige 10-, 5-, eller 1-Hz funktion.
+I slutningen af loopet sættes det sidste timestamp som den forrige tid, og hvis der er brug for det nulstilles \textit{FrameCounter}.}
 \end{Function}
 
 \end{document}

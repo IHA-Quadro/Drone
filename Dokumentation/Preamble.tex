@@ -25,6 +25,8 @@
 
 \pagestyle{mystyle}
 
+\chapterstyle{tandh}
+
 %Sidehoved og -fod pakke
 %Margin
 \usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
@@ -207,20 +209,24 @@
 
 
 
+\newcommand{\itoc}{I$^2$C \xspace}
 
 %Software function evironment:
+\newcommand{\class}[1]{\subsection{#1}}
 \newenvironment{Function}
-{\begin{longtable}{p{0.2\textwidth} p{0.8\textwidth}}}
+{\begin{longtable}{p{0.2\textwidth} p{0.75\textwidth}}}
 {\end{longtable}}
 
-\newcommand{\name}{\textbf{Navn}& }
-\newcommand{\para}{\\ \hline \textbf{Parametre}& }
-\newcommand{\retu}{\\ \textbf{Returværdi}& }
-\newcommand{\comm}{\\ \textbf{Funktionalitet}& }
+\newcommand{\name}[1]{\textbf{Navn}& \code{#1}}
+\newcommand{\para}[1]{\\ \hline \textbf{Parametre}& \code{#1}}
+\newcommand{\retu}[1]{\\ \textbf{Returværdi}& \code{#1}}
+\newcommand{\comm}[1]{\\ \textbf{Funktionalitet}& \parbox[t]{0.75\textwidth}{#1} }
 
 
 %UC environment:
-\newcommand{\UCnumber}[2]{\hline Use Case: #2 & #1}
+\newcommand{\UCnumber}[2]{%
+\hline Use Case: #1 & #2%
+}
 \newcommand{\UCgoal}{\\ \hline Mål: &}
 \newcommand{\UCinit}{\\ Initiering: & }
 \newcommand{\UCstartb}{\\ Startbetingelser: & }
