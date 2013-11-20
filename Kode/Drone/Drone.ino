@@ -77,12 +77,11 @@ void initPlatform() {
 /**
 * Measure critical sensors
 */
-void measureCriticalSensors() {
+void measureCriticalSensors() 
+{
 	measureGyroSum();
 	measureAccelSum();
 }
-
-
 
 
 /*******************************************************************

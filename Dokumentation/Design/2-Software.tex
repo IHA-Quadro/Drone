@@ -56,4 +56,151 @@ Herefter inkrementeres \textit{FrameCounter}, der afgør hvornår fremtidige fun
 I slutningen af loopet sættes det sidste timestamp som den forrige tid, og hvis der er brug for det nulstilles \textit{FrameCounter}.}
 \end{Function}
 
+
+\class{inoHelper}
+\code{inoHelper} er en hjælpefil der blev lavet til \code{drone.ino} på grund af dens uoverskuelige struktur og er den reelle implementering for 100Hz-, 50Hz-, tre forskellige 10Hz-, 5Hz-, og 1Hz-funktionerne.
+Ud over den oprindelige implementering fra \code{drone.ino} er her også implementeret en masse debug-funktioner, som bruges til at måle alt fra sonarer input og motorer output til de falske værdier der sender til receiveren for at styre dronen efter ønske.
+
+
+\begin{Function}
+\name{initializePlatformSpecificAccelCalibration}
+\para{void}
+\retu{void}
+\comm{Denne funktion indeholder nogle dummy-værdier for accelerometret, men disse overskrives af EEPROM's gemte værdier fra den reelle kalibrering.}
+\end{Function}
+
+
+\begin{Function}
+\name{process100HzTask}
+\para{void}
+\retu{void}
+\comm{Denne funktion beregner flere af de vigtige værdier for dronens stabilitet, herunder kald til gyroskopet, accelerometret, barometret og beregning af dronens hastighed.
+\\
+Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightControl()}.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{process50HzTask}
+\para{void}
+\retu{void}
+\comm{Denne funktion starter læsningen af kommandoer der skal udføres og opdaterer sonarsensorerne.}
+\end{Function}
+
+
+\begin{Function}
+\name{process10HzTask1}
+\para{void}
+\retu{void}
+\comm{Denne funktion er blevet overflødig, da den kun gør noget med en kompassensor på.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{process10HzTask2}
+\para{void}
+\retu{void}
+\comm{Denne funktion læser serialporten for kommandoer, der bruges til debugging, samt sender svar retur fra dronen.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{process10HzTask3}
+\para{void}
+\retu{void}
+\comm{Denne funktion laver en timestamp-opdatering for kinematic-funktionerne.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{process2HzTask}
+\para{void}
+\retu{void}
+\comm{Denne funktion udskriver forskellige debug-information 2 gange i sekundet, herunder sonarsensorernes målinger, om disse er advarsler, det valgte program og styringsinput.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{process1HzTask}
+\para{void}
+\retu{void}
+\comm{Denne funktion udskriver forskellige debug-information 1 gange i sekundet.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{PrintChosenProgram}
+\para{void}
+\retu{static void}
+\comm{Denn funktion udskriver det valgte program.}
+\end{Function}
+
+
+\begin{Function}
+\name{PrintSonarReport}
+\para{void}
+\retu{static void}
+\comm{Denne funktion udskriver gennemsnitsværdien for de sidste målinger af sonarsensorerne og om dronen flyver i fri højde eller i en fixeret højde.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{PrintAltitudeReport}
+\para{void}
+\retu{static void}
+\comm{Denne funktion udskriver, om dronen kan se sonarsensoren på maven og om den er i panic-mode.}
+\end{Function}
+
+
+\begin{Function}
+\name{PrintDebugReport}
+\para{void}
+\retu{static void}
+\comm{Denne funktion udskriver om motorerne er aktiveret.}
+\end{Function}
+
+
+
+
+\begin{Function}
+\name{PrintWarnings}
+\para{void }
+\retu{static void}
+\comm{Denne funktion udskriver sonarsensorernes advarsler, såfremt der er nogle.}
+\end{Function}
+
+
+
+
+\begin{Function}
+\name{PrintControllerOutput}
+\para{void}
+\retu{static void}
+\comm{Denne funktion udskriver receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
+\end{Function}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

@@ -31,10 +31,10 @@ void process10HzTask3();
 void process2HzTask();
 void process1HzTask();
 
-void PrintAltitudeReport();
-void PrintDebugReport();
-void PrintSonarReport();
-void PrintChosenProgram();
+static void PrintAltitudeReport();
+static void PrintDebugReport();
+static void PrintSonarReport();
+static void PrintChosenProgram();
 static void PrintControllerOutput();
 static void PrintWarnings();
 

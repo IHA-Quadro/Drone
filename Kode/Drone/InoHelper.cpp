@@ -18,11 +18,6 @@ void initializePlatformSpecificAccelCalibration()
 	accelScaleFactor[XAXIS] = 0.0365570020;
 	accelScaleFactor[YAXIS] = 0.0363000011;
 	accelScaleFactor[ZAXIS] = -0.0384629964;
-#ifdef HeadingMagHold
-	magBias[XAXIS]  = 1.500000;
-	magBias[YAXIS]  = 205.500000;
-	magBias[ZAXIS]  = -33.000000;
-#endif
 }
 
 void process100HzTask() 
@@ -103,6 +98,15 @@ void process10HzTask3() {
 	lowPriorityTenHZpreviousTime2 = currentTime;
 }
 
+//2 Hz process
+void process2HzTask()
+{
+	//PrintSonarReport();
+	//PrintChosenProgram();
+	//PrintControllerOutput();
+	//PrintWarnings();
+}
+
 //1Hz process
 void process1HzTask() {
 	//#ifdef MavLink
@@ -115,21 +119,13 @@ void process1HzTask() {
 	PrintAltitudeReport();
 }
 
-//2 Hz process
-void process2HzTask()
-{
-	PrintSonarReport();
-	//PrintChosenProgram();
-	PrintControllerOutput();
-	PrintWarnings();
-}
 
-void PrintChosenProgram()
+static void PrintChosenProgram()
 {
 	printNewLine(GetRadioProgram(), RADIOMODE);
 }
 
-void PrintSonarReport()
+static void PrintSonarReport()
 {
 	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 	printInLine(sonarHeight, SONARMODE);
@@ -145,15 +141,15 @@ void PrintSonarReport()
 	printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average, SONARMODE);
 }
 
-void PrintAltitudeReport()
+static void PrintAltitudeReport()
 {
-	/*printInLine("AltitudeHoldState activate: ", ALTITUDEMODE);
-	printNewLine(altitudeHoldState, ALTITUDEMODE);
+	printInLine("AltitudeHoldState activate: ", ALTITUDEMODE);
+	printNewLine((altitudeHoldState == true ? "true" : "false"), ALTITUDEMODE);
 
 	if(receiverCommand[AUX3] < 1750)
 	{
-	printInLine("Sensor found: ", ALTITUDEMODE);
-	printNewLine((isOnRangerRangeValid?"Yes":"No"), ALTITUDEMODE);
+		printInLine("Sensor found: ", ALTITUDEMODE);
+		printNewLine((isOnRangerRangeValid?"Yes":"No"), ALTITUDEMODE);
 	}
 
 
@@ -162,15 +158,15 @@ void PrintAltitudeReport()
 
 	if(receiverCommand[AUX1] < 1750)
 	{
-	printInLine("Panic mode: ", ALTITUDEMODE);
-	printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
-	}*/
+		printInLine("Panic mode: ", ALTITUDEMODE);
+		printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
+	}
 }
 
-void PrintDebugReport()
+static void PrintDebugReport()
 {
-	//printInLine("Armed: ", DEBUGMODE);
-	//printNewLine((motorArmed == ON ? "On" : "Off"), STATUSMODE);
+	printInLine("Armed: ", DEBUGMODE);
+	printNewLine((motorArmed == ON ? "On" : "Off"), STATUSMODE);
 }
 
 static void PrintWarnings()
@@ -190,14 +186,14 @@ static void PrintWarnings()
 
 static void PrintControllerOutput()
 {
-	//printInLine("Parameters: ", MOTORMODE);
-	//printInLine(_controllerInput[XAXIS], MOTORMODE);
-	//printInLine(" - ", MOTORMODE);
-	//printInLine(_controllerInput[YAXIS], MOTORMODE);
-	//printInLine(" - ", MOTORMODE);
-	//printInLine(_controllerInput[ZAXIS], MOTORMODE);
-	//printInLine(" - ", MOTORMODE);
-	//printNewLine(_controllerInput[THROTTLE], MOTORMODE);
-	//printInLine(" - ", MOTORMODE);
-	//printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
+	printInLine("Parameters: ", MOTORMODE);
+	printInLine(_controllerInput[XAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printInLine(_controllerInput[YAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printInLine(_controllerInput[ZAXIS], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printNewLine(_controllerInput[THROTTLE], MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
 }

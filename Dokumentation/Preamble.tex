@@ -25,7 +25,7 @@
 
 \pagestyle{mystyle}
 
-\chapterstyle{tandh}
+%\chapterstyle{tandh}
 
 %Sidehoved og -fod pakke
 %Margin
@@ -172,7 +172,8 @@
 \usepackage{baskervald}
 \usepackage[T1]{fontenc}              
 \usepackage[utf8]{inputenc}         
-\usepackage[danish]{babel}        
+\usepackage[danish]{babel}       
+%\usepackage{lmodern} 
 \usepackage[bf, small, raggedright, compact]{titlesec}
 %\usepackage[parfill]{parskip}
 %\usepackage{setspace}
@@ -211,7 +212,13 @@
 
 \newcommand{\itoc}{I$^2$C \xspace}
 
-%Software function evironment:
+%Software function evironment
+%\begin{Function}
+%\name{•}
+%\para{•}
+%\retu{•}
+%\comm{•}
+%\end{Function}
 \newcommand{\class}[1]{\subsection{#1}}
 \newenvironment{Function}
 {\begin{longtable}{p{0.2\textwidth} p{0.75\textwidth}}}
