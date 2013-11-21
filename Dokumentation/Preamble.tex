@@ -240,8 +240,16 @@
 \newcommand{\UCslutSuc}{\\ Slutbetingelser ved succes: & }
 \newcommand{\UCslutUnSuc}{\\ Slutbetingelser ved undtagelser: & }
 \newcommand{\UCenum}{noitemsep, leftmargin=*}%, nolistsep}
+\newcommand{\UCnormFor}[1]{\\ \hline \parbox[t]{0.25\textwidth}{#1}&}
+
+\newenvironment{UseCase}
+{\begin{longtable}{| p{0.25\textwidth} | p{0.70\textwidth} |}}
+{\\ \hline \end{longtable}}
 
 
+\newenvironment{normFor}
+{\vspace{-8mm}\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]}
+{\end{enumerate}}
 
 
 
