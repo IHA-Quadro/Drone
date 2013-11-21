@@ -37,7 +37,12 @@
 *.synctex.gz
 *.toc
 *.lox
-Dokumentation/*/*.pdf
+*.orig
+*.blg
+*.bbl
+*.out
+
+!*/Bilag/* #An exception
 
 ####### Temporary folders ####### 
 [Bb]in
