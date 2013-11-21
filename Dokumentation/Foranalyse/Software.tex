@@ -3,14 +3,73 @@
 
 
 
-
-
-
-
 \chapter{Software}
-\section{Drone}
-\section{Open source}
+Dette afsnit beskriver hvilke overvejelser der er gjort mht. software.
+Det indbefatter hvordan kommunikationen mellem fjernbetjeningen skulle være, hvordan dronens styring blev overtaget uden en egentlig driver, hvordan arkitekturen skulle bygges op for optimalt design og de tidsmæssige krav kunne overholdes, samt hvad der er muligt at implementere foruden den nuværende.
 
+
+
+\section{Filstyring}
+For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionskontrol, der vil gøre det muligt at trække gamle filer frem.
+\\
+\\
+Muligheden at bruge Dropbox\fxnote{henvisning til Dropbox} som versionskontrol blev udelukket, da 2 personer arbejdende i samme projekt medfører overskrivninger.
+\\
+Versionskontrol fra Subversion blev ligeledes udelukket, da det tager længere tid at løse konflikter og holde styr på gamle version, for slet ikke at nævne mængden af plads der skal bruges.
+\\
+Som filstyring blev Github\fxnote{henvisning til Github} valgt, da det er blevet brugt at RAB i et år og Github tillader nemt og kontrolleret at smelte dokumenter sammen.
+
+
+
+
+
+\section{Valg af editor}
+Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\fxnote{plagiat -- der SKAL være reference}.
+Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør koden meget svær at læse.
+Dette kan omgås ved at bruge en ekstern editor, så som Notepad++ eller Sublime2, som giver farve, men som kræver at du skifter frem og tilbage imellem vinduerne for at compile.
+\\
+\\
+For helt at løse dette bruges programudvidelsen Visual Micro\fxnote{reference til ViMi} til Microsoft Visual Studio 2012, hvilket giver mulighed for både at se projektets opbygning og compile koden direkte i vinduet til dronen, samt se output fra dronen.
+
+
+
+\section{Filopdeling}
+Dronens software er kun skrevet som header-filer og er opdelt således, at hver klasse har sin egen undermappe til projektmappen.
+For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\fxnote{fortæl hvor?}.
+\\
+Da alle filer styres igennem Github skal de ligge i samme filtræ, hvilket ikke lader sig gøre med Arduino's standardopbygning.
+\\
+\\
+For at komme rundt om dette blev mappen med filerne forsøgt linket til Arduino's foretrukne  placering.
+Desværre virker dette ikke og alle filer havnede derfor ved siden af \textit{.ino}-filen, projektets hovedfil, der må ligge frit.
+
+
+\section{Videreprogrammering af Aeroquad's kode}
+Open source projekter har som regel deres egne kodestandarder og den følges strikt.
+Desværre har hovedudvikleren af systemet valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
+\\
+Valget mellem pæn og overskuelig kode, frem for fungerende og grim kode, er derfor ikke nemt, da koden som udgangspunkt ikke danner baggrund for ens karakter og omskrivning, så koden ville virke, ville være for stor.
+\\
+\\
+Som udgangspunkt blev koden derfor udvidet i header-filer, men det endte hurtigt i flere erklæringer af variabler der skulle deles imellem filerne. 
+For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-filer og selvom størstedelen af koden er skrevet i \code{C} kan en C-compiler ikke bruge Arduino's Serial-port, hvilket filendelsen \textit{.cpp} omgår.
+
+
+
+\section{Styring af dronen}
+For at styre dronen fra Aeroquad, bruges der normalt en fjernbetjening med 2 pinde\fxnote{hvad hedder disse?}, der styrer dronens tiltning, hældning, rotation og opdrift.
+Eftersom vi ikke havde en sådan, var det nødvendigt at lave et modul som kunne overskrive det, således input fra et program ville blive registreret som en fjernbetjenings output.
+\\
+\\
+Den første mulighed var at skrive signalet der blev modtaget af selve senderen til den respektive driver. 
+Dette krævede dog, at vi kendte algoritmen det blev sendt igennem, hvilket er et bachelorprojekt i sig selv.
+\\
+Den anden mulighed var at lade modtagermodulet undgå et analogt signal, men derimod læse hvad der ville komme ud af signalet.
+Ved at vælge den sidste løsning og oprette et tilsvarende array, som de originale data blev sendt til, kunne der overskrives med egne værdier, uden at ændre mange steder i den eksisterende kode.
+Herefter var det blot et spørgsmål om, at forstå hvad der blev sendt til dronen.
+
+
+\section{•}
 
 
 
