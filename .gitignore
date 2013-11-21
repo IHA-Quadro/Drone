@@ -43,7 +43,7 @@
 *.out
 /Dokumentaiton/**/*.pdf
 
-!*/Bilag/*.pdf #An exception
+!**/Bilag/*.pdf #An exception
 
 ####### Temporary folders ####### 
 [Bb]in
