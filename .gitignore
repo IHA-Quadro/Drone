@@ -41,7 +41,7 @@
 *.blg
 *.bbl
 *.out
-/Dokumentaiton/**/*.pdf
+/Dokumentation/**/*.pdf
 
 !**/Bilag/*.pdf #An exception
 
