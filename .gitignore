@@ -41,8 +41,9 @@
 *.blg
 *.bbl
 *.out
+/Dokumentaiton/*/*.pdf
 
-!*/Bilag/* #An exception
+!*/Bilag/*.pdf #An exception
 
 ####### Temporary folders ####### 
 [Bb]in
