@@ -6,196 +6,154 @@
 
 \subsection{Use Case 1}
 
-\begin{longtable}{| p{0.25\textwidth} p{0.7\textwidth} |}
+\begin{UseCase}
 \UCnumber{1}{System initialisering.}
 \UCgoal{Drone er klar til at flyve.}
 \UCinit{Use Case initieres af bruger.}
 \UCslutSuc{Propeller spinner med samme hastighed. }
 \UCslutUnSuc{Drone bipper ét kort bip med 2-3 sekunders mellemrum.}
-\\ \hline
 
-Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb}
+	\begin{normFor}
 	\item Bruger kobler batteriets strømkabel til dronens strømkabel.
 	\item Bruger venter på sekvensen af bips: ét kort, pause, tre korte, pause, ét langt.
 	\item[]	\textit{Undtagelse: Opstartssekvens.}
 	\item Dronens propeller begynder at spinde med samme hastighed.
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 
-Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Undtagelser}
+	\begin{normFor}
 	\item \textit{Undtagelse: Opstartssekvens.}
 	\begin{itemize}
 	\item Drone bipper én gang hver 2-3 sekund.
 	\end{itemize}
-	\end{enumerate} \\
-
-\hline
-\end{longtable}
-
-\begin{UseCase}
-\UCnumber{0.5}{Test}
-\UCgoal{Drone er klar til at flyve.}
-\UCinit{Use Case initieres af bruger.}
-\UCslutSuc{Propeller spinner med samme hastighed. }
-\UCslutUnSuc{Drone bipper ét kort bip med 2-3 sekunders mellemrum.}
-
-\UCnormFor{Normalforløb 1: \\ Gør noget}
-\begin{normFor}
-\item Gør dit
-\item Gør dat
-\item[] \textit{Dog ikke undtagelse}
-\end{normFor}
-
-\UCnormFor{Normalforløb 2: \\ Gør noget andet}
-\begin{normFor}
-\item Gør dit
-\item[] \textit{Dog ikke undtagelse}
-\item Gør dat
-\end{normFor}
-
-\UCnormFor{Undtagelser: }
-\begin{normFor}
-\item[] \textit{Dog ikke undtagelse}
-	\begin{itemize}
-	\item Men gør dette	
-	\end{itemize}
-\end{normFor}
-
-
+	\end{normFor} 
 \end{UseCase}
-
 
 
 
 \subsection{Use Case 2}
 
-\begin{longtable}{| p{0.25\textwidth} p{0.7\textwidth}|}
+\begin{UseCase}
 \UCnumber{2}{Programvalg}
 \UCgoal{Dronen udfører valgte program.}
 \UCinit{Use Case initieres af bruger}
 \UCstartb{Dronens batteri er ikke afladt og Use Case 1 er kørt.} 
 \UCslutSuc{Dronen udførte valgte program.}
 \UCslutUnSuc{Dronen reagerer ikke på tryk eller dronens propeller spinner ikke længere}
-\\ \hline
 
-\parbox[t]{0.25\textwidth}{Normalforløb 1: \\ Let}&	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 1: \\ Let}
+	\begin{normFor}
 	\item Brugeren trykker på knap for let.
 	\item Dronens propeller spinner hurtigere og letter dronen.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
 	\item Dronen holder sig stabilt i førangivet højde.
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 2: \\ Autoland}&	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 2: \\ Autoland}
+	\begin{normFor}
 	\item Bruger trykker på autoland-knap
 	\item Drone sænker sig langsomt mod jorden, lander og slukker propellerne.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 3: \\ Stop} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 3: \\ Stop} 
+	\begin{normFor}
 	\item Bruger trykker på stop-knap
 	\item Drone slukker for strømmen til sine motorer.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 4: \\ Sænk spind-hastighed} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 4: \\ Sænk spind-hastighed} 
+	\begin{normFor}
 	\item Bruger trykker på ned-knap
 	\item Drone sænker motorernes rotationshastighed.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 5: \\ Øg spind-hastighed} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 5: \\ Øg spind-hastighed} 
+	\begin{normFor}
 	\item Bruger trykker på op-knap
 	\item Drone forøger motorernes rotationshastighed.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 6: \\ Roter til højre} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 6: \\ Roter til højre} 
+	\begin{normFor}
 	\item Bruger trykker på højre-knap
 	\item Drone drejer til højre.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 7: \\ Roter til venstre} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 7: \\ Roter til venstre} 
+	\begin{normFor}
 	\item Bruger trykker på venstre-knap
 	\item Drone drejer til venstre.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 	
-\parbox[t]{0.25\textwidth}{Normalforløb 8: \\ Flyv fremad} &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb 8: \\ Flyv fremad} 
+	\begin{normFor}
 	\item Bruger trykker på fremad-knap
 	\item Drone flyver fremad.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 
-Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Undtagelser}
+	\begin{normFor}
 	\item[2.] \textit{Undtagelse: Drone reagerer ikke}
 		\begin{itemize}
 		\item Drone forbliver på jorden.
 		\end{itemize}
-	\end{enumerate} \\
-\hline
-\end{longtable}
+	\end{normFor} 
+	
+\end{UseCase}
 
 
 
 
 \subsection{Use Case 3}
-\begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
+\begin{UseCase}
 \UCnumber{3}{Sonaradvarsel.}
 \UCgoal{Drone vender sig væk fra registreret udfordring.}
 \UCinit{Use Case initieres af drone.}
 \UCstartb{UC 1 er kørt og dronen er i luften} 
 \UCslutSuc{Dronens kan ikke længere se en udfordring for tæt på.}
 \UCslutUnSuc{Dronen flyver ind i objekt.}
-\\ \hline
 
-Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb}
+	\begin{normFor}
 	\item Drone registrer objekt inden for tilladt afstand.
 	\item Drone stopper i luften og roterer for at undgå dette.
 	\item[] \textit{Undtagelse: Drone stopper ikke}
-	\end{enumerate} \\ \hline
+	\end{normFor} 
 
-Undtagelser & \vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Undtagelser}
+	\begin{normFor}
 	\item[2.] \textit{Undtagelse: Drone stopper ikke}
 		\begin{itemize}
 		\item Drone flyver ind i objekt.
 		\end{itemize}
-	\end{enumerate} \\
-
-\hline
-\end{longtable}
+	\end{normFor} 
+	
+\end{UseCase}
 
 
 \subsection{Use Case 4}
-\begin{longtable}{|p{0.25\textwidth}|p{0.7\textwidth}|}
+\begin{UseCase}
 \UCnumber{4}{Maks. spin stop.}
 \UCgoal{Dronens propeller stopper.}
 \UCinit{Use Case initieres af drone.}
 \UCstartb{UC 1 er kørt og dronen er i luften.} 
 \UCslutSuc{Dronens er på jorden.}
 \UCslutUnSuc{Ingen.}
-\\ \hline
 
-Normalforløb &	\vspace{-8mm}
-	\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]
+\UCnormFor{Normalforløb}
+	\begin{normFor}
 	\item Dronen registrerer én af sine motorer flyver med for høj hastighed.
 	\item Drone slukker for sine motorer.
-	\end{enumerate} \\ 
-
-\hline
-\end{longtable}
+	\end{normFor} 
+\end{UseCase}
 
 	
 \section{Systemets begrænsninger}
@@ -203,9 +161,6 @@ Normalforløb &	\vspace{-8mm}
 \item Dronen flyver ikke nødvendigvis nedad ved tryk på "ned".
 \item Dronen flyver ikke nødvendigvis opad ved tryk på "op".
 \end{itemize}
-
-
-
 
 
 
