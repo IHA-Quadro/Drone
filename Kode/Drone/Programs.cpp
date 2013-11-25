@@ -80,7 +80,6 @@ void Start()
 	programInput.data.aux3 = AUTOLANDFALSE;
 }
 
-
 void KeepSteady()
 {
 	//programInput.height = STANDARD_HEIGHT;

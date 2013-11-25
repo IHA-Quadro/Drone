@@ -436,25 +436,244 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 \class{InputAnalysis \label{sec:inputAnalysis}}
+
+\begin{Function}
+\name{ResetInputAnalysis}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale variabler og kalder nulstilling af \code{RadioCommand} (afsnit \ref{sec:radioCommand}).}
+\end{Function}
+
+
+\begin{Function}
+\name{AnalyseSonarInput}
+\para{void}
+\retu{void}
+\comm{Dronen sætter advarselsflag for sonarsensorerne, hvis anstanden bliver for lille, der kan kan aflæses af \code{Decision} (afsnit \ref{sec:decision}).}
+\end{Function}
+
+
+\begin{Function}
+\name{AnalyseRadioInput}
+\para{void}
+\retu{void}
+\comm{Kalder analyse af radioprogram og sætter variable med dette.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetRadioProgram}
+\para{void}
+\retu{int}
+\comm{Returnere det aktuelle radioprogram.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetLeftWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra venstre sonarsensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetRightWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra højre sonarsensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetFrotnWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra front sonarsensorer.}
+\end{Function}
+
+
+
 \class{RadioCommand \label{sec:radioCommand}}
+
+\begin{Function}
+\name{SetupRadioCommunicaiton}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale variabler og sætter kommunikationen til radioen op.}
+\end{Function}
+
+
+\begin{Function}
+\name{ReadRadio}
+\para{void}
+\retu{void}
+\comm{Aflæser radioens program og sætter sin globale værdi til denne.}
+\end{Function}
+
+
+
 \class{ControlFaker \label{sec:controlFaker}}
+
+\begin{Function}
+\name{SetupControlFaker}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale værdier og sørger for udskrivning gennem Serial-porten.}
+\end{Function}
+
+
+\begin{Function}
+\name{KillMotor}
+\para{void}
+\retu{void}
+\comm{Sender signal om at slukke for alle motorer, slukker alle output til Serial-porten og nulstiller dronens x-, y- og z-akse.}
+\end{Function}
+
+
+\begin{Function}
+\name{ApplyProgram}
+\para{void}
+\retu{void}
+\comm{Skriver \code{Programs} (afsnit \ref{sec:programs}) programværdier til de aktuelle værdier.}
+\end{Function}
+
+
+\begin{Function}
+\name{ArmMotors}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at motorerne kan starte}
+\end{Function}
+
+
+\begin{Function}
+\name{SafetyCheck}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at et safetycheck godkendes.}
+\end{Function}
+
+
+\begin{Function}
+\name{PerformCalibration}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at dronen vil kalibrere sine sensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{ApplySpeed}
+\para{void}
+\retu{void}
+\comm{Hvis \code{KillMotor()} har været kaldt nulstilles x-, y- og z-aksen og throttle-værdien sættes til under minimumshastigheden for propelrotation. 
+Hvis ikke checkes om nogle af motorerne roterer for hurtigt, hvilket resulterer i kald af \code{KillMotor()}.}
+\end{Function}
+
+
+\begin{Function}
+\name{ResetFakerData}
+\para{void}
+\retu{void}
+\comm{Nulstiller værdier der læses som aktuelle input af \code{Receiver} (afsnit \ref{sec:receiver}).}
+\end{Function}
+
+
 \class{Programs \label{sec:programs}}
-\class{Motors \label{sec:motors}}
+Filen \code{Programs} indeholder programmer til forskellige udførelser for dronen, heriblandt flyv frem, roter, op, ned, let, land osv.
+
+\begin{Function}
+\name{ResetProgramData}
+\para{void}
+\retu{void}
+\comm{Nulstiller programværdierne for dronens program.}
+\end{Function}
+
+
+\begin{Function}
+\name{ForwardSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at flyve langsomt frem med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{ForwardFast}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at flyve hurtigt frem med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{RotateRightSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at rotere til højre med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{RotateLeftSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at rotere til venstre med fastdefineret fart i fastdefineret tid.}
+\end{Function}
+
+
+\begin{Function}
+\name{AutoLand}
+\para{void}
+\retu{void}
+\comm{Aktiverer autoland-funktionen og overskriver rotation og fremdrift, så dronen forbliver stabil i luft.}
+\end{Function}
+
+
+\begin{Function}
+\name{Start}
+\para{void}
+\retu{void}
+\comm{Deaktiverer hover-funktionen så dronens throttle-værdien bestemmer højden.}
+\end{Function}
+
+
+\begin{Function}
+\name{StopMidAir}
+\para{void}
+\retu{void}
+\comm{Overskriver rotation og fremdrift, så dronen holder sig lige i luften.}
+\end{Function}
+
+
+
 \class{MotorControl \label{sec:motorControl}}
+\code{MotorControl} er en simpel klasse, der kan kaldes fra alle andre klasser. 
+Den har ingen afhænigheder til andre klasser og agerer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \class{MaxSonarRangeFinder \label{sec:maxSonar}}
 \class{RangeFinder \label{sec:rangeFinder}}
 \class{PrintDrone \label{sec:printDrone}}
