@@ -1,7 +1,5 @@
 #include "FlightCommandProcessor.h"
 
-//#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
-
 bool isPositionHoldEnabledByUser() 
 {
 	if (receiverCommand[AUX1] < 1750) 
@@ -21,7 +19,9 @@ void processAltitudeHoldStateFromReceiverCommand()
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
-				sonarAltitudeToHoldTarget = ((float)programInput.height-8)/100;
+
+				sonarAltitudeToHoldTarget = ((float)programInput.height-8)/100; //Height to hold
+
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
 				altitudeHoldThrottle = receiverCommand[THROTTLE];
@@ -37,34 +37,29 @@ void processAltitudeHoldStateFromReceiverCommand()
 		altitudeHoldState = OFF;
 	}
 }
-//#endif
 
-//#if defined (AutoLanding)
 void processAutoLandingStateFromReceiverCommand() 
 {
 	if (receiverCommand[AUX3] == AUTOLANDTRUE)
 	{
-		
 		//Write max 10 times a sec and stop when motor is not armed
 		if(taskCounter%5 == 0 && motorArmed != OFF)
 			printNewLine("Trying to land", STATUSMODE);
-		
+
 		if (altitudeHoldState != ALTPANIC ) 
 		{  // check for special condition with manditory override of Altitude hold
 			if (!isAutoLandingInitialized) 
 			{
 				autoLandingState = BARO_AUTO_DESCENT_STATE;
 				//autoLandingState = SONAR_AUTO_DESCENT_STATE;
-				//#if defined AltitudeHoldBaro
 				baroAltitudeToHoldTarget = getBaroAltitude();
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[BARO_ALTITUDE_HOLD_PID_IDX].lastError = baroAltitudeToHoldTarget;
-				//#endif
-				//#if defined AltitudeHoldRangeFinder
+
 				sonarAltitudeToHoldTarget = rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX];
+
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].integratedError = 0;
 				PID[SONAR_ALTITUDE_HOLD_PID_IDX].lastError = sonarAltitudeToHoldTarget;
-				//#endif
 				altitudeHoldThrottle = receiverCommand[THROTTLE];
 
 				printNewLine(altitudeHoldThrottle, ALTITUDEMODE); //Speed
@@ -89,7 +84,6 @@ void processAutoLandingStateFromReceiverCommand()
 		}
 	}
 }
-//#endif
 
 void processZeroThrottleFunctionFromReceiverCommand() {
 	// Disarm motors (left stick lower left corner)
@@ -167,10 +161,6 @@ void readPilotCommands()
 		previousFlightMode = flightMode;
 	}
 
-	//#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
 	processAltitudeHoldStateFromReceiverCommand();
-	//#endif
-	//#if defined (AutoLanding)
 	processAutoLandingStateFromReceiverCommand();
-	//#endif
 }

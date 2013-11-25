@@ -63,6 +63,7 @@ void SerialComRequest(ProgramInput input)
 void ResetDecisions()
 {
 	ResetInputAnalysis();
+	//ResetMessages();
 }
 
 static void PrintWarnings()

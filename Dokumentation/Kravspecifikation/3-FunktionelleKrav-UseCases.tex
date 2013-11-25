@@ -1,6 +1,7 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
+
 \chapter{Funktionelle krav -- Use Cases}
 
 
@@ -10,7 +11,7 @@
 \UCnumber{1}{System initialisering.}
 \UCgoal{Drone er klar til at flyve.}
 \UCinit{Use Case initieres af bruger.}
-\UCslutSuc{Propeller spinner med samme hastighed. }
+\UCslutSuc{Propeller spinner med indbyrdes ens hastighed. }
 \UCslutUnSuc{Drone bipper ét kort bip med 2-3 sekunders mellemrum.}
 
 \UCnormFor{Normalforløb}
@@ -18,14 +19,14 @@
 	\item Bruger kobler batteriets strømkabel til dronens strømkabel.
 	\item Bruger venter på sekvensen af bips: ét kort, pause, tre korte, pause, ét langt.
 	\item[]	\textit{Undtagelse: Opstartssekvens.}
-	\item Dronens propeller begynder at spinde med samme hastighed.
+	\item Dronens propeller begynder at spinde med indbyrdes ens hastighed.
 	\end{normFor} 
 
 \UCnormFor{Undtagelser}
 	\begin{normFor}
 	\item \textit{Undtagelse: Opstartssekvens.}
 	\begin{itemize}
-	\item Drone bipper én gang hver 2-3 sekund.
+	\item Drone bipper én gang hver 2-3 sekund, hvilket skyldes der ikke modtages 11.1 V fra batteriet.
 	\end{itemize}
 	\end{normFor} 
 \end{UseCase}
@@ -38,7 +39,7 @@
 \UCnumber{2}{Programvalg}
 \UCgoal{Dronen udfører valgte program.}
 \UCinit{Use Case initieres af bruger}
-\UCstartb{Dronens batteri er ikke afladt og Use Case 1 er kørt.} 
+\UCstartb{Dronens batteri er opladt og Use Case 1 er kørt.} 
 \UCslutSuc{Dronen udførte valgte program.}
 \UCslutUnSuc{Dronen reagerer ikke på tryk eller dronens propeller spinner ikke længere}
 
@@ -47,7 +48,7 @@
 	\item Brugeren trykker på knap for let.
 	\item Dronens propeller spinner hurtigere og letter dronen.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\item Dronen holder sig stabilt i førangivet højde.
+	\item Dronen holder sig stabilt i 100 cm højde $\pm$ 10 cm \fxnote{Test og ret dette tal}.
 	\end{normFor} 
 	
 \UCnormFor{Normalforløb 2: \\ Autoland}
@@ -103,7 +104,7 @@
 	\begin{normFor}
 	\item[2.] \textit{Undtagelse: Drone reagerer ikke}
 		\begin{itemize}
-		\item Drone forbliver på jorden.
+		\item Dronen fortsætter sit tidligere program.
 		\end{itemize}
 	\end{normFor} 
 	
@@ -123,7 +124,7 @@
 
 \UCnormFor{Normalforløb}
 	\begin{normFor}
-	\item Drone registrer objekt inden for tilladt afstand.
+	\item Drone registrerer objekt inden for 100 cm afstand $\pm$ 10 cm\fxnote{Test og ret}.
 	\item Drone stopper i luften og roterer for at undgå dette.
 	\item[] \textit{Undtagelse: Drone stopper ikke}
 	\end{normFor} 
@@ -145,13 +146,13 @@
 \UCgoal{Dronens propeller stopper.}
 \UCinit{Use Case initieres af drone.}
 \UCstartb{UC 1 er kørt og dronen er i luften.} 
-\UCslutSuc{Dronens er på jorden.}
+\UCslutSuc{Dronen er på jorden.}
 \UCslutUnSuc{Ingen.}
 
 \UCnormFor{Normalforløb}
 	\begin{normFor}
 	\item Dronen registrerer én af sine motorer flyver med for høj hastighed.
-	\item Drone slukker for sine motorer.
+	\item Drone slukker helt for sine motorer.
 	\end{normFor} 
 \end{UseCase}
 
@@ -162,44 +163,6 @@
 \item Dronen flyver ikke nødvendigvis opad ved tryk på "op".
 \end{itemize}
 
-
-
-\chapter{Eksterne grænseflader}
-
-\section{Brugergrænseflade}
-\fxnote{RBK skal lave 3D-skitse}.
-
-\section{Hardware-grænseflade}
-Måske AA-batterier?
-
-
-
-
-
-\chapter{Krav til ydelse}
-Følgende er krav til dronen og styringen af denne:
-
-	\begin{itemize}
-	\item Drone kan flyve i minimum 10 minutter.
-	\item Drone skal kunne 25 $\dfrac{cm}{s}$.
-	\end{itemize}
-
-
-
-\chapter{Kvalitetsfaktorer}
-Kvalitetsfaktorer til systemet\fxnote{Vi ved ikke hvad der skal være her}
-
-\chapter{Myndighedskrav}
-Regler for flyvning med drone gælder følgende:
-
-\begin{itemize}
-\item Flyvningen må ikke udsætte andres liv og ejendom for fare\cite[s. 1]{Lov1}.
-\item Flyvning skal foregå mindst 5 km fra banerne på en offentlig flyveplads og mindst 8 km fra banerne på en militærflyvestation\cite[s. 1]{Lov1}.
-\item Afstanden til bymæssig bebyggelse og større offentlig vej skal være mindst 150 m\cite[s. 1]{Lov1}.
-\item Flyvehøjden må højst være 100 m over terræn\cite[s. 2]{Lov1}.
-\item Tæt bebyggede områder, (bl.a. sommerhusområder og beboede campingpladser), samt områder, hvor et større antal mennesker er samlet i fri luft, må ikke overflyves\cite[s. 2]{Lov1}.
-\item Særligt følsomme naturområder må ikke overflyves\cite[s. 2]{Lov1}.
-\end{itemize} 
 
 
 
