@@ -50,7 +50,7 @@ Bliver valget for dette projekt 433 MHz.
 \subsection{Valg af sender}
 
 Når det var valgt at projektet skulle benytte 433MHz. Skulle der findes en sender/modtager.
-Valget faldt på en chip fra Texas Instruments, Grundet des mange muligheder.
+Valget faldt på en chip fra Texas Instruments cc1101, Grundet dens mange muligheder.
 Nogle af de ting som projektet kunne drage fordel af var;
 
 \begin{itemize}
@@ -61,5 +61,40 @@ Nogle af de ting som projektet kunne drage fordel af var;
 \item Programmerbar power output
 \item Spi interface
 \end{itemize}
+
+Denne chip var også nemt tilgængelig på diverse online sider som ebay. Hvilket betyder at den chip bliver brugt i vid udstrækning og dermed er prisen fornuftig.
+\\
+\subsection{Valg af Microcontroller til fjernbetjening}
+
+Det var allerede forudbestemt at denne skulle benytte en atmel AVR chip, da der var kendskab til denne type chips.
+
+Det der skulle bestemmes var hvilken Chip i atmels serie.
+
+\begin{itemize}
+\item Spi
+\item I2C
+\item external interrupts pins
+\end{itemize}
+
+Det viste sig at de mindste chips som levede op til disse krav er;
+
+\begin{itemize}
+\item ATtiny88
+\item atmega8
+\item atmega16
+\item atmega32
+\end{itemize}
+
+
+Disse chips opfyldte kravene til chippen der skulle bruges.
+Så der skulle ses på andre faktorer, for at vælge en. 
+Det blev pris, der afgjorde dette.\\\\
+ATtiny88 - 46,91 kr.\\
+Atmega8  - 7,71 kr.\\
+Atmega16 - 21,40 kr.\\
+Atmega32 - 36,29 kr.\\
+\\(prisen - I skrivende stund, på ebay, for dip versionen, inc. porto)
+\\Derfor blev valget en atmega8.
+
 
 \end{document}
