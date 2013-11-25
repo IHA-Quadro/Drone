@@ -6,6 +6,13 @@
 \chapter{Software}
 Dette kapitel beskriver softwarens opbygning efter 4+1 modellen. \fxnote{Reference til GOF}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{UML}
+\caption{Udsnit af det samlede UML diagram}
+\end{figure}
+
+
 \section{Klassebeskrivelser}
 
 \class{Drone.ino}
@@ -187,6 +194,270 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
+
+
+\class{FlightCommandProcessor}
+\code{FlightCommandProcessor} er skrevet af AeroQuad og holder styr på de signaler der kommer fra \code{Receiver}-funktionerne og bruger disse indput til at justere hardwaren ved opstart og beregne hvor meget langt der skal være til jorden for autoland- og hover-kommandoerne.
+
+
+\begin{Function}
+\name{isPositionHoldEnabledByUser}
+\para{void}
+\retu{bool}
+\comm{Checker, om hover-funktionen er aktiveret. 
+Hvis den er, returnere \code{true} -- ellers \code{false}}
+\end{Function}
+
+
+
+\begin{Function}
+\name{processAltitudeHoldStateFromReceiverCommand}
+\para{void}
+\retu{void}
+\comm{Såfremt hover-funktionen er aktiveret og dronen ikke flyver vildt, vil højden dronen skal holde blive læst ind i PID'en til senere beregninger.}
+\end{Function}
+
+
+\begin{Function}
+\name{processAutoLandingStateFromReceiverCommand}
+\para{void}
+\retu{void}
+\comm{Såfremt autoland-funktionen er aktiveret og dronen ikke flyver vildt, vil barometret og gyroskopets værdier blive læst ind i PID'en til senere beregninger.}
+\end{Function}
+
+
+\begin{Function}
+\name{processZeroThrottleFunctionFromReceiverCommand}
+\para{void}
+\retu{void}
+\comm{Kaldes, når gaspinden\fxnote{hvad hedder denne?} er i bund.
+Dette kan derefter aktivere motorerne, kalibrere gyroskopet, accelerometeret og læse værdier fra EEPROM, samt udføre et sikkerhedscheck.}
+\end{Function}
+
+
+\begin{Function}
+\name{readPilotCommands}
+\para{void}
+\retu{void}
+\comm{Starter læsning af nyt værdier til \code{Receiver} og kalder de andre funktioner i \code{FlightCommandProcessor}}
+\end{Function}
+
+
+
+
+\class{Receiver \label{sec:receiver}}
+\code{Receiver} styrer hvilke værdier der skal sendes til motorerne ved at læse input fra \code{ControlFaker} (afsnit \ref{sec:controlFaker}) og lader \code{Decision} (afsnit \ref{sec:decision}) træffe beslutning herom.
+
+
+\begin{Function}
+\name{initializeReceiverValues}
+\para{void}
+\retu{void}
+\comm{Nulstiller alle værdier.}
+\end{Function}
+
+
+\begin{Function}
+\name{initializeReceiverParam}
+\para{int = 6}
+\retu{void}
+\comm{Nulstiller alle værdier der skal skrives til motoren og de hjælpevariabler der bruges.}
+\end{Function}
+
+
+\begin{Function}
+\name{readReceiver}
+\para{void}
+\retu{void}
+\comm{Udfører inden flyvning en masse sikkerhedscheck og nulstillinger af andre filers variabler.
+Efter dette checkes om dronen flyver for højt, hvilket program der bør køres, aktiverer programmet og slukker for dronen hvis nødvendigt pga. data in- og output.}
+\end{Function}
+
+
+\begin{Function}
+\name{ApplyData}
+\para{void}
+\retu{void}
+\comm{Behandler værdierne der skal sendes til motorerne.}
+\end{Function}
+
+
+\begin{Function}
+\name{getReceiverSIData}
+\para{byte}
+\retu{const float}
+\comm{Skallering af data for motorerne.}
+\end{Function}
+
+
+\begin{Function}
+\name{PrintReceiverOutput}
+\para{void}
+\retu{void}
+\comm{Udskriver værdier der sendes videre til motorerne}
+\end{Function}
+
+
+
+\class{Decision \label{sec:decision}}
+\code{Decision} er lavet til at afgøre, hvilket program der skal køres, på baggrund af \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}).
+
+
+\begin{Function}
+\name{ResetMessages}
+\para{void}
+\retu{void}
+\comm{Nulstiller alle variabler i filen.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetActualProgram}
+\para{void}
+\retu{ProgramInput}
+\comm{Returnerer det aktuelle program}
+\end{Function}
+
+
+\begin{Function}
+\name{SerialComRequest}
+\para{ProgramInput}
+\retu{void}
+\comm{Læser hvilket program der skal køres fra serial-porten.}
+\end{Function}
+
+
+\begin{Function}
+\name{ResetDecisions}
+\para{void}
+\retu{void}
+\comm{Kalder nulstilling af \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}).}
+\end{Function}
+
+
+\begin{Function}
+\name{PrintWarnings}
+\para{void}
+\retu{static void}
+\comm{Udskriver hvilken sonar der er advarsel på, såfremt der er en.}
+\end{Function}
+
+
+\begin{Function}
+\name{SonarCheck}
+\para{void}
+\retu{static void}
+\comm{Afgør hvad der skal ske med advarslerne fra sonarsensorerne og hvilke programmer der skal køres.}
+\end{Function}
+
+
+\begin{Function}
+\name{ProcessSignal}
+\para{void}
+\retu{static void}
+\comm{Sikre valg af autoland- og start-program fra serial-porten og radioen. 
+Såfremt disse ikke vælges læses det aktuelle program.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{DecideProgram}
+\para{void}
+\retu{void}
+\comm{Kaldes fra \code{Receiver} (afsnit \ref{sec:receiver}) til at foretage analysen.
+Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) for sonarsensorernes input.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{SelectProgram}
+\para{int}
+\retu{static void}
+\comm{Aktiverer det ønskede program og lader de enkelte programmer mulige at kalde mens hover-funktionen er aktiveret.}
+\end{Function}
+
+
+\begin{Function}
+\name{TimeSpend}
+\para{Timers}
+\retu{float}
+\comm{Returnere en tid mellem dette kalds timestamp og det sidste i millisekunder.}
+\end{Function}
+
+
+\begin{Function}
+\name{GroundTakeOff}
+\para{void}
+\retu{void}
+\comm{Beregner en omvendt eksponentiel kurs for dronens throttle-værdi, som dronen kan lette med ved start-program.}
+\end{Function}
+
+
+\begin{Function}
+\name{GroundStart}
+\para{void}
+\retu{void}
+\comm{Inkrementerer langsomt dronens throttle-værdi, indtil den når den fastsatte værdi for det aktuelle program.}
+\end{Function}
+
+
+\begin{Function}
+\name{IncreaseHeight}
+\para{void}
+\retu{void}
+\comm{Inkrementerer den nuværende throttle-værdi med 10, hvis den ikke er blevet kaldt inden for de sidste 300 millisekunder.}
+\end{Function}
+
+
+\begin{Function}
+\name{DecreaseHeight}
+\para{void}
+\retu{void}
+\comm{Dekrementerer den nuværende throttle-værdi med 10, hvis den ikke er blevet kaldt inden for de sidste 300 millisekunder.}
+\end{Function}
+
+
+\begin{Function}
+\name{HoldHeight}
+\para{void}
+\retu{void}
+\comm{Læser den nuværende højde og sætter denne til det aktuelle programs højde, hvorefter hover-funktionen aktiveres og autoland-funktionen deaktiveres.}
+\end{Function}
+
+
+\begin{Function}
+\name{MaxHeightAction}
+\para{void}
+\retu{void}
+\comm{Læser den nuværende værdi og er den større end 100 cm aktiveres hover-funktionen og det aktuelle program sættes til 60 cm højde.}
+\end{Function}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\class{InputAnalysis \label{sec:inputAnalysis}}
+\class{RadioCommand \label{sec:radioCommand}}
+\class{ControlFaker \label{sec:controlFaker}}
+\class{Programs \label{sec:programs}}
+\class{Motors \label{sec:motors}}
+\class{MotorControl \label{sec:motorControl}}
+\class{MaxSonarRangeFinder \label{sec:maxSonar}}
+\class{RangeFinder \label{sec:rangeFinder}}
+\class{PrintDrone \label{sec:printDrone}}
 
 
 

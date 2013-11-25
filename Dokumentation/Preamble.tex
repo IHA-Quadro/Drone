@@ -231,6 +231,44 @@
 
 
 %UC environment:
+%Use as follow:
+%\begin{UseCase}
+%\UCnumber{0.5}{Test}
+%\UCgoal{Goal of Use Case.}
+%\UCinit{Use Case initieres of \dots}
+%\UCslutSuc{Succes }
+%\UCslutUnSuc{Unsucces}
+%
+%\UCnormFor{Normal happening 1: \\ Do stuff}
+%\begin{normFor}
+%\item Do this
+%\item Do that
+%\item[] \textit{However 1}
+%\end{normFor}
+%
+%\UCnormFor{Normal happening 2: \\ Do other stuff}
+%\begin{normFor}
+%\item Do this
+%\item[] \textit{However 2}
+%\item Do that
+%\end{normFor}
+%
+%\UCnormFor{Execptions: }
+%\begin{normFor}
+%\item[] \textit{However 1}
+%	\begin{itemize}
+%	\item Do this	
+%	\end{itemize}
+%\item[] \textit{However 2}
+%	\begin{itemize}
+%	\item Do this
+%	\item Then that
+%	\end{itemize}
+%\end{normFor}
+%
+%
+%\end{UseCase}
+
 \newcommand{\UCnumber}[2]{%
 \hline Use Case: #1 & #2%
 }
@@ -240,8 +278,16 @@
 \newcommand{\UCslutSuc}{\\ Slutbetingelser ved succes: & }
 \newcommand{\UCslutUnSuc}{\\ Slutbetingelser ved undtagelser: & }
 \newcommand{\UCenum}{noitemsep, leftmargin=*}%, nolistsep}
+\newcommand{\UCnormFor}[1]{\\ \hline \parbox[t]{0.25\textwidth}{#1}&}
+
+\newenvironment{UseCase}
+{\begin{longtable}{| p{0.25\textwidth} | p{0.70\textwidth} |}}
+{\\ \hline \end{longtable}}
 
 
+\newenvironment{normFor}
+{\vspace{-8mm}\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]}
+{\end{enumerate}}
 
 
 

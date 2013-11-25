@@ -9,33 +9,41 @@ Det indbefatter hvordan kommunikationen mellem fjernbetjeningen skulle være, hv
 
 
 
+\section{Tekstbehandlingsprogram}
+Som tekstbehandler lå Microsoft Word som en nem faktor, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet LaTeX.
+
+I modsætning til Word har LaTeX et fokus på, at brugeren af programmet skriver noget med indhold og bekymrer sig om udseendet senere. 
+Med den meget simple måde at skrive LaTeX-dokumenter på kommer også, at det er meget nemt at flette flere dokumenter sammen til ét og det med versionskontrol er meget nemt at merge konflikter.
+
+
+
 \section{Versionskontrol}
 For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionskontrol, der vil gøre det muligt at trække gamle filer frem.
 \\
 \\
-Muligheden at bruge Dropbox\fxnote{henvisning til Dropbox} som versionskontrol blev udelukket, da 2 personer arbejdende i samme projekt medfører overskrivninger.
+Muligheden at bruge Dropbox som versionskontrol blev udelukket, da tidligere versioner kun gemmes i 30 dage\footnote{\url{https://www.dropbox.com/help/113/en}} og 2 personer arbejdende i samme projekt medfører uhensigtsmæssige overskrivninger.
 \\
 Versionskontrol fra Subversion blev ligeledes udelukket, da det tager længere tid at løse konflikter og holde styr på gamle version, for slet ikke at nævne mængden af plads der skal bruges.
 \\
-Som filstyring blev Github\fxnote{henvisning til Github} valgt, da det er blevet brugt at RAB i et år og Github tillader nemt og kontrolleret at smelte dokumenter sammen.
+Som filstyring blev Github\footnote{\url{https://github.com/}} valgt -- et værktøj der er designet til versionsstyring for programmører. RAB har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte dokumenter sammen.
 
 
 
 
 
 \section{Valg af editor}
-Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\fxnote{plagiat -- der SKAL være reference}.
+Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\footnote{\url{http://aeroquad.com/showwiki.php?title=AeroQuad+Software}}.
 Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør koden meget svær at læse.
 Dette kan omgås ved at bruge en ekstern editor, så som Notepad++ eller Sublime2, som giver farve, men som kræver at du skifter frem og tilbage imellem vinduerne for at compile.
 \\
 \\
-For helt at løse dette bruges programudvidelsen Visual Micro\fxnote{reference til ViMi} til Microsoft Visual Studio 2012, hvilket giver mulighed for både at se projektets opbygning og compile koden direkte i vinduet til dronen, samt se output fra dronen.
+For helt at løse dette bruges programudvidelsen Visual Micro\footnote{\url{http://www.visualmicro.com/}} til Microsoft Visual Studio 2012, hvilket giver mulighed for både at se projektets opbygning og compile koden direkte i vinduet til dronen, samt se output fra dronen.
 
 
 
 \section{Filopdeling}
 Dronens software er kun skrevet som header-filer og er opdelt således, at hver klasse har sin egen undermappe til projektmappen.
-For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\fxnote{fortæl hvor?}.
+For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\footnote{\code{C:/Users/<brugernavn>/Documents/Arduino/libraries/}}.
 \\
 Da alle filer styres igennem Github skal de ligge i samme filtræ, hvilket ikke lader sig gøre med Arduino's standardopbygning.
 \\

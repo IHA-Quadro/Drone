@@ -5,10 +5,10 @@
 Dette afsnit giver et overblik over kravene, der er stillet for udviklingen af systemet.
 
 \section{Systembeskrivelse}
-Projektet vil bestå i, at få en drone til at udføre nogle specifikke programsekvenser, der styres af en bruger vha. en fjernbetjening.
-Dronen har indbygget en radio, der modtager signalet fra fjernbetjeningen, der derefter eksekverer det ønskede program.
+Projektet vil bestå i at få en drone til, at udføre nogle specifikke programsekvenser, der styres af en bruger vha. en fjernbetjening.
+Dronen har indbygget en radio, der modtager et programsignal fra fjernbetjeningen, som dronen derefter eksekverer.
 \\
-Dronen er foruden dette selvstabiliserende og holder sig derfor i luften og har indbygget sensorer på sin front, der sørger for den ikke flyver ind i objekter.
+Dronen er foruden dette selvstabiliserende og holder sig derfor i luften og har indbygget sensorer på sin front, der i samspil med dronens software sørger for den ikke flyver ind i objekter.
 
 
 \subsection{Systemoversigt}
@@ -36,7 +36,7 @@ Figuren indeholder to grupper, henholdsvis brugeren og hardware aktører.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{AktQrDiagram}
-\caption{Aktørdiagram}
+\caption{Aktør-kontekst diagram}
 \label{Fig:Aktor-oversigt}
 \end{figure}
 
