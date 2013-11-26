@@ -87,7 +87,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process50HzTask}
 \para{void}
@@ -104,14 +103,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process10HzTask2}
 \para{void}
 \retu{void}
 \comm{Denne funktion læser serialporten for kommandoer, der bruges til debugging, samt sender svar retur fra dronen.}
 \end{Function}
-
 
 
 \begin{Function}
@@ -122,7 +119,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process2HzTask}
 \para{void}
@@ -131,14 +127,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process1HzTask}
 \para{void}
 \retu{void}
 \comm{Denne funktion udskriver forskellige debug-information 1 gange i sekundet.}
 \end{Function}
-
 
 
 \begin{Function}
@@ -157,7 +151,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{PrintAltitudeReport}
 \para{void}
@@ -174,8 +167,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
-
 \begin{Function}
 \name{PrintWarnings}
 \para{void }
@@ -184,16 +175,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
-
 \begin{Function}
 \name{PrintControllerOutput}
 \para{void}
 \retu{static void}
 \comm{Denne funktion udskriver receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
 \end{Function}
-
-
 
 
 \class{FlightCommandProcessor}
@@ -207,7 +194,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \comm{Checker, om hover-funktionen er aktiveret. 
 Hvis den er, returnere \code{true} -- ellers \code{false}}
 \end{Function}
-
 
 
 \begin{Function}
@@ -487,7 +473,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \begin{Function}
-\name{GetFrotnWarning}
+\name{GetFrontWarning}
 \para{void}
 \retu{bool}
 \comm{Returnere advarsel fra front sonarsensorer.}
@@ -496,7 +482,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \class{RadioCommand \label{sec:radioCommand}}
-
+\code{Radiocommand} læser input fra radiomodtageren vha. \itoc og stiller resultatet til rådighed.
 \begin{Function}
 \name{SetupRadioCommunicaiton}
 \para{void}
@@ -515,7 +501,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \class{ControlFaker \label{sec:controlFaker}}
-
+\code{ControlFaker} har ansvaret for inputtet til \code{Decision} (afsnit \ref{sec:decision}) og sørger samtidig for, at det input der sendes dertil af sikkerhedsmæssige årsager ikke overskrider fastsatte grænser.
 \begin{Function}
 \name{SetupControlFaker}
 \para{void}
@@ -651,44 +637,98 @@ Filen \code{Programs} indeholder programmer til forskellige udførelser for dron
 
 \class{MotorControl \label{sec:motorControl}}
 \code{MotorControl} er en simpel klasse, der kan kaldes fra alle andre klasser. 
-Den har ingen afhænigheder til andre klasser og agerer
+Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke for motorerne ved sat.
+
+\begin{Function}
+\name{KillMotor}
+\para{bool}
+\retu{void}
+\comm{Sætter inputparametren til hvorvidt motorerne skal være slukket eller ej.}
+\end{Function}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{Function}
+\name{IsMotorKilled}
+\para{void}
+\retu{bool}
+\comm{Returnerer motorernes nuværende status -- slukket eller ej.}
+\end{Function}
 
 
 
 \class{MaxSonarRangeFinder \label{sec:maxSonar}}
-\class{RangeFinder \label{sec:rangeFinder}}
+\code{MaxSonarRangeFinder} bestemmer hvilken sonar skal aflæses og gemmer gennemsnittet af de sidste par målinger for hver sonar.
+
+\begin{Function}
+\name{inititalizeRangeFinders}
+\para{void}
+\retu{void}
+\comm{Nulstiller de lokale værdier samt sætter læsning af hardware pins til deres respektive værdier.}
+\end{Function}
+
+
+\begin{Function}
+\name{updateRangeFinders}
+\para{void}
+\retu{void}
+\comm{Læser én sonar og gemmer resultatet i en kø for den pågældende sonar.\\
+Funktionen aflæser sonaren på maven af dronen hver anden gang; bunden -- venstre -- bunden -- front -- bunden -- højre\dots}
+\end{Function}
+
+
+\begin{Function}
+\name{StoreRangeValues}
+\para{int}
+\retu{void}
+\comm{Gemmer inputtets (sonarens) sidste måling i en FIFO-kø, skubber det sidste element ud og gemmer gennemsnittet af den nye kø.}
+\end{Function}
+
+
+
 \class{PrintDrone \label{sec:printDrone}}
+\code{PrintDrone} udskriver beskeder til Serial-porten. 
+Dette kan kan gøres ved at kalde en funktion der skriver på linjen, eller som skifter linje.
+Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser opdeles derfor i kategorier, som kan aktiveres og deaktiveres.
 
 
+\begin{Function}
+\name{SetupPrintDrone}
+\para{void}
+\retu{void}
+\comm{Sætter alle kategorier til at kunne udskrive.}
+\end{Function}
 
 
+\begin{Function}
+\name{SilenceSerial}
+\para{void}
+\retu{void}
+\comm{Slukker for alle kategoriers output og husker hvilke der var aktive.}
+\end{Function}
 
 
+\begin{Function}
+\name{ActivatePreviousSerial}
+\para{void}
+\retu{void}
+\comm{Aktiverer de kategorier, der tidligere var tændte.}
+\end{Function}
 
 
+\begin{Function}
+\name{printNewLine}
+\para{int / float / double / unsigned long / String, printModes}
+\retu{void}
+\comm{Udskriver en besked eller et tal i den givende kategori og bliver på den nuværende linje.}
+\end{Function}
 
 
-
-
+\begin{Function}
+\name{printInLine}
+\para{int, long, String, char, float, unsigned long, printModes}
+\retu{void}
+\comm{Udskriver en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
+\end{Function}
 
 
 
