@@ -182,7 +182,7 @@
 %----------------------------------------------------------
 %Chapter, section, subsection, subsubsection
 %----------------------------------------------------------
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{2}
 
 
@@ -219,15 +219,15 @@
 %\retu{•}
 %\comm{•}
 %\end{Function}
-\newcommand{\class}[1]{\subsection{#1}}
+\newcommand{\class}[1]{\newpage \subsection{#1}}
 \newenvironment{Function}
 {\begin{longtable}{p{0.2\textwidth} p{0.75\textwidth}}}
 {\end{longtable}}
 
-\newcommand{\name}[1]{\textbf{Navn}& \code{#1}}
-\newcommand{\para}[1]{\\ \hline \textbf{Parametre}& \code{#1}}
-\newcommand{\retu}[1]{\\ \textbf{Returværdi}& \code{#1}}
-\newcommand{\comm}[1]{\\ \textbf{Funktionalitet}& \parbox[t]{0.75\textwidth}{#1} }
+\newcommand{\name}[1]{\hline \textbf{Navn: }& \code{#1}}
+\newcommand{\para}[1]{\\ \hline \textbf{Parametre: }& \code{#1}}
+\newcommand{\retu}[1]{\\ \textbf{Returværdi: }& \code{#1}}
+\newcommand{\comm}[1]{\\ \textbf{Funktionalitet: }& \parbox[t]{0.75\textwidth}{#1}}
 
 
 %UC environment:

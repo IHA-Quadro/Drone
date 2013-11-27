@@ -5,12 +5,12 @@
 
 \chapter{Software}
 Dette afsnit beskriver hvilke overvejelser der er gjort mht. software.
-Det indbefatter hvordan kommunikationen mellem fjernbetjeningen skulle være, hvordan dronens styring blev overtaget uden en egentlig driver, hvordan arkitekturen skulle bygges op for optimalt design og de tidsmæssige krav kunne overholdes, samt hvad der er muligt at implementere foruden den nuværende.
-
+Det indbefatter tekstbehandler, styring af filer, omskrivning af det eksisterende projekt, samt valg af IDE'er samt styringen af dronen.
 
 
 \section{Tekstbehandlingsprogram}
-Som tekstbehandler lå Microsoft Word som en nem faktor, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet LaTeX.
+
+Som tekstbehandler lå Microsoft Word som en nem faktor, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet Texmaker\cite{Texmaker}, der kompilerer teksten til LaTeX.
 
 I modsætning til Word har LaTeX et fokus på, at brugeren af programmet skriver noget med indhold og bekymrer sig om udseendet senere. 
 Med den meget simple måde at skrive LaTeX-dokumenter på kommer også, at det er meget nemt at flette flere dokumenter sammen til ét og det med versionskontrol er meget nemt at merge konflikter.
@@ -21,23 +21,23 @@ Med den meget simple måde at skrive LaTeX-dokumenter på kommer også, at det e
 For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionskontrol, der vil gøre det muligt at trække gamle filer frem.
 \\
 \\
-Muligheden at bruge Dropbox som versionskontrol blev udelukket, da tidligere versioner kun gemmes i 30 dage\footnote{\url{https://www.dropbox.com/help/113/en}} og 2 personer arbejdende i samme projekt medfører uhensigtsmæssige overskrivninger.
+Muligheden at bruge Dropbox som versionskontrol blev udelukket, da tidligere versioner kun gemmes i 30 dage\cite{Dropbox} og 2 personer arbejdende i samme projekt medfører uhensigtsmæssige overskrivninger.
 \\
 Versionskontrol fra Subversion blev ligeledes udelukket, da det tager længere tid at løse konflikter og holde styr på gamle version, for slet ikke at nævne mængden af plads der skal bruges.
 \\
-Som filstyring blev Github\footnote{\url{https://github.com/}} valgt -- et værktøj der er designet til versionsstyring for programmører. RAB har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte dokumenter sammen.
+Som filstyring blev Github\cite{Github-IHA} valgt -- et værktøj der er designet til versionsstyring for programmører. RAB har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte dokumenter sammen.
 
 
 
 
 
-\section{Valg af editor}
-Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\footnote{\url{http://aeroquad.com/showwiki.php?title=AeroQuad+Software}}.
+\section{Valg af editor}\label{sec:software}
+Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\cite{AQ-software}.
 Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør koden meget svær at læse.
 Dette kan omgås ved at bruge en ekstern editor, så som Notepad++ eller Sublime2, som giver farve, men som kræver at du skifter frem og tilbage imellem vinduerne for at compile.
 \\
 \\
-For helt at løse dette bruges programudvidelsen Visual Micro\footnote{\url{http://www.visualmicro.com/}} til Microsoft Visual Studio 2012, hvilket giver mulighed for både at se projektets opbygning og compile koden direkte i vinduet til dronen, samt se output fra dronen.
+For helt at løse dette bruges programudvidelsen Visual Micro\cite{VM} til Microsoft Visual Studio 2012, hvilket giver mulighed for både at se projektets opbygning og compile koden direkte i vinduet til dronen, samt se output fra dronen.
 
 
 
@@ -52,7 +52,7 @@ For at komme rundt om dette blev mappen med filerne forsøgt linket til Arduino'
 Desværre virker dette ikke og alle filer havnede derfor ved siden af \textit{.ino}-filen, projektets hovedfil, der må ligge frit.
 
 
-\section{Videreprogrammering af Aeroquad's kode}
+\section{Videreprogrammering af AeroQuad's kode}
 Open source projekter har som regel deres egne kodestandarder og den følges strikt.
 Desværre har hovedudvikleren af systemet valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
 \\
@@ -65,7 +65,7 @@ For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-f
 
 
 \section{Styring af dronen}
-For at styre dronen fra Aeroquad, bruges der normalt en fjernbetjening med 2 pinde\fxnote{hvad hedder disse?}, der styrer dronens tiltning, hældning, rotation og opdrift.
+For at styre dronen fra AeroQuad, bruges der normalt en fjernbetjening med 2 pinde\fxnote{hvad hedder disse?}, der styrer dronens tiltning, hældning, rotation og opdrift.
 Eftersom vi ikke havde en sådan, var det nødvendigt at lave et modul som kunne overskrive det, således input fra et program ville blive registreret som en fjernbetjenings output.
 \\
 \\
@@ -75,12 +75,6 @@ Dette krævede dog, at vi kendte algoritmen det blev sendt igennem, hvilket er e
 Den anden mulighed var at lade modtagermodulet undgå et analogt signal, men derimod læse hvad der ville komme ud af signalet.
 Ved at vælge den sidste løsning og oprette et tilsvarende array, som de originale data blev sendt til, kunne der overskrives med egne værdier, uden at ændre mange steder i den eksisterende kode.
 Herefter var det blot et spørgsmål om, at forstå hvad der blev sendt til dronen.
-
-
-\section{•}
-
-
-
 
 
 

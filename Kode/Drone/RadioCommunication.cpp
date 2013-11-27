@@ -16,7 +16,7 @@ void ReadRadio()
 {
 	int indicator, programValue;
 
-	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 3 bytes from radio
+	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 2 bytes from radio
 
 	//while(Wire.available())
 	//{
@@ -28,5 +28,5 @@ void ReadRadio()
 	{
 		printNewLine(programValue, RADIOMODE);
 	}
-	radioProgram = programValue;
+	radioProgram = programValue; //TODO: Valider dette
 }

@@ -30,7 +30,6 @@ byte rangerToRead = 0;
 
 struct RangerArray RangerAverage[RANGER_COUNT];
 
-
 void inititalizeRangeFinders() 
 {
 	for (byte i = 0; i < RANGER_COUNT; i++) 

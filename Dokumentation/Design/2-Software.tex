@@ -87,7 +87,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process50HzTask}
 \para{void}
@@ -104,14 +103,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process10HzTask2}
 \para{void}
 \retu{void}
 \comm{Denne funktion læser serialporten for kommandoer, der bruges til debugging, samt sender svar retur fra dronen.}
 \end{Function}
-
 
 
 \begin{Function}
@@ -122,7 +119,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process2HzTask}
 \para{void}
@@ -131,14 +127,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{process1HzTask}
 \para{void}
 \retu{void}
 \comm{Denne funktion udskriver forskellige debug-information 1 gange i sekundet.}
 \end{Function}
-
 
 
 \begin{Function}
@@ -157,7 +151,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
 \begin{Function}
 \name{PrintAltitudeReport}
 \para{void}
@@ -174,8 +167,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
-
 \begin{Function}
 \name{PrintWarnings}
 \para{void }
@@ -184,16 +175,12 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \end{Function}
 
 
-
-
 \begin{Function}
 \name{PrintControllerOutput}
 \para{void}
 \retu{static void}
 \comm{Denne funktion udskriver receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
 \end{Function}
-
-
 
 
 \class{FlightCommandProcessor}
@@ -207,7 +194,6 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 \comm{Checker, om hover-funktionen er aktiveret. 
 Hvis den er, returnere \code{true} -- ellers \code{false}}
 \end{Function}
-
 
 
 \begin{Function}
@@ -436,28 +422,267 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 \class{InputAnalysis \label{sec:inputAnalysis}}
+
+\begin{Function}
+\name{ResetInputAnalysis}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale variabler og kalder nulstilling af \code{RadioCommand} (afsnit \ref{sec:radioCommand}).}
+\end{Function}
+
+
+\begin{Function}
+\name{AnalyseSonarInput}
+\para{void}
+\retu{void}
+\comm{Dronen sætter advarselsflag for sonarsensorerne, hvis anstanden bliver for lille, der kan kan aflæses af \code{Decision} (afsnit \ref{sec:decision}).}
+\end{Function}
+
+
+\begin{Function}
+\name{AnalyseRadioInput}
+\para{void}
+\retu{void}
+\comm{Kalder analyse af radioprogram og sætter variable med dette.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetRadioProgram}
+\para{void}
+\retu{int}
+\comm{Returnere det aktuelle radioprogram.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetLeftWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra venstre sonarsensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetRightWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra højre sonarsensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{GetFrontWarning}
+\para{void}
+\retu{bool}
+\comm{Returnere advarsel fra front sonarsensorer.}
+\end{Function}
+
+
+
 \class{RadioCommand \label{sec:radioCommand}}
+\code{Radiocommand} læser input fra radiomodtageren vha. \itoc og stiller resultatet til rådighed.
+\begin{Function}
+\name{SetupRadioCommunicaiton}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale variabler og sætter kommunikationen til radioen op.}
+\end{Function}
+
+
+\begin{Function}
+\name{ReadRadio}
+\para{void}
+\retu{void}
+\comm{Aflæser radioens program og sætter sin globale værdi til denne.}
+\end{Function}
+
+
+
 \class{ControlFaker \label{sec:controlFaker}}
+\code{ControlFaker} har ansvaret for inputtet til \code{Decision} (afsnit \ref{sec:decision}) og sørger samtidig for, at det input der sendes dertil af sikkerhedsmæssige årsager ikke overskrider fastsatte grænser.
+\begin{Function}
+\name{SetupControlFaker}
+\para{void}
+\retu{void}
+\comm{Nulstiller lokale værdier og sørger for udskrivning gennem Serial-porten.}
+\end{Function}
+
+
+\begin{Function}
+\name{KillMotor}
+\para{void}
+\retu{void}
+\comm{Sender signal om at slukke for alle motorer, slukker alle output til Serial-porten og nulstiller dronens x-, y- og z-akse.}
+\end{Function}
+
+
+\begin{Function}
+\name{ApplyProgram}
+\para{void}
+\retu{void}
+\comm{Skriver \code{Programs} (afsnit \ref{sec:programs}) programværdier til de aktuelle værdier.}
+\end{Function}
+
+
+\begin{Function}
+\name{ArmMotors}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at motorerne kan starte}
+\end{Function}
+
+
+\begin{Function}
+\name{SafetyCheck}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at et safetycheck godkendes.}
+\end{Function}
+
+
+\begin{Function}
+\name{PerformCalibration}
+\para{void}
+\retu{void}
+\comm{Sætter indstillinger for, at dronen vil kalibrere sine sensorer.}
+\end{Function}
+
+
+\begin{Function}
+\name{ApplySpeed}
+\para{void}
+\retu{void}
+\comm{Hvis \code{KillMotor()} har været kaldt nulstilles x-, y- og z-aksen og throttle-værdien sættes til under minimumshastigheden for propelrotation. 
+Hvis ikke checkes om nogle af motorerne roterer for hurtigt, hvilket resulterer i kald af \code{KillMotor()}.}
+\end{Function}
+
+
+\begin{Function}
+\name{ResetFakerData}
+\para{void}
+\retu{void}
+\comm{Nulstiller værdier der læses som aktuelle input af \code{Receiver} (afsnit \ref{sec:receiver}).}
+\end{Function}
+
+
 \class{Programs \label{sec:programs}}
-\class{Motors \label{sec:motors}}
+Filen \code{Programs} indeholder programmer til forskellige udførelser for dronen, heriblandt flyv frem, roter, op, ned, let, land osv.
+
+\begin{Function}
+\name{ResetProgramData}
+\para{void}
+\retu{void}
+\comm{Nulstiller programværdierne for dronens program.}
+\end{Function}
+
+
+\begin{Function}
+\name{ForwardSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at flyve langsomt frem med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{ForwardFast}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at flyve hurtigt frem med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{RotateRightSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at rotere til højre med fastdefineret fart i fastdefineret tid}
+\end{Function}
+
+
+\begin{Function}
+\name{RotateLeftSlow}
+\para{void}
+\retu{void}
+\comm{Dronens program sættes til at rotere til venstre med fastdefineret fart i fastdefineret tid.}
+\end{Function}
+
+
+\begin{Function}
+\name{AutoLand}
+\para{void}
+\retu{void}
+\comm{Aktiverer autoland-funktionen og overskriver rotation og fremdrift, så dronen forbliver stabil i luft.}
+\end{Function}
+
+
+\begin{Function}
+\name{Start}
+\para{void}
+\retu{void}
+\comm{Deaktiverer hover-funktionen så dronens throttle-værdien bestemmer højden.}
+\end{Function}
+
+
+\begin{Function}
+\name{StopMidAir}
+\para{void}
+\retu{void}
+\comm{Overskriver rotation og fremdrift, så dronen holder sig lige i luften.}
+\end{Function}
+
+
+
 \class{MotorControl \label{sec:motorControl}}
+\code{MotorControl} er en simpel klasse, der kan kaldes fra alle andre klasser. 
+Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke for motorerne ved sat.
+
+\begin{Function}
+\name{KillMotor}
+\para{bool}
+\retu{void}
+\comm{Sætter inputparametren til hvorvidt motorerne skal være slukket eller ej.}
+\end{Function}
+
+
+\begin{Function}
+\name{IsMotorKilled}
+\para{void}
+\retu{bool}
+\comm{Returnerer motorernes nuværende status -- slukket eller ej.}
+\end{Function}
+
+
+
 \class{MaxSonarRangeFinder \label{sec:maxSonar}}
-\class{RangeFinder \label{sec:rangeFinder}}
-\class{PrintDrone \label{sec:printDrone}}
+\code{MaxSonarRangeFinder} bestemmer hvilken sonar skal aflæses og gemmer gennemsnittet af de sidste par målinger for hver sonar.
+
+\begin{Function}
+\name{inititalizeRangeFinders}
+\para{void}
+\retu{void}
+\comm{Nulstiller de lokale værdier samt sætter læsning af hardware pins til deres respektive værdier.}
+\end{Function}
+
+
+\begin{Function}
+\name{updateRangeFinders}
+\para{void}
+\retu{void}
+\comm{Læser én sonar og gemmer resultatet i en kø for den pågældende sonar.\\
+Funktionen aflæser sonaren på maven af dronen hver anden gang; bunden -- venstre -- bunden -- front -- bunden -- højre\dots}
+\end{Function}
+
+
+\begin{Function}
+\name{StoreRangeValues}
+\para{int}
+\retu{void}
+\comm{Gemmer inputtets (sonarens) sidste måling i en FIFO-kø, skubber det sidste element ud og gemmer gennemsnittet af den nye kø.}
+\end{Function}
+
 
 \class{Sender Radio \label{sec:Sender}}
 
@@ -512,6 +737,10 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \comm{Starter chippen op og køre alle opsætningerne, der er også en while(1) her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliver der sendt en data pakke til radioen med en bestemt besked der skal sendes til modtageren}
 \end{Function}
 
+\class{PrintDrone \label{sec:printDrone}}
+\code{PrintDrone} udskriver beskeder til Serial-porten. 
+Dette kan kan gøres ved at kalde en funktion der skriver på linjen, eller som skifter linje.
+Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser opdeles derfor i kategorier, som kan aktiveres og deaktiveres.
 
 \class{Modtager Radio\label{sec:Modtager}}
 
@@ -535,6 +764,12 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \retu{unsigned char}
 \comm{Starter transmissionen mellem microcontrolleren og radioen over spi}
 \end{Function}
+\begin{Function}
+\name{SetupPrintDrone}
+\para{void}
+\retu{void}
+\comm{Sætter alle kategorier til at kunne udskrive.}
+\end{Function}
 
 \begin{Function}
 \name{Full RegConfig}
@@ -548,6 +783,12 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \para{void}
 \retu{void}
 \comm{Enabler eksterne interrupts, så microcontrolleren kan få interrupts fra radioen}
+\end{Function}
+\begin{Function}
+\name{SilenceSerial}
+\para{void}
+\retu{void}
+\comm{Slukker for alle kategoriers output og husker hvilke der var aktive.}
 \end{Function}
 
 \begin{Function}
@@ -563,6 +804,12 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \retu{void}
 \comm{Starter chippen op og køre alle opsætningerne inc watchdog, der er også en while(1) loop der servicere watchdogen og gør de nyeste data klar til I2C interface}
 \end{Function}
+\begin{Function}
+\name{ActivatePreviousSerial}
+\para{void}
+\retu{void}
+\comm{Aktiverer de kategorier, der tidligere var tændte.}
+\end{Function}
 
 \class{TWI slave\label{sec:TWI slave}}
 
@@ -571,6 +818,12 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \para{unsigned char}
 \retu{void}
 \comm{Sætter microkontrolleren op til I2C slave}
+\end{Function}
+\begin{Function}
+\name{printNewLine}
+\para{int / float / double / unsigned long / String, printModes}
+\retu{void}
+\comm{Udskriver en besked eller et tal i den givende kategori og bliver på den nuværende linje.}
 \end{Function}
 
 \begin{Function}
@@ -585,6 +838,12 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \para{unsigned char}
 \retu{unsigned char}
 \comm{Henter data fra I2C buffer}
+\end{Function}
+\begin{Function}
+\name{printInLine}
+\para{int, long, String, char, float, unsigned long, printModes}
+\retu{void}
+\comm{Udskriver en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
 \end{Function}
 
 \begin{Function}
