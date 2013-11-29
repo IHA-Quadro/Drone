@@ -59,14 +59,38 @@ Når brugeren af systemet vælger et program, sendes signalet fra fjernbetjening
 
 
 \newpage
-\subsubsection{Use Case 3 -- Sonaradvarsel.}
+\subsubsection{Use Case 3 -- Sonaradvarsel}
 Når dronen flyver kan de 3 sonarsensorer, der sidder foran den, registrere hvor langt der er til nærmeste objekt i en kegle 67$^{\circ}$.\fxnote{Reference til hardware afsnit samt beregninger}
-Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vil et flag blive sat, hvilket checkes for i \code{DecideProgram()} (fra Figur \ref{Fig:50Hz})
+Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vil et flag blive sat, hvilket checkes for i \code{DecideProgram()} (fra Figur \ref{Fig:50Hz}), hvorefter dronen vil reagere på alle kombinationer der er af disse input (se Tabel \ref{Tab:SonarAdvarsel}).
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width = \textwidth]{SonarSketch}
+\caption{Skitse af sonarmodulet. Venstre (blå), front (grøn) og højre (rød).}
+\label{Fig:SonarSketch}
+\end{figure}
 
+\begin{table}[H]
+\centering
+	\begin{tabular}{l l}
+	\hline Kombination & Reaktion
+	\\ \hline 
+	L+F+R & Stop og roter til venstre \\
+	L+R & Stop og roter til venstre\\
+	L+F & Stop og roter til højre\\
+	L & Roter til højre\\
+	F+R & Stop og roter til venstre\\
+	F & Stop og roter til højre\\
+	R & Roter til venstre\\
+	Intet & Foretag ingen ændring \\ \hline
+	\end{tabular}
+\caption{Kombinationsmuligheder ved sonaradvarsel.}
+\label{Tab:SonarAdvarsel}
+\end{table}
 
-
+\subsubsection{Use Case 4 -- Maks. spin stop}
+Use Case 4 aktiveres af dronen, hvis en værdien dronen skal spinne med overskrider 2000 (hvilket også er dens maksimale spinhastighed)
 
 
 

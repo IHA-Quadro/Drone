@@ -24,7 +24,7 @@ Den medfølgende software er skrevet i Arduino (mere om det i afsnit \ref{sec:so
 Prisen ligger på 599 USD uden ekstra udstyr.
 
 \subsection{AeroQuad}
-Det amerikanske firma AeroQuad har lavet dronen Cyclone\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 $K_v$\cite{Kv} motorer.
+Det amerikanske firma AeroQuad har lavet dronen Cyclone ARF\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 $K_v$\cite{Kv} motorer.
 Softwaren er ligeledes skrevet i Arudino, og koster kun 550USD.
 \\
 \\
@@ -45,7 +45,7 @@ Der er flere krav til den trådløse sender;
 \subsection{Regler og valg af frekvens}
 Der er mange regler inden for trådløs kommunikation, så hvilke frekvenser er lovlige at udnytte uden licens?
 
-Det er de fleste i ISM-båndet, da de er lavet til  Industriel, videnskabelig og medicinsk bånd\fxnote{Torben skrev "Scientific medical" her}. 
+Det er de fleste i ISM-båndet, da de er lavet til  Industriel, videnskabelig og medicinsk bånd. 
 Grunden til det ikke er alle er at der er lokale krav, alt efter hvor man er i verden. 
 F.eks. har USA meget komplekse krav til 433 MHz\cite[s. 32]{Lov1}.
 De meste gængse frekvenser der er kan benyttes i industrien og til hobbybrug er derfor:
@@ -133,6 +133,22 @@ Derfor blev valget en ATmega8.
 \end{table}
 
 
+
+\subsection{Valg af sonarsensorer}
+For at dronen kunne måle afstanden til jorden under den, samt måle hvor langt der vil være til dens omgivelser, skulle den have 4 sonarsensorer påmonteret.
+Eftersom dronen allerede havde lidt software implementeret til sonaren på maven af den, var det oplagt af bruge nogle af samme type.
+
+
+AeroQuad tilbyder to forskellige typer: 
+\begin{itemize}
+\item Maxbotix LV-EZ0 \cite{LV-EZ0}
+\item Maxbotix XL-Maxsonar EZ0 \cite{XL-EZ0}
+\end{itemize}
+
+Den største forskel på disse er afstanden de kan måle og prisen.
+LV-EZ0 kan måle 645 cm og koster 29.99 USD, mens XL-Maxsonar kan måde 765cm og koster 49.99 USD.
+\\
+Eftersom disse enheder også skulle tjene på fremtidige projekter, blev den største version valgt, XL-Maxsonar EZ0, påtrods af, at den koster 20 USD mere, end den mindre version.
 
 
 
