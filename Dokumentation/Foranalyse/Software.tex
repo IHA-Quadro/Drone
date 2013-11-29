@@ -10,22 +10,23 @@ Det indbefatter tekstbehandler, styring af filer, omskrivning af det eksisterend
 
 \section{Tekstbehandlingsprogram}
 
-Som tekstbehandler lå Microsoft Word som en nem faktor, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet Texmaker\cite{Texmaker}, der kompilerer teksten til LaTeX.
+Som tekstbehandler lå Microsoft Word som et nemt valg, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet Texmaker\cite{Texmaker}, der kompilerer teksten til LaTeX.
 
 I modsætning til Word har LaTeX et fokus på, at brugeren af programmet skriver noget med indhold og bekymrer sig om udseendet senere. 
 Med den meget simple måde at skrive LaTeX-dokumenter på kommer også, at det er meget nemt at flette flere dokumenter sammen til ét og det med versionskontrol er meget nemt at merge konflikter.
 
 
 
-\section{Versionskontrol}
-For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionskontrol, der vil gøre det muligt at trække gamle filer frem.
+\section{Versionsstyring}
+For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionsstyring, der vil gøre det muligt at trække gamle filer frem.
 \\
 \\
-Muligheden at bruge Dropbox som versionskontrol blev udelukket, da tidligere versioner kun gemmes i 30 dage\cite{Dropbox} og 2 personer arbejdende i samme projekt medfører uhensigtsmæssige overskrivninger.
+Muligheden at bruge Dropbox som versionsstyring blev udelukket, da tidligere versioner kun gemmes i 30 dage\cite{Dropbox} og 2 personer som arbejder i samme projekt medfører uhensigtsmæssige overskrivninger.
 \\
-Versionskontrol fra Subversion blev ligeledes udelukket, da det tager længere tid at løse konflikter og holde styr på gamle version, for slet ikke at nævne mængden af plads der skal bruges.
+Versionsstyring fra Subversion blev ligeledes udelukket, da det tager længere tid at løse konflikter og holde styr på gamle version, for slet ikke at nævne mængden af plads der skal bruges.
 \\
-Som filstyring blev Github\cite{Github-IHA} valgt -- et værktøj der er designet til versionsstyring for programmører. RAB har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte dokumenter sammen.
+Som filstyring blev Github\cite{Github-IHA} valgt -- et værktøj der er designet til versionsstyring for programmører. 
+RAB\fxnote{Beskriv hvem det er} har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte dokumenter sammen.
 
 
 
@@ -33,7 +34,7 @@ Som filstyring blev Github\cite{Github-IHA} valgt -- et værktøj der er designe
 
 \section{Valg af editor}\label{sec:software}
 Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\cite{AQ-software}.
-Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør koden meget svær at læse.
+Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør at koden meget svær at læse.
 Dette kan omgås ved at bruge en ekstern editor, så som Notepad++ eller Sublime2, som giver farve, men som kræver at du skifter frem og tilbage imellem vinduerne for at compile.
 \\
 \\
@@ -46,19 +47,19 @@ Dronens software er kun skrevet som header-filer og er opdelt således, at hver 
 For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\footnote{\code{C:/Users/<brugernavn>/Documents/Arduino/libraries/}}.
 \\
 Da alle filer styres igennem Github skal de ligge i samme filtræ, hvilket ikke lader sig gøre med Arduino's standardopbygning.
-\\
-\\
+
+
 For at komme rundt om dette blev mappen med filerne forsøgt linket til Arduino's foretrukne  placering.
 Desværre virker dette ikke og alle filer havnede derfor ved siden af \textit{.ino}-filen, projektets hovedfil, der må ligge frit.
 
 
 \section{Videreprogrammering af AeroQuad's kode}
 Open source projekter har som regel deres egne kodestandarder og den følges strikt.
-Desværre har hovedudvikleren af systemet valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
+Desværre har AeroQuads hovedudvikler valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
 \\
-Valget mellem pæn og overskuelig kode, frem for fungerende og grim kode, er derfor ikke nemt, da koden som udgangspunkt ikke danner baggrund for ens karakter og omskrivning, så koden ville virke, ville være for stor.
-\\
-\\
+Valget mellem pæn og overskuelig kode, frem for fungerende og dårligt skreven kode, er derfor ikke nemt, da koden som udgangspunkt ikke danner baggrund for ens karakter og omskrivning, så koden ville virke, ville være for stor.
+
+
 Som udgangspunkt blev koden derfor udvidet i header-filer, men det endte hurtigt i flere erklæringer af variabler der skulle deles imellem filerne. 
 For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-filer og selvom størstedelen af koden er skrevet i \code{C} kan en C-compiler ikke bruge Arduino's Serial-port, hvilket filendelsen \textit{.cpp} omgår.
 
@@ -67,12 +68,12 @@ For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-f
 \section{Styring af dronen}
 For at styre dronen fra AeroQuad, bruges der normalt en fjernbetjening med 2 pinde\fxnote{hvad hedder disse?}, der styrer dronens tiltning, hældning, rotation og opdrift.
 Eftersom vi ikke havde en sådan, var det nødvendigt at lave et modul som kunne overskrive det, således input fra et program ville blive registreret som en fjernbetjenings output.
-\\
-\\
+
+
 Den første mulighed var at skrive signalet der blev modtaget af selve senderen til den respektive driver. 
 Dette krævede dog, at vi kendte algoritmen det blev sendt igennem, hvilket er et bachelorprojekt i sig selv.
 \\
-Den anden mulighed var at lade modtagermodulet undgå et analogt signal, men derimod læse hvad der ville komme ud af signalet.
+Den anden mulighed var at lade modtagermodulet læse hvad der ville komme ud af signalet.
 Ved at vælge den sidste løsning og oprette et tilsvarende array, som de originale data blev sendt til, kunne der overskrives med egne værdier, uden at ændre mange steder i den eksisterende kode.
 Herefter var det blot et spørgsmål om, at forstå hvad der blev sendt til dronen.
 
