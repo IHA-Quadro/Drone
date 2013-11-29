@@ -6,11 +6,11 @@
 
 
 \section{Drone}
-Dronen vi valgte havde prioriteter:
+Dronen vi valgte havde disse prioriteter:
 \begin{itemize}
-\item Skulle være open source
-\item Skulle have en ordenlig løfteevne
-\item Skulle have udskiftelige dele
+\item Skulle være open source.
+\item Skulle have en ordentlig løfteevne.
+\item Skulle have udskiftelige dele, såsom propeller, arme, skjold og hardwaresensorer.
 \end{itemize}
 
 Der blev set på 3 forskellige droner:
@@ -19,13 +19,12 @@ Det svenske firma Bitcraze har lavet dronen CrazyFlie\cite{BitCraze}, en lille q
 Dronen har mange fine perspektiver, men da den ikke er mere 9 cm fra motor til motor, har den også en meget begrænset løfteevne, og muligheden for at udbygge den er meget lille.
 
 \subsection{Arducopter}
-Det amerikanske firma 3D Robotics har lavet dronen 3DR RTF Quad\cite{ArduCopter}, en væsentlig større drone, med 10" propeller, 20 Amp ESC'er (motor kontrol) og 850 Kv $\big( \frac{rpm}{volt}\big)$ motorer.
+Det amerikanske firma 3D Robotics har lavet dronen 3DR RTF Quad\cite{ArduCopter}, en væsentlig større drone, med 10" propeller, 20 Amp ESC'er (motor kontrol) og 850 $K_v$\cite{Kv} motorer.
 Den medfølgende software er skrevet i Arduino (mere om det i afsnit \ref{sec:software}). 
-%Når dronen flyver kan den have ca. 500 g med sig. 
 Prisen ligger på 599 USD uden ekstra udstyr.
 
 \subsection{AeroQuad}
-Det amerikanske firma AeroQuad har lavet dronen Cyclone\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 Kv motorer.
+Det amerikanske firma AeroQuad har lavet dronen Cyclone\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 $K_v$\cite{Kv} motorer.
 Softwaren er ligeledes skrevet i Arudino, og koster kun 550USD.
 \\
 \\
@@ -46,15 +45,17 @@ Der er flere krav til den trådløse sender;
 \subsection{Regler og valg af frekvens}
 Der er mange regler inden for trådløs kommunikation, så hvilke frekvenser er lovlige at udnytte uden licens?
 
-Det er de fleste i ISM-båndet, da de er lavet til  Industriel, videnskabelig og medicinsk bånd. Grunden til det ikke er alle er at der er lokale krav, alt efter hvor man er i verden. Eks. har USA meget komplekse krav til 433 MHz\cite[s. 32]{Lov1}.
-De meste gængse frekvenser der er kan benyttes i industrien og til hobby brug er derfor:
+Det er de fleste i ISM-båndet, da de er lavet til  Industriel, videnskabelig og medicinsk bånd\fxnote{Torben skrev "Scientific medical" her}. 
+Grunden til det ikke er alle er at der er lokale krav, alt efter hvor man er i verden. 
+F.eks. har USA meget komplekse krav til 433 MHz\cite[s. 32]{Lov1}.
+De meste gængse frekvenser der er kan benyttes i industrien og til hobbybrug er derfor:
 
 \begin{itemize}
 \item 433 MHz
 \item 868 MHz
 \item 915 MHz
 \item 2.4 GHz
-\item 5.8 GHz\fxnote{plagiat?}
+\item 5.8 GHz
 \end{itemize}
 
 Så der skal vælges en frekvens af disse.
@@ -68,15 +69,15 @@ Den frekvens der egner sig bedst dette projekt, er den frekvens der rækker læn
 \end{figure}
 
 
-Som man det ses på Figur \ref{Fig:dempning} så er der mindre modstand i objekter, desto længere man kommer ned i frekvens.
-I og med at næsten alle hobby entusiaster inden for RC fly, bruger 2.4 GHz, bliver valget for dette projekt 433 MHz.
+Som man det ses på Figur \ref{Fig:dempning} så er der mindre dæmpning, desto længere man kommer ned i frekvens.
+I og med at næsten alle hobby entusiaster inden for RC fly, bruger 2.4 GHz, bliver valget for dette projekt 433 MHz\fxnote{Torben vil vide hvorfor vi vælger 433 MHz}.
 
 
 
-\subsection{Valg af sender}
+\subsection{Valg af sender/modtager}
 
 Når det var valgt at projektet skulle benytte 433MHz skulle der findes en sender/modtager.
-Valget faldt på en chip fra Texas Instruments -- cc1101\cite{TI-cc1101}, grundet dens mange muligheder.
+Valget faldt på en chip fra Texas Instruments -- cc1101\cite{TI-cc1101}\fxnote{Find en anden at sammenligne med}, grundet dens mange muligheder.
 Nogle af de ting som projektet kunne drage fordel af var;
 
 \begin{itemize}
@@ -88,12 +89,12 @@ Nogle af de ting som projektet kunne drage fordel af var;
 \item SPI interface.
 \end{itemize}
 
-Denne chip var også nemt tilgængelig på diverse online sider, så som eBay\cite{eBay}, hvilket betyder at den chip bliver brugt i vid udstrækning og dermed er prisen fornuftig.
+Denne chip var også nemt tilgængelig på diverse online sider, så som eBay\cite{eBay}, hvilket betyder at den chip bliver brugt i vid udstrækning og dermed er den bedst i forhold til prisen og behovet.
 
 
 
 
-\subsection{Valg af Microcontroller til fjernbetjening}
+\subsection{Valg af µ-Controller til fjernbetjening}
 
 Det var allerede forudbestemt, at denne skulle benytte en Atmel AVR chip, da der var kendskab til denne type chips.
 

@@ -1,21 +1,9 @@
 \documentclass[Main]{subfiles}
-
-
 \begin{document}
 
-\chapter{Software}
-Dette kapitel beskriver softwarens opbygning efter 4+1 modellen. \fxnote{Reference til GOF}
+\subsection{Klassebeskrivelser}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{UML}
-\caption{Udsnit af det samlede UML diagram}
-\end{figure}
-
-
-\section{Klassebeskrivelser}
-
-\class{Drone.ino}
+\subsubsection{Drone.ino}
 \code{Drone.ino} er hovedfilen for systemet og har ikke fået foretaget de store ændringer i forhold til den oprindelige kode.
 Denne fil skal indeholde de to obligatoriske funktioner \code{void setup()} og \code {void loop()}, da dette er hvad Arduino kører som den første og anden funktion.
 Funktionen \code{void loop()} er i grove træk tilsvarende til et \code{while(1)}-loop, der ikke kan stoppes.
@@ -684,86 +672,11 @@ Funktionen aflæser sonaren på maven af dronen hver anden gang; bunden -- venst
 \end{Function}
 
 
-\class{Sender Radio \label{sec:Sender}}
-
-
-\begin{Function}
-\name{SPI MasterInit}
-\para{void}
-\retu{void}
-\comm{Initialize spi porten på Atmega8 som master, sætter clk raten til fck/16}
-\end{Function}
-
-\begin{Function}
-\name{CSn}
-\para{int}
-\retu{void}
-\comm{Chip select for spi porten}
-\end{Function}
-
-\begin{Function}
-\name{switchOn}
-\para{unsigned char}
-\retu{unsigned char}
-\comm{Chekker om et givent ben er sat lav eller høj}
-\end{Function}
-
-
-\begin{Function}
-\name{SPI transmit}
-\para{unsigned char}
-\retu{unsigned char}
-\comm{Starter transmissionen mellem microcontrolleren og radioen over spi}
-\end{Function}
-
-\begin{Function}
-\name{SendProgram}
-\para{void}
-\retu{void}
-\comm{Starter med at flushe radioen så der ikke kan ligge gamle data i output bufferen, sender så de nye data til den og starter transmissionen på radioen, venter til den har sendt alle data og sætter den i dvale igen }
-\end{Function}
-
-\begin{Function}
-\name{Full RegConfig}
-\para{void}
-\retu{void}
-\comm{Sætter radioen op, eks. data hastighed, kanal valg, crc check osv.}
-\end{Function}
-
-\begin{Function}
-\name{main}
-\para{void}
-\retu{void}
-\comm{Starter chippen op og køre alle opsætningerne, der er også en while(1) her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliver der sendt en data pakke til radioen med en bestemt besked der skal sendes til modtageren}
-\end{Function}
-
 \class{PrintDrone \label{sec:printDrone}}
 \code{PrintDrone} udskriver beskeder til Serial-porten. 
 Dette kan kan gøres ved at kalde en funktion der skriver på linjen, eller som skifter linje.
 Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser opdeles derfor i kategorier, som kan aktiveres og deaktiveres.
 
-\class{Modtager Radio\label{sec:Modtager}}
-
-\begin{Function}
-\name{SPI MasterInit}
-\para{void}
-\retu{void}
-\comm{Initialize spi porten på Atmega8 som master, sætter clk raten til fck/16}
-\end{Function}
-
-\begin{Function}
-\name{CSn}
-\para{int}
-\retu{void}
-\comm{Chip select for spi porten}
-\end{Function}
-
-\begin{Function}
-\name{SPI transmit}
-\para{unsigned char}
-\retu{unsigned char}
-\comm{Starter transmissionen mellem microcontrolleren og radioen over spi}
-\end{Function}
 \begin{Function}
 \name{SetupPrintDrone}
 \para{void}
@@ -772,19 +685,6 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \end{Function}
 
 \begin{Function}
-\name{Full RegConfig}
-\para{void}
-\retu{void}
-\comm{Sætter radioen op, eks. data hastighed, kanal valg, crc check osv.}
-\end{Function}
-
-\begin{Function}
-\name{initExtInts}
-\para{void}
-\retu{void}
-\comm{Enabler eksterne interrupts, så microcontrolleren kan få interrupts fra radioen}
-\end{Function}
-\begin{Function}
 \name{SilenceSerial}
 \para{void}
 \retu{void}
@@ -792,33 +692,12 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \end{Function}
 
 \begin{Function}
-\name{ISR INT0 vect}
-\para{void}
-\retu{void}
-\comm{Interrupt rutinen der bliver kørt hver gang radioen har modtaget data, data bliver hentet og radioen sat til at lytte efter data igen}
-\end{Function}
-
-\begin{Function}
-\name{main}
-\para{void}
-\retu{void}
-\comm{Starter chippen op og køre alle opsætningerne inc watchdog, der er også en while(1) loop der servicere watchdogen og gør de nyeste data klar til I2C interface}
-\end{Function}
-\begin{Function}
 \name{ActivatePreviousSerial}
 \para{void}
 \retu{void}
 \comm{Aktiverer de kategorier, der tidligere var tændte.}
 \end{Function}
 
-\class{TWI slave\label{sec:TWI slave}}
-
-\begin{Function}
-\name{TWI Slave Initialise}
-\para{unsigned char}
-\retu{void}
-\comm{Sætter microkontrolleren op til I2C slave}
-\end{Function}
 \begin{Function}
 \name{printNewLine}
 \para{int / float / double / unsigned long / String, printModes}
@@ -827,37 +706,160 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \end{Function}
 
 \begin{Function}
-\name{TWI Transceiver Busy}
-\para{void}
-\retu{unsigned char}
-\comm{Tjekker om I2C er linjen er optaget}
-\end{Function}
-
-\begin{Function}
-\name{TWI Get Data From Transceiver}
-\para{unsigned char}
-\retu{unsigned char}
-\comm{Henter data fra I2C buffer}
-\end{Function}
-\begin{Function}
 \name{printInLine}
 \para{int, long, String, char, float, unsigned long, printModes}
 \retu{void}
 \comm{Udskriver en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
 \end{Function}
 
+
+\class{Sender Radio \label{sec:Sender}}\fxnote{Her mangler en lille beskrivelse}
+
+\begin{Function}
+\name{SPI MasterInit}
+\para{void}
+\retu{void}
+\comm{Initialize SPI porten på ATmega8 som master, sætter clk raten til fck/16.}
+\end{Function}
+
+\begin{Function}
+\name{CSn}
+\para{int}
+\retu{void}
+\comm{Chip select for SPI porten.}
+\end{Function}
+
+\begin{Function}
+\name{switchOn}
+\para{unsigned char}
+\retu{unsigned char}
+\comm{Chekker om et givent ben er sat lav eller høj.}
+\end{Function}
+
+
+\begin{Function}
+\name{SPI transmit}
+\para{unsigned char}
+\retu{unsigned char}
+\comm{Starter transmissionen mellem µ-controlleren og radioen over SPI.}
+\end{Function}
+
+\begin{Function}
+\name{SendProgram}
+\para{void}
+\retu{void}
+\comm{Starter med at flushe radioen så der ikke kan ligge gamle data i output bufferen, sender så de nye data til den og starter transmissionen på radioen, venter til den har sendt alle data og sætter den i dvale igen. }
+\end{Function}
+
+\begin{Function}
+\name{Full RegConfig}
+\para{void}
+\retu{void}
+\comm{Sætter radioen op, eks. data hastighed, kanal valg, CRC check osv.}
+\end{Function}
+
+\begin{Function}
+\name{main}
+\para{void}
+\retu{void}
+\comm{Starter chippen op og køre alle opsætningerne, der er også en \code{while(1)}. 
+Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliver der sendt en data pakke til radioen med en bestemt besked der skal sendes til modtageren.}
+\end{Function}
+
+
+
+\class{Modtager Radio\label{sec:Modtager}}
+
+\begin{Function}
+\name{SPI MasterInit}
+\para{void}
+\retu{void}
+\comm{Initialize SPI porten på ATmega8 som master, sætter CLK-raten til fck/16.}
+\end{Function}
+
+\begin{Function}
+\name{CSn}
+\para{int}
+\retu{void}
+\comm{Chip select for SPI porten.}
+\end{Function}
+
+\begin{Function}
+\name{SPI transmit}
+\para{unsigned char}
+\retu{unsigned char}
+\comm{Starter transmissionen mellem µ-controlleren og radioen over SPI.}
+\end{Function}
+
+
+\begin{Function}
+\name{Full RegConfig}
+\para{void}
+\retu{void}
+\comm{Sætter radioen op, eks. data hastighed, kanal valg, CRC-check osv.}
+\end{Function}
+
+\begin{Function}
+\name{initExtInts}
+\para{void}
+\retu{void}
+\comm{Enabler eksterne interrupts, så µ-controlleren kan få interrupts fra radioen.}
+\end{Function}
+
+
+\begin{Function}
+\name{ISR INT0 vect}
+\para{void}
+\retu{void}
+\comm{Interrupt rutinen der bliver kørt hver gang radioen har modtaget data, data bliver hentet og radioen sat til at lytte efter data igen.}
+\end{Function}
+
+\begin{Function}
+\name{main}
+\para{void}
+\retu{void}
+\comm{Starter chippen op og køre alle opsætningerne inc watchdog, der er også et \code{while(1)}-loop der servicere watchdogen og gør de nyeste data klar til \itoc interface.}
+\end{Function}
+
+
+\class{TWI slave\label{sec:TWI slave}}
+
+\begin{Function}
+\name{TWI Slave Initialise}
+\para{unsigned char}
+\retu{void}
+\comm{Sætter µ-controlleren op til \itoc slave.}
+\end{Function}
+
+
+
+\begin{Function}
+\name{TWI Transceiver Busy}
+\para{void}
+\retu{unsigned char}
+\comm{Tjekker om \itoc er linjen er optaget.}
+\end{Function}
+
+\begin{Function}
+\name{TWI Get Data From Transceiver}
+\para{unsigned char}
+\retu{unsigned char}
+\comm{Henter data fra \itoc buffer.}
+\end{Function}
+
+
 \begin{Function}
 \name{TWI Start Transceiver With Data}
 \para{unsigned char}
 \retu{void}
-\comm{Lægger et svar ud på I2C porten}
+\comm{Lægger et svar ud på \itoc porten.}
 \end{Function}
 
 \begin{Function}
 \name{ISR TWI vect}
 \para{void}
 \retu{void}
-\comm{Interrupt rutinen der bliver kørt når en start kommando bliver sendt på I2C porten}
+\comm{Interrupt rutinen der bliver kørt når en start kommando bliver sendt på \itoc porten.}
 \end{Function}
 
 
