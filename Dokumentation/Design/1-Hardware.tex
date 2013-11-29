@@ -3,7 +3,7 @@
 
 \chapter{Design}
 
-\section{Opdeling i blokke.}
+\section{System oversigt}
 
 Til styring af drone, skal der laves en sender og modtager.
 
@@ -13,7 +13,37 @@ Til styring af drone, skal der laves en sender og modtager.
 \caption{Skitse af hardware}
 \end{figure}
 
-Modtageren skal 
+\code{Senderen} er den brugeren laver sit indput på. 
+\\ \code{Modtageren} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.\\
+Det vil sige der skulle laves to enheder. Begge skulle gøre brug af chippen cc1101 fra texas instruments. Og microcontrolleren atmega8 fra Atmel Corporation.
+\code{Senderen} skal også have knapper så brugeren kan lave sit indput.
+
+\section{Grænseflader}
+
+De interne og eksterne grænseflader. 
+
+\subsection{Sender}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{SenderInterface}
+\caption{Grænseflader for sender}
+\label{fig: SenderInterface}
+\end{figure}
+
+På Figur \ref{fig: SenderInterface} ses et blokdiagram af senderen med alle grænseflader.
+
+
+\subsection{Modtager}
+
+\itoc
+
+\section{Design}
+
+\subsection{Strøm indput}
+
+\section{PCB layout}
+
+
 
 Opdeling i blokke.
 Interface mellem blokkene, f.eks.:
