@@ -1,0 +1,15 @@
+\select@language {danish}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Skitse af hardware\relax }}{5}{figure.caption.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Gr\IeC {\ae }nseflader for sender\relax }}{6}{figure.caption.2}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Init af drone\relax }}{8}{figure.caption.3}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Schedulering i {\fontfamily {pcr}\selectfont loop()}-funktionen\relax }}{9}{figure.caption.4}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces 50 Hz processen. \relax }}{10}{figure.caption.5}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Skriv til radio.\relax }}{11}{figure.caption.6}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces L\IeC {\ae }s radio.\relax }}{11}{figure.caption.7}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Skitse af sonarmodulet. Venstre (bl\IeC {\r a}), front (gr\IeC {\o }n) og h\IeC {\o }jre (r\IeC {\o }d).\relax }}{12}{figure.caption.8}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces {\fontfamily {pcr}\selectfont 100HzProcess}-funktionen fra klasse {\fontfamily {pcr}\selectfont InoHelper}\relax }}{13}{figure.caption.10}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces PID'ens effekt p\IeC {\r a} motorerne vist med forskellige farver, samt det de skal ramme.\relax }}{14}{figure.caption.11}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces PID'ens effekt p\IeC {\r a} motorerne n\IeC {\r a}r en propel er beskadiget.\relax }}{14}{figure.caption.12}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Udsnit af det samlede klassediagram\relax }}{15}{figure.caption.13}
