@@ -46,6 +46,7 @@
 }
 
 
+
 %Mellemrum mellem linjerne
 \DisemulatePackage{setspace}
 \usepackage{setspace}
@@ -175,8 +176,8 @@
 \usepackage[danish]{babel}       
 %\usepackage{lmodern} 
 \usepackage[bf, small, raggedright, compact]{titlesec}
-%\usepackage[parfill]{parskip}
-%\usepackage{setspace}
+\setlength{\parindent}{0pt}
+\nonzeroparskip
 
 %Dybde på indholdsfortegnelse
 %----------------------------------------------------------
@@ -201,7 +202,7 @@
 \usepackage{appendix}
 \usepackage{amssymb}
 \usepackage{url}
-\usepackage{enumerate} 
+\usepackage{enumerate}
 \usepackage{amsmath} %Math bibliotek
 
 
@@ -288,22 +289,3 @@
 \newenvironment{normFor}
 {\vspace{-8mm}\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]}
 {\end{enumerate}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
