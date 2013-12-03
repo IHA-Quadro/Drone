@@ -195,7 +195,7 @@ static void SelectProgram(int programID)
 
 	switch (programID)
 	{
-	case 1: //Start
+	case 1: //Let
 		StartTakeOff = true;
 		Start();
 
@@ -256,7 +256,7 @@ static void SelectProgram(int programID)
 		}
 		break;
 
-	case 7: // Stop mid air
+	case 7: // Stop mid air / Hover
 		if(_controllerInput[AUX3] != AUTOLANDTRUE)
 		{
 			StopMidAir();
@@ -268,9 +268,19 @@ static void SelectProgram(int programID)
 		KillMotor();
 		break;
 
+	case 9: //Up
+		programInput.height += 5;
+		break;
+
+	case 10: //Down
+		programInput.height -= 5;
+		break;
+
 	default:
 		break;
 	}
+
+
 
 	if (programID != 1 && programID != 2 && programID != 8)
 	{

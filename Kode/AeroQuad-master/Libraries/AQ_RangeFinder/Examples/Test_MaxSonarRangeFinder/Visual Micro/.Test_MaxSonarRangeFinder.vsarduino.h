@@ -31,7 +31,10 @@ extern "C" void __cxa_pure_virtual() {;}
 
 //
 //
-void receiveEvent(int howMany);
+void SetupRadioCommunicaiton();
+void ReadRadio();
+//
+//
 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h"
