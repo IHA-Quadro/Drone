@@ -35,9 +35,9 @@
 *.aux
 *.log
 *.synctex.gz
-*.toc			#Table of content
-*.lox			#List of FixMeNotes
-*.lof 			#List of figures
+*.toc			
+*.lox			
+*.lof 			
 *.orig
 *.blg
 *.bbl
