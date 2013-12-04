@@ -16,9 +16,9 @@ På Figur \ref{Fig:SekvInit} ses de kald der foretages, når dronen starter op f
 Efter initieringen startes Arduino's \code{loop()}-funktion, der kører i ring til strømmen afbrydes, som vist på Figur \ref{Fig:SekvDroneHz}.
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.55]{DroneLoop}
+\includegraphics[width = \textwidth]{DroneLoop}
 \caption{Schedulering i \code{loop()}-funktionen}
 \label{Fig:SekvDroneHz}
 \end{figure}
@@ -28,7 +28,7 @@ Input til, hvordan dronen skal flyve, bliver registreret i \code{50HzTask()} og 
 \begin{figure}[H]
 \centering
 \includegraphics[width = \textwidth]{50HzProcess}
-\caption{50 Hz processen. \textbf{Skal der være nummer på hver funktion?}}
+\caption{50 Hz processen. }
 \label{Fig:50Hz}
 \end{figure}
 
@@ -90,15 +90,37 @@ Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vi
 \end{table}
 
 \subsubsection{Use Case 4 -- Maks. spin stop}
-Use Case 4 aktiveres af dronen, hvis en værdien dronen skal spinne med overskrider 2000 (hvilket også er dens maksimale spinhastighed)
+Use Case 4 aktiveres af dronen, hvis en af dronens propeller skal spinne med værdien over 2000 (hvilket også er dens maksimale spinhastighed).
+Dette scenarie finder kun sted, såfremt dronen forsøger at rette sig selv op efter den er fløjet ind i noget og/eller en propel er blev beskadiget og derfor ikke retter dronen op, som den ellers burde.
 
+Beregningerne foretages 100 gange i sekundet og er vist på Figur \ref{Fig:100HzProcess}, hvor systemet kalder funktionen \code{2: CalculateFlightError()}, der beregner hvor meget dronen skal justere sig på x- og y-aksen for, at holde sig vandret i luften.
+Når dette er gjort anvendes de udregnede værdier i funktionen \code{7: ApplyMotorCommand()}.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width = \textwidth]{100HzProcess}
+\caption{\code{100HzProcess}-funktionen fra klasse \code{InoHelper}}
+\label{Fig:100HzProcess}
+\end{figure}
 
+Når PID-ændringer virker som de skal og bliver anvendt på dronen, ser det ud som på Figur \ref{Fig:PID-outcome}.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width = \textwidth]{PID-outcome}
+\caption{PID'ens effekt på motorerne vist med forskellige farver, samt det de skal ramme.}
+\label{Fig:PID-outcome}
+\end{figure}
 
+Når PID-ændringerne til gengæld ikke virker, ser det ud som på Figur \ref{Fig:PID-fail}.
+Det ses, at værdierne pludselig springer langt væk fra, hvad de burde være, hvilket er årsagen til at grænsen blev indført.
 
-
-
+\begin{figure}[htbp]
+\centering
+\includegraphics[width = \textwidth]{PID-fail}
+\caption{PID'ens effekt på motorerne når en propel er beskadiget.}
+\label{Fig:PID-fail}
+\end{figure}
 
 
 

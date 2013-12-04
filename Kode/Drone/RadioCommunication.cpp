@@ -26,6 +26,7 @@ void ReadRadio()
 
 	if(indicator == INDICATORVALUE)
 	{
+		printInLine("New program: ", RADIOMODE);
 		printNewLine(programValue, RADIOMODE);
 	}
 	radioProgram = programValue; //TODO: Valider dette

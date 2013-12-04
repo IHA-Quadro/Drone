@@ -116,12 +116,13 @@ void process1HzTask() {
 	//	sendSerialHeartbeat();   
 	//#endif
 
-	PrintAltitudeReport();
+	//PrintAltitudeReport();
 }
 
 
 static void PrintChosenProgram()
 {
+	printInLine("Chosen program: ", RADIOMODE);
 	printNewLine(GetRadioProgram(), RADIOMODE);
 }
 
@@ -153,14 +154,14 @@ static void PrintAltitudeReport()
 	}
 
 
-	printInLine("Hold position: ", ALTITUDEMODE);
-	printNewLine((Holdposition?"Yes":"No"), ALTITUDEMODE);
+	//printInLine("Hold position: ", ALTITUDEMODE);
+	//printNewLine((Holdposition == true ? "Yes" : "No"), ALTITUDEMODE);
 
-	if(receiverCommand[AUX1] < 1750)
-	{
-		printInLine("Panic mode: ", ALTITUDEMODE);
-		printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
-	}
+	//if(receiverCommand[AUX1] < 1750)
+	//{
+	//	printInLine("Panic mode: ", ALTITUDEMODE);
+	//	printNewLine((panic?"Yes":"No"), ALTITUDEMODE);
+	//}
 }
 
 static void PrintDebugReport()

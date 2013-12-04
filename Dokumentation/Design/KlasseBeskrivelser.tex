@@ -1,9 +1,19 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\subsection{Klassebeskrivelser}
+\subsection{Klassebeskrivelser og klassediagram}
+Systemets vigtigste klasser er vist på Figur \ref{Fig:UML}.
+Systemet har flere, men de viste er de vigtigste der bruges af systemet og som der er udviklet mest på.
 
-\subsubsection{Drone.ino}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{UML}
+\caption{Udsnit af det samlede klassediagram}
+\label{Fig:UML}
+\end{figure}
+
+\class{Drone.ino}
 \code{Drone.ino} er hovedfilen for systemet og har ikke fået foretaget de store ændringer i forhold til den oprindelige kode.
 Denne fil skal indeholde de to obligatoriske funktioner \code{void setup()} og \code {void loop()}, da dette er hvad Arduino kører som den første og anden funktion.
 Funktionen \code{void loop()} er i grove træk tilsvarende til et \code{while(1)}-loop, der ikke kan stoppes.
@@ -32,7 +42,7 @@ Disse er vigtige for systemets opbygning, da dette tillader udskrift via serial-
 \para{void}
 \retu{void}
 \comm{Arduino's første obligatoriske funktion -- Starter og reset'er de fleste filer og klasser: \\
-Baudrate for serial port, læsning fra EEPROM, kald til \code{initPlatform}, initierer motorer, ControlFaker, Receiver, Gyro (samt kalibrering), accelerometer, PID-værdier, kinematics, barometeret, sonarsensorerne samt nogle initieringsværdier for funktionen \code{loop()} og receiver'en. }
+Baudrate for serial port, læsning fra EEPROM, kald til \code{initPlatform()}, initierer motorer, ControlFaker, Receiver, Gyro (samt kalibrering), accelerometer, PID-værdier, kinematics, barometeret, sonarsensorerne samt nogle initieringsværdier for funktionen \code{loop()} og receiver'en. }
 \end{Function}
 
 
@@ -44,7 +54,7 @@ Baudrate for serial port, læsning fra EEPROM, kald til \code{initPlatform}, ini
 \comm{Arduinno's anden obligatoriske funktion: Denne svarer til en main-funktion med et \code{while(1){}} loop. 
 \\ 
 For hvert loop måles den nuværende tid som timestamp og sammenlignes med den sidste, så den ved hvor lang tid der er gået.
-Så kaldes \code{measureCriticalSensors}, da disse er kritiske for dronens stabilitet.
+Så kaldes \code{measureCriticalSensors()}, da disse er kritiske for dronens stabilitet.
 \\
 Herefter inkrementeres \textit{FrameCounter}, der afgør hvornår fremtidige funktioner skal køres.
 \textit{FrameCounter} indikerer, om der skal køres en 100-, 50-, tre forskellige 10-, 5-, eller 1-Hz funktion.
@@ -53,7 +63,7 @@ I slutningen af loopet sættes det sidste timestamp som den forrige tid, og hvis
 
 
 \class{inoHelper}
-\code{inoHelper} er en hjælpefil der blev lavet til \code{drone.ino} på grund af dens uoverskuelige struktur og er den reelle implementering for 100Hz-, 50Hz-, tre forskellige 10Hz-, 5Hz-, og 1Hz-funktionerne.
+\code{inoHelper}-klassen er en hjælpefil der blev lavet til \code{drone.ino} på grund af dens uoverskuelige struktur og er den reelle implementering for 100Hz-, 50Hz-, tre forskellige 10Hz-, 5Hz-, og 1Hz-funktionerne.
 Ud over den oprindelige implementering fra \code{drone.ino} er her også implementeret en masse debug-funktioner, som bruges til at måle alt fra sonarer input og motorer output til de falske værdier der sender til receiveren for at styre dronen efter ønske.
 
 
@@ -61,7 +71,7 @@ Ud over den oprindelige implementering fra \code{drone.ino} er her også impleme
 \name{initializePlatformSpecificAccelCalibration}
 \para{void}
 \retu{void}
-\comm{Denne funktion indeholder nogle dummy-værdier for accelerometret, men disse overskrives af EEPROM's gemte værdier fra den reelle kalibrering.}
+\comm{Denne funktion indeholder nogle dummy-værdier for accelerometret, men disse overskrives af \code{EEPROM}-klassens gemte værdier fra den reelle kalibrering.}
 \end{Function}
 
 
@@ -71,7 +81,7 @@ Ud over den oprindelige implementering fra \code{drone.ino} er her også impleme
 \retu{void}
 \comm{Denne funktion beregner flere af de vigtige værdier for dronens stabilitet, herunder kald til gyroskopet, accelerometret, barometret og beregning af dronens hastighed.
 \\
-Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightControl()}.}
+Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFlightControl()}.}
 \end{Function}
 
 
@@ -172,7 +182,7 @@ Derudover kaldes \code{FlightControlprocessor}'s funktion \code{ProcessFlightCon
 
 
 \class{FlightCommandProcessor}
-\code{FlightCommandProcessor} er skrevet af AeroQuad og holder styr på de signaler der kommer fra \code{Receiver}-funktionerne og bruger disse indput til at justere hardwaren ved opstart og beregne hvor meget langt der skal være til jorden for autoland- og hover-kommandoerne.
+\code{FlightCommandProcessor}-klassen er skrevet af AeroQuad og holder styr på de signaler der kommer fra \code{Receiver}-klassen og bruger disse input til at justere hardwaren ved opstart og beregne hvor meget langt der skal være til jorden for autoland- og hover-kommandoerne.
 
 
 \begin{Function}
@@ -205,7 +215,7 @@ Hvis den er, returnere \code{true} -- ellers \code{false}}
 \para{void}
 \retu{void}
 \comm{Kaldes, når gaspinden\fxnote{hvad hedder denne?} er i bund.
-Dette kan derefter aktivere motorerne, kalibrere gyroskopet, accelerometeret og læse værdier fra EEPROM, samt udføre et sikkerhedscheck.}
+Dette kan derefter aktivere motorerne, kalibrere gyroskopet, accelerometeret og læse værdier fra \code{EEPROM}-klassen, samt udføre et sikkerhedscheck.}
 \end{Function}
 
 
@@ -213,14 +223,14 @@ Dette kan derefter aktivere motorerne, kalibrere gyroskopet, accelerometeret og 
 \name{readPilotCommands}
 \para{void}
 \retu{void}
-\comm{Starter læsning af nyt værdier til \code{Receiver} og kalder de andre funktioner i \code{FlightCommandProcessor}}
+\comm{Starter læsning af nyt værdier til \code{Receiver}-klassen og kalder de andre funktioner i \code{FlightCommandProcessor}-klassen}
 \end{Function}
 
 
 
 
 \class{Receiver \label{sec:receiver}}
-\code{Receiver} styrer hvilke værdier der skal sendes til motorerne ved at læse input fra \code{ControlFaker} (afsnit \ref{sec:controlFaker}) og lader \code{Decision} (afsnit \ref{sec:decision}) træffe beslutning herom.
+\code{Receiver}-klassen styrer hvilke værdier der skal sendes til motorerne ved at læse input fra \code{ControlFaker-klassen} (afsnit \ref{sec:controlFaker}) og lader \code{Decision}-klassen (afsnit \ref{sec:decision}) træffe beslutning herom.
 
 
 \begin{Function}
@@ -274,7 +284,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 
 
 \class{Decision \label{sec:decision}}
-\code{Decision} er lavet til at afgøre, hvilket program der skal køres, på baggrund af \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}).
+\code{Decision}-klassen er lavet til at afgøre, hvilket program der skal køres, på baggrund af \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnalysis}).
 
 
 \begin{Function}
@@ -305,7 +315,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{ResetDecisions}
 \para{void}
 \retu{void}
-\comm{Kalder nulstilling af \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}).}
+\comm{Kalder nulstilling af \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnalysis}).}
 \end{Function}
 
 
@@ -334,13 +344,12 @@ Såfremt disse ikke vælges læses det aktuelle program.}
 \end{Function}
 
 
-
 \begin{Function}
 \name{DecideProgram}
 \para{void}
 \retu{void}
-\comm{Kaldes fra \code{Receiver} (afsnit \ref{sec:receiver}) til at foretage analysen.
-Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) for sonarsensorernes input.}
+\comm{Kaldes fra \code{Receiver}-klassen (afsnit \ref{sec:receiver}) til at foretage analysen.
+Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnalysis}) for sonarsensorernes input.}
 \end{Function}
 
 
@@ -411,12 +420,13 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \class{InputAnalysis \label{sec:inputAnalysis}}
+\code{InputAnalysis}-klassen står for at behandle de signaler der læses fra sonarsensorerne, samt input fra \code{RadioCommand}-klassen (afsnit \ref{sec:radioCommand}).
 
 \begin{Function}
 \name{ResetInputAnalysis}
 \para{void}
 \retu{void}
-\comm{Nulstiller lokale variabler og kalder nulstilling af \code{RadioCommand} (afsnit \ref{sec:radioCommand}).}
+\comm{Nulstiller lokale variabler og kalder nulstilling af \code{RadioCommand}-klassen (afsnit \ref{sec:radioCommand}).}
 \end{Function}
 
 
@@ -424,7 +434,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \name{AnalyseSonarInput}
 \para{void}
 \retu{void}
-\comm{Dronen sætter advarselsflag for sonarsensorerne, hvis anstanden bliver for lille, der kan kan aflæses af \code{Decision} (afsnit \ref{sec:decision}).}
+\comm{Dronen sætter advarselsflag for sonarsensorerne, hvis anstanden bliver for lille, der kan kan aflæses af \code{Decision}-klassen (afsnit \ref{sec:decision}).}
 \end{Function}
 
 
@@ -470,7 +480,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \class{RadioCommand \label{sec:radioCommand}}
-\code{Radiocommand} læser input fra radiomodtageren vha. \itoc og stiller resultatet til rådighed.
+\code{Radiocommand}-klassen læser input fra radiomodtageren vha. \itoc og stiller resultatet til rådighed.
 \begin{Function}
 \name{SetupRadioCommunicaiton}
 \para{void}
@@ -489,7 +499,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 
 
 \class{ControlFaker \label{sec:controlFaker}}
-\code{ControlFaker} har ansvaret for inputtet til \code{Decision} (afsnit \ref{sec:decision}) og sørger samtidig for, at det input der sendes dertil af sikkerhedsmæssige årsager ikke overskrider fastsatte grænser.
+\code{ControlFaker} har ansvaret for inputtet til \code{Decision}-klassen (afsnit \ref{sec:decision}) og sørger samtidig for, at det input der sendes dertil af sikkerhedsmæssige årsager ikke overskrider fastsatte grænser.
 \begin{Function}
 \name{SetupControlFaker}
 \para{void}
@@ -510,7 +520,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \name{ApplyProgram}
 \para{void}
 \retu{void}
-\comm{Skriver \code{Programs} (afsnit \ref{sec:programs}) programværdier til de aktuelle værdier.}
+\comm{Skriver \code{Programs}-klassen (afsnit \ref{sec:programs}) programværdier til de aktuelle værdier.}
 \end{Function}
 
 
@@ -526,7 +536,7 @@ Funktionen kalder ned i \code{InputAnalysis} (afsnit \ref{sec:inputAnalysis}) fo
 \name{SafetyCheck}
 \para{void}
 \retu{void}
-\comm{Sætter indstillinger for, at et safetycheck godkendes.}
+\comm{Sætter indstillinger for, at et sikkerhedscheck godkendes.}
 \end{Function}
 
 
@@ -551,12 +561,12 @@ Hvis ikke checkes om nogle af motorerne roterer for hurtigt, hvilket resulterer 
 \name{ResetFakerData}
 \para{void}
 \retu{void}
-\comm{Nulstiller værdier der læses som aktuelle input af \code{Receiver} (afsnit \ref{sec:receiver}).}
+\comm{Nulstiller værdier der læses som aktuelle input af \code{Receiver}-klassen (afsnit \ref{sec:receiver}).}
 \end{Function}
 
 
 \class{Programs \label{sec:programs}}
-Filen \code{Programs} indeholder programmer til forskellige udførelser for dronen, heriblandt flyv frem, roter, op, ned, let, land osv.
+\code{Programs}-klassen indeholder programmer til forskellige udførelser for dronen, heriblandt flyv frem, roter, op, ned, let, land mm.
 
 \begin{Function}
 \name{ResetProgramData}
@@ -624,14 +634,14 @@ Filen \code{Programs} indeholder programmer til forskellige udførelser for dron
 
 
 \class{MotorControl \label{sec:motorControl}}
-\code{MotorControl} er en simpel klasse, der kan kaldes fra alle andre klasser. 
+\code{MotorControl}-klassen er en simpel klasse, der kan kaldes fra alle andre klasser. 
 Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke for motorerne ved sat.
 
 \begin{Function}
 \name{KillMotor}
 \para{bool}
 \retu{void}
-\comm{Sætter inputparametren til hvorvidt motorerne skal være slukket eller ej.}
+\comm{Sætter inputparameteren til hvorvidt motorerne skal være slukket eller ej.}
 \end{Function}
 
 
@@ -645,7 +655,7 @@ Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke 
 
 
 \class{MaxSonarRangeFinder \label{sec:maxSonar}}
-\code{MaxSonarRangeFinder} bestemmer hvilken sonar skal aflæses og gemmer gennemsnittet af de sidste par målinger for hver sonar.
+\code{MaxSonarRangeFinder}-klassen bestemmer hvilken sonar skal aflæses og gemmer gennemsnittet af de sidste par målinger for hver sonar.
 
 \begin{Function}
 \name{inititalizeRangeFinders}
@@ -673,7 +683,7 @@ Funktionen aflæser sonaren på maven af dronen hver anden gang; bunden -- venst
 
 
 \class{PrintDrone \label{sec:printDrone}}
-\code{PrintDrone} udskriver beskeder til Serial-porten. 
+\code{PrintDrone}-klassen udskriver beskeder til Serial-porten. 
 Dette kan kan gøres ved at kalde en funktion der skriver på linjen, eller som skifter linje.
 Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser opdeles derfor i kategorier, som kan aktiveres og deaktiveres.
 
