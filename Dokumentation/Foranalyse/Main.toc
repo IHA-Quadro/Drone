@@ -1,0 +1,23 @@
+\select@language {danish}
+\contentsline {chapter}{\chapternumberline {1}Indledning}{4}{chapter.1}
+\contentsline {chapter}{\chapternumberline {2}Hardware}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Drone}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Bitcraze}{5}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Arducopter}{5}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}AeroQuad}{5}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Valg af tr\IeC {\r a}dl\IeC {\o }s kommunikation}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Regler og valg af frekvens}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Valg af sender}{7}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Valg af Microcontroller til fjernbetjening}{8}{subsection.2.2.3}
+\contentsline {chapter}{\chapternumberline {3}Software}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Tekstbehandlingsprogram}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Versionskontrol}{9}{section.3.2}
+\contentsline {section}{\numberline {3.3}Valg af editor}{10}{section.3.3}
+\contentsline {section}{\numberline {3.4}Filopdeling}{10}{section.3.4}
+\contentsline {section}{\numberline {3.5}Videreprogrammering af AeroQuad's kode}{10}{section.3.5}
+\contentsline {section}{\numberline {3.6}Styring af dronen}{11}{section.3.6}
+\contentsline {chapter}{\chapternumberline {4}Diverse}{12}{chapter.4}
+\contentsline {section}{\numberline {4.1}Love og regler}{12}{section.4.1}
+\contentsline {section}{\numberline {4.2}Sikkerhed}{12}{section.4.2}
+\contentsline {chapter}{\chapternumberline {5}Konklusion}{14}{chapter.5}
+\contentsline {chapter}{Litteratur}{15}{section*.4}
