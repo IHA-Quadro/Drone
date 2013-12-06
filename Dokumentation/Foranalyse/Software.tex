@@ -8,7 +8,7 @@ Dette afsnit beskriver hvilke overvejelser der er gjort mht. software.
 Det indbefatter tekstbehandler, styring af filer, omskrivning af det eksisterende projekt, samt valg af IDE'er samt styringen af dronen.
 
 
-\section{Tekstbehandlingsprogram}
+\section[Tekstbehandlingsprogram]{P5 -- Tekstbehandlingsprogram}
 
 Som tekstbehandler lå Microsoft Word som et nemt valg, men da det ene medlem af gruppen ikke havde Microsofts Office-pakken og grundet Word's meget dårlige håndtering af billeder, tabeller og skriftformatering faldt valget på open source programmet Texmaker\cite{Texmaker}, der kompilerer teksten til LaTeX.
 
@@ -17,7 +17,7 @@ Med den meget simple måde at skrive LaTeX-dokumenter på kommer også, at det e
 
 
 
-\section{Versionsstyring}
+\section[Versionsstyring]{P6 -- Versionsstyring}
 For at sikre at filer ikke forsvandt i udviklingsprocessen, skulle der vælges  versionsstyring, der vil gøre det muligt at trække gamle filer frem.
 \\
 \\
@@ -32,7 +32,7 @@ RAB har i et år brugt dette og Github tillader nemt og kontrolleret, at smelte 
 
 
 
-\section{Valg af editor}\label{sec:software}
+\section[Valg af editor]{P7 -- Valg af editor}\label{sec:software}
 Dronens software er skrevet i open source kode, da dette giver mulighed for programmering i Linux og Windows\cite{AQ-software}.
 Til dette kan Arduino's standard editor bruges, men denne har ingen farver på keywords, hvilket gør at koden meget svær at læse.
 Dette kan omgås ved at bruge en ekstern editor, så som Notepad++\cite{NotePadPP} eller Sublime Text 2\cite{Sublime2}, som giver farve, men som kræver at du skifter frem og tilbage imellem vinduerne for at compile.
@@ -42,30 +42,30 @@ For helt at løse dette bruges programudvidelsen Visual Micro\cite{VM} til Micro
 
 
 
-\section{Filopdeling}
-Dronens software er kun skrevet som header-filer og er opdelt således, at hver klasse har sin egen undermappe til projektmappen.
-For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\footnote{\code{C:/Users/<brugernavn>/Documents/Arduino/libraries/}}.
-\\
-Da alle filer styres igennem Github skal de ligge i samme filtræ, hvilket ikke lader sig gøre med Arduino's standardopbygning.
+%\section{Filopdeling}
+%Dronens software er kun skrevet som header-filer og er opdelt således, at hver klasse har sin egen undermappe til projektmappen.
+%For at det virker skal mapperne have det samme navn som filerne og de skal have en bestemt placering\footnote{\code{C:/Users/<brugernavn>/Documents/Arduino/libraries/}}.
+%\\
+%Da alle filer styres igennem Github skal de ligge i samme filtræ, hvilket ikke lader sig gøre med Arduino's standardopbygning.
+%
+%
+%For at komme rundt om dette blev mappen med filerne forsøgt linket til Arduino's foretrukne  placering.
+%Desværre virker dette ikke og alle filer havnede derfor ved siden af \textit{.ino}-filen, projektets hovedfil, der må ligge frit.
 
 
-For at komme rundt om dette blev mappen med filerne forsøgt linket til Arduino's foretrukne  placering.
-Desværre virker dette ikke og alle filer havnede derfor ved siden af \textit{.ino}-filen, projektets hovedfil, der må ligge frit.
-
-
-\section{Videreprogrammering af AeroQuad's kode}
-Open source projekter har som regel deres egne kodestandarder og den følges strikt.
-Desværre har AeroQuads hovedudvikler valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
-\\
-Valget mellem pæn og overskuelig kode, frem for fungerende og dårligt skreven kode, er derfor ikke nemt, da koden som udgangspunkt ikke danner baggrund for ens karakter og omskrivning, så koden ville virke, ville være for stor.
-
-
-Som udgangspunkt blev koden derfor udvidet i header-filer, men det endte hurtigt i flere erklæringer af variabler der skulle deles imellem filerne. 
-For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-filer og selvom størstedelen af koden er skrevet i \code{C} kan en C-compiler ikke bruge Arduino's Serial-port, hvilket filendelsen \textit{.cpp} omgår.
+%\section{Videreprogrammering af AeroQuad's kode}
+%Open source projekter har som regel deres egne kodestandarder og den følges strikt.
+%Desværre har AeroQuads hovedudvikler valgt kun at arbejde i header-filer og ingen source-filer, hvilket er anderledes end hvad IHA træner sine studerende i.
+%\\
+%Valget mellem pæn og overskuelig kode, frem for fungerende og dårligt skreven kode, er derfor ikke nemt, da koden som udgangspunkt ikke danner baggrund for ens karakter og omskrivning, så koden ville virke, ville være for stor.
+%
+%
+%Som udgangspunkt blev koden derfor udvidet i header-filer, men det endte hurtigt i flere erklæringer af variabler der skulle deles imellem filerne. 
+%For at overvinde dette blev koden delt ud i \textit{.h}-filer og \textit{.cpp}-filer og selvom størstedelen af koden er skrevet i \code{C} kan en C-compiler ikke bruge Arduino's Serial-port, hvilket filendelsen \textit{.cpp} omgår.
 
 
 
-\section{Styring af dronen}
+\section[Styring af dronen]{P8 -- Styring af dronen}
 For at styre dronen fra AeroQuad, bruges der normalt en fjernbetjening med to styrepinde, der styrer dronens tiltning, hældning, rotation og opdrift.
 Eftersom vi ikke havde en sådan, var det nødvendigt at lave et modul som kunne overskrive det, således input fra et program ville blive registreret som en fjernbetjenings output.
 

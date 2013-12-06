@@ -5,7 +5,7 @@
 \chapter{Hardware}
 
 
-\section{Drone}
+\section[Dronevalg]{P1 -- Dronevalg}
 Dronen vi valgte havde disse prioriteter:
 \begin{itemize}
 \item Skulle være open source.
@@ -31,7 +31,7 @@ Softwaren er ligeledes skrevet i Arudino, og koster kun 550USD.
 Da prisen for et bachelorprojekt skal holdes lavest muligt og vi ønskede mest kraft for pengene, blev valget AeroQuads Cyclone model, da denne er 50 USD billigere end Arducopteren og, i modsætning til Bitcraze, kan udbygges med flere sensorer, hvilket gør fremtidige studerende kan udvikle på den.
 
 
-\section{Valg af trådløs kommunikation}
+\section[Valg af trådløs kommunikation]{P2 -- Valg af trådløs kommunikation}
 
 Der er flere krav til den trådløse sender;
 
@@ -74,7 +74,7 @@ I og med at næsten alle hobby entusiaster inden for RC fly, bruger 2.4 GHz, bli
 
 
 
-\subsection{Valg af sender/modtager}
+\section[Valg af sender/modtager]{P3 -- Valg af sender/modtager}
 
 Når det var valgt at projektet skulle benytte 433MHz skulle der findes en sender/modtager.
 Valget faldt på en chip fra Texas Instruments -- cc1101\cite{TI-cc1101}\fxnote{Find en anden at sammenligne med}, grundet dens mange muligheder.
@@ -94,7 +94,7 @@ Denne chip var også nemt tilgængelig på diverse online sider, så som eBay\ci
 
 
 
-\subsection{Valg af µ-Controller til fjernbetjening}
+\section[Valg af µ-Controller til fjernbetjening]{P4 -- Valg af µ-Controller til fjernbetjening}
 
 Det var allerede forudbestemt, at denne skulle benytte en Atmel AVR chip, da der var kendskab til denne type chips.
 
@@ -119,6 +119,7 @@ Det viste sig at de mindste chips som levede op til disse krav er;
 Disse chips opfyldte kravene til chippen der skulle bruges, så der skulle ses på andre faktorer, for at vælge en. 
 Det blev prisen, der afgjorde dette, som også er vist i tabel \ref{Tab:prisIndex}.
 Derfor blev valget en ATmega8.
+
 \begin{table}[H]
 \centering
 	\begin{tabular}{l r}\hline
