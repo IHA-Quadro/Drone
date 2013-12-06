@@ -53,6 +53,7 @@ Dette blev især vigtigt, da klassen for beslutninger om, hvad dronen skulle for
 
 \subsection{Beslutningstager i C}
 \begin{wrapfigure}{r}{0.30\textwidth}
+  \vspace{-20pt}
   \begin{center}
 	\includegraphics[scale=0.6]{Decision}
   \end{center}
@@ -70,8 +71,31 @@ Herefter blev der sat nogle grænser for, hvad dataen måtte være mere eller mi
 Til sidste skulle der træffes en beslutning for, hvilket program der skulle afvikles og sendes return som input for fjernbetjeningen.
 
 Selve beslutningen kan laves på flere metoder og den mest oplagte vil at bruge et \code{map}, således alle input, og kombinationer heraf, vil lede til nogle få kommandoer der skulle udføres.
-\code{Map}\dots
+\code{Map} er en del af \code{C++}-biblioteket \code{STL}\cite{stl}, men den understøttes ikke som standard i Arduino.
+Derimod er der lavet et bibliotek til Arduino\cite{Arduino-stl}, men da dette kræver installation i Arduino-bibliotekerne og RAB var i tidspres, blev dette ikke brugt.
 
+I stedet for \code{map} blev der brugt lavet et stort træ med \code{if, else} som læste de enkelte advarselsflag, vist på Tabel \ref{Tab:SonarAdvarsel}.
+
+\begin{table}[H]
+\centering
+	\begin{tabular}{l l}
+	\hline Kombination & Reaktion
+	\\ \hline 
+	L+F+R & Stop og roter til venstre \\
+	L+R & Stop og roter til venstre\\
+	L+F & Stop og roter til højre\\
+	L & Roter til højre\\
+	F+R & Stop og roter til venstre\\
+	F & Stop og roter til højre\\
+	R & Roter til venstre\\
+	Intet & Foretag ingen ændring \\ \hline
+	\end{tabular}
+\caption{Kombinationsmuligheder ved sonaradvarsel.}
+\label{Tab:SonarAdvarsel}
+\end{table}
+
+Problemet ved at bruge \code{if, else} er, at det hurtigt eksploderer med muligheder og de er svære at holde styr på.
+Antallet af sætninger der skal skrives er $2^n$, hvor $n$ er antallet af flag.
 
 
 

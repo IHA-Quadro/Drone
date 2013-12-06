@@ -1,12 +1,13 @@
 \usepackage{lastpage}
 %Tekst i fotter
 \newcommand{\footerText}{\thepage\xspace /\pageref{LastPage}}
+\newcommand{\ProjectName}{Lavfrekvensstyring af AeroQuad}
 
 \nouppercaseheads
 \makepagestyle{mystyle} 
 
-\makeevenhead{mystyle}{}{\leftmark}{} 
-\makeoddhead{mystyle}{}{\leftmark}{} 
+\makeevenhead{mystyle}{\ProjectName \\}{\\ \leftmark}{\DocumentType \\} 
+\makeoddhead{mystyle}{\ProjectName \\}{\\ \leftmark}{\DocumentType \\} 
 \makeevenfoot{mystyle}{}{\footerText}{} 
 \makeoddfoot{mystyle}{}{\footerText}{} 
 \makeatletter
@@ -24,8 +25,6 @@
 \makefootrule{plain}{\textwidth}{\normalrulethickness}{0.4pt}
 
 \pagestyle{mystyle}
-
-%\chapterstyle{tandh}
 
 %Sidehoved og -fod pakke
 %Margin

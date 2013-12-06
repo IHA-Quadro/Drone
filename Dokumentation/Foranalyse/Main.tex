@@ -1,5 +1,6 @@
 \documentclass[oneside, 12pt]{memoir}
 
+\newcommand{\DocumentType}{Foranalyse}
 \input{../Preamble}
 
 %FixMe pakken viser små kommentarer, hvor der skal rettes
@@ -11,7 +12,7 @@
 \usepackage[footnote,draft,danish,silent,nomargin]{fixme}
 
 
-\title{Foranalyse \\ for \\ Lavfrekvensstyring af AeroQuad}
+\title{\DocumentType \\ for \\ \ProjectName}
 \date{18. december, 2013}
 \author{10893, Rasmus Bækgaard\\08830, Rasmus Berg Kloster}
 
@@ -68,10 +69,8 @@ Torben Gregersen & & Rasmus Bækgaard \\ \\\\
 
 \newpage
 \tableofcontents*
+,\listoffigures* 
 
-\listoffigures* 
-
-\newpage
 \listoffixmes 
 
 \subfile{Indledning}
