@@ -50,6 +50,8 @@
 *.ind
 *.lof
 *.lot
+*.lox
+*.lox.orig
 *.maf
 *.mtc
 *.mtc1
