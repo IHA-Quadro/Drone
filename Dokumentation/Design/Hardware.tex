@@ -13,16 +13,17 @@ Til styring af drone, skal der laves en sender og modtager.
 \caption{Skitse af hardware}
 \end{figure}
 
-\code{Senderen} er den brugeren laver sit indput på. 
-\\ \code{Modtageren} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.\\
-Det vil sige der skulle laves to enheder. Begge skulle gøre brug af chippen cc1101 fra texas instruments. Og microcontrolleren atmega8 fra Atmel Corporation.
+\code{Sender} er den brugeren laver sit indput på. 
+\\ \code{Modtager} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.\\
+Det vil sige der skulle laves to enheder. Radioen er baseret på chippen cc1101 fra texas instruments. Microcontrolleren er en atmega8 fra Atmel Corporation.
 \code{Senderen} skal også have knapper så brugeren kan lave sit indput.
 
 \section{Grænseflader}
-
 De interne og eksterne grænseflader. 
 
 \subsection{Sender}
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{SenderInterface}
@@ -61,13 +62,13 @@ Radio interfacet er beskrevet i næste sekstion.
 
 \subsection{Radio}
 Opsætningen på radioen vi køre med er som følger:
-
 \begin{itemize}
-\item 433MHz
-\item 2.5 kbps
+\item 433MHz radio frekvens
+\item 2.5 kbps overførselshastighed
 \item CRC af dataoverførslen
-\item Benytter kanal 0
+\item Benytter kanal 0 i 433MHz frekvensbåndet.
 \end{itemize}
+
 
 Pakken der bliver sendt frem og tilbage ser ud som følger:
 \begin{figure}[H]
@@ -76,21 +77,55 @@ Pakken der bliver sendt frem og tilbage ser ud som følger:
 \caption{Pakke opbygningen}
 \label{fig: Pakke}
 \end{figure}
+
+Pakkens opbygning;
+Pakkestørrelse: Længden af den samlet pakke, eksklusiv crc delen. Grunden til denne skal med er at der bliver brugt variable pakke størrelse. Den kan også sættes til fixed længde og så er der ikke brug for denne.
+
+Data: Dette er payloaden, det er her alle de informationer der skal sendes frem og tilbage ligger. Det vil sige at et program er valgt efterfulgt af hvilket program det er.
+
+CRC: Er en checksum som sendes med. Den sikre at pakken der kommer over ikke er corrupt.
+
+
+
 \section{Design}
+Det der skulle designes var
+et print til sender og et til modtager.
 
-Hastigheden SPI interfacet køre med er:
-$ \dfrac{8.000.000 Hz}{16} = 500.000Hz $
+\subsection{Sender}
+Senderprintet indeholder knapper, en mega8 mikroprocessorer og en socket til radiosenderen.
 
-\itoc hastighed
+Knappe designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
 
-Tach Switch som bruger indput
 
-Radiosender sender med en frekvens 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{Knapper}
+\caption{Design af knapper}
+\label{fig: Knapper}
+\end{figure}
+
+Disse knapper (Tach Switchs) er der 9 af i alt til styring af dronen.
+Skematic af systemet kan ses i XXX.
+\subsection{Modtager}
+Modtagerprintet indeholder en mega8 mikroprocessorer og en radiosender.
+
+Dette design indeholder en socket til radioen og en socket til \itoc forbindelsen til dronen.
+Skematic af systemet kan ses i XXX.
+
 
 \subsection{Strøm indput}
 
 Hele enheden køre på 3.3 V.
 Der er ikke lavet noget beskyttelse på inputstrømmen så det skal være 3.3V dc.
+
+Det totale strømforbrug for hele sender systemet er:
+\begin{itemize}
+\item 8mA pasiv, dvs når der ikke sendes
+\item 43mA aktiv, dvs når der trykkes på en knap så data sendes til modtager.
+\end{itemize}
+
+Så det vil sige at senderen på et AA 2000mA batteri kan være på standby i $2000mA/8mA = 250 Timer$ eller sende i $2000mA/43mA = 46,5 Timer$
+
 
 \section{PCB layout}
 
@@ -100,20 +135,10 @@ Der er ikke lavet noget beskyttelse på inputstrømmen så det skal være 3.3V d
 \caption{Det færdige print}
 \label{fig: Print3D}
 \end{figure}
-
+Det endelige layout kan ses på Figur \ref{fig: Print3D}.
 Layouted er forsøgt holdt simpelt. knapperne til brugeren er placeret så de minder om pilene på et tastatur, dog med op/ned funktioner og autoland.
 Printet er aflangt så det er til at holde som en fjernbetjening og derved kan styres med en hånd.
 Radioen er placeret forrest på fjernbetjeningen, for at brugeren dæmper/skærmer mindst muligt for signalet.  
-
-Opdeling i blokke.
-Interface mellem blokkene, f.eks.:
-Realisering af den enkelte blok
-· Enhedstest af den enkelte blok
-
-Analoge/digitale niveauer
-o Impedanser,
-o Protokol (f.eks. mellem PC og mikroprocessor)
-
 
 
 \end{document}
