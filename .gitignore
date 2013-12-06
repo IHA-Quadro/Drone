@@ -33,15 +33,28 @@
 
 ####### Latex ####### 
 *.aux
+*.glo
+*.idx
 *.log
-*.synctex.gz
-*.toc			
-*.lox			
-*.lof 			
-*.orig
-*.blg
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
 *.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
 *.out
+*.synctex.gz
 /Dokumentation/**/*.pdf
 
 !**/Bilag/*.pdf #An exception
