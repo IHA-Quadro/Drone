@@ -1,8 +1,8 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\subsection{Klassebeskrivelser og klassediagram}
-Systemets vigtigste klasser er vist på Figur \ref{Fig:UML}.
+\subsection{Klassediagram}
+Baseret på foregående Use Case-analyser kan det statiske klassediagram på Figur \ref{Fig:UML} udledes.
 Systemet har flere, men de viste er de vigtigste der bruges af systemet og som der er udviklet mest på.
 
 
@@ -13,6 +13,8 @@ Systemet har flere, men de viste er de vigtigste der bruges af systemet og som d
 \label{Fig:UML}
 \end{figure}
 
+
+\subsection{Klassebeskrivelser}
 \class{Drone.ino}
 \code{Drone.ino} er hovedfilen for systemet og har ikke fået foretaget de store ændringer i forhold til den oprindelige kode.
 Denne fil skal indeholde de to obligatoriske funktioner \code{void setup()} og \code {void loop()}, da dette er hvad Arduino kører som den første og anden funktion.
@@ -51,7 +53,7 @@ Baudrate for serial port, læsning fra EEPROM, kald til \code{initPlatform()}, i
 \name{loop}
 \para{void}
 \retu{void}
-\comm{Arduinno's anden obligatoriske funktion: Denne svarer til en main-funktion med et \code{while(1){}} loop. 
+\comm{Arduino's anden obligatoriske funktion: Denne svarer til en main-funktion med et \code{while(1){}} loop. 
 \\ 
 For hvert loop måles den nuværende tid som timestamp og sammenlignes med den sidste, så den ved hvor lang tid der er gået.
 Så kaldes \code{measureCriticalSensors()}, da disse er kritiske for dronens stabilitet.
@@ -243,7 +245,7 @@ Dette kan derefter aktivere motorerne, kalibrere gyroskopet, accelerometeret og 
 
 \begin{Function}
 \name{initializeReceiverParam}
-\para{int = 6}
+\para{int = 6 (default værdi)}
 \retu{void}
 \comm{Nulstiller alle værdier der skal skrives til motoren og de hjælpevariabler der bruges.}
 \end{Function}
@@ -779,7 +781,7 @@ Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliv
 
 
 \class{Modtager Radio\label{sec:Modtager}}
-
+Beskrivelse \fxnote{Her mangler lidt beskrivelse}
 \begin{Function}
 \name{SPI MasterInit}
 \para{void}
@@ -833,7 +835,7 @@ Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliv
 
 
 \class{TWI slave\label{sec:TWI slave}}
-
+Beskrivelse \fxnote{her mangler lidt beskrivelse}
 \begin{Function}
 \name{TWI Slave Initialise}
 \para{unsigned char}
