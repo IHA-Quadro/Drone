@@ -6,7 +6,7 @@
 
 \subsection{Opsætning af udviklingsmiljø}
 
-\subsubsection{Drone}
+\subsubsection{Drone}\label{sec: Drone}
 For at arbejde med dronen, skal der kompileres kode til Arduino-boardet, der sidder på dronen.
 Til dette bruges en standardinstallation af programmet Visual Studio Ultimate 2012 eller Visual Studio Pro 2013 fra Microsoft, hvilket kan hentes fra Dreamspark's hjemmeside\footnote{\url{https://www.dreamspark.com/Student/Default.aspx}}.
 
@@ -58,34 +58,27 @@ Herefter er projektet klar til at blive kompileret og kørt.
 Vælg menuen Debug $\rightarrow$ Start Debugging.
 
 
-
-
 \subsubsection{Sender og modtager}
-For at programmere sender og modtager bruges Atmel Studio 6.1\footnote{\url{http://www.atmel.com/tools/atmelstudio.aspx}} \fxnote{RBK: Beskriv hvad der skal gøres for, at din del spiller}.
+For at downloade af projekt filerne, se afsnit \ref{sec: Drone}.
 
+For at programmere sender og modtager bruges Atmel Studio 6. 6.1\footnote{\url{http://www.atmel.com/tools/atmelstudio.aspx}} 
 
+Inde i Modtager/Sender mapperne er der filer der slutter på ".atsln". Disse filer er projektfilerne til koden. Hvis disse filer åbnes, starter projektet op hvis man har Atmel Studio installeret.
 
+For at kompilere, i menuen i toppen trykkes på;
+\begin{itemize}
+\item Build $\rightarrow$ Bulid Solution.
+\end{itemize}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+For at programmere;
+Først skal der tilføjes et target (det kan eks. være et STK500 Kit). Det gøres ved at trykke på;
+\begin{itemize}
+\item Tools $\rightarrow$ Add target.
+\end{itemize}
+For selve programmeringen;
+\begin{itemize}
+\item Tools $\rightarrow$ Device Programming $\rightarrow$ Vælg Tool og Device $\rightarrow$ Tryk Apply $\rightarrow$ I venstre side vælges Memories $\rightarrow$ i flash vælges filen der skal flashes (Ligger normalt under debug i projektmappen og slutter på elf) $\rightarrow$ Tryk Program
+\end{itemize}
 
 
 

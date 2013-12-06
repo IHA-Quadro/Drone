@@ -13,28 +13,28 @@ Til styring af drone, skal der laves en sender og modtager.
 \caption{Skitse af hardware}
 \end{figure}
 
-\code{Sender} er den brugeren laver sit indput på. 
+\code{Sender} er den brugeren laver sit input på. 
 \\ \code{Modtager} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.\\
 Det vil sige der skulle laves to enheder. Radioen er baseret på chippen cc1101 fra texas instruments. Microcontrolleren er en atmega8 fra Atmel Corporation.
-\code{Senderen} skal også have knapper så brugeren kan lave sit indput.
+\code{Senderen} skal også have knapper så brugeren kan lave sit input.
 
 \section{Grænseflader}
 De interne og eksterne grænseflader. 
 
+Spi er designet i forhold til Atmels standarter. \cite{SPI}
+
+\itoc/TWI er designet i forhold til Atmels standarter \cite{Twi}
+
+
 \subsection{Sender}
-
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{SenderInterface}
 \caption{Grænseflader for sender}
 \label{fig: SenderInterface}
 \end{figure}
-
 På Figur \ref{fig: SenderInterface} ses et blokdiagram af senderen med alle grænseflader.
-
-De eksterne grænseflader, er der hvor brugeren skal lave sit indput. Det vil sige der er her han laver et programvalg som bliver sendt videre til dronen.
-
+De eksterne grænseflader, er der hvor brugeren skal lave sit input. Det vil sige der er her han laver et programvalg som bliver sendt videre til dronen.
 De interne grænseflader
 Kommunikationen mellem microcontroller 1 og radiosenderen, forgår via SPI protokollen. 
 
@@ -70,11 +70,11 @@ Opsætningen på radioen vi køre med er som følger:
 \end{itemize}
 
 
-Pakken der bliver sendt frem og tilbage ser ud som følger:
+Framen der bliver sendt frem og tilbage ser ud som følger:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{Pakke}
-\caption{Pakke opbygningen}
+\caption{Framens opbygningen}
 \label{fig: Pakke}
 \end{figure}
 
@@ -83,7 +83,7 @@ Pakkestørrelse: Længden af den samlet pakke, eksklusiv crc delen. Grunden til 
 
 Data: Dette er payloaden, det er her alle de informationer der skal sendes frem og tilbage ligger. Det vil sige at et program er valgt efterfulgt af hvilket program det er.
 
-CRC: Er en checksum som sendes med. Den sikre at pakken der kommer over ikke er corrupt.
+CRC: Er en checksum som sendes med. Den sikre at framen der kommer over ikke er corrupt.
 
 
 
@@ -105,15 +105,15 @@ Knappe designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
 \end{figure}
 
 Disse knapper (Tach Switchs) er der 9 af i alt til styring af dronen.
-Skematic af systemet kan ses i XXX.
+Skematic af systemet kan ses i \cite{SenderSCM}.
 \subsection{Modtager}
 Modtagerprintet indeholder en mega8 mikroprocessorer og en radiosender.
 
 Dette design indeholder en socket til radioen og en socket til \itoc forbindelsen til dronen.
-Skematic af systemet kan ses i XXX.
+Skematic af systemet kan ses i \cite{ModtagerSCM}.
 
 
-\subsection{Strøm indput}
+\subsection{Strøm input}
 
 Hele enheden køre på 3.3 V.
 Der er ikke lavet noget beskyttelse på inputstrømmen så det skal være 3.3V dc.
