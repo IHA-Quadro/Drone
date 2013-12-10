@@ -175,8 +175,8 @@
 \setlength{\parindent}{0pt}
 \nonzeroparskip
 
-\setaftersubsecskip{1sp}
-\setaftersubsubsecskip{1sp}
+%\setaftersubsecskip{1sp}
+%\setaftersubsubsecskip{1sp}
  
 
 
@@ -283,6 +283,8 @@
 \newcommand{\UCenum}{noitemsep, leftmargin=*}%, nolistsep}
 \newcommand{\UCnormFor}[1]{\\ \hline \parbox[t]{0.25\textwidth}{#1}&}
 
+
+
 \newenvironment{UseCase}
 {\begin{longtable}{| p{0.25\textwidth} | p{0.70\textwidth} |}}
 {\\ \hline \end{longtable}}
@@ -291,3 +293,45 @@
 \newenvironment{normFor}
 {\vspace{-8mm}\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]}
 {\end{enumerate}}
+
+
+
+%--------------------------------------------------
+%\begin{TestCaseIntro}
+%\TCprep{Preperation of sorts \\Anything here}
+%\TCdesc{Description of what is ablut to happen}
+%\end{TestCaseIntro}
+%--------------------------------------------------
+\newcommand{\TCdescWidth}{0.15 \textwidth}
+\newcommand{\TCIntroWidth}{0.8\textwidth}
+\newcommand{\TCprep}[1]{\textbf{Forberedelse:} & \parbox[t]{\TCIntroWidth}{#1}}
+\newcommand{\TCdesc}[1]{\\ \textbf{Beskrivelse:} & \parbox[t]{\TCIntroWidth}{#1}}
+
+\newenvironment{TestCaseIntro}
+{\begin{longtable}{p{\TCdescWidth} p{\TCIntroWidth}}}
+{\end{longtable}}
+%--------------------------------------------------
+
+
+
+%--------------------------------------------------
+%\begin{TestCase}
+%\TC
+%{Steps}
+%{Aktion to take}
+%{Expectation}
+%{Leave blank}
+%\end{TestCase}
+%--------------------------------------------------
+\newcommand{\TCsteps}{0.05 \textwidth}
+\newcommand{\TCexpected}{0.38 \textwidth}
+\newcommand{\TCmethod}{0.38 \textwidth}
+\newcommand{\TCsucces}{0.08 \textwidth}
+
+\newenvironment{TestCase}
+{\begin{longtable}{ p{\TCsteps}  p{\TCexpected} p{\TCmethod} p{\TCsucces} }
+\hline \textbf{Trin} & \textbf{Metode} & \textbf{Forventet} & \textbf{Succes}}
+{\\ \hline \end{longtable}}
+
+\newcommand{\TC}[4]{\\ \hline \parbox[t]{\TCsteps}{#1} & \parbox[t]{\TCmethod}{#2} &\parbox[t]{\TCexpected}{#3}&  \parbox[t]{\TCsucces}{#4} }
+%--------------------------------------------------
