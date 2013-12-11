@@ -17,11 +17,15 @@ Projektet skulle indeholde en sender som kunne sende kommandoer til dronen.
 \end{figure}
 
 
-Senderen er bygget op i form som en fjernbetjening for, at det er muligt at betjene den med én hånd.
-Knapperne der er midt på printet er her brugeren giver sit input, som sendes videre.
-
+Senderen som ses på figur \ref{Fig:3dUdenTal}, er bygget op i form som en fjernbetjening for, at det er muligt at betjene den med én hånd.
+Fjernbetjeningen indeholder en µ-kontroller, radiosender og knapper.
+Knapperne er her brugeren vælger et program/kommando der skal sendes til dronen. Når en knap bliver trykket ned, registrere µ-kontrolleren det. Denne genere så en frame med brugervalget. Denne frame bliver så sendt til radioen via SPI, hvorefter radioen får besked om at sende framen fra µ-kontrolleren.
 
 \subsection{4+1 View}
+
+
+\subsubsection*{Logic View}
+
 Fjernbetjeningen udgør den største del af Use Casene beskrevet i kravspecifikationen\cite[s. 7 -- 11]{Kravspec}.
 
 Et lille scenarie kunne optegnes og der kunne sættes nogle klasse navne på for, hvad der skulle være i de forskellige hardware-komponenter.
@@ -33,6 +37,7 @@ Et lille scenarie kunne optegnes og der kunne sættes nogle klasse navne på for
 \label{Fig:Overview}
 \end{figure}
 
+\subsubsection*{Deployment View}
 
 %Use Case 2 bliver brugt som eksempel for beskrivelsen af, hvordan systemet herefter blev udviklet.
 
@@ -40,6 +45,7 @@ Et lille scenarie kunne optegnes og der kunne sættes nogle klasse navne på for
 \subsubsection*{Logic View}
 Ved at analysere diagrammet yderligere med flere Use Cases, blev der optegnet flere klasser og til sidst var der et klassediagram. 
 Fra klasse diagrammet blev små sekvensdiagrammet herefter udtænkt, således forbindelsen fra fjernbetjeningen til dronen blev mere håndgribelig, vist på Figur \ref{Fig:sendProgram}.
+\subsubsection*{Process View}
 
 \begin{figure}[H]
 \centering
@@ -51,12 +57,22 @@ Fra klasse diagrammet blev små sekvensdiagrammet herefter udtænkt, således fo
 \subsubsection*{Deployment View}
 Da først der var noget funktionelt på hver enhed, blev kommunikationen imellem enhederne sat op.
 Mellem fjernbetjeningen og modtageren skulle der være en 433 MHz forbindelse, som ville styre\dots\fxnote{RBK -- ace dette}
-
-\subsubsection*{Process View}
-
-
 \subsubsection*{Implementation View}
 
+\subsubsection*{Process View}
+Koden til dronen, radiosenderen og radiomodtageren er skrevet i programmeringssproget C.
+
+Der er tre projekter at arbejde videre på:
+
+\subsubsection*{Implementation View}
+\begin{itemize}
+\item Sender
+\item Modtager
+\item Drone
+\end{itemize}
+
+Det er muligt at videreudvikle på projektet.
+En udførlig guide til hvordan man kommer i gang med det, er at finde i  dokumentet "Designdokument for Lavfrekvensstyring af AeroQuad" i afsnittet "2.4 Implementation View" 
 
 
 
