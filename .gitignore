@@ -57,6 +57,7 @@
 *.mtc1
 *.out
 *.synctex.gz
+*.orig
 /Dokumentation/**/*.pdf
 
 !**/Bilag/*.pdf #An exception
