@@ -1,7 +1,14 @@
 \usepackage{lastpage}
+
 %Tekst i fotter
 \newcommand{\footerText}{\thepage\xspace /\pageref{LastPage}}
 \newcommand{\ProjectName}{Lavfrekvensstyring af AeroQuad}
+
+
+\chapterstyle{hangnum}
+
+
+
 
 \nouppercaseheads
 \makepagestyle{mystyle} 
@@ -26,9 +33,33 @@
 
 \pagestyle{mystyle}
 
+%%----------------------------------------------------------------------
+%
+%%Redefining chapter style
+%%\renewcommand\chapterheadstart{\vspace*{\beforechapskip}}
+%\renewcommand\chapterheadstart{\vspace*{10pt}}
+%\renewcommand\printchaptername{\chapnamefont }%\@chapapp}
+%\renewcommand\chapternamenum{\space}
+%\renewcommand\printchapternum{\chapnumfont \thechapter}
+%\renewcommand\afterchapternum{\space: }%\par\nobreak\vskip \midchapskip}
+%\renewcommand\printchapternonum{}
+%\renewcommand\printchaptertitle[1]{\chaptitlefont #1}
+\setlength{\afterchapskip}{0pt} 
+%\setlength{\voffset}{0pt} 
+\setlength{\headsep}{25pt}
+%\setlength{\topmargin}{35pt}
+%%\setlength{\headheight}{102pt}
+%\setlength{\textheight}{302pt}
+\renewcommand\afterchaptertitle{\par\nobreak\vskip \afterchapskip}
+%
+%%----------------------------------------------------------------------
+
+
+
+
 %Sidehoved og -fod pakke
 %Margin
-\usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2cm]{geometry}
 \usepackage{lastpage}
 
 

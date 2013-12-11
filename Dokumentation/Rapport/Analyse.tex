@@ -4,31 +4,36 @@
 
 
 \section{Analyse og specifikation}
-Det blev besluttet at projektet skulle omhandle lavfrekvent trådløs styring af en drone. Så derfor skulle det også besluttes hvad for noget trådløs system der skulle bruges, hvilket frekvenser og hvad for en drone.
+Det blev besluttet at projektet skulle omhandle lavfrekvent, trådløs styring af en drone. 
+Derfor skulle det også besluttes hvad for noget trådløs system der skulle bruges, hvilke frekvenser og hvilken drone der skulle bruges.
 
 Der var mange ting der skulle overvejs i forhold til valg af drone og radio.
+Eks. prisen på dronen og at det skulle være muligt, at sætte ekstra udstyr på den.
+Det samme galt for den trådløse kommunikation. 
+Der skulle vælges frekvens, data hastighed og hvilken chip der i det hele taget skulle bruges.
 
-Eks prisen på dronen og at det skulle være muligt at sætte ekstra udstyr på.
-Det samme galt for den trådløse kommunikation. Der skulle vælges frekvens, data hastighed og hvilken chip der i det hele taget skulle bruges.
-
-En oversigt over de valgte komponenter til projektet kan ses nedenunder:
-
-\begin{tabular}{p{0.35\textwidth} p{0.65\textwidth}}
-\hline
-Punkter & Valgte enhed \\ \hline
-1. Dronevalg & AeroQuad Cyclone ARF Kit. \\
-2. Chip & Atmel cc1101.\\
-3. Frekvens & 433 MHz.\\
-4. Sonar & XL-Maxsonar EZ0.\\
-5. µ-Controllere & Atmel ATmega8.\\
-6. Tekstbehandler & Texmaker.\\
-7. Versionsstyring & Github.com.\\
-8. Editor og compiler til drone & Microsoft Visual Studio med Visual Micro plugin.\\
-9. Sikkerhed og regler & Dronen må kun flyve inden for og skal være fastspændt indtil den kan holde sig selv stabilt i luften.\\ \hline
-%Styring af dronen & Autonomt ved at overskrive de værdier dronen tager imod efter de er modtaget fra en fjernbetjening. \\ \hline
-\end{tabular}
-
+En oversigt over de valgte komponenter til projektet kan ses i Tabel \ref{Tab:komponentliste}.
 En uddybende forklaring på hvorfor de enkelte elementer er valgt, kan læses i 
-Foranalyse for lavfrekvensstyring af AeroQuad dokumentet XXX
+Foranalysen\cite[s. 5 -- 13]{Foranalyse}.
+
+\begin{table}[H]
+	\begin{tabular}{p{0.33\textwidth} p{0.62\textwidth}}
+	\hline
+	Punkter & Valgte enhed \\ \hline
+	1. Dronevalg & AeroQuad Cyclone ARF Kit. \\
+	2. Chip & Atmel cc1101.\\
+	3. Frekvens & 433 MHz.\\
+	4. Sonar & XL-Maxsonar EZ0.\\
+	5. µ-Controllere & Atmel ATmega8.\\
+	6. Tekstbehandler & Texmaker.\\
+	7. Versionsstyring & Github.com.\\
+	8. Editor og compiler til drone & Microsoft Visual Studio med Visual Micro plugin.\\
+	9. Sikkerhed og regler & Dronen må kun flyve inden for og skal være fastspændt indtil den kan holde sig selv stabilt i luften.\\ \hline
+	%Styring af dronen & Autonomt ved at overskrive de værdier dronen tager imod efter de er modtaget fra en fjernbetjening. \\ \hline
+	\end{tabular}
+
+\caption{Valgte komponenter til projektet.}
+\label{Tab:komponentliste}
+\end{table}
 
 \end{document}
