@@ -23,11 +23,6 @@ En kort beskrivelse af protokollerne mellem de forskellige enheder.
 Ved tryk på knapperne på fjernbetjeningen sendes en frame til modtageren.
 Signalet består af 2 bytes, hvoraf det første er en programindikator og den anden er selve programmet.
 
-%Desværre står det sidste bit og svinger, hvilket kan være ganske kritisk for, hvilket program der bliver kørt og af den årsag shift'es alle bit én plads op i den sidste byte før forsendelse og én bit ned ved modtagelse.
-%Dette giver mulighed for at sende $2^7 = 128$ programmer til eksekvering.
-
-%Derudover kan det første byte indeholde forskellige indikatorer, hvilket giver mulighed for 256 forskellige typer beskeder, der hver indeholder 128 forskellige værdier.
-
 Kommandoer der kan sendes vises i Tabel \ref{Tab:kommandoer}.
 
 \begin{table}[H]
@@ -45,13 +40,18 @@ Kommandoer der kan sendes vises i Tabel \ref{Tab:kommandoer}.
 	Inkrementer højde 	& \code{0x03} + \code{0x3F} + \code{0x12} \\
 	Dekrementer højde 	& \code{0x03} + \code{0x3F} + \code{0x14} \\ \hline	
   	\end{tabular}  
-\caption{Kommandoer sendt Sender og modtager}
-\label{Tab:kommandoer2}
+\caption{Kommandoer sendt sender og modtager}
+\label{Tab:kommandoer}
 \end{table}
 
 \newpage
 \subsubsection{Modtager til drone}
-Når en frame er modtaget på modtagerradioen, tjekker den framen for om CRC passer. Hvis der er uoverensstemmelse, melle størrelsen på frame og CRC verdien, bliver framen kasseret. Hvis framens størrelse og CRC stemmer overens, laver modtagerradioen et interrupt på microcontroller 2. Microcontrolleren vil så hente den modtaget pakke fra radioen, strippe den for pakke længde. Hverefter vil den blive lagt ud i en output buffer til I2C forbindelsen til dronen. Som så kan hente den næste gang den har tid. 
+Når en frame er modtaget på modtagerradioen, tjekker den framen for om CRC passer. 
+Hvis der er uoverensstemmelse, melle størrelsen på frame og CRC verdien, bliver framen kasseret. 
+Hvis framens størrelse og CRC stemmer overens, laver modtagerradioen et interrupt på µ-controller 2. 
+µ-Controlleren vil så hente den modtaget pakke fra radioen, strippe den for pakke længde. 
+Herefter vil den blive lagt ud i en output buffer til \itoc forbindelsen til dronen. 
+Som så kan hente den næste gang den har tid. 
 
 \begin{table}[H]
   \centering
@@ -68,7 +68,7 @@ Når en frame er modtaget på modtagerradioen, tjekker den framen for om CRC pas
 	Inkrementer højde 	& \code{0x3F} + \code{0x12} \\
 	Dekrementer højde 	& \code{0x3F} + \code{0x14} \\ \hline	
   	\end{tabular}  
-\caption{Kommandoer sendt Mellem Modtager og Drone}
+\caption{Kommandoer sendt mellem modtager og drone}
 \label{Tab:kommandoer2}
 \end{table}
 
