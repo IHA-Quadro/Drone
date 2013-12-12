@@ -724,8 +724,8 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \comm{Udskriver en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
 \end{Function}
 
-
-\class{Sender Radio \label{sec:Sender}}\fxnote{RBK -- Her mangler en lille beskrivelse}
+\code{Sender Radio}-klassen er den der står og lytter efter brugerinput. Når der så er et input, klargør den en pakke som skal sendes ved hjælp af 
+radioen. Denne pakke sendes så til radioen som sender den videre ud som radiobølger.
 
 \begin{Function}
 \name{SPI MasterInit}
@@ -781,7 +781,9 @@ Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliv
 
 
 \class{Modtager Radio\label{sec:Modtager}}
-Beskrivelse \fxnote{RBK -- Her mangler lidt beskrivelse}
+
+\code{Modtager Radio}-klassen er den der modtager et interrupt når der er kommet en pakke fra senderen, som den så henter fra radioen. Denne pakke bliver så lagt ud i en output buffer til dronen på \itoc porten.
+
 \begin{Function}
 \name{SPI MasterInit}
 \para{void}
@@ -835,7 +837,9 @@ Beskrivelse \fxnote{RBK -- Her mangler lidt beskrivelse}
 
 
 \class{TWI slave\label{sec:TWI slave}}
-Beskrivelse \fxnote{RBK -- her mangler lidt beskrivelse}
+
+\code{TWI slave}-klassen er den der modtager en forespørgsel fra dronen om data og sender svar retur. 
+
 \begin{Function}
 \name{TWI Slave Initialise}
 \para{unsigned char}

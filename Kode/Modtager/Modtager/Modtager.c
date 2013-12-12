@@ -3,7 +3,6 @@
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
 #include "TWI_slave.h"
-//#include "uart.h"
 
 #define F_CPU 3686400
 #define CE_PIN 4
@@ -131,10 +130,7 @@ ISR (INT0_vect)
 		data[i] = (SPI_transmit(0x00)>>1);
 	}
 	CSn(1);
-			/*SendString("Data:");
-			SendInteger(data[1]);
-			SendInteger(data[2]);
-			SendString("\r");*/
+
 	
 	CSn(0);
 	SPI_transmit(0x36); //strobe - Exit all
@@ -153,7 +149,6 @@ int main()
 	unsigned char TWI_slaveAddress;
 	TWI_slaveAddress = 0x90;
 	
-	//InitUART(115200, 8);
 	// Initialize  INT0
 	initExtInts();
 	SPI_MasterInit();         //initialize SPI

@@ -11,8 +11,8 @@ Systemet er bygget op af en fjernbetjening, dronen, samt modtagerenheden på dro
 \label{Fig:DeploymentViewOverview}
 \end{figure}
 
-Fjernbetjeningen sender sine signaler til dronen vha. det trådløse 433 MHz-signal, som opfanges af modtager-enheden.
-Herefter sættes signalets værdi til rådighed, således dronen kan læse det igennem \itoc -forbindelsen.
+Fjernbetjeningen sender en frame til dronen vha. det trådløse 433 MHz-signal, som opfanges af modtager-enheden.
+Herefter bliver pakken lagt over i en output buffer til dronen som. Dronen kan så hente denne pakke når den har tid til det. Kommunikationen mellem dronen og modtagern er gennem \itoc protokollen.
 
 
 \newpage
