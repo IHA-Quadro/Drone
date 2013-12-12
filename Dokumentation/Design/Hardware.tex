@@ -14,16 +14,19 @@ Til styring af drone, skal der laves en sender og modtager.
 \end{figure}
 
 \code{Sender} er den brugeren laver sit input på. 
-\\ \code{Modtager} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.\\
-Det vil sige der skulle laves to enheder. Radioen er baseret på chippen cc1101 fra texas instruments. Microcontrolleren er en atmega8 fra Atmel Corporation.
+\code{Modtager} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.
+Det vil sige der skulle laves to enheder. 
+Radioen er baseret på chippen cc1101\cite{cc1101} fra Texas Instruments. 
+µ-Controlleren er en ATmega8 fra Atmel Corporation.
 \code{Senderen} skal også have knapper så brugeren kan lave sit input.
 
 \section{Grænseflader}
-De interne og eksterne grænseflader. 
+De interne og eksterne grænseflader:
+\begin{itemize}
+\item SPI er designet i forhold til Atmels standarter\cite{SPI}.
+\item \itoc / TWI er designet i forhold til Atmels standarter \cite{Twi}.
+\end{itemize}
 
-SPI er designet i forhold til Atmels standarter\cite{SPI}.
-
-\itoc / TWI er designet i forhold til Atmels standarter \cite{Twi}.
 
 
 \subsection{Sender}
@@ -38,7 +41,7 @@ De eksterne grænseflader, er der hvor brugeren skal lave sit input. Det vil sig
 De interne grænseflader
 Kommunikationen mellem microcontroller 1 og radiosenderen, forgår via SPI protokollen. 
 
-Radio interfacet er beskrevet i sektionen Radio.
+Radio-interfacet er beskrevet i sektionen Radio.
 
 
 
@@ -51,22 +54,21 @@ Radio interfacet er beskrevet i sektionen Radio.
 \label{fig: ModtagerInterface}
 \end{figure}
 På Figur \ref{fig: ModtagerInterface} ses et blokdiagram af modtageren med alle grænseflader.
-Radioen modtager en pakke fra senderen. Når hele pakken er modtaget laves et interrupt på microcontroller 2.
+Radioen modtager en pakke fra senderen. Når hele pakken er modtaget laves et interrupt på µ-controller 2.
 
-Microcontroller 2, henter hele pakken fra radioen og sætter den i modtage mode igen. 
+µ-Controller 2, henter hele pakken fra radioen og sætter den i modtage mode igen. 
+Den tager så de modtaget data fra radioen og putter dem i en output buffer til \itoc.
 
-Microcontroller 2, tager så de modtaget data fra radioen og putter dem i en output buffer til \itoc.
-
-Radio interfacet er beskrevet i næste sekstion.
+Radio-interfacet er beskrevet i Afsnit \ref{Sec:Radio}.
 
 
-\subsection{Radio}
+\subsection{Radio} \label{Sec:Radio}
 Opsætningen på radioen vi køre med er som følger:
 \begin{itemize}
-\item 433MHz radio frekvens
+\item 433 MHz radio frekvens
 \item 2.5 kbps overførselshastighed
 \item CRC af dataoverførslen
-\item Benytter kanal 0 i 433MHz frekvensbåndet.
+\item Benytter kanal 0 i 433 MHz frekvensbåndet.
 \end{itemize}
 
 
@@ -78,12 +80,16 @@ Framen der bliver sendt frem og tilbage ser ud som følger:
 \label{fig: Pakke}
 \end{figure}
 
-Pakkens opbygning;
-Pakkestørrelse: Længden af den samlet pakke, eksklusiv crc delen. Grunden til denne skal med er at der bliver brugt variable pakke størrelse. Den kan også sættes til fixed længde og så er der ikke brug for denne.
+Pakkens opbygning:
+Pakkestørrelsen er længden af den samlet pakke, eksklusiv CRC-delen. 
+Grunden til denne skal med er at der bliver brugt variable pakke størrelse. 
+Den kan også sættes til en fastsat længde og så er der ikke brug for denne.
 
-Data: Dette er payloaden, det er her alle de informationer der skal sendes frem og tilbage ligger. Det vil sige at et program er valgt efterfulgt af hvilket program det er.
+Dataen er payloaden -- det er her alle de informationer der skal sendes frem og tilbage ligger. 
+Det vil sige, at et program er valgt efterfulgt af hvilket program det er.
 
-CRC: Er en checksum som sendes med. Den sikre at framen der kommer over ikke er corrupt.
+CRC er en checksum som sendes med. 
+Den sikre at framen der kommer over ikke er corrupt.
 
 
 
@@ -92,9 +98,9 @@ Det der skulle designes var
 et print til sender og et til modtager.
 
 \subsection{Sender}
-Senderprintet indeholder knapper, en mega8 mikroprocessorer og en socket til radiosenderen.
+Senderprintet indeholder knapper, en ATmega8 µ-processorer og en socket til radiosenderen.
 
-Knappe designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
+Knappe-designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
 
 
 \begin{figure}[H]
@@ -107,7 +113,7 @@ Knappe designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
 Disse knapper (Tach Switchs) er der 9 af i alt til styring af dronen.
 Skematic af systemet kan ses i \cite{SenderSCM}.
 \subsection{Modtager}
-Modtagerprintet indeholder en mega8 mikroprocessorer og en radiosender.
+Modtagerprintet indeholder en ATmega8 mikroprocessorer og en radiosender.
 
 Dette design indeholder en socket til radioen og en socket til \itoc forbindelsen til dronen.
 Skematic af systemet kan ses i \cite{ModtagerSCM}.
@@ -120,11 +126,11 @@ Der er ikke lavet noget beskyttelse på inputstrømmen så det skal være 3.3V d
 
 Det totale strømforbrug for hele sender systemet er:
 \begin{itemize}
-\item 8mA pasiv, dvs når der ikke sendes
-\item 43mA aktiv, dvs når der trykkes på en knap så data sendes til modtager.
+\item 8mA passiv, dvs. når der ikke sendes.
+\item 43mA aktiv, dvs. når der trykkes på en knap så data sendes til modtager.
 \end{itemize}
 
-Så det vil sige at senderen på et AA 2000mA batteri kan være på standby i $2000mA/8mA = 250 Timer$ eller sende i $2000mA/43mA = 46,5 Timer$
+Så det vil sige at senderen på et AA 2000mA batteri kan være på standby i $\dfrac{2000 \frac mA\cdot h}{8 mA} = 250 h$ eller sende i $\dfrac{2000 mA \cdot h}{43 mA} = 46,5 h$.
 
 
 \section{PCB layout}
@@ -136,9 +142,35 @@ Så det vil sige at senderen på et AA 2000mA batteri kan være på standby i $2
 \label{fig: Print3D}
 \end{figure}
 Det endelige layout kan ses på Figur \ref{fig: Print3D}.
-Layouted er forsøgt holdt simpelt. knapperne til brugeren er placeret så de minder om pilene på et tastatur, dog med op/ned funktioner og autoland.
+Layouted er forsøgt holdt simpelt. 
+Knapperne til brugeren er placeret så de minder om pilene på et tastatur, dog med op/ned funktioner og autoland.
 Printet er aflangt så det er til at holde som en fjernbetjening og derved kan styres med en hånd.
 Radioen er placeret forrest på fjernbetjeningen, for at brugeren dæmper/skærmer mindst muligt for signalet.  
+
+
+
+\section{Sonar-klods}\label{Sec:Sonar}
+På dronens frontben sidder en lille klods, som holder sonarsensorerne.
+Da benet er bøjet og sensorerne gerne skal være vandrette, er klodsen skåret i en skæv vinkel.
+Derudover peger hver sensor således, at deres bølger først overlapper hinanden efter 50 cm.
+Hver sensor spreder sig over $67^\circ$ (se Figur \ref{Fig:SonarMeasure}), hvilket gør, at klodsen skal skæres til $32^\circ$ til hver side, vist på Figur \ref{Fig:SonarSkitse}.
+
+Sensorerne er programmeret til, at give en advarsel hvis de registrerer noget inden for 100 cm.
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width = 0.9 \textwidth]{Dummy}
+	\caption{Måling af sonarspredning}
+	\label{Fig:SonarMeasure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width = 0.6 \textwidth]{Sonar}
+	\caption{Sonarklods skitse. Beregningerne kan ses i bilag\cite{Klods}}
+	\label{Fig:SonarSkitse}
+\end{figure}
+
 
 
 \end{document}
