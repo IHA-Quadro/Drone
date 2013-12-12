@@ -50,16 +50,54 @@ Fra klasse diagrammet blev små sekvensdiagrammet herefter udtænkt, således fo
 \end{figure}
 
 \subsubsection*{Deployment View}
-Da først der var noget funktionelt på hver enhed, blev kommunikationen imellem enhederne sat op.
-Mellem fjernbetjeningen og modtageren skulle der være en 433 MHz forbindelse, som ville styre\dots\fxnote{RBK -- ace dette}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 0.55 \textwidth]{Overview}
+\caption{Intern kommunikation mellem enhederne.}
+\label{Fig:Overview}
+\end{figure}
+
+Fjernbetjeningen sender en frame til dronen vha. det trådløse 433 MHz-signal, som opfanges af modtager-enheden.
+Herefter bliver pakken lagt over i en output buffer til dronen som. Dronen kan så hente denne pakke når den har tid til det. Kommunikationen mellem dronen og modtagern er gennem \itoc protokollen.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 0.7 \textwidth]{PakkeUdenCrc}
+\caption{Pakken fra fjernbetjæning til drone.}
+\label{Fig:PakkeUdenCrc}
+\end{figure}
+
+Pakken der bliver sendt fra fjernbetjæningen over modtagern og til dronen ser ud som det ses på figur \ref{Fig:PakkeUdenCrc}.
+Den første byte indeholder en indikation om det er et program der vælges.
+Den anden byte er et nummer, som fortæller dronen hvad for et program der skal køres.
+
+
+
+
 
 
 \subsubsection*{Process View}
+Process view beskriver kommunikationen imellem de forskellige processer.
+
+Dette projekt indeholder 3 processer, en på senderen, en på modtageren og en på dronen.
+
+Processen på fjernbetjeningen snakker kun med radioen og det er normal SPI kommunikation. Der er ikke problemer med overskrivning af data der er ved at blive brugt af radioen.
+
+Modtageren og dronen er to sideløbende processer der snakker sammen.
+Modtageren modtager en frame fra senderen, som skal sendes over \itoc til dronen.
+
+For at sikre at der ikke sker fejl, er der lagt en sikkerhed ind på modtageren. Modtageren og dronen deler 2 byte mellem sig.
+
+Når modtageren har en ny pakke til dronen, tjekker den først om der er en \itoc transmission i gang. Hvis ikke bliver de nye data lagt over i output bufferen. Der bliver startet en svar funktion, så næste gang dronen spøger efter data kan den modtage de nyeste data.
+
+\subsubsection*{Implementation View}
 Koden til dronen, radiosenderen og radiomodtageren er skrevet i programmeringssproget C.
 
 Der er tre projekter at arbejde videre på, beskrevet i næste afsnit.
 
-\subsubsection*{Implementation View}
+
 \begin{itemize}
 \item Sender
 \item Modtager

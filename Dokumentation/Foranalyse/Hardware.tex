@@ -77,7 +77,11 @@ I og med at næsten alle hobby entusiaster inden for RC fly, bruger 2.4 GHz, bli
 \section[Valg af sender/modtager]{P3 -- Valg af sender/modtager}
 
 Når det var valgt at projektet skulle benytte 433MHz skulle der findes en sender/modtager.
-Valget faldt på en chip fra Texas Instruments -- cc1101\cite{TI-cc1101}\fxnote{Find en anden at sammenligne med}, grundet dens mange muligheder.
+
+Der blev kigget på en chip ved navn CC1110 og CC1101. Grunden til at det ikke blev CC1110 var at denne chip var en SoC. På en akitektur der ikke var kendskab til, og derfor ville kræve en del research.
+En anden grund er det større strømforbrug og langsomere wakeup-time sammenlignet med cc1101. Sidst men ikke mindst har cc1101 også større output power i forhold til cc1110.
+
+Valget faldt på en chip fra Texas Instruments -- cc1101\cite{TI-cc1101}, grundet dens mange muligheder.
 Nogle af de ting som projektet kunne drage fordel af var;
 
 \begin{itemize}
@@ -90,6 +94,7 @@ Nogle af de ting som projektet kunne drage fordel af var;
 \end{itemize}
 
 Denne chip var også nemt tilgængelig på diverse online sider, så som eBay\cite{eBay}, hvilket betyder at den chip bliver brugt i vid udstrækning og dermed er den bedst i forhold til prisen og behovet.
+
 
 
 
