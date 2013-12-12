@@ -1,0 +1,184 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\chapter{Unit test}
+Når koden skulle skrives til enkelte enheder og klasser blev delen, som skulle udvikles, testet med nogle små stumper kode, der ville fortælle om det virkede efter hensigten.
+Herunder følger nogle af de tests der blev foretaget på de enkelte dele, for at se efter sammenspil.
+
+\section{Dronen}
+Dronen har kommunikeret med nogle enheder.
+Disse følge herunder.
+
+\subsection{Sonarsensorer}
+Input fra sensorerne var allerede skrevet for én sensor, men den så også kun på denne.
+For at aktivere kommunikationen til de sidste 3 og tage gennemsnittet af de sidste to målinger kunne følgende gøres:
+
+\begin{itemize}
+\item Opret et nyt Arduino-projekt.
+\item Placer filerne \textit{MaxSonarRangeFinder.h}, \textit{QueueList.h}, \textit{RangeFinder.h}, \textit{SensorsStatus.h}, \textit{MaxSonarRangeFinder.cpp}, \textit{QueueList.cpp}, \textit{SensrosStatus.cpp} og \textit{RangeFinder.cpp} ved siden af den oprettede \code{.ino}-fil.
+\item Indsæt følgende i \code{.ino}-filen:
+\end{itemize}
+
+
+\begin{lstlisting}[caption=title, style=Code-C, label=lst:ref]
+#include "SensorsStatus.h"
+#include "MaxSonarRangeFinder.h"
+
+void setup() 
+{
+	Serial.begin(115200);
+	inititalizeRangeFinders();
+}
+
+void loop() {
+  
+	updateRangeFinders();
+  
+	Serial.print("Distance = {");
+	Serial.print(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average);
+	Serial.print(" : ");
+	Serial.print(RangerAverage[FRONT_RANGE_FINDER_INDEX].average);
+	Serial.print(" : ");
+	Serial.print(RangerAverage[RIGHT_RANGE_FINDER_INDEX].average);
+	Serial.print(" : ");
+	Serial.print(RangerAverage[LEFT_RANGE_FINDER_INDEX].average);
+	Serial.println("}");
+	delay(100);
+}
+\end{lstlisting}
+\begin{itemize}
+\item Tilkobbel dronen til computeren med USB-kabel og åben en COM-port med 115200 baudrate.
+\item Dronen vil nu skrive "\code{Distance = {x.xx : y.yy : z.zz : t.tt}}"\xspace som vil være gennemsnittet for de sidste to målinger foretaget på hver sonar.
+Den første vil være fra sensoren under dronen, her efter front-, højre- og venstre-sonar.
+\end{itemize}
+
+
+\subsection{Registrering af radiomodtageren}
+For at læse gennem \itoc-forbindelse skal der først være forbindelse.
+Dette kan testes ved procedure i Kodeudsnit \ref{lst:scanner}.
+Indsæt dette i et nyt projekt og kør programmet.
+
+Kodeudsnittet vil scanne alle enheder, der er sat til \itoc og printe dem ud på hver sin linje.
+Radiomodtageren svarer med "\code{I2C device found at address 0x90}".
+
+\begin{lstlisting}[caption=Scan efter \itoc enheder, style=Code-C, label=lst:scanner]
+#include <Wire.h>
+
+void setup()
+{
+  Wire.begin();
+
+  Serial.begin(115200);
+  Serial.println("\nI2C Scanner");
+}
+
+void loop()
+{
+  byte error, address;
+  int nDevices;
+
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 255; address++ ) 
+  {
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4) 
+    {
+      Serial.print("Unknow error at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
+
+  delay(5000);           // wait 5 seconds for next scan
+}
+\end{lstlisting}
+
+
+\newpage
+\subsection{Læsning fra radiomodtageren}
+Når forbindelsen vha. \itoc er opsat kan læsninger påbegyndes.
+\begin{itemize}
+\item Opret et nyt projekt
+\item Indsæt Kodeudsnit \ref{lst:itocLEs}
+\item Kør programmet
+\item Lad herefter radiomodtageren sende data - eks. ved tryk på fjernbetjeningen.
+\item COM-porten vil udskrive data 10 gange i sekundet med et punktum, og såfremt der er registreret data, efterfulgt af programvalget.
+\end{itemize}
+
+
+\begin{lstlisting}[caption=title, style=Code-C, label=lst:itocLEs]
+#include <Arduino.h>
+#include <Wire.h>
+
+#define TRANCEIVER_ADDRESS 0x90
+#define INDICATORVALUE 0x3F
+
+void SetupRadioCommunicaiton();
+void ReadRadio();
+
+int radioProgram;
+
+void setup()
+{
+	Serial.begin(115200);            // start serial for output
+	Serial.println("All setup");
+
+	SetupRadioCommunicaiton();
+}
+
+void loop()
+{
+	delay(100);
+	Serial.print(".");
+	
+	ReadRadio();
+}
+
+void SetupRadioCommunicaiton()
+{
+	Wire.begin(TRANCEIVER_ADDRESS);// join i2c bus with address 0x90
+	radioProgram = 0;
+}
+
+void ReadRadio()
+{
+	int indicator, programValue;
+
+	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 2 bytes from radio
+
+	indicator = Wire.read(); //First value is always an indicator if program is with or not
+	programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+
+	if(indicator == INDICATORVALUE)
+		Serial.print(programValue);
+
+	radioProgram = programValue; //TODO: Valider dette
+}
+\end{lstlisting}
+
+
+
+
+
+
+\end{document}

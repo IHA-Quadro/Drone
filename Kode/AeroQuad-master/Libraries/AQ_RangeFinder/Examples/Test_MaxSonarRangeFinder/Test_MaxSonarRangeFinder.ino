@@ -1,30 +1,29 @@
-//#define ADC_NUMBER_OF_BITS 10
-//
 //#include "SensorsStatus.h"
 //#include "MaxSonarRangeFinder.h"
 //
-//void setup() {
-//  Serial.begin(115200);
-//  inititalizeRangeFinders();
+//void setup() 
+//{
+//	Serial.begin(115200);
+//	inititalizeRangeFinders();
 //}
 //
 //void loop() {
 //  
-//  updateRangeFinders();
+//	updateRangeFinders();
 //  
-//  Serial.print("Distance = {");
-//	//Serial.print(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
-//	//Serial.print(" : ");
+//	Serial.print("Distance = {");
+//	Serial.print(rangeFinderRange[ALTITUDE_RANGE_FINDER_INDEX]);
+//	Serial.print(" : ");
 //	Serial.print(rangeFinderRange[FRONT_RANGE_FINDER_INDEX]);
-//	//Serial.print(" : ");
-//	//Serial.print(rangeFinderRange[RIGHT_RANGE_FINDER_INDEX]);
-//	//Serial.print(" : ");
-//	//Serial.print(rangeFinderRange[LEFT_RANGE_FINDER_INDEX]);
+//	Serial.print(" : ");
+//	Serial.print(rangeFinderRange[RIGHT_RANGE_FINDER_INDEX]);
+//	Serial.print(" : ");
+//	Serial.print(rangeFinderRange[LEFT_RANGE_FINDER_INDEX]);
 //	Serial.println("}");
 //	delay(10);
 //}
 
-#define I2C_READ
+//#define I2C_READ
 //#define I2C_SCANNER
 
 #ifdef I2C_READ
