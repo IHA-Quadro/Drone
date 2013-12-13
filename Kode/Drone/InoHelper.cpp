@@ -103,7 +103,7 @@ void process2HzTask()
 {
 	//PrintSonarReport();
 	//PrintChosenProgram();
-	//PrintControllerOutput();
+	PrintControllerOutput();
 	//PrintWarnings();
 }
 
@@ -194,7 +194,7 @@ static void PrintControllerOutput()
 	printInLine(" - ", MOTORMODE);
 	printInLine(_controllerInput[ZAXIS], MOTORMODE);
 	printInLine(" - ", MOTORMODE);
-	printNewLine(_controllerInput[THROTTLE], MOTORMODE);
+	printInLine(_controllerInput[THROTTLE], MOTORMODE);
 	printInLine(" - ", MOTORMODE);
 	printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
 }

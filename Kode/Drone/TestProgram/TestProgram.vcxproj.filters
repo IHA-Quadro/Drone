@@ -21,13 +21,13 @@
     <ClInclude Include="HelperFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QueueList.h">
+    <ClInclude Include="Device_I2C.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RadioCommunication.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Device_I2C.h">
+    <ClInclude Include="..\QueueList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Visual Micro\.TestProgram.vsarduino.h">
@@ -35,10 +35,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="QueueList.cpp">
+    <ClCompile Include="Device_I2C.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Device_I2C.cpp">
+    <ClCompile Include="..\QueueList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

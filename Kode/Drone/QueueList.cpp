@@ -144,6 +144,29 @@ void QueueList<T>::blink () const
 	}
 }
 
+template<typename T>
+int QueueList<T>::PeekLastElementFilter(int filterElement) const
+{
+	int value = filterElement; //Value to use
+	link t = head; //last element
+
+	if (isEmpty ())
+		exit ("QUEUE: can't peek item from queue: queue is empty.");
+
+	for(int i = 0; i < size; i++)
+	{
+		if(t != NULL)
+		{
+			if(t->item != filterElement)
+				value = t->item;
+
+			t = t->next;
+		}
+	}
+
+	return value;
+}
+
 template class QueueList<float>;
 //Begrundelse: 30/10-2013
 // http://www.parashift.com/c++-faq-lite/separate-template-class-defn-from-decl.html

@@ -126,16 +126,22 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "Device_I2C.h"
+#include "QueueList.h"
 
 #define INDICATORVALUE 0xAA
 #define TRANCEIVER_ADDRESS 0x90
 
 int radioProgram = 0;
+QueueList<float> *_queue = NULL;
+
 
 void setup()
 {
 	Wire.begin();
 	Serial.begin(115200);
+
+	_queue = new QueueList<float>();
+	_queue->setPrinter(Serial);
 }
 
 int ReadRadio()
@@ -146,7 +152,11 @@ int ReadRadio()
 	while(Wire.available())
 	{
 		indicator = Wire.read(); //First value is always an indicator if program is with or not
-		programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+
+		_queue->push((float)Wire.read());
+		programValue = _queue->PeekLastElementFilter(0);
+		if(_queue->count() > 3)
+			_queue->pop();
 	}
 	
 	if(indicator == INDICATORVALUE)
@@ -164,13 +174,12 @@ int ReadRadio()
 	Serial.println(programValue);
 
 	return programValue;
-	//return 0;
 }
 
 void loop()
 {
 	ReadRadio();
-	delay(100);
+	delay(50);
 }
 #else
 #include <Wire.h>

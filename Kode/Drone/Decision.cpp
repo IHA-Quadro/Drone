@@ -105,14 +105,14 @@ static void SonarCheck()
 				{
 					//Stop, rotate CW and run again
 					StopMidAir();
-					KeepSteady(); //Stop
+					//KeepSteady(); //Stop
 					RotateLeftSlow();
 				}
 				else //Left + Right
 				{
 					//Stop, rotate 90 CW and run again			
 					StopMidAir();
-					KeepSteady();
+					//KeepSteady();
 					RotateLeftSlow();
 				}
 			}
@@ -122,7 +122,7 @@ static void SonarCheck()
 				{
 					//Stop, rotate 60 CW and run again
 					StopMidAir();
-					KeepSteady();
+					//KeepSteady();
 					RotateRightSlow();
 				}
 				else //Only Left warning
@@ -140,7 +140,7 @@ static void SonarCheck()
 				{
 					//Stop, rotate 60 CCW and run again
 					StopMidAir();
-					KeepSteady();
+					//KeepSteady();
 					RotateLeftSlow();
 				}
 				else //Only right
@@ -155,14 +155,14 @@ static void SonarCheck()
 				{
 					//Stop, rotate 90 CW and run again
 					StopMidAir();
-					KeepSteady();
+					//KeepSteady();
 					RotateRightSlow();
 				}
 				else //No warnings at all
 				{
 					//Straight ahead
-					KeepSteady();
-					StopMidAir();
+					//KeepSteady();
+					//StopMidAir();
 				}
 			}
 		}
@@ -225,19 +225,17 @@ static void SelectProgram(int programID)
 		if(_controllerInput[AUX3] != AUTOLANDTRUE)
 		{
 			StopMidAir();
-			DecreaseHeight();
-			//ForwardSlow();
+			ForwardSlow();
 		}
 		break;
 
-	case 4://backwards
-		if(_controllerInput[AUX3] != AUTOLANDTRUE)
-		{
-			StopMidAir(); 
-			ForwardSlow();
-			//BackwardsSlow();
-		}
-		break;
+		//case 4://backwards
+		//	if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		//	{
+		//		StopMidAir(); 
+		//		BackwardsSlow();
+		//	}
+		//	break;
 
 	case 5: //RotateRight
 		if(_controllerInput[AUX3] != AUTOLANDTRUE)
@@ -269,23 +267,22 @@ static void SelectProgram(int programID)
 		break;
 
 	case 9: //Up
-		programInput.height += 5;
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			IncreaseHeight();
+		}
 		break;
 
 	case 10: //Down
-		programInput.height -= 5;
+		if(_controllerInput[AUX3] != AUTOLANDTRUE)
+		{
+			DecreaseHeight();
+		}
 		break;
 
 	default:
+		StopMidAir();
 		break;
-	}
-
-
-
-	if (programID != 1 && programID != 2 && programID != 8)
-	{
-		//If program is in AUX1 = true, disable it and perform program for
-		//programInput.TimeSpanInMiliSec for the selected program, then enable agin
 	}
 }
 
@@ -408,29 +405,32 @@ void GroundStart()
 
 void IncreaseHeight()
 {
-	programInput.data.aux1 = ALTITUDEHOLDFALSE;
+	//programInput.data.aux1 = ALTITUDEHOLDFALSE;
 
-	if(GetActualProgram().ProgramID == PROGRAM_START)
+	//if(GetActualProgram().ProgramID == PROGRAM_START)
+	//{
+	float spend = TimeSpend(IncHeight);
+
+	if(spend > INC_TIME)
 	{
-		float spend = TimeSpend(IncHeight);
-
-		if(spend > INC_TIME)
-		{
+		if(_controllerInput[THROTTLE] < 1980)
 			_controllerInput[THROTTLE] += 10;
-			_groundStart[IncHeight] = true; //Reset timer
-		}
+		_groundStart[IncHeight] = true; //Reset timer
 	}
+	//}
 }
 
 void DecreaseHeight()
 {
-	programInput.data.aux1 = ALTITUDEHOLDFALSE;
+	//programInput.data.aux1 = ALTITUDEHOLDFALSE;
 
 	float spend = TimeSpend(DecHeight);
 
 	if(spend > INC_TIME)
 	{
-		_controllerInput[THROTTLE] -= 10;
+		if(_controllerInput[THROTTLE] > 1210)
+			_controllerInput[THROTTLE] -= 10;
+
 		_groundStart[DecHeight] = true; //Reset timer
 	}
 }

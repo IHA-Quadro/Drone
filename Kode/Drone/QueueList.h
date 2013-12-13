@@ -61,6 +61,7 @@ class QueueList
     bool isEmpty () const;
     int count () const;
     void setPrinter (Print & p);
+		int PeekLastElementFilter(int filterElement) const;
 
   private:
     void exit (const char * m) const;

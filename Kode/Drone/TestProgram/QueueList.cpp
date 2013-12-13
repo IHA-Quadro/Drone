@@ -48,6 +48,21 @@ void QueueList<T>::push (const T i)
 }
 
 template<typename T>
+T QueueList<T>::PeekAverage() const
+{
+	T value = 0.0;
+	link t = head;
+
+	for(int i = 0; i < size; i++)
+	{
+		value += t->item;
+		t = t->next;
+	}
+
+	return value / size;
+}
+
+template<typename T>
 void QueueList<T>::EmptyList()
 {
 	while(!this->isEmpty())
@@ -62,7 +77,9 @@ T QueueList<T>::pop ()
 		exit ("QUEUE: can't pop item from queue: queue is empty.");
 
 	T item = head->item;
-	link t = head->next; delete head; head = t;
+	link t = head->next; 
+	delete head; 
+	head = t;
 	size--;
 
 	return item;
@@ -127,6 +144,29 @@ void QueueList<T>::blink () const
 	}
 }
 
-template class QueueList<int>;
+template<typename T>
+int QueueList<T>::PeekLastElementFilter(int filterElement) const
+{
+	int value = filterElement; //Value to use
+	link t = head; //last element
+
+	if (isEmpty ())
+		exit ("QUEUE: can't peek item from queue: queue is empty.");
+
+	for(int i = 0; i < size; i++)
+	{
+		if(t != NULL)
+		{
+			if(t->item != filterElement)
+				value = t->item;
+
+			t = t->next;
+		}
+	}
+
+	return value;
+}
+
+template class QueueList<float>;
 //Begrundelse: 30/10-2013
 // http://www.parashift.com/c++-faq-lite/separate-template-class-defn-from-decl.html
