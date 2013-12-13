@@ -2,7 +2,7 @@
 \begin{document}
 
 \section{Deployment View}
-Systemet er bygget op af en fjernbetjening, dronen, samt modtagerenheden på dronen, vist på Figur \ref{Fig:DeploymentViewOverview}.
+Systemet består af en fjernbetjening, dronen, samt modtagerenheden på dronen, vist på Figur \ref{Fig:DeploymentViewOverview}.
 
 \begin{figure}[H]
 \centering
@@ -11,7 +11,7 @@ Systemet er bygget op af en fjernbetjening, dronen, samt modtagerenheden på dro
 \label{Fig:DeploymentViewOverview}
 \end{figure}
 
-Fjernbetjeningen sender en frame til dronen vha. det trådløse 433 MHz-signal, som opfanges af modtager-enheden.
+Fjernbetjeningen sender en frame til dronen vha. det trådløse 433 MHz signal, som opfanges af modtager-enheden.
 Herefter bliver pakken lagt over i en output buffer til dronen som. Dronen kan så hente denne pakke når den har tid til det. Kommunikationen mellem dronen og modtagern er gennem \itoc protokollen.
 
 
@@ -46,12 +46,11 @@ Kommandoer der kan sendes vises i Tabel \ref{Tab:kommandoer}.
 
 \newpage
 \subsubsection{Modtager til drone}
-Når en frame er modtaget på modtagerradioen, tjekker den framen for om CRC passer. 
-Hvis der er uoverensstemmelse, melle størrelsen på frame og CRC verdien, bliver framen kasseret. 
-Hvis framens størrelse og CRC stemmer overens, laver modtagerradioen et interrupt på µ-controller 2. 
-µ-Controlleren vil så hente den modtaget pakke fra radioen, strippe den for pakke længde. 
-Herefter vil den blive lagt ud i en output buffer til \itoc forbindelsen til dronen. 
-Som så kan hente den næste gang den har tid. 
+Når et frame er modtaget på modtagerradioen, tjekker den framet for om CRC passer. 
+Hvis der er uoverensstemmelse mellem størrelsen på frame og CRC verdien, bliver framet kasseret. 
+Hvis framets størrelse og CRC stemmer overens, generer modtagerradioen et interrupt på µ-controller 2. 
+µ-Controlleren vil så hente den modtagne pakke fra radioen og strippe den for pakke længde. 
+Herefter vil den blive lagt ud i en output buffer til \itoc forbindelsen til dronen,som nu kan hente den næste gang den har tid. 
 
 \begin{table}[H]
   \centering

@@ -3,7 +3,7 @@
 
 \subsection{Klassediagram}
 Baseret på foregående Use Case-analyser kan det statiske klassediagram på Figur \ref{Fig:UML} udledes.
-Systemet har flere, men de viste er de vigtigste der bruges af systemet og som der er udviklet mest på.
+Systemet har flere klasser, men de viste er de vigtigste der bruges af systemet og som der er udviklet mest på.
 
 
 \begin{figure}[H]
@@ -123,7 +123,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{process2HzTask}
 \para{void}
 \retu{void}
-\comm{Denne funktion udskriver forskellige debug-information 2 gange i sekundet, herunder sonarsensorernes målinger, om disse er advarsler, det valgte program og styringsinput.}
+\comm{Denne funktion udskriver forskellige debug-informationer 2 gange i sekundet, herunder sonarsensorernes målinger, om disse er advarsler, det valgte program og styringsinput.}
 \end{Function}
 
 
@@ -131,7 +131,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{process1HzTask}
 \para{void}
 \retu{void}
-\comm{Denne funktion udskriver forskellige debug-information 1 gange i sekundet.}
+\comm{Denne funktion udskriver forskellige debug-informationer 1 gange i sekundet.}
 \end{Function}
 
 
@@ -272,7 +272,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{getReceiverSIData}
 \para{byte}
 \retu{const float}
-\comm{Skallering af data for motorerne.}
+\comm{Skalering af data for motorerne.}
 \end{Function}
 
 
@@ -325,7 +325,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{PrintWarnings}
 \para{void}
 \retu{static void}
-\comm{Udskriver hvilken sonar der er advarsel på, såfremt der er en.}
+\comm{Udskriver hvilken sonar der er advarsel fra, såfremt der er en.}
 \end{Function}
 
 
@@ -651,7 +651,7 @@ Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke 
 \name{IsMotorKilled}
 \para{void}
 \retu{bool}
-\comm{Returnerer motorernes nuværende status -- slukket eller ej.}
+\comm{Udskriver motorernes nuværende status -- slukket eller ej.}
 \end{Function}
 
 
@@ -774,7 +774,7 @@ radioen. Denne pakke sendes så til radioen som sender den videre ud som radiob�
 \name{main}
 \para{void}
 \retu{void}
-\comm{Starter chippen op og køre alle opsætningerne, der er også en \code{while(1)}. 
+\comm{Starter chippen op og kører alle opsætningerne, der er også en \code{while(1)}. 
 Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliver der sendt en data pakke til radioen med en bestemt besked der skal sendes til modtageren.}
 \end{Function}
 
@@ -788,7 +788,7 @@ Her bliver der hele tiden tjekket om nogle knapper bliver trykket på, hvis bliv
 \name{SPI MasterInit}
 \para{void}
 \retu{void}
-\comm{Initialize SPI porten på ATmega8 som master, sætter CLK-raten til fck/16.}
+\comm{Initialisere SPI porten på ATmega8 som master, sætter CLK-raten til fck/16.}
 \end{Function}
 
 \begin{Function}

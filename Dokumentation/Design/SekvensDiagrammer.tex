@@ -28,7 +28,10 @@ Input til, hvordan dronen skal flyve, bliver registreret i \code{50HzTask()} og 
 Når kalibreringen og sikkerhedstjekket er kørt igennem, nulstilles \code{Receiver}'ens lokale værdier, samt \code{ControlFaker}'ens og \code{Decision}'s lokale værdier.
 Nu er dronen klar til at flyve.
 
-Herefter vælges hvilket program der skal køres, der pga. nulstillingen er default-programmet, vil få dronen til at spinne med minimal hastighed, hvilket først læser det aktuelle programs data, sætter hastighed og derefter eksekverer dataene.
+Herefter vælges hvilket program der skal køres, der pga. nulstillingen er default-programmet, vil få dronen til at spinne med minimal hastighed. hvilket først læser det aktuelle programs data, sætter hastighed og derefter eksekverer dataene.
+
+XXX What 
+
 
 \begin{figure}[H]
 \centering
@@ -85,7 +88,7 @@ Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vi
 
 \newpage
 \subsubsection{Use Case 4 -- Maks. spin stop}
-Use Case 4 aktiveres af dronen, hvis en af dronens propeller skal spinne med værdien over 2000 (hvilket også er dens maksimale spinhastighed).
+Use Case 4 aktiveres af dronen, hvis en af dronens propeller skal spinne med værdien over 2000 RPM (hvilket også er dens maksimale spinhastighed).
 Dette scenarie finder kun sted, såfremt dronen forsøger at rette sig selv op efter den er fløjet ind i noget og/eller en propel er blev beskadiget og derfor ikke retter dronen op, som den ellers burde.
 
 Beregningerne foretages 100 gange i sekundet og er vist på Figur \ref{Fig:100HzProcess}, hvor systemet kalder funktionen \code{2: CalculateFlightError()}, der beregner hvor meget dronen skal justere sig på x- og y-aksen for, at holde sig vandret i luften.
