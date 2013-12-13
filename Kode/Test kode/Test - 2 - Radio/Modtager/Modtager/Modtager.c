@@ -1,99 +1,3 @@
-\documentclass[Main]{subfiles}
-
-\begin{document}
-
-\chapter{Integrationstests}
-
-Når de enkelte enheder var testet blev større dele sammensat for at se, om de kunne spille sammen.
-Ved at køre det store projekt kan forskellige integrationstests vises.
-
-\subsection{Dronen}
-I filen \code{InoHelp.cpp} ligger følgende funktion, der køres 5 gange i sekundet:
-
-\begin{lstlisting}[caption=process2HzTask()'s integrationstest, style=Code-C, label=lst:ref]
-void process2HzTask()
-{
-	//PrintSonarReport();
-	//PrintChosenProgram();
-	//PrintControllerOutput();
-	//PrintWarnings();
-}
-\end{lstlisting}
-
-\begin{itemize}
-\item Ved udkommentering af \code{PrintSonarReport()} printes dronens aktuelle højde, om den er i 'free flight' (ikke fastlagt højde) eller 'Fixed flight' (fastlagt højde), hvilken højden den skal ramme (såfremt den er i 'Fixed flight'), samt venstre-, front- og højre sonarsensorens aktuelle målinger.
-
-\item Ved udkommentering af \code{PrintChosenProgram()} udskrives det valgte program.
-
-\item Ved udkommentering af \code{PrintControllerOutput()} udskrives de værdier der sendes til \code{Receiver}-klassen for x-, y- og z-aksen, throttle-værdien samt om den skal holde sin højde eller ej.
-
-\item Ved udkommentering af \code{PrintWarnings()} advarsler for hver sonar, såfremt der er nogen.
-\end{itemize}
-
-
-\newpage
-I filen \code{ControlFaker.cpp} ligger følgende funtion, der køres 50 gange i sekunded.
-
-
-\begin{lstlisting}[caption=lst:PrintMotorOutput()'s integrationstest, style=Code-C, label=lst:PrintMotorOutput]
-void PrintMotorOutput()
-{
-	if(!IsMotorKilled())
-	{
-		//printInLine("Motor output: ", MOTORMODE);
-		//printInLine(motorCommand[0], MOTORMODE);
-		//printInLine(", ", MOTORMODE);
-		//printInLine(motorCommand[1], MOTORMODE);
-		//printInLine(", ", MOTORMODE);
-		//printInLine(motorCommand[2], MOTORMODE);
-		//printInLine(", ", MOTORMODE);
-		//printInLine(motorCommand[3], MOTORMODE);
-		//printInLine(", ", MOTORMODE);
-		//printInLine(_controllerInput[THROTTLE], MOTORMODE);
-		//println(MOTORMODE);
-	}
-}
-\end{lstlisting}
-
-Såfremt disse linjer udkommenteres vil den værdi, der sendes til hver enkelt motor på dronen, samt den værdi de skulle holde, blive udskrevet.
-Dette er bl.a. brugt til at generere den graf der er vist i design-dokumentet\cite{Design}  i afsnit 2.1.1.4.
-
-
-\subsection{Kommunikation mellem sender Radio og modtager radio}
-Tes om det er muligt at sende en besked fra sender til modtager
-
-\textbf{Opsætning:}\\
-\textbf{Udstyr:}
-\begin{itemize}
-\item 2 stk STK500 kit
-\item 2 stk Radio fra projektet
-\item 2 stk Adapter til stk500 kit
-\end{itemize}
-
-
-\textbf{Forbindelser:}
-\begin{itemize}
-\item PORTC -> Led port
-\end{itemize}
-
-\begin{itemize}
-\item \textbf{Radio -> 	STK500}
-\item CSN	->	PB2
-\item GDO0	->	PD2
-\item GND	->	GND
-\item SO	->	PB4
-\item SCK	->	PB5
-\item Si	->	PB3
-\item +3.3V	->	VTG
-\end{itemize}
-
-
-Vtarget på begge STK500 skal sættes til 3.3V ned fra de normale 5V.
-
-I denne test sendes en pakke fra µ-kontroller 1 over radioen til radio og til µ-kontroller 2. Pakken vises så på led porten på STK500 kit nr. 2.
-
-\begin{lstlisting}[caption=Radio integrationstest, style=Code-C, label=lst:PrintMotorOutput]
-
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/sleep.h>
@@ -144,7 +48,7 @@ SPI_transmit(0x60);      // --ss1--//
 
 SPI_transmit(0x40);      //-- Starter fra 00 med burst--//
 
-//GDO Settings
+//GDO ops�tning
 SPI_transmit(0x02);      // register 0x00
 SPI_transmit(0x2E);      // register 0x01
 SPI_transmit(0x01);      // register 0x02
@@ -267,5 +171,3 @@ int main()
   {
   }
 }
-\end{lstlisting}
-\end{document}
