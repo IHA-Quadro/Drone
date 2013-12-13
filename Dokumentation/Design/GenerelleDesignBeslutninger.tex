@@ -1,7 +1,7 @@
 \documentclass[Main]{subfiles}
 \begin{document}
 
-\section{Eventuelt}
+\section{Generelle design beslutninger}
 Undervejs i projektet skulle der tages nogle beslutninger for, hvordan arkitekturen på nye elementer skulle opstilles og hvordan filerne skulle skrives. 
 Det følgende afsnit beskriver de største beslutninger og alternativer der blev overvejet.
 
@@ -63,11 +63,11 @@ Dette blev især vigtigt, da klassen for beslutninger om, hvad dronen skulle for
   \vspace{-10pt}
 \end{wrapfigure}
 
-Dronen er købt til, at holde sig selv i luften og tage flyve ud fra signaler fra en fjernbetjening til droner.
+Dronen er købt til at holde sig selv i luften og flyve ud fra signaler fra en fjernbetjening til droner.
 Det betyder, at påmontering af et ekstra sæt sonarsensorer og en radio, som dronen skal tage valg fra, skal simuleres som var det fjernbetjeningen der sendte kommandoerne.
 
 For at beholde forståelsen for systemet blev det bygget som en spike, således, at der først blev taget hånd om, at modtage data fra radioen.
-Herefter blev der sat nogle grænser for, hvad dataen måtte være mere eller mindre end for sonar og disse kunne rejse nogle flag, samt validering af radiokanalen.
+Herefter blev der sat nogle grænser for, hvad data måtte være mere eller mindre end for sonar og disse kunne rejse nogle flag, samt validering af radiokanalen.
 Til sidste skulle der træffes en beslutning for, hvilket program der skulle afvikles og sendes return som input for fjernbetjeningen.
 
 Selve beslutningen kan laves på flere metoder og den mest oplagte vil at bruge et \code{map}, således alle input, og kombinationer heraf, vil lede til nogle få kommandoer der skulle udføres.

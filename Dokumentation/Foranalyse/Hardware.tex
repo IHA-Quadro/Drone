@@ -19,16 +19,16 @@ Det svenske firma Bitcraze har lavet dronen CrazyFlie\cite{BitCraze}, en lille q
 Dronen har mange fine perspektiver, men da den ikke er mere 9 cm fra motor til motor, har den også en meget begrænset løfteevne, og muligheden for at udbygge den er meget lille.
 
 \subsection{Arducopter}
-Det amerikanske firma 3D Robotics har lavet dronen 3DR RTF Quad\cite{ArduCopter}, en væsentlig større drone, med 10" propeller, 20 Amp ESC'er (motor kontrol) og 850 $K_v$\cite{Kv} motorer.
+Det amerikanske firma 3D Robotics har udviklet dronen 3DR RTF Quad\cite{ArduCopter}, en væsentlig større drone, med 10"\xspace propeller, 20 Amp ESC'er (motor kontrol) og 850 $K_v$\cite{Kv} motorer.
 Den medfølgende software er skrevet i Arduino (mere om det i afsnit \ref{sec:software}). 
 Prisen ligger på 599 USD uden ekstra udstyr.
 
 \subsection{AeroQuad}
-Det amerikanske firma AeroQuad har lavet dronen Cyclone ARF\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 $K_v$\cite{Kv} motorer.
-Softwaren er ligeledes skrevet i Arudino, og koster kun 550 USD.
+Det amerikanske firma AeroQuad har udviklet dronen Cyclone ARF\cite{AQ-store}, en næste tilsvarende drone til Arducopters drone, med 12" propeller, 30 Amp ESC'er og 950 $K_v$\cite{Kv} motorer.
+Softwaren er ligeledes skrevet i Arduino, og koster kun 550 USD.
 \\
 \\
-Da prisen for et bachelorprojekt skal holdes lavest muligt og vi ønskede mest kraft for pengene, blev valget AeroQuads Cyclone model, da denne er 50 USD billigere end Arducopteren og, i modsætning til Bitcraze, kan udbygges med flere sensorer, hvilket gør fremtidige studerende kan udvikle på den.
+Da prisen for et bachelorprojekt skal holdes lavest muligt og vi ønskede mest kraft for pengene, blev valget AeroQuads Cyclone model, da denne er 50 USD billigere end Arducopteren. I modsætning til Bitcraze, kan udbygges med flere sensorer, hvilket gør at fremtidige studerende kan udvikle på den.
 
 
 \section[Valg af trådløs kommunikation]{P2 -- Valg af trådløs kommunikation}
@@ -44,8 +44,8 @@ Der er flere krav til den trådløse sender:
 \subsection{Regler og valg af frekvens}
 Der er mange regler inden for trådløs kommunikation, så hvilke frekvenser er lovlige at udnytte uden licens?
 
-Det er de fleste i ISM-båndet, da de er lavet til  Industriel, videnskabelig og medicinsk bånd. 
-Grunden til det ikke er alle er at der er lokale krav, alt efter hvor man er i verden. 
+Det er de fleste i ISM-båndet, da de er udviklet til  Industriel, videnskabelig og medicinsk bånd. 
+Der er dog undtagelser alt efter hvor i verden man er.
 F.eks. har USA meget komplekse krav til 433 MHz\cite[s. 32]{Lov1}.
 De meste gængse frekvenser der er kan benyttes i industrien og til hobbybrug er derfor:
 
@@ -57,7 +57,7 @@ De meste gængse frekvenser der er kan benyttes i industrien og til hobbybrug er
 \item 5.8 GHz
 \end{itemize}
 
-Så der skal vælges en frekvens af disse.
+Der skal vælges en frekvens af disse.
 Den frekvens der egner sig bedst dette projekt, er den frekvens der rækker længst. 
 
 \begin{figure}[H]
@@ -68,8 +68,12 @@ Den frekvens der egner sig bedst dette projekt, er den frekvens der rækker læn
 \end{figure}
 
 
-Som man det ses på Figur \ref{Fig:dempning} så er der mindre dæmpning, desto længere man kommer ned i frekvens. Figuren viser tests udfør af Telit Wireless Solutions\cite[s. 43]{Telit} et stort italiensk firma med speciale i trådløs teknologi.
-I og med at næsten alle hobby entusiaster inden for RC fly, bruger 2.4 GHz, bliver valget for dette projekt 433 MHz\fxnote{RBK -- Torben vil vide hvorfor vi vælger 433 MHz}.
+Som man det ses på Figur \ref{Fig:dempning} er der mindre dæmpning, desto længere man kommer ned i frekvens. Figuren viser tests udfør af Telit Wireless Solutions\cite[s. 43]{Telit} et stort italiensk firma med speciale i trådløs teknologi.
+
+Udregninger på dette kan der læses mere om i Bilag\cite{wireless}.
+
+Så til dette projekt er 433 MHz valgt.
+
 
 
 
@@ -85,9 +89,9 @@ Nogle af de ting som projektet kunne drage fordel af var;
 
 \begin{itemize}
 \item Flere kanaler.
-\item Variable datahastighed (0.6 to 600 kbps).
+\item Variabel datahastighed (0.6 til 600 kbps).
 \item Gode pakkehåndterings muligheder. 
-\item Flere frekvenser, hvor 433MHz er en af dem.
+\item Flere frekvenser, hvor 433 MHz er en af dem.
 \item Programmerbar power output.
 \item SPI interface.
 \end{itemize}
@@ -99,7 +103,7 @@ Denne chip var også nemt tilgængelig på diverse online sider, så som eBay\ci
 
 \section[Valg af µ-Controller til fjernbetjening]{P4 -- Valg af µ-Controller til fjernbetjening}
 
-Det var allerede forudbestemt, at denne skulle benytte en Atmel AVR chip, da der var kendskab til denne type chips.
+Det var allerede forudbestemt, at der skulle benytte en Atmel AVR chip, da der var kendskab til denne type chips.
 
 Det, der skulle bestemmes var hvilken chip i Atmels serie.
 
@@ -140,7 +144,7 @@ Derfor blev valget en ATmega8.
 
 \subsection{Valg af sonarsensorer}
 For at dronen kunne måle afstanden til jorden under den, samt måle hvor langt der vil være til dens omgivelser, skulle den have 4 sonarsensorer påmonteret.
-Eftersom dronen allerede havde lidt software implementeret til sonaren på maven af den, var det oplagt af bruge nogle af samme type.
+Eftersom dronen allerede havde lidt software implementeret til sonaren på dens underside, var det oplagt af bruge nogle af samme type.
 
 
 AeroQuad tilbyder to forskellige typer: 

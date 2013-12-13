@@ -1,9 +1,15 @@
 \documentclass[Main]{subfiles}
 \begin{document}
+\chapter{Introduktion}
+Indholdet i dette dokument er udviklet som følge af Kravspecifikations dokumentet \cite{KravSpec}.
+
+XXX
+
+I dokument findes en beskrivelse af alle del elementerne i projektet. \fixme note
 
 \chapter{Hardware}
 
-\section{System oversigt}
+\section{Hardware Oversigt}
 
 Til styring af drone, skal der laves en sender og modtager.
 
@@ -13,8 +19,8 @@ Til styring af drone, skal der laves en sender og modtager.
 \caption{Skitse af hardware}
 \end{figure}
 
-\code{Sender} er den brugeren laver sit input på. 
-\code{Modtager} er den enhed der er sat på dronen, som skal modtage signalet fra senderen.
+\code{Sender} enhed som brugeren anvender til system-input.
+\code{Modtager} er den enhed der er sat på dronen, som skal modtage brugerens system-input.
 Det vil sige der skulle laves to enheder. 
 Radioen er baseret på chippen cc1101\cite{cc1101} fra Texas Instruments. 
 µ-Controlleren er en ATmega8 fra Atmel Corporation.
@@ -38,8 +44,7 @@ De interne og eksterne grænseflader:
 \end{figure}
 På Figur \ref{fig: SenderInterface} ses et blokdiagram af senderen med alle grænseflader.
 De eksterne grænseflader, er der hvor brugeren skal lave sit input. Det vil sige der er her han laver et programvalg som bliver sendt videre til dronen.
-De interne grænseflader
-Kommunikationen mellem microcontroller 1 og radiosenderen, forgår via SPI protokollen. 
+De interne grænseflader som er kommunikationen mellem µ-kontroller 1 og radiosenderen, foregår via SPI protokollen. 
 
 Radio-interfacet er beskrevet i sektionen Radio.
 
@@ -54,16 +59,16 @@ Radio-interfacet er beskrevet i sektionen Radio.
 \label{fig: ModtagerInterface}
 \end{figure}
 På Figur \ref{fig: ModtagerInterface} ses et blokdiagram af modtageren med alle grænseflader.
-Radioen modtager en pakke fra senderen. Når hele pakken er modtaget laves et interrupt på µ-controller 2.
+Radioen modtager en pakke fra senderen. Når hele pakken er modtaget udføres et interrupt på µ-controller 2.
 
 µ-Controller 2, henter hele pakken fra radioen og sætter den i modtage mode igen. 
-Den tager så de modtaget data fra radioen og putter dem i en output buffer til \itoc.
+Den tager så de modtagne data fra radioen og skriver dem i en output buffer til \itoc forbindelsen.
 
 Radio-interfacet er beskrevet i Afsnit \ref{Sec:Radio}.
 
 
 \subsection{Radio} \label{Sec:Radio}
-Opsætningen på radioen vi køre med er som følger:
+Opsætningen på radioen som bliver anvendt er som følger:
 \begin{itemize}
 \item 433 MHz radio frekvens
 \item 2.5 kbps overførselshastighed
@@ -72,7 +77,7 @@ Opsætningen på radioen vi køre med er som følger:
 \end{itemize}
 
 
-Framen der bliver sendt frem og tilbage ser ud som følger:
+Frame't der bliver sendt frem og tilbage ser ud som følger:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{Pakke}
@@ -81,26 +86,25 @@ Framen der bliver sendt frem og tilbage ser ud som følger:
 \end{figure}
 
 Pakkens opbygning:
-Pakkestørrelsen er længden af den samlet pakke, eksklusiv CRC-delen. 
-Grunden til denne skal med er at der bliver brugt variable pakke størrelse. 
+Pakkestørrelsen er længden af den samlede pakke, eksklusiv CRC-delen. 
+Grunden til denne skal med, er at der bliver brugt en variabel pakke størrelse. 
 Den kan også sættes til en fastsat længde og så er der ikke brug for denne.
 
 Dataen er payloaden -- det er her alle de informationer der skal sendes frem og tilbage ligger. 
 Det vil sige, at et program er valgt efterfulgt af hvilket program det er.
 
 CRC er en checksum som sendes med. 
-Den sikre at framen der kommer over ikke er corrupt.
+Den sikrer at frame't der transmitteres ikke er corrupt.
 
 
 
 \section{Design}
-Det der skulle designes var
-et print til sender og et til modtager.
+Det, der skulle designes, var et print til sender og et til modtager.
 
 \subsection{Sender}
 Senderprintet indeholder knapper, en ATmega8 µ-processorer og en socket til radiosenderen.
 
-Knappe-designet er aktive lav, som det kan ses på Figur \ref{fig: Knapper}.
+Knap-designet er aktivt lav, som det kan ses på Figur \ref{fig: Knapper}.
 
 
 \begin{figure}[H]
@@ -121,8 +125,8 @@ Skematic af systemet kan ses i \cite{ModtagerSCM}.
 
 \subsection{Strøm input}
 
-Hele enheden køre på 3.3 V.
-Der er ikke lavet noget beskyttelse på inputstrømmen så det skal være 3.3V dc.
+Hele enheden kører på 3.3 V.
+Der er ikke lavet noget beskyttelse på inputstrømmen, så de 3.3 V DC skal være præcis.
 
 Det totale strømforbrug for hele sender systemet er:
 \begin{itemize}
@@ -142,9 +146,9 @@ Så det vil sige at senderen på et AA 2000mA batteri kan være på standby i $\
 \label{fig: Print3D}
 \end{figure}
 Det endelige layout kan ses på Figur \ref{fig: Print3D}.
-Layouted er forsøgt holdt simpelt. 
+Layoutet er forsøgt holdt simpelt. 
 Knapperne til brugeren er placeret så de minder om pilene på et tastatur, dog med op/ned funktioner og autoland.
-Printet er aflangt så det er til at holde som en fjernbetjening og derved kan styres med en hånd.
+Printet er aflangt, så det er til at holde som en fjernbetjening og derved kan styres med en hånd.
 Radioen er placeret forrest på fjernbetjeningen, for at brugeren dæmper/skærmer mindst muligt for signalet.  
 
 
