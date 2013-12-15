@@ -7,7 +7,6 @@ bool _motorsArmed;
 bool _safetyChecked;
 
 int maxSpinSpeed = 2000;
-int spinSpeed = 1500;
 
 
 
@@ -21,11 +20,10 @@ void SetupControlFaker()
 	_motorsArmed = false;
 	_safetyChecked = false;
 	_calibrationPerformed = false;
-	spinSpeed = 1210;
 
-	for(byte i = XAXIS; i < THROTTLE ; i++)
+	for(byte i = XAXIS; i < THROTTLE; i++)
 	{
-		_controllerInput[0] = MINCOMMAND+100;
+		_controllerInput[i] = MINCOMMAND+100;
 	}
 
 	KillMotor(false);
@@ -39,8 +37,7 @@ void KillMotor()
 	SilenceSerial();
 
 	//Reset axis
-	byte axis;
-	for(axis = XAXIS; axis < THROTTLE; axis++)
+	for(byte axis = XAXIS; axis < THROTTLE; axis++)
 	{
 		_controllerInput[axis] = 1500;
 	}

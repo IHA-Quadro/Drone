@@ -248,7 +248,6 @@ void readSerialCommand()
 		case 'T':
 			PrintConfig[STATUSMODE] = true;
 			newInput = readFloatSerial();
-			spinSpeed = newInput;
 			printInLine("Throttle changed to: ", STATUSMODE);
 			printInLine(newInput, STATUSMODE);
 			println(STATUSMODE);

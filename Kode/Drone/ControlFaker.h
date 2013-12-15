@@ -20,7 +20,6 @@ extern bool _motorsArmed;
 extern bool _safetyChecked;
 
 extern int maxSpinSpeed;
-extern int spinSpeed;
 extern int _controllerInput[channelsInUse];
 
 void SetupControlFaker();

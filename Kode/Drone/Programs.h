@@ -5,6 +5,7 @@
 
 #define PROGRAM_START 1
 #define PROGRAM_AUTOLAND 2
+#define PROGRAM_KILL 8
 
 #include "GlobalDefined.h"
 

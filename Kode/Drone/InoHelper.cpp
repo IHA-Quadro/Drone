@@ -96,14 +96,17 @@ void process10HzTask2()
 void process10HzTask3() {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
+
+	PrintChosenProgram();
+	PrintControllerOutput();
+	
+	//PrintReceiverOutput();
 }
 
 //2 Hz process
 void process2HzTask()
 {
 	//PrintSonarReport();
-	//PrintChosenProgram();
-	PrintControllerOutput();
 	//PrintWarnings();
 }
 
@@ -196,5 +199,7 @@ static void PrintControllerOutput()
 	printInLine(" - ", MOTORMODE);
 	printInLine(_controllerInput[THROTTLE], MOTORMODE);
 	printInLine(" - ", MOTORMODE);
-	printNewLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
+	printInLine((_controllerInput[AUX1] == ALTITUDEHOLDFALSE ? "True" : "False") , MOTORMODE);
+	printInLine(" - ", MOTORMODE);
+	printNewLine((_controllerInput[AUX3] == AUTOLANDFALSE ? "True" : "False") , MOTORMODE);
 }

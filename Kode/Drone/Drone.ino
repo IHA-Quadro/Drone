@@ -117,7 +117,6 @@ void setup()
 
 	printNewLine("Initialing ControlFaker", STATUSMODE);
 	SetupControlFaker();
-	//KillMotor(true);
 
 	printNewLine("Initializing Receiver", STATUSMODE);
 	initializeReceiver(LASTCHANNEL);
@@ -187,20 +186,6 @@ void loop ()
 
 	measureCriticalSensors();
 
-	//if ( gI2CCheckBusyAfterStop != 0 )	// Call repeatedly while(gI2CCheckBusyAfterStop>0)
-	//{
-	//	if (PinIsLow(0x20) || PinIsLow(0x21))
-	//	{
-	//		gI2CCheckBusyAfterStop = I2C_HOW_MANY_BUSY_CHECKS_AFTER_STOP;
-	//		// Bus is busy. Start the countdown all over again.
-	//	}
-	//	else
-	//	{
-	//		gI2CCheckBusyAfterStop--; // Good. The bus is quiet. Count down!
-	//	}
-	//}
-
-
 	// 100Hz task loop
 	if (deltaTime >= 10000) 
 	{
@@ -225,11 +210,8 @@ void loop ()
 			process10HzTask2();
 
 		else if ((currentTime - lowPriorityTenHZpreviousTime2) > 100000) 
-		{
-			PrintReceiverOutput();
-
 			process10HzTask3();
-		}
+		
 
 		//2Hz Task
 		if(frameCounter % TASK_2HZ == 0)

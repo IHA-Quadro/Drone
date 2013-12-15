@@ -1,7 +1,7 @@
 #include "InputAnalysis.h"
 
-#define SIDE_SONAR_DISTANCE 0.4
-#define FRONT_SONAR_DISTANCE 0.3
+#define SIDE_SONAR_DISTANCE 0.5
+#define FRONT_SONAR_DISTANCE 0.5
 
 int _radioProgram;
 int _sonarProgram;
@@ -13,7 +13,6 @@ void ResetInputAnalysis()
 {
 	_radioProgram = 0;
 	_sonarProgram = 0;
-	//	_serialProgram = 0;
 
 	_leftWarning = false;
 	_rightWarning = false;

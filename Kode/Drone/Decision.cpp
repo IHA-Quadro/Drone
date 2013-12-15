@@ -6,7 +6,7 @@
 #define STEADYTOLERANCE 20
 #define INC_DELAY 350
 #define IN_FLIGHT_TOLERANCE 40
-#define MAX_HEIGHT 100
+#define MAX_HEIGHT 150
 #define INC_TIME 300 //sec for increasing throttle
 
 enum Timers { 
@@ -21,7 +21,7 @@ enum Timers {
 ProgramInput _serialProgram;
 bool _autoLandMessage;
 bool _startMessage;
-bool StartTakeOff;
+//bool StartTakeOff;
 
 unsigned long _previousTime[GrdTakeOff], _currentTime[GrdTakeOff], _deltaTime[GrdTakeOff];
 float _previousFloatTime[GrdTakeOff], _startTime[GrdTakeOff], _deltaFloatTime[GrdTakeOff], _SteadyStamp[GrdTakeOff];
@@ -32,7 +32,7 @@ void ResetMessages()
 {
 	_autoLandMessage = false;
 	_startMessage = false;
-	StartTakeOff = false;
+	//StartTakeOff = false;
 
 	for( int i = 0; i < GrdTakeOff+1; i++)
 	{
@@ -89,11 +89,12 @@ static void PrintWarnings()
 }
 
 //Choose program based on sonars
+//Only active when Hovering
 static void SonarCheck()
 {
 	AnalyseSonarInput();
 
-	if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE )
+	if(_controllerInput[AUX1] == ALTITUDEHOLDTRUE)
 	{
 		//PrintWarnings();
 
@@ -171,7 +172,11 @@ static void SonarCheck()
 
 static void ProcessSignal()
 {
-	if(_serialProgram.ProgramID == PROGRAM_AUTOLAND || GetRadioProgram() == PROGRAM_AUTOLAND)
+	//Functions important also for serial-Com
+	if(_serialProgram.ProgramID == PROGRAM_KILL || GetRadioProgram() == PROGRAM_KILL)
+		SelectProgram(8);
+
+	else if(_serialProgram.ProgramID == PROGRAM_AUTOLAND || GetRadioProgram() == PROGRAM_AUTOLAND)
 		SelectProgram(2);
 
 	else if(_serialProgram.ProgramID == PROGRAM_START || GetRadioProgram() == PROGRAM_START)
@@ -191,23 +196,19 @@ void DecideProgram()
 static void SelectProgram(int programID)
 {
 	programInput.ProgramID = programID;
-	bool _altitudeHoldActivated = false;
 
 	switch (programID)
 	{
 	case 1: //Let
-		StartTakeOff = true;
-		Start();
-
-		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) //Not avaiable if in automode
-			IncreaseHeight();
+		//StartTakeOff = true;
 
 		if(!_startMessage)
 		{
+			Start(); //Set start values
 			printNewLine("Starting drone due to program select!", STATUSMODE);
 			ResetMessages();
 			_startMessage = true;
-			StartTakeOff = false;
+			//StartTakeOff = false;
 		}
 		break;
 
@@ -240,7 +241,6 @@ static void SelectProgram(int programID)
 	case 5: //RotateRight
 		if(_controllerInput[AUX3] != AUTOLANDTRUE)
 		{
-			_altitudeHoldActivated = _controllerInput[AUX1];
 			StopMidAir();
 			RotateRightSlow();
 		}
@@ -308,128 +308,133 @@ float TimeSpend(Timers timer)
 //a = wanted motor throttle, b = motor min-throttle
 void GroundTakeOff()
 {
-	if(GetActualProgram().ProgramID == PROGRAM_START)
-	{
-		float spend = TimeSpend(GrdTakeOff);
-		//printInLine("Spend: ", RADIOMODE);
-		//printInLine(spend, RADIOMODE);
-		//printInLine(" <= Max: ", RADIOMODE);
-		//printNewLine(programInput.TimeSpanInMiliSec, RADIOMODE);
+	//if(GetActualProgram().ProgramID == PROGRAM_START)
+	//{
+	//	float spend = TimeSpend(GrdTakeOff);
+	//	//printInLine("Spend: ", RADIOMODE);
+	//	//printInLine(spend, RADIOMODE);
+	//	//printInLine(" <= Max: ", RADIOMODE);
+	//	//printNewLine(programInput.TimeSpanInMiliSec, RADIOMODE);
 
-		if(_controllerInput[THROTTLE] > WANTED_LEVEL - 10)
-			_SteadyStamp[GrdTakeOff] = spend;
+	//	if(_controllerInput[THROTTLE] > WANTED_LEVEL - 10)
+	//		_SteadyStamp[GrdTakeOff] = spend;
 
-		if(spend < programInput.TimeSpanInMiliSec && _controllerInput[AUX1] == ALTITUDEHOLDFALSE)
-		{
-			printNewLine("Calculate new throttle: ", RADIOMODE);
-			printInLine(spend/100, RADIOMODE);
-			int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(-(spend/100)/TIME_FACTOR))+START_LEVEL;
+	//	if(spend < programInput.TimeSpanInMiliSec && _controllerInput[AUX1] == ALTITUDEHOLDFALSE)
+	//	{
+	//		printNewLine("Calculate new throttle: ", RADIOMODE);
+	//		printInLine(spend/100, RADIOMODE);
+	//		int throttle = (WANTED_LEVEL-START_LEVEL) * (1- exp(-(spend/100)/TIME_FACTOR))+START_LEVEL;
 
-			_controllerInput[THROTTLE] = throttle;
-			printInLine( " => ", RADIOMODE);
-			printNewLine(throttle, RADIOMODE);
+	//		_controllerInput[THROTTLE] = throttle;
+	//		printInLine( " => ", RADIOMODE);
+	//		printNewLine(throttle, RADIOMODE);
 
-			if(_SteadyStamp[GrdTakeOff] > 2)
-			{
-				if(throttle > WANTED_LEVEL - 3)
-					_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
-			}
-		}
-	}
+	//		if(_SteadyStamp[GrdTakeOff] > 2)
+	//		{
+	//			if(throttle > WANTED_LEVEL - 3)
+	//				_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+	//		}
+	//	}
+	//}
 }
 
 void GroundStart()
 {
-	if(GetActualProgram().ProgramID == PROGRAM_START)
-	{
-		float spend = TimeSpend(GrdStart);
+	//if(GetActualProgram().ProgramID == PROGRAM_START)
+	//{
+	//	float spend = TimeSpend(GrdStart);
 
-		int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
+	//	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
-		if((sonarHeight + IN_FLIGHT_TOLERANCE > programInput.height) && (sonarHeight + STEADYTOLERANCE < programInput.height))
-		{
-			stableHeight = false;
+	//	if((sonarHeight + IN_FLIGHT_TOLERANCE > programInput.height) && (sonarHeight + STEADYTOLERANCE < programInput.height))
+	//	{
+	//		stableHeight = false;
 
-			//if(spend > INC_DELAY) //Still not high enough after initTime
-			//{
-			//	_groundStart = true;
-			//	_controllerInput[THROTTLE] += 5;
-			//	printInLine("Throttle = ", STATUSMODE);
-			//	printInLine(_controllerInput[THROTTLE], STATUSMODE);
-			//	printInLine(" ; ", STATUSMODE);
-			//	printInLine(sonarHeight, STATUSMODE);
-			//	println(STATUSMODE);
-			//}
-		}
-		else if( (sonarHeight + STEADYTOLERANCE > programInput.height) && (sonarHeight - STEADYTOLERANCE < programInput.height))
-		{
-			if(!stableHeight)
-				printNewLine("Enabling Altitude Hold", STATUSMODE);
+	//		//if(spend > INC_DELAY) //Still not high enough after initTime
+	//		//{
+	//		//	_groundStart = true;
+	//		//	_controllerInput[THROTTLE] += 5;
+	//		//	printInLine("Throttle = ", STATUSMODE);
+	//		//	printInLine(_controllerInput[THROTTLE], STATUSMODE);
+	//		//	printInLine(" ; ", STATUSMODE);
+	//		//	printInLine(sonarHeight, STATUSMODE);
+	//		//	println(STATUSMODE);
+	//		//}
+	//	}
+	//	else if( (sonarHeight + STEADYTOLERANCE > programInput.height) && (sonarHeight - STEADYTOLERANCE < programInput.height))
+	//	{
+	//		if(!stableHeight)
+	//			printNewLine("Enabling Altitude Hold", STATUSMODE);
 
-			_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
-			stableHeight = true;
-		}
+	//		_controllerInput[AUX1] = ALTITUDEHOLDTRUE;
+	//		stableHeight = true;
+	//	}
 
-		else if(sonarHeight + STEADYTOLERANCE < programInput.height) //Not high enough
-		{
-			stableHeight = false;
+	//	else if(sonarHeight + STEADYTOLERANCE < programInput.height) //Not high enough
+	//	{
+	//		stableHeight = false;
 
-			if(spend > INC_DELAY) //Still not high enough after initTime
-			{
-				_groundStart[GrdStart] = true;
-				_controllerInput[THROTTLE] += 10;
-				printInLine("Throttle = ", STATUSMODE);
-				printInLine(_controllerInput[THROTTLE], STATUSMODE);
-				printInLine(" ; ", STATUSMODE);
-				printInLine(sonarHeight, STATUSMODE);
-				println(STATUSMODE);
-			}
-		}
-		else if(sonarHeight  - STEADYTOLERANCE > programInput.height) //Too high 
-		{
-			stableHeight = false;
+	//		if(spend > INC_DELAY) //Still not high enough after initTime
+	//		{
+	//			_groundStart[GrdStart] = true;
+	//			_controllerInput[THROTTLE] += 10;
+	//			printInLine("Throttle = ", STATUSMODE);
+	//			printInLine(_controllerInput[THROTTLE], STATUSMODE);
+	//			printInLine(" ; ", STATUSMODE);
+	//			printInLine(sonarHeight, STATUSMODE);
+	//			println(STATUSMODE);
+	//		}
+	//	}
+	//	else if(sonarHeight  - STEADYTOLERANCE > programInput.height) //Too high 
+	//	{
+	//		stableHeight = false;
 
-			if(spend > INC_DELAY) //Still too high after initTime
-			{
-				_groundStart[GrdStart] = true;
-				_controllerInput[THROTTLE] -= 5;
-				printInLine("Throttle = ", STATUSMODE);
-				printInLine(_controllerInput[THROTTLE], STATUSMODE);
-				printInLine(" ; ", STATUSMODE);
-				printInLine(sonarHeight, STATUSMODE);
-				println(STATUSMODE);
-			}
-		}
-	}
+	//		if(spend > INC_DELAY) //Still too high after initTime
+	//		{
+	//			_groundStart[GrdStart] = true;
+	//			_controllerInput[THROTTLE] -= 5;
+	//			printInLine("Throttle = ", STATUSMODE);
+	//			printInLine(_controllerInput[THROTTLE], STATUSMODE);
+	//			printInLine(" ; ", STATUSMODE);
+	//			printInLine(sonarHeight, STATUSMODE);
+	//			println(STATUSMODE);
+	//		}
+	//	}
+	//}
 }
 
 void IncreaseHeight()
 {
-	//programInput.data.aux1 = ALTITUDEHOLDFALSE;
-
-	//if(GetActualProgram().ProgramID == PROGRAM_START)
-	//{
 	float spend = TimeSpend(IncHeight);
 
 	if(spend > INC_TIME)
 	{
-		if(_controllerInput[THROTTLE] < 1980)
-			_controllerInput[THROTTLE] += 10;
+		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE)
+		{
+			if(_controllerInput[THROTTLE] < 1980)
+				_controllerInput[THROTTLE] += 10;
+		}
+		else
+			programInput.height += 5;
+
 		_groundStart[IncHeight] = true; //Reset timer
+
 	}
-	//}
 }
 
 void DecreaseHeight()
 {
-	//programInput.data.aux1 = ALTITUDEHOLDFALSE;
-
 	float spend = TimeSpend(DecHeight);
 
 	if(spend > INC_TIME)
 	{
-		if(_controllerInput[THROTTLE] > 1210)
-			_controllerInput[THROTTLE] -= 10;
+		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE)
+		{
+			if(_controllerInput[THROTTLE] > 1210)
+				_controllerInput[THROTTLE] -= 10;
+		}
+		else
+			programInput.height -= 5;
 
 		_groundStart[DecHeight] = true; //Reset timer
 	}
@@ -443,6 +448,7 @@ void HoldHeight()
 	printNewLine(sonarHeight, RADIOMODE);
 
 	programInput.height = sonarHeight;
+	printNewLine("HoldHeight(), Decision", DEBUGMODE);
 	programInput.data.aux1 = ALTITUDEHOLDTRUE;
 	programInput.data.aux3 = AUTOLANDFALSE;
 }
@@ -451,9 +457,10 @@ void MaxHeightAction()
 {
 	int sonarHeight = (int)(RangerAverage[ALTITUDE_RANGE_FINDER_INDEX].average *100) + 8; //Bottom sonar
 
-	if(sonarHeight > MAX_HEIGHT)
+	if(sonarHeight > MAX_HEIGHT && _controllerInput[THROTTLE] > 1450)
 	{
+		printNewLine("MaxHeightAction(), Decision", DEBUGMODE);
 		programInput.data.aux1 = ALTITUDEHOLDTRUE;
-		programInput.height = 60;
+		programInput.height = MAX_HEIGHT;
 	}
 }

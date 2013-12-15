@@ -61,7 +61,7 @@ void readReceiver()
 {
 	if(!_initialized)
 	{
-		if(!IsMotorKilled()) //Motor stopped - Start sending 'S'
+		if(!IsMotorKilled()) //Motor stopped
 		{
 			//To start at all
 			receiverCommand[THROTTLE] = 1000;
@@ -93,16 +93,16 @@ void readReceiver()
 		// AUX1 is set to ALTITUDEHOLDTRUE at the end of 'GroundTakeOff'
 		//if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE) 
 		//{
-			//GroundTakeOff();
-			//GroundStart();
+		//GroundTakeOff();
+		//GroundStart();
 		//}
 
 		DecideProgram();
 		ApplyProgram(); 
 		ApplySpeed();
 	}
-	ApplyData();
 
+	ApplyData();
 }
 
 void ApplyData()
