@@ -5,14 +5,15 @@
 Process view beskriver kommunikationen imellem de forskellige processer.
 
 Dette projekt indeholder 3 processer, en på senderen, en på modtageren og en på dronen.
-
 Processen på fjernbetjeningen snakker kun med radioen og det er normal SPI kommunikation. Der er ikke problemer med overskrivning af data der er ved at blive brugt af radioen.
 
 Modtageren og dronen er to sideløbende processer der snakker sammen.
 Modtageren modtager en frame fra senderen, som skal sendes over \itoc til dronen.
 
-For at sikre at der ikke sker fejl, er der lagt en sikkerhed ind på modtageren. Modtageren og dronen deler 2 byte mellem sig.
-
-Når modtageren har en ny pakke til dronen, tjekker den først om der er en \itoc transmission i gang. Hvis ikke bliver de nye data lagt over i output bufferen. Der bliver startet en svar funktion, så næste gang dronen spøger efter data kan den modtage de nyeste data.
+For at sikre at der ikke sker fejl, er der lagt en sikkerhed ind på modtageren. 
+Modtageren og dronen deler 2 byte mellem sig.
+Når modtageren har en ny pakke til dronen, tjekker den først om der er en \itoc transmission i gang. 
+Hvis ikke bliver de nye data lagt over i output bufferen. 
+Der bliver startet en svar funktion, så næste gang dronen spøger efter data kan den modtage de nyeste data.
 
 \end{document}

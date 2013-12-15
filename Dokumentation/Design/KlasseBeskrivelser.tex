@@ -123,7 +123,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{process2HzTask}
 \para{void}
 \retu{void}
-\comm{Denne funktion udskriver forskellige debug-informationer 2 gange i sekundet, herunder sonarsensorernes målinger, om disse er advarsler, det valgte program og styringsinput.}
+\comm{Denne funktion udskriver forskellige debug-informationer 2 gange i sekundet igennem COM-porten, herunder sonarsensorernes målinger, om disse er advarsler, det valgte program og styringsinput.}
 \end{Function}
 
 
@@ -139,7 +139,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintChosenProgram}
 \para{void}
 \retu{static void}
-\comm{Denn funktion udskriver det valgte program.}
+\comm{Denn funktion udskriver det valgte program igennem COM-porten.}
 \end{Function}
 
 
@@ -147,7 +147,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintSonarReport}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver gennemsnitsværdien for de sidste målinger af sonarsensorerne og om dronen flyver i fri højde eller i en fixeret højde.}
+\comm{Denne funktion udskriver gennemsnitsværdien for de sidste målinger af sonarsensorerne igennem COM-porten og om dronen flyver i fri højde eller i en fixeret højde.}
 \end{Function}
 
 
@@ -155,7 +155,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintAltitudeReport}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver, om dronen kan se sonarsensoren på maven og om den er i panic-mode.}
+\comm{Denne funktion udskriver igennem COM-porten, om dronen kan se sonarsensoren på maven og om den er i panic-mode.}
 \end{Function}
 
 
@@ -163,7 +163,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintDebugReport}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver om motorerne er aktiveret.}
+\comm{Denne funktion udskriver igennem COM-porten om motorerne er aktiveret.}
 \end{Function}
 
 
@@ -171,7 +171,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintWarnings}
 \para{void }
 \retu{static void}
-\comm{Denne funktion udskriver sonarsensorernes advarsler, såfremt der er nogle.}
+\comm{Denne funktion udskriver igennem COM-porten sonarsensorernes advarsler, såfremt der er nogle.}
 \end{Function}
 
 
@@ -179,7 +179,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintControllerOutput}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
+\comm{Denne funktion udskriver igennem COM-porten receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
 \end{Function}
 
 
@@ -280,7 +280,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{PrintReceiverOutput}
 \para{void}
 \retu{void}
-\comm{Udskriver værdier der sendes videre til motorerne}
+\comm{Udskriver igennem COM-porten værdier der sendes videre til motorerne.}
 \end{Function}
 
 
@@ -325,7 +325,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{PrintWarnings}
 \para{void}
 \retu{static void}
-\comm{Udskriver hvilken sonar der er advarsel fra, såfremt der er en.}
+\comm{Udskriver igennem COM-porten hvilken sonar der er advarsel fra, såfremt der er en.}
 \end{Function}
 
 
@@ -651,7 +651,7 @@ Den har ingen afhængigheder til andre klasser og sætter et flag til at slukke 
 \name{IsMotorKilled}
 \para{void}
 \retu{bool}
-\comm{Udskriver motorernes nuværende status -- slukket eller ej.}
+\comm{Udskriver igennem COM-porten motorernes nuværende status -- slukket eller ej.}
 \end{Function}
 
 
@@ -685,7 +685,7 @@ Funktionen aflæser sonaren på maven af dronen hver anden gang; bunden -- venst
 
 
 \class{PrintDrone \label{sec:printDrone}}
-\code{PrintDrone}-klassen udskriver beskeder til Serial-porten. 
+\code{PrintDrone}-klassen udskriver beskeder til COM-porten. 
 Dette kan kan gøres ved at kalde en funktion der skriver på linjen, eller som skifter linje.
 Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser opdeles derfor i kategorier, som kan aktiveres og deaktiveres.
 
@@ -714,14 +714,14 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \name{printNewLine}
 \para{int / float / double / unsigned long / String, printModes}
 \retu{void}
-\comm{Udskriver en besked eller et tal i den givende kategori og bliver på den nuværende linje.}
+\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og bliver på den nuværende linje.}
 \end{Function}
 
 \begin{Function}
 \name{printInLine}
 \para{int, long, String, char, float, unsigned long, printModes}
 \retu{void}
-\comm{Udskriver en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
+\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
 \end{Function}
 
 \code{Sender Radio}-klassen er den der står og lytter efter brugerinput. Når der så er et input, klargør den en pakke som skal sendes ved hjælp af 

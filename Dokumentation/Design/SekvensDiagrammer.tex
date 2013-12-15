@@ -45,7 +45,7 @@ XXX What
 
 \newpage
 \subsubsection{Use Case 2 -- Programvalg}
-Når brugeren af systemet vælger et program, sendes signalet fra fjernbetjeningen til dronens radiomodtager, der læses af \code{DecideProgram()} (fra Figur \ref{Fig:50Hz}) og er illustreret på Figur \ref{Fig:SendProgram} ved funktion nummer 4.
+Når brugeren af systemet vælger et program, sendes signalet fra fjernbetjeningen til dronens radiomodtager, der læses af \code{4:DecideProgram()} (fra Figur \ref{Fig:50Hz}) og er illustreret på Figur \ref{Fig:SendProgram} ved funktion nummer 4.
 
 \begin{figure}[H]
 \centering
@@ -57,7 +57,7 @@ Når brugeren af systemet vælger et program, sendes signalet fra fjernbetjening
 
 \newpage
 \subsubsection{Use Case 3 -- Sonaradvarsel}
-Når dronen flyver kan de 3 sonarsensorer, der sidder foran den, registrere hvor langt der er til nærmeste objekt i en kegle 67$^{\circ}$ (se Afsnit \ref{Sec:Sonar}).
+Når dronen flyver kan de 3 sonarsensorer, der sidder foran den, registrere hvor langt der er til nærmeste objekt i en kegle af 67$^{\circ}$ (se Afsnit \ref{Sec:Sonar}).
 Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vil et flag blive sat, hvilket checkes for i \code{4: DecideProgram()} (fra Figur \ref{Fig:SendProgram}), hvorefter dronen vil reagere på alle kombinationer der er af disse input (se Tabel \ref{Tab:SonarAdvarsel}).
 
 
@@ -91,8 +91,8 @@ Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vi
 Use Case 4 aktiveres af dronen, hvis en af dronens propeller skal spinne med værdien over 2000 RPM (hvilket også er dens maksimale spinhastighed).
 Dette scenarie finder kun sted, såfremt dronen forsøger at rette sig selv op efter den er fløjet ind i noget og/eller en propel er blev beskadiget og derfor ikke retter dronen op, som den ellers burde.
 
-Beregningerne foretages 100 gange i sekundet og er vist på Figur \ref{Fig:100HzProcess}, hvor systemet kalder funktionen \code{2: CalculateFlightError()}, der beregner hvor meget dronen skal justere sig på x- og y-aksen for, at holde sig vandret i luften.
-Når dette er gjort anvendes de udregnede værdier i funktionen \code{7: ApplyMotorCommand()}.
+Beregningerne foretages 100 gange i sekundet og er vist på Figur \ref{Fig:100HzProcess}, hvor systemet kalder funktionen \code{2:CalculateFlightError()}, der beregner hvor meget dronen skal justere sig på x- og y-aksen for, at holde sig vandret i luften.
+Når dette er gjort anvendes de udregnede værdier i funktionen \code{7:ApplyMotorCommand()}.
 
 \begin{figure}[H]
 \centering

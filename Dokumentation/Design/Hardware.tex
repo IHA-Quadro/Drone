@@ -146,28 +146,57 @@ Printet er aflangt, så det er til at holde som en fjernbetjening og derved kan 
 Radioen er placeret forrest på fjernbetjeningen, for at brugeren dæmper/skærmer mindst muligt for signalet.  
 
 
-
+\newpage
 \section{Sonar-klods}\label{Sec:Sonar}
 På dronens frontben sidder en lille klods, som holder sonarsensorerne.
 Da benet er bøjet og sensorerne gerne skal være vandrette, er klodsen skåret i en skæv vinkel.
 Derudover peger hver sensor således, at deres bølger først overlapper hinanden efter 50 cm.
 Hver sensor spreder sig over $67^\circ$ (se Figur \ref{Fig:SonarMeasure}), hvilket gør, at klodsen skal skæres til $32^\circ$ til hver side, vist på Figur \ref{Fig:SonarSkitse}.
+\begin{figure}[H]
+\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width = \textwidth]{Dummy}
+		\caption{Måling af sonarspredning}
+		\label{Fig:SonarMeasure}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+		\includegraphics[width =\textwidth]{Sonar}
+		\caption{Sonarklods-skitse. Beregningerne kan ses i bilag\cite{Klods}}
+		\label{Fig:SonarSkitse}
+	\end{subfigure}
+\end{figure}
 
 Sensorerne er programmeret til, at give en advarsel hvis de registrerer noget inden for 100 cm.
 
-\begin{figure}[H]
-\centering
-	\includegraphics[width = 0.9 \textwidth]{Dummy}
-	\caption{Måling af sonarspredning}
-	\label{Fig:SonarMeasure}
-\end{figure}
+Sensorerne bliver dog først aktiveret, når dronen selv skal holde styr på sin højde. Dette skyldes, at de udsender deres bøljer i en kegle, og ikke kun horisontalt. 
+Det betyder, at dronen vil kunne se jorden under den, såfremt den flyver lavt nok (eller den i opstartsfasen står på jorden).
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width = 0.6 \textwidth]{Sonar}
-	\caption{Sonarklods skitse. Beregningerne kan ses i bilag\cite{Klods}}
-	\label{Fig:SonarSkitse}
+	\includegraphics[width = 0.7 \textwidth]{SonarAngles}
+	\caption{Sonarsensorernes afstand til jorden}
+	\label{Fig:SonarAngles}
 \end{figure}
+
+Fra sensoren til nærmeste forhindring er der maksimalt 100 cm, og da gulvet ikke skal rammes skal der holdes en hvis afstand hertil.
+\vspace{-10 pt}
+\begin{align*}
+%b &= \dfrac{sin(B) \cdot c}{sin(C)} & \text{Afstanden på jorden} \\
+%	&= \dfrac{sin(57) \cdot 100}{sin(90)} = 83.87 \\
+A &= 180^\circ - C - B & \text{Vinklen fra jorden til sensoren}\\
+	&= 180^\circ - 90^\circ - 57^\circ\\
+	&= 33 ^\circ\\
+a &= \dfrac{sin(A) \cdot c}{sin(C)} & \text{Afstanden fra sonar til jorden}\\
+ 	&= \dfrac{sin(33^\circ) \cdot 100cm}{sin(90^\circ)} \\
+	&= 54.46 cm
+\end{align*}
+Der skal altså være minimum 55 cm fra dronen til jorden, før dette har en effekt.
+
+
+
+
 
 
 
