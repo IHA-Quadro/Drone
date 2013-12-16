@@ -192,9 +192,6 @@
     <ClInclude Include="Accelerometer.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AQ_SoftModem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OSDMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.AeroQuad.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

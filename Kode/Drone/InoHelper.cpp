@@ -97,8 +97,8 @@ void process10HzTask3() {
 	G_Dt = (currentTime - lowPriorityTenHZpreviousTime2) / 1000000.0;
 	lowPriorityTenHZpreviousTime2 = currentTime;
 
-	PrintChosenProgram();
-	PrintControllerOutput();
+	//PrintChosenProgram();
+	//PrintControllerOutput();
 	
 	//PrintReceiverOutput();
 }
@@ -107,7 +107,7 @@ void process10HzTask3() {
 void process2HzTask()
 {
 	//PrintSonarReport();
-	//PrintWarnings();
+	PrintWarnings();
 }
 
 //1Hz process
@@ -138,11 +138,11 @@ static void PrintSonarReport()
 	printInLine("<=>", SONARMODE);
 	printNewLine(programInput.height, SONARMODE);
 
-	printInLine( RangerAverage[LEFT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine( RangerAverage[LEFT_RANGE_FINDER_INDEX].average * 100 + 8, SONARMODE);
 	printInLine(" - ", SONARMODE);
-	printInLine( RangerAverage[FRONT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printInLine( RangerAverage[FRONT_RANGE_FINDER_INDEX].average * 100 + 8, SONARMODE);
 	printInLine(" - ", SONARMODE);
-	printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average, SONARMODE);
+	printNewLine( RangerAverage[RIGHT_RANGE_FINDER_INDEX].average * 100 + 8, SONARMODE);
 }
 
 static void PrintAltitudeReport()
@@ -179,10 +179,10 @@ static void PrintWarnings()
 
 	if(print)
 	{
-		printInLine("Warning: ", WARNINGMODE);
-		printInLine(GetLeftWarning() ? ": Left" : "", WARNINGMODE);
-		printInLine(GetFrontWarning() ? ": Center" : "", WARNINGMODE);
-		printInLine(GetRightWarning() ? ": Right" : "", WARNINGMODE);
+		printInLine("Warning: ", SONARMODE);
+		printInLine(GetLeftWarning() ? ": Left" : "", SONARMODE);
+		printInLine(GetFrontWarning() ? ": Center" : "", SONARMODE);
+		printInLine(GetRightWarning() ? ": Right" : "", SONARMODE);
 
 		printNewLine("", WARNINGMODE);
 	}

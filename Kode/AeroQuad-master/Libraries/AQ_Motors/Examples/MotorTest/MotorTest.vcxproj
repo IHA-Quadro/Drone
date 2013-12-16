@@ -73,6 +73,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GlobalDefined.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Motors.h" />
     <ClInclude Include="Motors_PWM_Timer.h">
       <FileType>CppCode</FileType>

@@ -127,30 +127,36 @@ byte normalBlade2 = 2;
 //Sets the motors steady for maxSpeed
 void SteadyMotors()
 {
-	if(!_init)
-	{
-		for(int motorTrust = initSpeed; motorTrust < minSpeed; motorTrust+=10) 
-		{
-			for(byte motor = 0; motor < NB_MOTOR; motor++)
-			{
-				//if(motor == pusherBlade1 || motor == pusherBlade2)
-					motorCommand[motor] = motorTrust;
-				//else
-				//	motorCommand[motor] = -motorTrust;
-			}
-			writeMotors();
-			delay(200); //Why?
-		}
-		_init = true;
-	}
+	//if(!_init)
+	//{
+	//	for(int motorTrust = initSpeed; motorTrust < minSpeed; motorTrust+=10) 
+	//	{
+	//		for(byte motor = 0; motor < NB_MOTOR; motor++)
+	//		{
+	//			//if(motor == pusherBlade1 || motor == pusherBlade2)
+	//				motorCommand[motor] = motorTrust;
+	//			//else
+	//			//	motorCommand[motor] = -motorTrust;
+	//		}
+	//		writeMotors();
+	//		delay(200); //Why?
+	//	}
+	//	_init = true;
+	//}
 
-	for(byte motor = 0; motor < NB_MOTOR; motor++)
-	{
-		if(motor == pusherBlade1 || motor == pusherBlade2)
-			motorCommand[motor] = (int)((maxSpeed*pusherScaling < minSpeed ? minSpeed : maxSpeed*pusherScaling));
-		else
-			motorCommand[motor] = maxSpeed;
-	}
+
+	motorCommand[0] = 1210;
+	motorCommand[1] = 1100;
+	motorCommand[2] = 1100;
+	motorCommand[3] = 1100;
+	//for(byte motor = 0; motor < NB_MOTOR; motor++)
+	//{
+	//	
+	//	if(motor == pusherBlade1 || motor == pusherBlade2)
+	//		motorCommand[motor] = (int)((maxSpeed*pusherScaling < minSpeed ? minSpeed : maxSpeed*pusherScaling));
+	//	else
+	//		motorCommand[motor] = maxSpeed;
+	//}
 	writeMotors();
 	delay(200);
 

@@ -6,7 +6,7 @@ bool _calibrationPerformed;
 bool _motorsArmed;
 bool _safetyChecked;
 
-int maxSpinSpeed = 2000;
+int maxSpinSpeed;
 
 
 
@@ -20,6 +20,7 @@ void SetupControlFaker()
 	_motorsArmed = false;
 	_safetyChecked = false;
 	_calibrationPerformed = false;
+	maxSpinSpeed = 1990;
 
 	for(byte i = XAXIS; i < THROTTLE; i++)
 	{

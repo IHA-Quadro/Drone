@@ -18,14 +18,11 @@
     <None Include="Test_Receiver.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Visual Micro\.Test_Receiver.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\AQ_Math\AQMath.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AQ_Defines\GlobalDefined.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Visual Micro\.Test_Receiver.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
