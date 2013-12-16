@@ -1,7 +1,7 @@
 #include "InputAnalysis.h"
 
-#define SIDE_SONAR_DISTANCE 0.5
-#define FRONT_SONAR_DISTANCE 0.5
+#define SIDE_SONAR_DISTANCE 120 //cm
+#define FRONT_SONAR_DISTANCE 100 //cm
 
 int _radioProgram;
 int _sonarProgram;
@@ -26,11 +26,11 @@ void AnalyseSonarInput()
 {	
 	if(programInput.data.aux1 == ALTITUDEHOLDTRUE)
 	{
-		_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average < FRONT_SONAR_DISTANCE) ? true : false;
+		_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average*100 +8 < FRONT_SONAR_DISTANCE) ? true : false;
 
-		_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+		_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average*100 +8 < SIDE_SONAR_DISTANCE) ? true : false;
 
-		_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average < SIDE_SONAR_DISTANCE) ? true : false;
+		_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average*100 +8 < SIDE_SONAR_DISTANCE) ? true : false;
 	}
 }
 
