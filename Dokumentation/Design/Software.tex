@@ -2,16 +2,17 @@
 \begin{document}
 
 \chapter{Software}
-Dette kapitel beskriver softwarens opbygning efter 4+1 modellen\cite[p. 872-875]{Larman} og bygger på Kravspecifikationen\cite{KravSpec}. 
-Opbygning med 4+1 modellen gør det nemmere at forstå hvordan systemet er sat sammen, da der visse blokke (views) af systemet, der derefter åbnes op.
-Derudover kan blokke der ikke er brug for undværes.
+Dette kapitel beskriver softwarens opbygning efter N+1 modellen\cite{Larman} og bygger på kravspecifikationen\cite{KravSpec}. 
+Opbygning med N+1 modellen gør det nemmere at forstå hvordan systemet er sat sammen, da der vises blokke (views) af systemet, der derefter åbnes op.
+Derudover kan blokke der ikke er i brug undværes.
 
 Følgende views er valgt:
-Logical view, deployment view, process view og implementation view.
+Logical view, Deployment view, Process view og Implementation view.
 Foruden disse er der også valgt et afsnit med nogle designbeslutninger der blev truffet undervejs i forløbet.
+
 \begin{itemize}
 \item Logical view beskriver hvordan systemet er opbygget, med diagrammer og funktionsbeskrivelser.
-\item Deployment view beskriver det samlede system.
+\item Deployment view beskriver systemet er sat sammen.
 \item Process view beskriver kommunikationen mellem de overordnede dele i systemet.
 \item Implementation view beskriver hvordan systemet er bygget og hvad der skal til for, at bygge det på en anden computer.
 \end{itemize}
@@ -24,7 +25,7 @@ Alle sekvens-diagrammer beskrevet i dette dokument er skraveret efter, hvem der 
 \label{Fig:Skraveringer}
 \end{figure}
 
-
+\newpage
 \subfile{LogiskView}
 
 \newpage

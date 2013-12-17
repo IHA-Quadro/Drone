@@ -17,7 +17,7 @@
 \UCnormFor{Normalforløb}
 	\begin{normFor}
 	\item Bruger kobler batteriets strømkabel til dronens strømkabel.
-	\item Bruger venter på sekvensen af bips: ét kort, pause, tre korte, pause, ét langt.
+	\item Bruger venter på sekvensen af bips: ét kort, tre korte og ét langt.
 	\item[]	\textit{Undtagelse: Opstartssekvens.}
 	\item Dronens propeller begynder at spinde med indbyrdes ens hastighed.
 	\end{normFor} 
@@ -32,7 +32,7 @@
 \end{UseCase}
 
 
-
+\newpage
 \subsection{Use Case 2}
 
 \begin{UseCase}
@@ -46,9 +46,10 @@
 \UCnormFor{Normalforløb 1: \\ Let}
 	\begin{normFor}
 	\item Brugeren trykker på knap for let.
+	\item Brugeren trykker og holder på 'Op'-knappen til dronen letter.
 	\item Dronens propeller spinner hurtigere og letter dronen.
 	\item[] \textit{Undtagelse: Drone reagerer ikke}
-	\item Dronen holder sig stabilt i 100 cm højde $\pm$ 10 cm \fxnote{Test og ret dette tal}.
+	\item Dronen holder sig stabilt i 100 cm højde $\pm$ 10 cm 
 	\end{normFor} 
 	
 \UCnormFor{Normalforløb 2: \\ Autoland}
@@ -112,7 +113,7 @@
 
 
 
-
+\newpage
 \subsection{Use Case 3}
 \begin{UseCase}
 \UCnumber{3}{Sonaradvarsel.}
@@ -124,7 +125,7 @@
 
 \UCnormFor{Normalforløb}
 	\begin{normFor}
-	\item Drone registrerer objekt inden for 100 cm afstand $\pm$ 10 cm\fxnote{Test og ret}.
+	\item Drone registrerer objekt inden for 100-120 cm afstand $\pm$ 10 cm\fxnote{Test og ret}.
 	\item Drone stopper i luften og roterer for at undgå dette.
 	\item[] \textit{Undtagelse: Drone stopper ikke}
 	\end{normFor} 
@@ -139,7 +140,7 @@
 	
 \end{UseCase}
 
-
+\newpage
 \subsection{Use Case 4}
 \begin{UseCase}
 \UCnumber{4}{Maks. spin stop.}
@@ -156,7 +157,7 @@
 	\end{normFor} 
 \end{UseCase}
 
-	
+
 \section{Systemets begrænsninger}
 \begin{itemize}
 \item Dronen flyver ikke nødvendigvis nedad ved tryk på "ned".

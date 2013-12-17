@@ -5,15 +5,15 @@
 
 \subsubsection{Use Case 1 -- System initialisering}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
-\includegraphics[angle=90, scale = 0.41]{SekvensInit}
-\caption{Init af drone}
+\includegraphics[angle=90, scale = 0.45]{SekvensInit}
+\caption{Initiering af drone}
 \label{Fig:SekvInit}
 \end{figure}
 
 På Figur \ref{Fig:SekvInit} ses de kald der foretages, når dronen starter op første gang den får strøm.
-Efter initieringen startes Arduino's \code{loop()}-funktion, der kører i ring til strømmen afbrydes, som vist på Figur \ref{Fig:SekvDroneHz}.
+Efter initieringen startes Arduino's \code{loop()}-funktion, der kører i ring til strømmen afbrydes, vist på Figur \ref{Fig:SekvDroneHz}.
 
 
 \begin{figure}[htbp]
@@ -23,17 +23,15 @@ Efter initieringen startes Arduino's \code{loop()}-funktion, der kører i ring t
 \label{Fig:SekvDroneHz}
 \end{figure}
 
-Input til, hvordan dronen skal flyve, bliver registreret i \code{50HzTask()} og er illustreret på Figur \ref{Fig:50Hz}.
+Input, til hvordan dronen skal flyve, bliver registreret i \code{2:50HzTask()} og er illustreret på Figur \ref{Fig:50Hz}.
 
 Når kalibreringen og sikkerhedstjekket er kørt igennem, nulstilles \code{Receiver}'ens lokale værdier, samt \code{ControlFaker}'ens og \code{Decision}'s lokale værdier.
 Nu er dronen klar til at flyve.
 
-Herefter vælges hvilket program der skal køres, der pga. nulstillingen er default-programmet, vil få dronen til at spinne med minimal hastighed. hvilket først læser det aktuelle programs data, sætter hastighed og derefter eksekverer dataene.
+Herefter vælges hvilket program der skal køres. 
+Pga. default-programmet vil dronen spinne med minimal hastighed.
 
-XXX What 
-
-
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width = \textwidth]{50HzProcess}
 \caption{50 Hz processen. }
@@ -58,7 +56,7 @@ Når brugeren af systemet vælger et program, sendes signalet fra fjernbetjening
 \newpage
 \subsubsection{Use Case 3 -- Sonaradvarsel}
 Når dronen flyver kan de 3 sonarsensorer, der sidder foran den, registrere hvor langt der er til nærmeste objekt i en kegle af 67$^{\circ}$ (se Afsnit \ref{Sec:Sonar}).
-Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vil et flag blive sat, hvilket checkes for i \code{4: DecideProgram()} (fra Figur \ref{Fig:SendProgram}), hvorefter dronen vil reagere på alle kombinationer der er af disse input (se Tabel \ref{Tab:SonarAdvarsel}).
+Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vil et flag blive sat, hvilket checkes for i \code{4:DecideProgram()} (fra Figur \ref{Fig:SendProgram}), hvorefter dronen vil reagere på alle kombinationer der er af disse input (se Tabel \ref{Tab:SonarAdvarse}).
 
 
 \begin{figure}[H]
@@ -83,12 +81,12 @@ Såfremt de registrerer noget (på et gennemsnit af de seneste to målinger), vi
 	Intet & Foretag ingen ændring \\ \hline
 	\end{tabular}
 \caption{Kombinationsmuligheder ved sonaradvarsel.}
-\label{Tab:SonarAdvarsel}
+\label{Tab:SonarAdvarse}
 \end{table}
 
 \newpage
 \subsubsection{Use Case 4 -- Maks. spin stop}
-Use Case 4 aktiveres af dronen, hvis en af dronens propeller skal spinne med værdien over 2000 RPM (hvilket også er dens maksimale spinhastighed).
+Use Case 4 aktiveres af dronen, hvis én af dronens propeller spinner med værdien over 2000 RPM (hvilket også er dens maksimale spinhastighed).
 Dette scenarie finder kun sted, såfremt dronen forsøger at rette sig selv op efter den er fløjet ind i noget og/eller en propel er blev beskadiget og derfor ikke retter dronen op, som den ellers burde.
 
 Beregningerne foretages 100 gange i sekundet og er vist på Figur \ref{Fig:100HzProcess}, hvor systemet kalder funktionen \code{2:CalculateFlightError()}, der beregner hvor meget dronen skal justere sig på x- og y-aksen for, at holde sig vandret i luften.
@@ -101,7 +99,8 @@ Når dette er gjort anvendes de udregnede værdier i funktionen \code{7:ApplyMot
 \label{Fig:100HzProcess}
 \end{figure}
 
-Når PID-ændringer virker som de skal og bliver anvendt på dronen, ser det ud som på Figur \ref{Fig:PID-outcome}. Outputtet er den værdi der sendes til motorerne.
+Når PID-ændringer virker som de skal og bliver anvendt på dronen, ser det ud som på Figur \ref{Fig:PID-outcome}. 
+Outputtet af disse værdier sendes til motorerne.
 
 \begin{figure}[htbp]
 \centering

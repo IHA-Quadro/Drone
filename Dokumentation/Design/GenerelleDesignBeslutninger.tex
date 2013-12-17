@@ -9,7 +9,7 @@ Det følgende afsnit beskriver de største beslutninger og alternativer der blev
 Den rå kode hentet fra AeroQuad's Github repository \cite{Github-AQ} er opbygget med de største og mest essentielle filer i én mappe, mens alle hardware-specifikke filer er gemt i en anden mappe, med hver sin undermappe.
 Dette skyldes Arduino's IDE, Sketch, kun læser filer fra én bestemt placering der ikke er det samme som projektets \code{.ino}-fil (kan sammenlignes med Visual Studio's \code{.sln} på nogle punkter).
 
-Projektet gemmes i gruppens eget Github repository \cite{Github-IHA} og kræver derfor filerne ligger under den samme hovedmappe.
+Projektet skulle gemmes i gruppens eget Github repository \cite{Github-IHA} og krævede derfor filerne lå under den samme hovedmappe.
 Da dette strider imod Arduino's obligatoriske opbygning, skulle hver fil kopires til den korrekte mappe, ændres og kopires tilbage.
 For at undgå dette blev det forsøgt at lave et symlink\cite{symlink} mellem den obligatoriske mappe, \code{/Arduino/libraries}, og gruppens egen mappe, \code{Drone/Kode/AeroQuad-master/Libraries}, således Arduino-mappen kiggede i gruppens mappe fra sit eget link.
 
@@ -42,14 +42,18 @@ Løsningen bestod derfor i, at opdele samtlige filer i \code{.h}-filer og \code{
   \vspace{-20pt}
 \end{wrapfigure}
 
-Under omskrivning af koden i afsnit \ref{Sec:cpp-filer} stod det klart, at Aero\-Quad's kode versus normal \code{C++}-kode ikke bruger den samme form for \code{\#include}.\fxnote{Er koden ikke i c? hvorfor så sammenligne med c++}
-Hvor normal \code{C++}-kodeskik siger, at en klasse ikke behøver vide mere end lige præcis det den skal, har AeroQuad valgt at lade \code{.ino}-filen kende til samtlige filer, vist på Figur \ref{Fig:Hierarki}.
+Under omskrivning af koden i Afsnit \ref{Sec:cpp-filer} stod det klart, at Aero\-Quad's kode versus normal \code{C}-kode ikke bruger den samme form for \code{\#include}.\fxnote{Er koden ikke i c? hvorfor så sammenligne med c++}
+Hvor normal \code{C}-kodeskik siger, at en klasse ikke behøver vide mere end lige præcis det den skal, har AeroQuad valgt at lade \code{.ino}-filen kende til samtlige filer, vist på Figur \ref{Fig:Hierarki}.
 
 Dette bliver et problem, når der skal holdes styr på kald til forskellige klasser, og det øverste fillag tager fat i det nederste, for dette kan overskrive alle funktioners arbejde.
 
 Det er en stor process at omskrive samtlige filer til, kun at indeholde hvad de skal og intet ekstra og dette blev derfor fortaget løbende som fejlene blev fundet.
 Dette blev især vigtigt, da klassen for beslutninger om, hvad dronen skulle foretage sig ved forskellige radio-kommandoer skulle skrives.
 
+
+
+\newpage
+\subsection{Beslutningstager i C}
 
 \begin{wrapfigure}{r}{0.32\textwidth}
   \vspace{-20pt}
@@ -62,13 +66,10 @@ Dette blev især vigtigt, da klassen for beslutninger om, hvad dronen skulle for
   \vspace{-30pt}
 \end{wrapfigure}
 
-\subsection{Beslutningstager i C}
-
-
 Dronen er købt til at holde sig selv i luften og flyve ud fra signaler fra en fjernbetjening til droner.
 Det betyder, at påmontering af et ekstra sæt sonarsensorer og en radio, som dronen skal tage valg fra, skal simuleres som var det fjernbetjeningen der sendte kommandoerne.
 
-For at beholde forståelsen for systemet blev det bygget som en spike, således, at der først blev taget hånd om, at modtage data fra radioen.
+For at beholde forståelsen for systemet blev det bygget som en spike således, at der først blev taget hånd om, at modtage data fra radioen.
 Herefter blev der sat nogle grænser for, hvad data måtte være mere eller mindre end, for sonar. Disse kunne så rejse nogle flag, samt validering af radiokanalen.
 Til sidste skulle der træffes en beslutning for, hvilket program der skulle afvikles og sendes return som input for fjernbetjeningen.
 
