@@ -5,7 +5,7 @@
 
 \section{Projektgennemførelse}
 Arbejdet for dette projekt er næsten udelukkende foregået i lokale 331E, samt et tomt lokale i kælderen til prøveflyvning.
-I dette afsnit beskrives tidsplanen for projektet, hvem der har haft ansvar for de enkelte dele af projektet, samt udviklingsmetoder der er brugt.
+I dette afsnit beskrives tidsplanen for projektet, samt hvem der har haft ansvar for de enkelte dele af projektet.
 
 \subsection{Ansvarsområder}
 I Tabel \ref{Tab:ansvar} er ansvaret for de enkelte områder angivet for Rasmus Berg Kloster (RBK) og Rasmus Bækgaard (RAB).
@@ -22,7 +22,8 @@ I Tabel \ref{Tab:ansvar} er ansvaret for de enkelte områder angivet for Rasmus 
 	Rapport & RBK, RAB\\
 	Kravspecifikation & RBK, RAB\\
 	Foranalyse & RBK, RAB\\
-	Accepttest & RBK, RAB
+	Accepttest & RBK, RAB\\
+	Designdokument & RBK, RAB
 	\\ \hline
 	\end{tabular}
 \caption{Ansvarsområder}
@@ -33,27 +34,27 @@ I Tabel \ref{Tab:ansvar} er ansvaret for de enkelte områder angivet for Rasmus 
 \subsection{Iterationer}
 Projektet er bygget over iterationer og interne deadlines, der ville søger for, at projektet kunne blive afleveret til tiden:
 
-
+\vspace{-20pt}
 \begin{enumerate}
 \item[] Iteration 1
 	\vspace{-10pt}
 	\begin{itemize}
-	\item Samle drone.
-	\item Danne overblik over sender.
-	\item Skrive omdrejningshastighed direkte til motorer.
+	\item Samle dronen.
+	\item Danne overblik over radioen.
+	\item Skrive omdrejningshastighed direkte til motorerne.
 	\end{itemize}
 	
 \item[] Iteration 2
 	\vspace{-10pt}
 	\begin{itemize}
-	\item Etablere forbindelse mellem sender og modtager.
+	\item Etablere forbindelse mellem senderen og modtageren.
 	\item Få styr på eksisterende kode og opbygning.
 	\end{itemize}
 	
 \item[] Iteration 3
 	\vspace{-10pt}
 	\begin{itemize}
-	\item Etablere usikker kommunikation mellem sender og modtager.
+	\item Etablere en kommunikation mellem sender og modtager.
 	\item Overskrive input til fiktiv sender på dronen.
 	\item Skrive kommandoer til dronen via USB-kabel.
 	\end{itemize}
@@ -61,7 +62,7 @@ Projektet er bygget over iterationer og interne deadlines, der ville søger for,
 \item[] Iteration 4
 	\vspace{-10pt}
 	\begin{itemize}
-	\item Lave print af modtager.
+	\item Lave print af modtageren.
 	\item Implementere sonar sensorer på dronen.
 	\item Påbegynde stabil flyvning.
 	\end{itemize}
@@ -69,8 +70,9 @@ Projektet er bygget over iterationer og interne deadlines, der ville søger for,
 \item[] Iteration 5
 	\vspace{-10pt}
 	\begin{itemize}
-	\item Etablere sikker forbindelse mellem sender og modtager med CRC\fxnote{Det er ikke nævnte før -- slet det sidste eller reference?}.
-	\item Stabil flyvning, samt rotation og fremad flyvning.
+	\item Optimere trådløs forbindelse mellem senderen og modtageren.
+	\item Stabil flyvning, samt rotation og fremad-flyvning.
+	\item Oprette kommunikation mellem modtageren og dronen.
 	\end{itemize}
 	
 \item[] Iteration 6
@@ -84,7 +86,7 @@ Projektet er bygget over iterationer og interne deadlines, der ville søger for,
 
 \newpage
 \subsection{Tidsplan}
-Projektet blev startet d. 26. august 2013 og blev afleveret d. 18. december.
+Projektstart var d. 26. august 2013 og afsluttet d. 18. december.
 Slutdatoerne for de forskellige iterationer kan ses på Tabel \ref{Tab:Tidsplan}.
 
 \begin{table}[H]
@@ -110,9 +112,8 @@ Slutdatoerne for de forskellige iterationer kan ses på Tabel \ref{Tab:Tidsplan}
 
 \subsection{Projektstyring}
 Projektet er lavet under gruppens vejleder, Torben Gregersen.
-Der er blevet arbejdet alle ugens hverdage siden projektets start, fra 8:15 -- 16:00 og kun enkelte dage endnu længere.
-Både RBK og RAB har haft ét fag i første kvartal, men kun RBK har haft i andet kvartal.
-Hver morgen, såfremt begge deltagere af projektet var til stede, blev der holdt et kort statusmøde på, hvor langt de enkelte medlemmer i gruppen var med sine opgaver.
+Der er blevet arbejdet alle ugens hverdage, siden projektets start, fra 8:15 -- 16:00 og enkelte dage endnu længere.
+Hver dag blev der holdt et kort statusmøde på, hvor langt de enkelte medlemmer i gruppen var med sine opgaver.
 
 
 

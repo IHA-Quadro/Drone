@@ -11,14 +11,14 @@ Følgende afsnit nævner nogle punkter, der kan forbedres ved senere udvikling.
 \item Ping-mekanisme
 \vspace{-10pt}
 	\begin{itemize}
-	\item Af sikkerhedsmæssige årsager vil det være en god idé, at tilføje et ping-mekanisme imellem dronen og fjernbetjeningen, da fjernbetjeningen kunne løb tør for batteri imens dronen flyver. 
-	Et check hver 5 sekund med en bekræftelse, at dronen kan modtage signal, ellers lander dronen.
+	\item Af sikkerhedsmæssige årsager vil det være en god idé, at tilføje et ping-mekanisme imellem dronen og fjernbetjeningen, da fjernbetjeningen kunne løb tør for batteri imens dronen flyver eller blot er uden for rækkevidde. 
+	Dette kunne eks. være et check hver 5. sekund med en bekræftelse på, at dronen kan modtage signal, ellers lander dronen.
 	\end{itemize}
 
 \item Optimeret beslutningslogik
 \vspace{-10pt}
 	\begin{itemize}
-	\item Dronen har en implementeringstung beslutningslogik, som kan skrives meget mere dynamisk. Udvidelser vil involvere meget ekstra kode, som der ikke ønskes skrevet og vil være svær at rette i.
+	\item Dronen har en implementeringstung beslutningslogik, som kan skrives meget mere dynamisk. Udvidelser vil involvere meget ekstra kode, der ikke ønskes skrevet og vil være svær at rette i.o
 	\end{itemize}
 	
 \item Påsætning af kamera
@@ -38,26 +38,26 @@ Derfor vil et skjold rundt om propellerne være en god idé, da dette vil forhin
 \item Kryptering af sender signalet
 \vspace{-10pt}
 	\begin{itemize}
-	\item Signalet fra senderen er ikke krypteret, hvilket vil sige at to ens sendere vil kunne styre den samme drone.
+	\item Signalet fra senderen er ikke krypteret hvilket vil sige, at to ens sendere vil kunne styre den samme drone.
 	\end{itemize}
 
 
 \item Strømoptimering af sender og modtager
 \vspace{-10pt}
 	\begin{itemize}
-	\item Optimering af µ-controllernes strømforbrug, ved at sætte dem i dvale når de ikke laver noget.
+	\item Optimering af µ-controllernes strømforbrug, ved at sætte dem i dvale, når de ikke laver noget.
 	\end{itemize}
 
 \item Forstærker på sender
 \vspace{-10pt}
 	\begin{itemize}
-	\item Med en forstærker på senderen ville den kunne række meget længere end det nu er muligt.
+	\item Med en forstærker på senderen, ville den kunne række meget længere, end det nu er muligt.
 	\end{itemize}
 	
 \item To-vejskommunikation over radioen
 \vspace{-10pt}
 	\begin{itemize}
-	\item Gøre det muligt at transmitter data tilbage fra modtager til sender, i form af f.eks. motor data eller video-feed.
+	\item Gøre det muligt at transmitter data tilbage fra modtager til sender, i form af f.eks. motordata og andre infoparametre.
 	\end{itemize}	
 	
 

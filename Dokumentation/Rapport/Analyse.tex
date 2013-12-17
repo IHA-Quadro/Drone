@@ -4,24 +4,26 @@
 
 
 \section{Analyse og specifikation}
-Det blev besluttet at projektet skulle omhandle trådløs styring af en drone. 
-Derfor skulle det også besluttes hvad for noget trådløs system der skulle bruges, hvilke frekvenser og hvilken drone der skulle bruges.
+Dette afsnit beskriver foranalysen\cite{Foranalyse} og valg af komponenter.
 
-Der var mange ting der skulle overvejs i forhold til valg af drone og radio.
-Eks. prisen på dronen og at det skulle være muligt, at sætte ekstra udstyr på den.
+Det blev besluttet at projektet skulle omhandle trådløs styring af en drone. 
+Derfor skulle det besluttes, hvilket trådløs system der skulle anvendes, hvilke frekvenser og hvilken drone der skulle bruges.
+
+Der var mange ting, der skulle overvejs i forhold til valg af drone og radio:
+F.eks. prisen på dronen og at det skulle være muligt, at sætte ekstra udstyr på den.
 Det samme galt for den trådløse kommunikation. 
-Der skulle vælges frekvens, data hastighed og hvilken chip der skulle bruges.
+Der skulle vælges frekvens, datahastighed og hvilken chip der skulle bruges.
 
 En oversigt over de valgte komponenter til projektet kan ses i Tabel \ref{Tab:komponentliste}.
 En uddybende forklaring på hvorfor de enkelte elementer er valgt, kan læses i 
-foranalysen\cite[s. 5 -- 13]{Foranalyse}.
+foranalysen\cite{Foranalyse}.
 
 \begin{table}[H]
 	\begin{tabular}{p{0.33\textwidth} p{0.62\textwidth}}
 	\hline
 	Punkter & Valgte enhed \\ \hline
 	1. Dronevalg & AeroQuad Cyclone ARF Kit. \\
-	2. Chip & Atmel cc1101.\\
+	2. Chip & Atmel CC1101.\\
 	3. Frekvens & 433 MHz.\\
 	4. Sonar & XL-Maxsonar EZ0.\\
 	5. µ-Controllere & Atmel ATmega8.\\
