@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MotorTest", "MotorTest.vcxproj", "{B209A8E9-4C6F-48D3-A2D7-629C43BA31B9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AeroQuad", "..\..\..\..\AeroQuad\AeroQuad.vcxproj", "{EDEA382F-D902-482C-8558-F1CC9EA3924D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AeroQuad", "..\..\..\..\AeroQuad\AeroQuad.vcxproj", "{4041DB6D-BDC5-40A1-99F0-208459B18B40}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_Receiver", "..\..\..\AQ_Receiver\Examples\Test_Receiver\Test_Receiver.vcxproj", "{92676973-9D65-4644-B84C-AEFF80A04035}"
 EndProject
@@ -17,10 +17,10 @@ Global
 		{B209A8E9-4C6F-48D3-A2D7-629C43BA31B9}.Debug|Win32.Build.0 = Debug|Win32
 		{B209A8E9-4C6F-48D3-A2D7-629C43BA31B9}.Release|Win32.ActiveCfg = Release|Win32
 		{B209A8E9-4C6F-48D3-A2D7-629C43BA31B9}.Release|Win32.Build.0 = Release|Win32
-		{EDEA382F-D902-482C-8558-F1CC9EA3924D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{EDEA382F-D902-482C-8558-F1CC9EA3924D}.Debug|Win32.Build.0 = Debug|Win32
-		{EDEA382F-D902-482C-8558-F1CC9EA3924D}.Release|Win32.ActiveCfg = Release|Win32
-		{EDEA382F-D902-482C-8558-F1CC9EA3924D}.Release|Win32.Build.0 = Release|Win32
+		{4041DB6D-BDC5-40A1-99F0-208459B18B40}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4041DB6D-BDC5-40A1-99F0-208459B18B40}.Debug|Win32.Build.0 = Debug|Win32
+		{4041DB6D-BDC5-40A1-99F0-208459B18B40}.Release|Win32.ActiveCfg = Release|Win32
+		{4041DB6D-BDC5-40A1-99F0-208459B18B40}.Release|Win32.Build.0 = Release|Win32
 		{92676973-9D65-4644-B84C-AEFF80A04035}.Debug|Win32.ActiveCfg = Debug|Win32
 		{92676973-9D65-4644-B84C-AEFF80A04035}.Debug|Win32.Build.0 = Debug|Win32
 		{92676973-9D65-4644-B84C-AEFF80A04035}.Release|Win32.ActiveCfg = Release|Win32

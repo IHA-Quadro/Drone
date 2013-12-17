@@ -411,7 +411,7 @@ void IncreaseHeight()
 	{
 		if(_controllerInput[AUX1] == ALTITUDEHOLDFALSE)
 		{
-			if(_controllerInput[THROTTLE] < 1980)
+			if(_controllerInput[THROTTLE] < 1970)
 				_controllerInput[THROTTLE] += 10;
 		}
 		else

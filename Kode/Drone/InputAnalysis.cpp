@@ -26,11 +26,11 @@ void AnalyseSonarInput()
 {	
 	if(programInput.data.aux1 == ALTITUDEHOLDTRUE)
 	{
-		_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average*100 +8 < FRONT_SONAR_DISTANCE) ? true : false;
+		_frontWarning = (RangerAverage[FRONT_RANGE_FINDER_INDEX].average * 100 + 8 < FRONT_SONAR_DISTANCE) ? true : false;
 
-		_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average*100 +8 < SIDE_SONAR_DISTANCE) ? true : false;
+		_rightWarning = (RangerAverage[RIGHT_RANGE_FINDER_INDEX].average * 100 + 8 < SIDE_SONAR_DISTANCE) ? true : false;
 
-		_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average*100 +8 < SIDE_SONAR_DISTANCE) ? true : false;
+		_leftWarning = (RangerAverage[LEFT_RANGE_FINDER_INDEX].average * 100 + 8 < SIDE_SONAR_DISTANCE) ? true : false;
 	}
 }
 
