@@ -1,0 +1,32 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+
+\section{Test}
+I dette kapitel beskrives alle de tests der er udført på systemet.
+
+\subsection{Unit test}
+
+\paragraph{Sonarsensorer}\mbox{}\\
+Formålet med denne test var at teste dronens sonarsensorer. Der er i alt 4 sensoren på den. Dronen er originalt kun lavet til at, håndtere en sensor.
+
+\paragraph{Registrering af modtageren}\mbox{}\\
+For at læse gennem \itoc -forbindelsen skal der først være forbindelse. Dette testes ved at scanne alle adresse der er og hvis dronen register noget udskriver den det i konsollen på computeren.
+
+\paragraph{Læsning fra modtageren}\mbox{}\\
+Der forsøges at læse fra en bestemt adresse, nemlig modtagerens.
+Det svar den får retur, udskrives i konsollen på computeren.
+
+\paragraph{Kommunikation mellem µ-kontroller og radiomodul}\mbox{}\\
+Test om µ-controlleren kunne kommunikere med radiomodulerne over SPI-protokollen. Forsøget går ud på at læse et test register på radioen og udskrive dette til en konsol på computeren.
+
+\subsection{Integrationstest}
+\paragraph{Dronen}\mbox{}\\
+Denne test var for at finde ud af om de enkelte elementer kunne arbejde sammen. Derfor blev dronen sat til at udprinte data fra sonar, programvalg,controller output og warnings som de kom.
+
+
+\subsection{Accept test}
+
+
+\end{document}
