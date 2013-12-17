@@ -13,28 +13,57 @@ Ved tilslutning af batteriet bipper dronen som den skal. Et kort, 3 lange og et 
 Ved tilslutning af 5 V, bipper dronen hurtigt som indikere fejl.
 Det betyder at undtagelsen er opfyldt med succes.
 
-
 \subsection{Use case 2}
-\subsubsection{Normalforløb 1}
 
-Det betyder at normalforløb 1 er opfyldt med succes.
+Kræver at Use Case 1 er kørt med succes.
+
+\subsubsection{Normalforløb 1}
+Dronen flyver op i en højde af 150 cm og stopper der. 
+Det betyder at normalforløb 1 ikke lever op til kravene.
 
 \subsubsection{Normalforløb 2}
-
+Dronen lander på jorden.
 Det betyder at normalforløb 2 er opfyldt med succes.
 
-\subsubsection{undtagelsen}
+\subsubsection{Normalforløb 3}
+Dronen stopper med alt og slukker for motorerne.
+Det betyder at normalforløb 3 er opfyldt med succes.
 
+\subsubsection{Normalforløb 4}
+Dronen sænker sine motorers rotationshastighed.
+Det betyder at normalforløb 4 er opfyldt med succes.
+
+\subsubsection{Normalforløb 5}
+Dronen forøger sine motorers rotationshastighed.
+Det betyder at normalforløb 5 er opfyldt med succes.
+
+\subsubsection{Normalforløb 6}
+Dronen rotere til højre
+Det betyder at normalforløb 6 er opfyldt med succes.
+
+\subsubsection{Normalforløb 7}
+Dronen rotere til venstre.
+Det betyder at normalforløb 7 er opfyldt med succes.
+
+\subsubsection{Normalforløb 8}
+Dronen flyver fremad så længe der er trykket på knappen.
+Det betyder at normalforløb 8 er opfyldt med succes.
+
+\subsubsection{undtagelsen}
+Dronen holder samme postion i luften som hele tiden.
 Det betyder at undtagelsen er opfyldt med succes.
 
 
+\subsection{Use case 3}
+Kræver at Use Case 2 er kørt med succes og at dronen stadig er i luften.
+\subsubsection{Normalforløb}
+Dronen forsøger at dreje sig væk fra objektet 
+Dette betyder at Use case 3 er opfyldt med succes.
 
-
-
-
-
-
-
-
+\subsection{Use case 4}
+Kræver at Use Case 2 er kørt med succes og at dronen stadig er i luften og normalforløb 1 er kørt.
+\subsubsection{Normalforløb}
+Dronen slukker sine motorer.
+Dette betyder at Use case 3 er opfyldt med succes.
 
 \end{document}
