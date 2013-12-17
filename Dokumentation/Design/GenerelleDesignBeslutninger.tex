@@ -13,7 +13,7 @@ Projektet gemmes i gruppens eget Github repository \cite{Github-IHA} og kræver 
 Da dette strider imod Arduino's obligatoriske opbygning, skulle hver fil kopires til den korrekte mappe, ændres og kopires tilbage.
 For at undgå dette blev det forsøgt at lave et symlink\cite{symlink} mellem den obligatoriske mappe, \code{/Arduino/libraries}, og gruppens egen mappe, \code{Drone/Kode/AeroQuad-master/Libraries}, således Arduino-mappen kiggede i gruppens mappe fra sit eget link.
 
-Dette virker desværre heller ikke, da det at have to mapper er en kunst i sig selv.
+Dette virker desværre heller ikke\fxnote{Skal det så med?}, da det at have to mapper er en kunst i sig selv.
 Løsningen på problemet blev derfor at flytte samtlige filer til samme mappe som \code{.ino}-filen.
 
 
@@ -42,7 +42,7 @@ Løsningen bestod derfor i, at opdele samtlige filer i \code{.h}-filer og \code{
   \vspace{-20pt}
 \end{wrapfigure}
 
-Under omskrivning af koden i afsnit \ref{Sec:cpp-filer} stod det klart, at Aero\-Quad's kode versus normal \code{C++}-kode ikke bruger den samme form for \code{\#include}.
+Under omskrivning af koden i afsnit \ref{Sec:cpp-filer} stod det klart, at Aero\-Quad's kode versus normal \code{C++}-kode ikke bruger den samme form for \code{\#include}.\fxnote{Er koden ikke i c? hvorfor så sammenligne med c++}
 Hvor normal \code{C++}-kodeskik siger, at en klasse ikke behøver vide mere end lige præcis det den skal, har AeroQuad valgt at lade \code{.ino}-filen kende til samtlige filer, vist på Figur \ref{Fig:Hierarki}.
 
 Dette bliver et problem, når der skal holdes styr på kald til forskellige klasser, og det øverste fillag tager fat i det nederste, for dette kan overskrive alle funktioners arbejde.
@@ -69,7 +69,7 @@ Dronen er købt til at holde sig selv i luften og flyve ud fra signaler fra en f
 Det betyder, at påmontering af et ekstra sæt sonarsensorer og en radio, som dronen skal tage valg fra, skal simuleres som var det fjernbetjeningen der sendte kommandoerne.
 
 For at beholde forståelsen for systemet blev det bygget som en spike, således, at der først blev taget hånd om, at modtage data fra radioen.
-Herefter blev der sat nogle grænser for, hvad data måtte være mere eller mindre end for sonar og disse kunne rejse nogle flag, samt validering af radiokanalen.
+Herefter blev der sat nogle grænser for, hvad data måtte være mere eller mindre end, for sonar. Disse kunne så rejse nogle flag, samt validering af radiokanalen.
 Til sidste skulle der træffes en beslutning for, hvilket program der skulle afvikles og sendes return som input for fjernbetjeningen.
 
 Selve beslutningen kan laves på flere metoder og den mest oplagte vil at bruge et \code{map}, således alle input, og kombinationer heraf, vil lede til nogle få kommandoer der skulle udføres.

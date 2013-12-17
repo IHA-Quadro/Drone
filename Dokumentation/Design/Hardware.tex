@@ -18,7 +18,7 @@ Til styring af drone, skal der laves en sender og modtager.
 Det vil sige der skulle laves to enheder. 
 Radioen er baseret på chippen cc1101\cite{cc1101} fra Texas Instruments. 
 µ-Controlleren er en ATmega8 fra Atmel Corporation.
-\code{Senderen} skal også have knapper så brugeren kan lave sit input.
+\\ \code{Senderen} skal også have knapper så brugeren kan lave sit input.
 
 \section{Grænseflader}
 De interne og eksterne grænseflader:
@@ -29,6 +29,7 @@ De interne og eksterne grænseflader:
 
 
 
+
 \subsection{Sender}
 \begin{figure}[H]
 \centering
@@ -36,6 +37,8 @@ De interne og eksterne grænseflader:
 \caption{Grænseflader for sender}
 \label{fig: SenderInterface}
 \end{figure}
+\fxnote{Fed spi}
+
 På Figur \ref{fig: SenderInterface} ses et blokdiagram af senderen med alle grænseflader.
 De eksterne grænseflader, er der hvor brugeren skal lave sit input. Det vil sige der er her han laver et programvalg som bliver sendt videre til dronen.
 De interne grænseflader som er kommunikationen mellem µ-kontroller 1 og radiosenderen, foregår via SPI protokollen. 
@@ -64,9 +67,9 @@ Radio-interfacet er beskrevet i Afsnit \ref{Sec:Radio}.
 \subsection{Radio} \label{Sec:Radio}
 Opsætningen på radioen som bliver anvendt er som følger:
 \begin{itemize}
-\item 433 MHz radio frekvens
-\item 2.5 kbps overførselshastighed
-\item CRC af dataoverførslen
+\item 433 MHz radio frekvens.
+\item 2.5 kbps overførselshastighed.
+\item CRC af dataoverførslen.
 \item Benytter kanal 0 i 433 MHz frekvensbåndet.
 \end{itemize}
 
@@ -81,8 +84,8 @@ Frame't der bliver sendt frem og tilbage ser ud som følger:
 
 Pakkens opbygning:
 Pakkestørrelsen er længden af den samlede pakke, eksklusiv CRC-delen. 
-Grunden til denne skal med, er at der bliver brugt en variabel pakke størrelse. 
-Den kan også sættes til en fastsat længde og så er der ikke brug for denne.
+Grunden til denne skal med, er at radioerne er sat op til en variabel pakke størrelse. 
+De kan også sættes til en fast længde og så er der ikke brug for denne.
 
 Dataen er payloaden -- det er her alle de informationer der skal sendes frem og tilbage ligger. 
 Det vil sige, at et program er valgt efterfulgt af hvilket program det er.
@@ -108,8 +111,8 @@ Knap-designet er aktivt lav, som det kan ses på Figur \ref{fig: Knapper}.
 \label{fig: Knapper}
 \end{figure}
 
-Disse knapper (Tach Switchs) er der 9 af i alt til styring af dronen.
-Skematic af systemet kan ses i \cite{SenderSCM}.
+Der er 9 knapper (Tach Switchs) i alt, til styring af dronen.\\
+Skematic af hele senderen kan ses i \cite{SenderSCM}.
 \subsection{Modtager}
 Modtagerprintet indeholder en ATmega8 mikroprocessorer og en radiosender.
 
@@ -119,8 +122,8 @@ Skematic af systemet kan ses i \cite{ModtagerSCM}.
 
 \subsection{Strøm input}
 
-Hele enheden kører på 3.3 V.
-Der er ikke lavet noget beskyttelse på inputstrømmen, så de 3.3 V DC skal være præcis.
+Senderen og modtageren kører på 3.3 V.
+Der er ikke lavet noget beskyttelse på spændingsinputtet, så de 3.3 V (DC) skal være præcis.
 
 Det totale strømforbrug for hele sender systemet er:
 \begin{itemize}
@@ -150,7 +153,7 @@ Radioen er placeret forrest på fjernbetjeningen, for at brugeren dæmper/skærm
 \section{Sonar-klods}\label{Sec:Sonar}
 På dronens frontben sidder en lille klods, som holder sonarsensorerne.
 Da benet er bøjet og sensorerne gerne skal være vandrette, er klodsen skåret i en skæv vinkel.
-Derudover peger hver sensor således, at deres bølger først overlapper hinanden efter 50 cm.
+Derudover peger hver sensor således, at deres bølger først overlapper hinanden efter 50 cm. \fxnote{Underlig formulering}
 Hver sensor spreder sig over $67^\circ$ (se Figur \ref{Fig:SonarMeasure}), hvilket gør, at klodsen skal skæres til $32^\circ$ til hver side, vist på Figur \ref{Fig:SonarSkitse}.
 \begin{figure}[H]
 \centering
@@ -179,7 +182,7 @@ Det betyder, at dronen vil kunne se jorden under den, såfremt den flyver lavt n
 	\caption{Sonarsensorernes afstand til jorden}
 	\label{Fig:SonarAngles}
 \end{figure}
-
+\fxnote{Dummy}
 Fra sensoren til nærmeste forhindring er der maksimalt 100 cm, og da gulvet ikke skal rammes skal der holdes en hvis afstand hertil.
 \vspace{-10 pt}
 \begin{align*}
