@@ -167,11 +167,17 @@ void ReadRadio()
 	Wire.requestFrom(TRANCEIVER_ADDRESS, 2); //Request 2 bytes from radio
 
 	indicator = Wire.read(); //First value is always an indicator if program is with or not
-	programValue = Wire.read(); //Optional - it 'indicator' == INDICATORVALUE this should be read
+	_queue->push((float)Wire.read());
+
+	programValue = _queue->PeekLastElementFilter(0);
+	if(_queue->count() > 10)
+		_queue->pop();
 
 	if(indicator == INDICATORVALUE)
-		Serial.print(programValue);
-
+	{
+		printInLine("New program: ", RADIOMODE);
+		printNewLine(programValue, RADIOMODE);
+	}
 	radioProgram = programValue; //TODO: Valider dette
 }
 \end{lstlisting}

@@ -9,7 +9,7 @@ Systemet har flere klasser, men de viste er de vigtigste der bruges af systemet 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{UML}
-\caption{Udsnit af det samlede klassediagram}
+\caption{Udsnit af det samlede klassediagram.}
 \label{Fig:UML}
 \end{figure}
 
@@ -20,8 +20,8 @@ Systemet har flere klasser, men de viste er de vigtigste der bruges af systemet 
 Denne fil skal indeholde de to obligatoriske funktioner \code{void setup()} og \code {void loop()}, da dette er hvad Arduino kører som den første og anden funktion.
 Funktionen \code{void loop()} er i grove træk tilsvarende til et \code{while(1)}-loop, der ikke kan stoppes.
 \\
-Først nulstilles de fleste af klasserne herfra, hvorefter et schedulerings-system startes med en timer, der ser på 100Hz-, 50Hz-, 3 forskellige 10Hz-, 2Hz og 1Hz-funktioner skal køres. 
-Disse er vigtige for systemets opbygning, da dette tillader udskrift via serial-forbindelsen til debugging og fordi den kun har én tråd til håndtering af funktioner.
+Først nulstilles de fleste af klasserne herfra, hvorefter et schedulerings-system startes med en timer, der ser på 100 Hz-, 50 Hz-, 3 forskellige 10 Hz-, 2 Hz- og 1 Hz-funktioner skal køres. 
+Disse er vigtige for systemets opbygning, da dette tillader udskrift via COM-porten til debugging og fordi den kun har én tråd til håndtering af funktioner.
 
 \begin{Function}
 \name{initPlatform}
@@ -35,7 +35,7 @@ Disse er vigtige for systemets opbygning, da dette tillader udskrift via serial-
 \name{measureCriticalSensors}
 \para{void}
 \retu{void}
-\comm{Denne funktion gør kald til de vigtigste sensorer (gyrometer og accelero\-meter)}
+\comm{Denne funktion gør kald til de vigtigste sensorer (gyrometer og accelero\-meter).}
 \end{Function}
 
 
@@ -59,13 +59,13 @@ For hvert loop måles den nuværende tid som timestamp og sammenlignes med den s
 Så kaldes \code{measureCriticalSensors()}, da disse er kritiske for dronens stabilitet.
 \\
 Herefter inkrementeres \textit{FrameCounter}, der afgør hvornår fremtidige funktioner skal køres.
-\textit{FrameCounter} indikerer, om der skal køres en 100-, 50-, tre forskellige 10-, 5-, eller 1-Hz funktion.
+\textit{FrameCounter} indikerer, om der skal køres en 100-, 50-, tre forskellige 10-, 2-, eller 1-Hz funktion.
 I slutningen af loopet sættes det sidste timestamp som den forrige tid, og hvis der er brug for det nulstilles \textit{FrameCounter}.}
 \end{Function}
 
 
 \class{inoHelper}
-\code{inoHelper}-klassen er en hjælpefil der blev lavet til \code{drone.ino} på grund af dens uoverskuelige struktur og er den reelle implementering for 100Hz-, 50Hz-, tre forskellige 10Hz-, 5Hz-, og 1Hz-funktionerne.
+\code{inoHelper}-klassen er en hjælpefil der blev lavet til \code{drone.ino} på grund af dens uoverskuelige struktur og er den reelle implementering for 100 Hz-, 50 Hz-, tre forskellige 10 Hz-, 2 Hz-, og 1 Hz-funktionerne.
 Ud over den oprindelige implementering fra \code{drone.ino} er her også implementeret en masse debug-funktioner, som bruges til at måle alt fra sonarer input og motorer output til de falske værdier der sender til receiveren for at styre dronen efter ønske.
 
 
@@ -139,7 +139,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintChosenProgram}
 \para{void}
 \retu{static void}
-\comm{Denn funktion udskriver det valgte program igennem COM-porten.}
+\comm{Denne funktion udskriver det valgte program igennem COM-porten.}
 \end{Function}
 
 
@@ -147,7 +147,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintSonarReport}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver gennemsnitsværdien for de sidste målinger af sonarsensorerne igennem COM-porten og om dronen flyver i fri højde eller i en fixeret højde.}
+\comm{Denne funktion udskriver gennemsnitsværdien for de sidste målinger af sonarsensorerne igennem COM-porten og om dronen flyver i fri højde eller i en fikseret højde.}
 \end{Function}
 
 
@@ -179,7 +179,7 @@ Derudover kaldes \code{FlightControlprocessor}-klassens funktion \code{ProcessFl
 \name{PrintControllerOutput}
 \para{void}
 \retu{static void}
-\comm{Denne funktion udskriver igennem COM-porten receiver-input i form af x-, y- og z-aksen, gaspedalen og om den skal holde en bestemt højde.}
+\comm{Denne funktion udskriver igennem COM-porten receiver-input i form af x-, y- og z-aksen, gaspinden og om den skal holde en bestemt højde.}
 \end{Function}
 
 
@@ -341,7 +341,7 @@ Efter dette checkes om dronen flyver for højt, hvilket program der bør køres,
 \name{ProcessSignal}
 \para{void}
 \retu{static void}
-\comm{Sikre valg af autoland- og start-program fra serial-porten og radioen. 
+\comm{Sikre valg af autoland- og start-program fra COM-porten og radioen. 
 Såfremt disse ikke vælges læses det aktuelle program.}
 \end{Function}
 
@@ -360,7 +360,7 @@ Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnaly
 \name{SelectProgram}
 \para{int}
 \retu{static void}
-\comm{Aktiverer det ønskede program og lader de enkelte programmer mulige at kalde mens hover-funktionen er aktiveret.}
+\comm{Aktiverer det ønskede program og lader de enkelte programmer være mulige at kalde mens hover-funktionen er aktiveret.}
 \end{Function}
 
 
@@ -368,7 +368,7 @@ Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnaly
 \name{TimeSpend}
 \para{Timers}
 \retu{float}
-\comm{Returnere en tid mellem dette kalds timestamp og det sidste i millisekunder.}
+\comm{Returnerer en tid mellem dette kalds timestamp og det sidste i millisekunder.}
 \end{Function}
 
 
@@ -416,7 +416,7 @@ Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnaly
 \name{MaxHeightAction}
 \para{void}
 \retu{void}
-\comm{Læser den nuværende værdi og er den større end 100 cm aktiveres hover-funktionen og det aktuelle program sættes til 60 cm højde.}
+\comm{Læser den nuværende værdi og er den større end 150 cm aktiveres hover-funktionen og det aktuelle program sættes til 150 cm højde.}
 \end{Function}
 
 
@@ -506,7 +506,7 @@ Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnaly
 \name{SetupControlFaker}
 \para{void}
 \retu{void}
-\comm{Nulstiller lokale værdier og sørger for udskrivning gennem Serial-porten.}
+\comm{Nulstiller lokale værdier og sørger for udskrivning gennem COM-porten.}
 \end{Function}
 
 
@@ -514,7 +514,7 @@ Funktionen kalder ned i \code{InputAnalysis}-klassen (afsnit \ref{sec:inputAnaly
 \name{KillMotor}
 \para{void}
 \retu{void}
-\comm{Sender signal om at slukke for alle motorer, slukker alle output til Serial-porten og nulstiller dronens x-, y- og z-akse.}
+\comm{Sender signal om at slukke for alle motorer, slukker alle output til COM-porten og nulstiller dronens x-, y- og z-akse.}
 \end{Function}
 
 
@@ -714,17 +714,18 @@ Foruden det kan der specificeres hvilket output man ønsker og alle meddelelser 
 \name{printNewLine}
 \para{int / float / double / unsigned long / String, printModes}
 \retu{void}
-\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og bliver på den nuværende linje.}
+\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og skifter til en ny linje.}
 \end{Function}
 
 \begin{Function}
 \name{printInLine}
 \para{int, long, String, char, float, unsigned long, printModes}
 \retu{void}
-\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og skifter derefter til en ny linje.}
+\comm{Udskriver igennem COM-porten en besked eller et tal i den givende kategori og på den nuværende linje.}
 \end{Function}
 
-\code{Sender Radio}-klassen er den der står og lytter efter brugerinput. Når der så er et input, klargør den en pakke som skal sendes ved hjælp af 
+\class{SenderRadio}
+\code{SenderRadio}-klassen er den der står og lytter efter brugerinput. Når der så er et input, klargør den en pakke som skal sendes ved hjælp af 
 radioen. Denne pakke sendes så til radioen som sender den videre ud som radiobølger.
 
 \begin{Function}

@@ -9,7 +9,7 @@
 %Se liste over alle fixMe's: \listoffixmes
 %Erstat 'draft' med 'final' for at fjerne alle kommentarer
 %--------------------------------------------------
-\usepackage[footnote,draft,danish,silent,nomargin]{fixme}
+\usepackage[footnote,final,danish,silent,nomargin]{fixme}
 
 \title{\DocumentType \\ for \\ \ProjectName}
 \date{18. december, 2013}
@@ -24,51 +24,48 @@
 
 \section*{Versionshistorie}
 \begin{tabular}{p{0.05\textwidth}|p{0.1\textwidth}|p{0.05\textwidth}|p{0.7\textwidth}}
-1.0 & 18/11 -13 & RAB & Første udkast. Alle UC'er er dækket. \\ \hline
- & & &  \\ 
+1.0 & 18/11 - 13 & RAB & Første udkast. Alle UC'er er dækket. \\ \hline
+1-1 & 17/12 - 13 & RR & Finpudsning af dokument. \\ 
 \end{tabular} 
 \\
 \\
 \section*{Godkendelsesformular}
 \begin{tabular}{p{0.2\textwidth}|p{0.74\textwidth}}
 \hline 
-Forfatter(e): & 10893, Rasmus Bækgaard og 08830, Rasmus Berg Kloster\\ 
+Forfatter(e): & 10893, Rasmus Bækgaard (RAB) og 08830, Rasmus Berg Kloster (RBK)\\ 
 \hline 
 Godkendes af: & Torben Gregersen \\ 
 \hline
 Projektnummer: & 13056\\
-%\hline
-%Dokument-id: & Kracspecifikation.pdf\\
 \hline
 Antal side: & \pageref{LastPage} \\
 \hline 
-Kunde: & Ingeniørhøjskolen i Aarhus \\
+Kunde: & Ingeniørhøjskolen Aarhus Universitet \\
 \hline
 \end{tabular} 
 \\
 \\
 \subsection*{Sted og dato:}
-\begin{tabular}{p{0.3\textwidth} p{0.2\textwidth} p{0.3\textwidth}}
+\begin{tabular}{c p{0.2\textwidth} c}
 && \\
 && \\
-\underline{\qquad \qquad \qquad \qquad \qquad} & \qquad \qquad \qquad & \underline{\qquad \qquad \qquad \qquad \qquad}  \\ 
-Torben Gregersen & & Rasmus Bækgaard \\ \\\\
-&&  \underline{\qquad \qquad \qquad \qquad \qquad}  \\
-& & Rasmus B. Kloster
-\end{tabular} 
+\underline{\qquad \qquad \qquad \qquad \qquad \qquad \qquad} & \qquad & \underline{\qquad \qquad \qquad \qquad \qquad \qquad \qquad}  \\ 
+Rasmus Berg Kloster & & Rasmus Bækgaard
+\end{tabular}  
 
 
 \newpage
 \tableofcontents* %Indholdsfortegnelse
-\newpage
-\listoffigures* %Liste af figurer
+%\newpage
+%\listoffigures* %Liste af figurer
 
 \listoffixmes
 
+\subfile{Intro}
 \subfile{UnitTest}
 \subfile{IntegrationTest}
 \subfile{Tests}
-%\newpage
+
 
 
 
